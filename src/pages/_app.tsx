@@ -1,6 +1,12 @@
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
+import '@/app/styles/index.scss'
+import { WithHomePageLayout } from '@/widgets/layouts/temp-layout'
+
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <WithHomePageLayout>
+      <Component {...pageProps} />
+    </WithHomePageLayout>
+  )
 }
