@@ -6,7 +6,7 @@ type Props = PropsWithChildren
 export const WithHomePageLayout: FC<Props> = ({ children }) => {
   return (
     <>
-      <Link href={'/'}>Home</Link>
+      <Link style={{fontSize: 'var(--font-size-xxl)', padding: '6px'}}  href={'/'}>Home</Link>
       <div>{children}</div>
     </>
   )

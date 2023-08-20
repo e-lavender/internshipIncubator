@@ -5,12 +5,12 @@ export default function Home() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', rowGap: '5px' }}>
-      <Link style={{fontSize: '1.4rem'}} href={'/sign-in'}>sign-in</Link>
-      <Link href={'/sign-up'}>sign-up</Link>
-      <Link href={'/forgot-password'}>forgot-password</Link>
-      <Link href={'/create-new-password'}>create-new-password</Link>
-      <Link href={'/password-recovery'}>password-recovery</Link>
-      <Link href={`/user-profile/${id}`}>user-profile</Link>
+      <Link style={{fontSize: 'var(--font-size-xxl)', padding: '6px'}} href={'/sign-in'}>sign-in</Link>
+      <Link style={{fontSize: 'var(--font-size-xxl)', padding: '6px'}} href={'/sign-up'}>sign-up</Link>
+      <Link style={{fontSize: 'var(--font-size-xxl)', padding: '6px'}} href={'/forgot-password'}>forgot-password</Link>
+      <Link style={{fontSize: 'var(--font-size-xxl)', padding: '6px'}} href={'/create-new-password'}>create-new-password</Link>
+      <Link style={{fontSize: 'var(--font-size-xxl)', padding: '6px'}} href={'/password-recovery'}>password-recovery</Link>
+      <Link style={{fontSize: 'var(--font-size-xxl)', padding: '6px'}} href={`/user-profile/${id}`}>user-profile</Link>
     </div>
   )
 }
