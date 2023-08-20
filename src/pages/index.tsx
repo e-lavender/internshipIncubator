@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', rowGap: '5px' }}>
-      <Link href={'/sign-in'}>sign-in</Link>
+      <Link style={{fontSize: '1.4rem'}} href={'/sign-in'}>sign-in</Link>
       <Link href={'/sign-up'}>sign-up</Link>
       <Link href={'/forgot-password'}>forgot-password</Link>
       <Link href={'/create-new-password'}>create-new-password</Link>
