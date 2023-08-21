@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
   font-size: 62.5% ;
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -41,3 +42,5 @@ body {
   // line-height: var(--line-height-m);
   // background-color: var(--color-dark-700);
 }
+
+
