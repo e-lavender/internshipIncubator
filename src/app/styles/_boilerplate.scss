@@ -1,6 +1,6 @@
 html {
   box-sizing: border-box;
-  font-size: 62.5% ;
+  font-size: 62.5%;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -30,17 +30,15 @@ body {
   padding: 0;
 
   min-width: 320px;
-	font-style: normal;
-	font-family: var(--main-font);
+  font-style: normal;
+  font-family: var(--main-font);
 
-	line-height: calc(28 / 16 * 100%);
-	font-weight: 400;
-	color: var(--color-light-100);
+  line-height: calc(28 / 16 * 100%);
+  font-weight: 400;
+  color: var(--color-light-100);
 
   // TODO replace with variables
   // font-family: var(--font-family-primary), sans-serif;
   // line-height: var(--line-height-m);
   // background-color: var(--color-dark-700);
 }
-
-
