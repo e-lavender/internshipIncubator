@@ -1,7 +1,10 @@
 html {
-  box-sizing: border-box;
-  font-size: 62.5%;
   scroll-behavior: smooth;
+
+  box-sizing: border-box;
+
+  font-size: 62.5%;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,15 +29,14 @@ option {
 }
 
 body {
+  min-width: 32rem;
   margin: 0;
   padding: 0;
 
-  min-width: 320px;
-  font-style: normal;
   font-family: var(--main-font);
-
-  line-height: calc(28 / 16 * 100%);
   font-weight: 400;
+  font-style: normal;
+  line-height: calc(28 / 16 * 100%);
   color: var(--color-light-100);
 
   // TODO replace with variables

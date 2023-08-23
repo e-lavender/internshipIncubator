@@ -5,7 +5,7 @@ import { WithHomePageLayout } from '@/widgets/layouts/temp-layout'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WithHomePageLayout>
+    <WithHomePageLayout style={'light'}>
       <Component {...pageProps} />
     </WithHomePageLayout>
   )
