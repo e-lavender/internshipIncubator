@@ -2,6 +2,7 @@
 FROM node:18.15 as dependencies
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm
 RUN pnpm install
 
 # Stage 2: Builder
@@ -9,6 +10,7 @@ FROM node:18.15 as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
+RUN npm install -g pnpm
 ENV PATH /app/node_modules/.bin:$PATH
 RUN pnpm run build:production
 
@@ -22,5 +24,6 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
+RUN npm install -g pnpm
 CMD ["pnpm", "start"]
 
