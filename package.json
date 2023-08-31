@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:production": "pnpm build",
+    "build:production": "yarn build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -19,5 +19,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/flyingMerch123/internshipIncubator.git",
+  "author": "Yevhen <yevhenchornenko@gmail.com>",
+  "license": "MIT"
 }

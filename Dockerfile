@@ -1,14 +1,13 @@
 FROM node:18.15 as dependencies
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm
-RUN pnpm install
+RUN yarn install
 
 FROM node:18.15 as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN pnpm build:production
+RUN yarn build:production
 
 FROM node:18.15 as runner
 WORKDIR /app
@@ -20,4 +19,4 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
-CMD ["pnpm", "start"]
+CMD ["yarn", "start"]
