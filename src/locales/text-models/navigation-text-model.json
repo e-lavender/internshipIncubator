@@ -1,0 +1,24 @@
+{
+  "ru": {
+    "title": "Меню",
+    "links": {
+      "signIn": "Логин",
+      "signUp": "Регистрация",
+      "forgotPassword": "Забыл пароль",
+      "createNewPassword": "создать новый пароль",
+      "passwordRecovery": "Восстановление пароля",
+      "userProfile": "Профиль пользователя"
+    }
+  },
+  "en": {
+    "title": "Navigation",
+    "links": {
+      "signIn": "SignIn",
+      "signUp": "SignUp",
+      "forgotPassword": "ForgotPassword",
+      "createNewPassword": "CreateNewPassword",
+      "passwordRecovery": "PasswordRecovery",
+      "userProfile": "UserProfile"
+    }
+  }
+}
