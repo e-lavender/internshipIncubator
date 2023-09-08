@@ -1,4 +1,4 @@
-import { CharacterPageTextModel, NavigationTextModel } from '@/locales/text-models'
+import { CharacterPageTextModel, NavigationTextModel } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
 const characterPage = CharacterPageTextModel.ru

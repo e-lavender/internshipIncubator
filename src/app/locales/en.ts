@@ -1,5 +1,5 @@
-import { LocaleType } from '@/locales/ru'
-import { CharacterPageTextModel, NavigationTextModel } from '@/locales/text-models'
+import { LocaleType } from '@/app/locales/ru'
+import { CharacterPageTextModel, NavigationTextModel } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
