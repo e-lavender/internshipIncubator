@@ -1,0 +1,13 @@
+:root {
+  // typography
+
+  --text-color-primary: var(--color-light-100);
+  --text-color-secondary: #8D9094;
+
+  // background
+
+  --bg-color-primary: var(--color-dark-700, #0D0D0D);
+  --bg-color-secondary: var(--color-dark-500, #171717);
+  --bg-color-tertiary : var(--color-dark-900, #000);
+  --bg-color-interactive: var(--color-dark-300, #333)
+}
