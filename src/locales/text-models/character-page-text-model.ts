@@ -1,4 +1,4 @@
-import { pluralizeEn, pluralizeRu } from '@/app/components/helpers/pluralize'
+import { pluralizeEn, pluralizeRu } from '@/app/helpers/pluralize'
 
 export const CharacterPageTextModel = {
   ru: {

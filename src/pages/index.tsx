@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Link from 'next/link'
 
-import { useTranslation } from '@/app/hooks/useTranstaion'
+import { useTranslation } from '@/app/hooks'
 
 export default function Home() {
   const [count, setCount] = useState(0)
