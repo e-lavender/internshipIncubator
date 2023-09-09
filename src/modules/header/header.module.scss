@@ -1,0 +1,9 @@
+.container{
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;
+  height: 60px;
+  background-color: var(--color-light-900);
+  padding-left: 60px;
+  padding-right: 64px;
+}
