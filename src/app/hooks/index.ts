@@ -1,1 +1,1 @@
-export { useTranslation } from './useTranstaion'
+export { useTranslation } from './useTranslation'

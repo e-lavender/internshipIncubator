@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TagProcessor } from '@/app/helpers/tag-processor'
-import { useTranslation } from '@/app/hooks/useTranstaion'
+import { useTranslation } from '@/app/hooks/useTranslation'
 
 const CreateNewPassword = () => {
   const { t } = useTranslation()
