@@ -9,12 +9,12 @@ import { InputProps } from '../model/text-field-types'
 import { HideIcon, SearchIcon, ShowIcon } from '@/app/assets/svg'
 
 export const TextField = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, title, inputType, disabled, error, ...rest }, ref) => {
+  ({ className, label, inputType, disabled, error, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
 
     const classNames = {
       root: clsx(s.root, className, disabled && s.disabled),
-      title: clsx(s.title),
+      label: clsx(s.label),
       container: clsx(s.inputContainer),
       leftIcon: clsx(s.leftIcon),
       input: clsx(s.input, s[`${inputType}`], error && s.inputError),
@@ -43,7 +43,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={classNames.root}>
-        <div className={classNames.title}>{title}</div>
+        <div className={classNames.label}>{label}</div>
         <div className={classNames.container}>
           <input disabled={disabled} className={classNames.input} type={type} ref={ref} {...rest} />
           {leftIcon}
