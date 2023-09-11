@@ -12,9 +12,19 @@
   line-height: var(--line-height-m);
   color: var(--text-color-secondary);
 
-  &.disabled {
-    user-select: none;
-    color: var(--color-dark-100);
+  .leftIcon {
+    position: absolute;
+    top: 50%;
+    left: 1.2rem;
+    transform: translateY(-50%);
+
+    display: grid;
+    place-items: center;
+
+    width: 2rem;
+    height: 2.4rem;
+
+    color: inherit;
   }
 
   .title {
@@ -33,27 +43,40 @@
       align-items: center;
 
       width: 100%;
-      padding: 6px 12px;
+      padding: 0.6rem 1.2rem;
 
       line-height: var(--line-height-m);
       color: inherit;
 
       background-color: transparent;
-      border: 1px solid var(--color-dark-100);
-      border-radius: 2px;
+      border: 0.1rem solid var(--color-dark-100);
+      border-radius: 0.2rem;
 
       &::placeholder {
         color: inherit;
       }
 
+      &.error {
+        color: var(--color-danger-500);
+      }
+
       &:focus {
-        color: var(--color-light-100);
-        border-color: var(--color-light-100);
+        border-color: var(--color-accent-500);
         outline: none;
 
         &::placeholder {
           color: transparent;
         }
+      }
+
+      &[disabled] {
+        user-select: none;
+      }
+
+      &:enabled:active {
+        color: var(--color-light-100);
+        border-color: var(--color-light-100);
+        outline: none;
       }
 
       &:enabled:not(:focus):hover {
@@ -67,19 +90,11 @@
           display: none;
         }
       }
-    }
 
-    .leftIcon {
-      position: absolute;
-      top: 50%;
-      left: 1.2rem;
-      transform: translateY(-50%);
-
-      display: grid;
-      place-items: center;
-
-      width: 2rem;
-      height: 2.4rem;
+      &.inputError {
+        color: var(--color-light-100);
+        border-color: var(--color-danger-500);
+      }
     }
 
     .rightIcon {
@@ -93,9 +108,20 @@
       margin: 0;
       padding: 0;
 
+      color: var(--color-light-100);
+
       background-color: transparent;
       border: none;
+
+      &[disabled] {
+        color: var(--color-dark-100);
+      }
     }
+  }
+
+  &.disabled {
+    user-select: none;
+    color: var(--color-dark-100);
   }
 
   .error {
@@ -108,4 +134,8 @@
     font-size: var(--font-size-s);
     color: var(--color-danger-500);
   }
+}
+
+.inputContainer .input:enabled:active + .leftIcon {
+  color: var(--color-light-100);
 }

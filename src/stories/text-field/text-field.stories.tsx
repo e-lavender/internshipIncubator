@@ -15,12 +15,20 @@ export const Default: Story = {
   args: {
     title: 'Title',
     inputType: 'text',
-    error: 'Error',
     placeholder: 'Placeholder',
-    disabled: true,
+    disabled: false,
+    value: 'Input value',
   },
 }
 
-export const Disabled: Story = {
-  args: { disabled: true, title: 'test', inputType: 'text' },
+export const Text: Story = {
+  args: { disabled: false, title: 'Title', inputType: 'text' },
+}
+
+export const Password: Story = {
+  args: { disabled: false, title: 'Title', inputType: 'password' },
+}
+
+export const Search: Story = {
+  args: { disabled: false, title: 'Title', inputType: 'search' },
 }
