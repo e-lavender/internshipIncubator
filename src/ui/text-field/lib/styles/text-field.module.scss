@@ -1,3 +1,10 @@
+@mixin icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2.4rem;
+}
+
 .root {
   display: flex;
   flex-direction: column;
@@ -11,21 +18,6 @@
   font-style: normal;
   line-height: var(--line-height-m);
   color: var(--text-color-secondary);
-
-  .leftIcon {
-    position: absolute;
-    top: 50%;
-    left: 1.2rem;
-    transform: translateY(-50%);
-
-    display: grid;
-    place-items: center;
-
-    width: 2rem;
-    height: 2.4rem;
-
-    color: inherit;
-  }
 
   .title {
     user-select: none;
@@ -97,14 +89,25 @@
       }
     }
 
+    .leftIcon {
+      @include icon;
+
+      left: 1.2rem;
+
+      display: grid;
+      place-items: center;
+
+      width: 2rem;
+
+      color: inherit;
+    }
+
     .rightIcon {
-      position: absolute;
-      top: 50%;
+      @include icon;
+
       right: 1.2rem;
-      transform: translateY(-50%);
 
       width: 2.4rem;
-      height: 2.4rem;
       margin: 0;
       padding: 0;
 
