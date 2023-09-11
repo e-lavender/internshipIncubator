@@ -11,11 +11,24 @@ const preview: Preview = {
       },
     },
     darkMode: {
-      dark: { ...themes.dark, appBg: '#171717' },
-      light: { ...themes.normal, appBg: '#808080' },
+      dark: { ...themes.dark, appBg: '#0D0D0D' },
+      light: { ...themes.normal, appBg: '#fff' },
     },
     docs: {
       theme: themes.dark,
+    },
+    backgrounds: {
+      default: 'dark',
+      values: [
+        {
+          name: 'dark',
+          value: '#0D0D0D',
+        },
+        {
+          name: 'light',
+          value: '#fff',
+        },
+      ],
     },
   },
 }
