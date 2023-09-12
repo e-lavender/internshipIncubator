@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { useTranslation } from '@/app/hooks'
+import { Title } from '@/ui/typography/title/title'
 
 export default function Home() {
   const [count, setCount] = useState(0)
@@ -25,6 +26,7 @@ export default function Home() {
         <Link href={'/create-new-password'}>{createNewPassword}</Link>
         <Link href={'/password-recovery'}>{passwordRecovery}</Link>
         <Link href={`/user-profile/${id}`}>{userProfile}</Link>
+        <Title>Some text test</Title>
       </div>
       <div>
         <p>{t.characterPage.getCount(count)}</p>

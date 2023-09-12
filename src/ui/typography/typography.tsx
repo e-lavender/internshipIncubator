@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-const TypographyStories = () => {
-  return <div></div>
+import { TypographyProps } from '@/ui/typography/types'
+import s from '@/ui/typography/typography.module.scss'
+
+const Component: React.FC<TypographyProps> = ({
+  variant,
+  as: Component = 'span',
+  children,
+}): JSX.Element => {
+  return <Component className={s[variant]}>{children}</Component>
 }
 
-export default TypographyStories
+export const Typography = memo(Component)

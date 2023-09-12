@@ -1,0 +1,24 @@
+@mixin typography($text-color, $font-family, $font-size, $font-weight, $line-height ){
+  color: var($text-color);
+  font-family: var($font-family);
+  font-size: var($font-size);
+  font-style: normal;
+  font-weight: var($font-weight);
+  line-height: var($line-height);
+}
+
+.h1 {
+  @include typography(--text-color-primary,--font-family-primary,--font-size-xl,--font-weight-bold,--line-height-l)
+}
+.h2 {
+  @include typography(--text-color-primary,--font-family-primary,--font-size-l,--font-weight-bold,--line-height-m)
+}
+.h3 {
+  @include typography(--text-color-primary,--font-family-primary,--font-size-m,--font-weight-semi-bold,--line-height-m)
+}
+.large {
+  @include typography(--text-color-primary,--font-family-primary,--font-size-xxl,--font-weight-semi-bold,--line-height-l)
+}
+.regular-text-16 {
+  @include typography(--text-color-primary,--font-family-primary,--font-size-xxl,--font-weight-semi-bold,--line-height-l)
+}
