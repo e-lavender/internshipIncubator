@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { useTranslation } from '@/app/hooks'
-import { Title } from '@/ui/typography/title/title'
+import { Text, Title } from '@/ui/typography'
 
 export default function Home() {
   const [count, setCount] = useState(0)
@@ -18,18 +18,34 @@ export default function Home() {
 
   return (
     <div style={{ padding: '35px' }}>
-      <h1>{t.navigation.title}</h1>
+      <Title variant="h1">{t.navigation.title}</Title>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Link href={'/sign-in'}>{signIn}</Link>
-        <Link href={'/sign-up'}>{signUp}</Link>
-        <Link href={'/forgot-password'}>{forgotPassword}</Link>
-        <Link href={'/create-new-password'}>{createNewPassword}</Link>
-        <Link href={'/password-recovery'}>{passwordRecovery}</Link>
-        <Link href={`/user-profile/${id}`}>{userProfile}</Link>
-        <Title>Some text test</Title>
+        <Link href={'/sign-in'}>
+          <Text variant="regular-link">{signIn}</Text>
+        </Link>
+        <Link href={'/sign-up'}>
+          <Text variant="regular-link">{signUp}</Text>
+        </Link>
+        <Link href={'/forgot-password'}>
+          <Text variant="regular-link">{forgotPassword}</Text>
+        </Link>
+        <Link href={'/create-new-password'}>
+          <Text variant="regular-link">{createNewPassword}</Text>
+        </Link>
+        <Link href={'/password-recovery'}>
+          <Text variant="regular-link">{passwordRecovery}</Text>
+        </Link>
+        <Link href={`/user-profile/${id}`}>
+          <Text variant="regular-link">{userProfile}</Text>
+        </Link>
+        <Title variant="large" style={{ color: 'red' }}>
+          Some text test
+        </Title>
       </div>
       <div>
-        <p>{t.characterPage.getCount(count)}</p>
+        <Text as="p" variant="bold-text-14">
+          {t.characterPage.getCount(count)}
+        </Text>
         <button onClick={decreaseCountHandler}>-</button>
         <button onClick={increaseCountHandler}>+</button>
         <button onClick={resetCountHandler}>0</button>

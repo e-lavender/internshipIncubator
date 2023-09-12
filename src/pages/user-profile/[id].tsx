@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { Title } from '@/ui/typography'
+
 const UserProfile = () => {
-  return <div>UserProfile</div>
+  return <Title>UserProfile</Title>
 }
 
 export default UserProfile

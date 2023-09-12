@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 
 export type TextVariant =
   | 'regular-text-16'
@@ -23,4 +23,5 @@ export type TypographyProps = {
   variant: TypographyVariantProp
   as: TypographyTagProps
   children: ReactNode
+  style?: CSSProperties | null
 }

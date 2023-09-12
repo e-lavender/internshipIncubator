@@ -1,10 +1,12 @@
 import React from 'react'
 
+import { Title } from '@/ui/typography'
+
 const SignIn = () => {
   return (
-    <div>
+    <Title>
       <span>Sign In</span>
-    </div>
+    </Title>
   )
 }
 

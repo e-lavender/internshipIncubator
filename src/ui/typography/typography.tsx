@@ -7,8 +7,13 @@ const Component: React.FC<TypographyProps> = ({
   variant,
   as: Component = 'span',
   children,
+  style,
 }): JSX.Element => {
-  return <Component className={s[variant]}>{children}</Component>
+  return (
+    <Component style={style} className={s[variant]}>
+      {children}
+    </Component>
+  )
 }
 
 export const Typography = memo(Component)
