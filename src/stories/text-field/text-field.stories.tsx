@@ -13,7 +13,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
-    title: 'Title',
+    label: 'Title',
     inputType: 'text',
     placeholder: 'Placeholder',
     disabled: false,
@@ -22,13 +22,13 @@ export const Default: Story = {
 }
 
 export const Text: Story = {
-  args: { disabled: false, title: 'Title', inputType: 'text' },
+  args: { disabled: false, label: 'Title', inputType: 'text', placeholder: 'Placeholder' },
 }
 
 export const Password: Story = {
-  args: { disabled: false, title: 'Title', inputType: 'password' },
+  args: { disabled: false, label: 'Title', inputType: 'password', placeholder: 'Placeholder' },
 }
 
 export const Search: Story = {
-  args: { disabled: false, title: 'Title', inputType: 'search' },
+  args: { disabled: false, label: 'Title', inputType: 'search', placeholder: 'Placeholder' },
 }
