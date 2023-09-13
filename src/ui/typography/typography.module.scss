@@ -1,0 +1,139 @@
+@mixin typography(
+  $text-color,
+  $font-family,
+  $font-size,
+  $font-weight,
+  $line-height,
+  $text-decoration: none
+) {
+  color: var($text-color);
+  font-family: var($font-family);
+  font-size: var($font-size);
+  font-weight: var($font-weight);
+  line-height: var($line-height);
+  text-decoration: $text-decoration;
+  font-style: normal;
+}
+.large {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-xxl,
+    --font-weight-semi-bold,
+    --line-height-l
+  );
+}
+.h1 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-xl,
+    --font-weight-bold,
+    --line-height-l
+  );
+}
+.h2 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-l,
+    --font-weight-bold,
+    --line-height-m
+  );
+}
+.h3 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-m,
+    --font-weight-semi-bold,
+    --line-height-m
+  );
+}
+
+.regular-16 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-m,
+    --font-weight-regular,
+    --line-height-m
+  );
+}
+.bold-16 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-m,
+    --font-weight-semi-bold,
+    --line-height-m
+  );
+}
+.regular-14 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-s,
+    --font-weight-regular,
+    --line-height-m
+  );
+}
+.medium-14 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-s,
+    --font-weight-medium,
+    --line-height-m
+  );
+}
+.bold-14 {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-s,
+    --font-weight-bold,
+    --line-height-m
+  );
+}
+.small {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-xs,
+    --font-weight-bold,
+    --line-height-s
+  );
+}
+
+.semi-bold-small {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-xs,
+    --font-weight-semi-bold,
+    --line-height-s
+  );
+}
+.regular-link {
+  @include typography(
+    --color-accent-500,
+    --font-family-primary,
+    --font-size-s,
+    --font-weight-regular,
+    --line-height-m,
+    underline
+  );
+  cursor: pointer;
+}
+.small-link {
+  @include typography(
+    --color-accent-500,
+    --font-family-primary,
+    --font-size-xs,
+    --font-weight-regular,
+    --line-height-s,
+    underline
+  );
+  cursor: pointer;
+}
