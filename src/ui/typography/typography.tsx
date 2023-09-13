@@ -1,19 +1,21 @@
-import React, { memo } from 'react'
+import React, { ComponentPropsWithoutRef, ElementType } from 'react'
 
+import { clsx } from 'clsx'
+
+import { Tags } from '@/ui/typography/enum'
 import { TypographyProps } from '@/ui/typography/types'
 import s from '@/ui/typography/typography.module.scss'
 
-const Component: React.FC<TypographyProps> = ({
-  variant,
-  as: Component = 'span',
+export const Typography = <T extends ElementType>({
+  variant = 'regular-14',
+  as = 'span',
   children,
-  style,
-}): JSX.Element => {
-  return (
-    <Component style={style} className={s[variant]}>
-      {children}
-    </Component>
-  )
-}
+  className,
+}: TypographyProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>): JSX.Element => {
+  const styles = clsx(s[variant], className)
 
-export const Typography = memo(Component)
+  const Component = as || Tags[variant]
+
+  return <Component className={styles}>{children}</Component>
+}

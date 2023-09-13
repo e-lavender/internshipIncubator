@@ -3,7 +3,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { useTranslation } from '@/app/hooks'
-import { Text, Title } from '@/ui/typography'
+import { Text } from '@/ui/typography/text'
+import { Title } from '@/ui/typography/title'
 
 export default function Home() {
   const [count, setCount] = useState(0)
@@ -18,7 +19,7 @@ export default function Home() {
 
   return (
     <div style={{ padding: '35px' }}>
-      <Title variant="h1">{t.navigation.title}</Title>
+      <Title variant="large">{t.navigation.title}</Title>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Link href={'/sign-in'}>
           <Text variant="regular-link">{signIn}</Text>
@@ -38,14 +39,12 @@ export default function Home() {
         <Link href={`/user-profile/${id}`}>
           <Text variant="regular-link">{userProfile}</Text>
         </Link>
-        <Title variant="large" style={{ color: 'red' }}>
+        <Title as="h1" style={{ color: 'red' }}>
           Some text test
         </Title>
       </div>
       <div>
-        <Text as="p" variant="bold-text-14">
-          {t.characterPage.getCount(count)}
-        </Text>
+        <Title as="h1">{t.characterPage.getCount(count)}</Title>
         <button onClick={decreaseCountHandler}>-</button>
         <button onClick={increaseCountHandler}>+</button>
         <button onClick={resetCountHandler}>0</button>

@@ -51,7 +51,7 @@
     --line-height-l
   );
 }
-.regular-text-16 {
+.regular-16 {
   @include typography(
     --text-color-primary,
     --font-family-primary,
@@ -60,7 +60,7 @@
     --line-height-m
   );
 }
-.regular-text-14 {
+.bold-16 {
   @include typography(
     --text-color-primary,
     --font-family-primary,
@@ -69,7 +69,7 @@
     --line-height-m
   );
 }
-.bold-text-16 {
+.regular-14 {
   @include typography(
     --text-color-primary,
     --font-family-primary,
@@ -78,7 +78,7 @@
     --line-height-m
   );
 }
-.medium-text-14 {
+.small {
   @include typography(
     --text-color-primary,
     --font-family-primary,
@@ -87,7 +87,7 @@
     --line-height-m
   );
 }
-.bold-text-14 {
+.bold-14 {
   @include typography(
     --text-color-primary,
     --font-family-primary,
@@ -96,7 +96,7 @@
     --line-height-m
   );
 }
-.small-text {
+.small {
   @include typography(
     --text-color-primary,
     --font-family-primary,
@@ -105,7 +105,7 @@
     --line-height-s
   );
 }
-.semi-bold-small-text {
+.semi-bold-small {
   @include typography(
     --text-color-primary,
     --font-family-primary,

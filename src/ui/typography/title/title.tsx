@@ -1,23 +1,21 @@
-import React, { CSSProperties, ReactNode } from 'react'
+import React, { ComponentPropsWithoutRef, ElementType } from 'react'
 
-import { TitleVariant } from '@/ui/typography/types'
+import { TypographyProps } from '@/ui/typography/types'
 import { Typography } from '@/ui/typography/typography'
 
-type TitleProps = {
-  variant?: TitleVariant
-  children: ReactNode
-  style?: CSSProperties | null
-}
-
-export const Title: React.FC<TitleProps> = ({ children, variant = 'h1', style }): JSX.Element => {
-  let as
-
-  style = style || null
+export const Title = <T extends ElementType>({
+  variant,
+  as,
+  children,
+  className = null,
+}: TypographyProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>): JSX.Element => {
   variant = variant || 'h1'
-  variant !== 'large' ? (as = variant) : (as = 'span')
+  as = as || (variant !== 'large' ? as : 'span')
+  className = className || null
 
   return (
-    <Typography style={style} as={as} variant={variant}>
+    <Typography className={className} as={as} variant={variant}>
       {children}
     </Typography>
   )

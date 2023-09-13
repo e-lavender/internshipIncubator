@@ -1,25 +1,21 @@
-import React, { CSSProperties, ReactNode } from 'react'
+import React, { ComponentPropsWithoutRef, ElementType } from 'react'
 
-import { TagText, TextVariant } from '@/ui/typography/types'
+import { TypographyProps } from '@/ui/typography/types'
 import { Typography } from '@/ui/typography/typography'
 
-type TextProps = {
-  variant: TextVariant
-  as: TagText
-  children: ReactNode
-  style?: CSSProperties | null
-}
-
-export const Text: React.FC<TextProps> = ({
-  as = 'span',
-  variant = 'regular-text-16',
+export const Text = <T extends ElementType>({
+  variant,
+  as,
   children,
-  style,
-}: TextProps): JSX.Element => {
-  style = style || null
+  className = null,
+}: TypographyProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>): JSX.Element => {
+  variant = variant || 'regular-14'
+  as = as || 'span'
+  className = className || null
 
   return (
-    <Typography style={style} as={as} variant={variant}>
+    <Typography className={className} as={as} variant={variant}>
       {children}
     </Typography>
   )

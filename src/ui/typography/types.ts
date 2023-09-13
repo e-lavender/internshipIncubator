@@ -1,27 +1,14 @@
-import { CSSProperties, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementType, JSXElementConstructor, ReactNode } from 'react'
 
-export type TextVariant =
-  | 'regular-text-16'
-  | 'bold-text-16'
-  | 'regular-text-14'
-  | 'medium-text-14'
-  | 'bold-text-14'
-  | 'small-text'
-  | 'semi-bold-small-text'
-  | 'regular-link'
-  | 'small-link'
-export type TagText = 'p' | 'div' | 'span'
+import { Tags } from './enum'
 
-export type TitleVariant = 'h1' | 'h2' | 'h3' | 'large'
-export type TagTitle = 'h1' | 'h2' | 'h3'
+export type Tag = 'p' | 'div' | 'span' | 'h1' | 'h2' | 'h3'
 
-export type TypographyVariantProp = TextVariant | TitleVariant
+export type ReactTag = keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 
-export type TypographyTagProps = TagTitle | TagText
-
-export type TypographyProps = {
-  variant: TypographyVariantProp
-  as: TypographyTagProps
+export type TypographyProps<T extends ElementType> = {
+  variant: keyof typeof Tags
+  as: T | Extract<ReactTag, Tag>
   children: ReactNode
-  style?: CSSProperties | null
-}
+  className?: string | null
+} & ComponentPropsWithoutRef<T>

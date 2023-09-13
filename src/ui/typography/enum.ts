@@ -1,0 +1,15 @@
+export enum Tags {
+  'large' = 'span',
+  'h1' = 'h1',
+  'h2' = 'h2',
+  'h3' = 'h3',
+  'regular-16' = 'span',
+  'bold-16' = 'span',
+  'regular-14' = 'span',
+  'medium-14' = 'span',
+  'bold-14' = 'span',
+  'small' = 'span',
+  'semi-bold-small' = 'span',
+  'regular-link' = 'span',
+  'small-link' = 'span',
+}
