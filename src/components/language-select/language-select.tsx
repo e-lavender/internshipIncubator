@@ -2,6 +2,8 @@ import { ChangeEvent } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { EnFlagIcon } from '@/app/assets/en-flag-icon'
+import { RuFlagIcon } from '@/app/assets/ru-flag-icon'
 import { Option, Select } from '@/ui/select'
 
 export const LanguageSelect = () => {
@@ -17,22 +19,14 @@ export const LanguageSelect = () => {
     push({ pathname, query }, asPath, { locale: value }).then(() => {})
   }
 
-  const options = locales?.map(l => {
-    return { label: l, value: l }
-  }) as Array<Option>
+  const options = [
+    { label: 'ru', value: 'russian', icon: <RuFlagIcon /> },
+    { label: 'en', value: 'english', icon: <EnFlagIcon /> },
+  ]
 
   return (
     <div>
       <Select options={options} value={locale ?? ''} onChange={selectHandler} />
-      <select onChange={changeLangHandler} defaultValue={locale}>
-        {locales?.map(l => {
-          return (
-            <option value={l} key={l}>
-              {l}
-            </option>
-          )
-        })}
-      </select>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { CSSProperties, FC } from 'react'
+import { CSSProperties, FC, ReactNode } from 'react'
 
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
@@ -6,8 +6,9 @@ import { clsx } from 'clsx'
 import s from './select.module.scss'
 
 import { ArrowDownIcon } from '@/app/assets/arrow-down-icon'
+import { EnFlagIcon } from '@/app/assets/en-flag-icon'
 
-export type Option = { label: string; value: string }
+export type Option = { label: string; value: string; icon?: ReactNode }
 
 type ConditionalMultipleProps = {
   multiple?: true
@@ -53,6 +54,8 @@ export const Select: FC<SelectProps> = ({
   const withoutPlaceholder = variant === 'pagination' ? value : 'Select Box'
   const rootStyles = { width }
 
+  console.log('options', options)
+
   return (
     <div className={classNames.root}>
       <SelectRadix.Group>
@@ -69,15 +72,23 @@ export const Select: FC<SelectProps> = ({
 
           <SelectRadix.Portal>
             <SelectRadix.Content className={classNames.content} position={'popper'}>
-              {options.map(option => (
-                <SelectRadix.Item
-                  value={option.value}
-                  className={classNames.item}
-                  key={option.value}
-                >
-                  {option.label}
-                </SelectRadix.Item>
-              ))}
+              {options.map(option => {
+                return (
+                  <SelectRadix.Item
+                    asChild={true}
+                    value={option.value}
+                    className={classNames.item}
+                    key={`${option.value}`}
+                  >
+                    {
+                      <div style={{ display: 'flex', columnGap: '12px' }}>
+                        {option.icon}
+                        {option.label}
+                      </div>
+                    }
+                  </SelectRadix.Item>
+                )
+              })}
             </SelectRadix.Content>
           </SelectRadix.Portal>
         </SelectRadix.Root>
