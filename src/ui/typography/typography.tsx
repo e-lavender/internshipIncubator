@@ -11,11 +11,15 @@ export const Typography = <T extends ElementType>({
   as = 'span',
   children,
   className,
-}: TypographyProps<T> &
-  Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>): JSX.Element => {
+  ...rest
+}: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
   const styles = clsx(s[variant], className)
 
   const Component = as || Tags[variant]
 
-  return <Component className={styles}>{children}</Component>
+  return (
+    <Component className={styles} {...rest}>
+      {children}
+    </Component>
+  )
 }

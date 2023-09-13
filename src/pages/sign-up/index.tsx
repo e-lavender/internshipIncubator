@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Title } from '@/ui/typography'
+import { Typography } from '@/ui/typography/typography'
 
 const SignUp = () => {
-  return <Title>SignUp</Title>
+  return <Typography variant="h2">SignUp</Typography>
 }
 
 export default SignUp

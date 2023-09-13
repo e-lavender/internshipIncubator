@@ -14,7 +14,15 @@
   text-decoration: $text-decoration;
   font-style: normal;
 }
-
+.large {
+  @include typography(
+    --text-color-primary,
+    --font-family-primary,
+    --font-size-xxl,
+    --font-weight-semi-bold,
+    --line-height-l
+  );
+}
 .h1 {
   @include typography(
     --text-color-primary,
@@ -42,15 +50,7 @@
     --line-height-m
   );
 }
-.large {
-  @include typography(
-    --text-color-primary,
-    --font-family-primary,
-    --font-size-xxl,
-    --font-weight-semi-bold,
-    --line-height-l
-  );
-}
+
 .regular-16 {
   @include typography(
     --text-color-primary,
@@ -64,8 +64,8 @@
   @include typography(
     --text-color-primary,
     --font-family-primary,
-    --font-size-s,
-    --font-weight-regular,
+    --font-size-m,
+    --font-weight-semi-bold,
     --line-height-m
   );
 }
@@ -73,12 +73,12 @@
   @include typography(
     --text-color-primary,
     --font-family-primary,
-    --font-size-m,
-    --font-weight-bold,
+    --font-size-s,
+    --font-weight-regular,
     --line-height-m
   );
 }
-.small {
+.medium-14 {
   @include typography(
     --text-color-primary,
     --font-family-primary,
@@ -100,11 +100,12 @@
   @include typography(
     --text-color-primary,
     --font-family-primary,
-    --font-size-s,
-    --font-weight-regular,
+    --font-size-xs,
+    --font-weight-bold,
     --line-height-s
   );
 }
+
 .semi-bold-small {
   @include typography(
     --text-color-primary,
@@ -123,6 +124,7 @@
     --line-height-m,
     underline
   );
+  cursor: pointer;
 }
 .small-link {
   @include typography(
@@ -133,4 +135,5 @@
     --line-height-s,
     underline
   );
+  cursor: pointer;
 }

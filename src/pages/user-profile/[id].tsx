@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Title } from '@/ui/typography'
+import { Typography } from '@/ui/typography/typography'
 
 const UserProfile = () => {
-  return <Title>UserProfile</Title>
+  return <Typography variant="h1">UserProfile</Typography>
 }
 
 export default UserProfile
