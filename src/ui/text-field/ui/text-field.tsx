@@ -10,7 +10,7 @@ import { HideIcon, SearchIcon, ShowIcon } from '@/app/assets/svg'
 import { Typography } from '@/ui/typography/typography'
 
 export const TextField = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, inputType, disabled, error, ...rest }, ref) => {
+  ({ className, label, inputType = 'text', disabled, error, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
 
     const classNames = {
@@ -44,9 +44,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="regular-14" as="label" className={classNames.label}>
-          {label}
-        </Typography>
+        <Typography className={classNames.label}>{label}</Typography>
         <div className={classNames.container}>
           <input
             aria-label={label}
@@ -59,9 +57,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
           {leftIcon}
           {rightIcon}
         </div>
-        <Typography variant="regular-14" as="span" className={classNames.error}>
-          {error}
-        </Typography>
+        <Typography className={classNames.error}>{error}</Typography>
       </div>
     )
   }
