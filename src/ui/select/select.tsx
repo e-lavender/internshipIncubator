@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactNode } from 'react'
+import { CSSProperties, FC, ReactElement, ReactNode } from 'react'
 
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
@@ -6,13 +6,12 @@ import { clsx } from 'clsx'
 import s from './select.module.scss'
 
 import { ArrowDownIcon } from '@/app/assets/arrow-down-icon'
-import { EnFlagIcon } from '@/app/assets/en-flag-icon'
 
-export type Option = { label: string; value: string; icon?: ReactNode }
+export type Option = { label: string | ReactElement; value: string }
 
 type ConditionalMultipleProps = {
   multiple?: true
-  value: string
+  value: string | ReactElement
   onChange: (value: string) => void
 }
 
@@ -20,9 +19,9 @@ type CommonProps = {
   className?: string
   disabled?: boolean
   name?: string
-  placeholder?: string
+  placeholder?: string | ReactElement
   required?: boolean
-  variant?: 'primary' | 'pagination'
+  variant?: 'primary' | 'pagination' | 'language'
   options: Array<Option>
   portal?: boolean
   label?: string
@@ -30,7 +29,6 @@ type CommonProps = {
   rootClassName?: string
 }
 export type SelectProps = CommonProps & ConditionalMultipleProps
-
 export const Select: FC<SelectProps> = ({
   variant = 'primary',
   placeholder,
@@ -53,8 +51,6 @@ export const Select: FC<SelectProps> = ({
   }
   const withoutPlaceholder = variant === 'pagination' ? value : 'Select Box'
   const rootStyles = { width }
-
-  console.log('options', options)
 
   return (
     <div className={classNames.root}>
@@ -80,12 +76,7 @@ export const Select: FC<SelectProps> = ({
                     className={classNames.item}
                     key={`${option.value}`}
                   >
-                    {
-                      <div style={{ display: 'flex', columnGap: '12px' }}>
-                        {option.icon}
-                        {option.label}
-                      </div>
-                    }
+                    {<span style={{ display: 'flex', columnGap: '12px' }}>{option.label}</span>}
                   </SelectRadix.Item>
                 )
               })}

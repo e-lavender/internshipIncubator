@@ -1,32 +1,47 @@
-import { ChangeEvent } from 'react'
+import { memo, useMemo, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { EnFlagIcon } from '@/app/assets/en-flag-icon'
-import { RuFlagIcon } from '@/app/assets/ru-flag-icon'
-import { Option, Select } from '@/ui/select'
+import { EnglishFlagComponent } from '@/components/language-select/english-flag-component'
+import { RussiaFlagComponent } from '@/components/language-select/russian-flag-component'
+import { Select } from '@/ui/select'
 
-export const LanguageSelect = () => {
+type LocalType = 'ru' | 'en'
+
+export const LanguageSelect = memo(() => {
   const { locale, push, pathname, query, asPath, locales } = useRouter()
+  const typedLocale = locale as LocalType
+  const [value, setValue] = useState(typedLocale)
 
-  const changeLangHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-    const selectedLocale = event.currentTarget.value
+  const changeLangHandler = (value: string) => {
+    const locale = value as LocalType
 
-    push({ pathname, query }, asPath, { locale: selectedLocale }).then(() => {})
+    push({ pathname, query }, asPath, { locale })
+    setValue(locale)
   }
 
-  const selectHandler = (value: string) => {
-    push({ pathname, query }, asPath, { locale: value }).then(() => {})
+  const countries = {
+    en: <EnglishFlagComponent />,
+    ru: <RussiaFlagComponent />,
   }
-
-  const options = [
-    { label: 'ru', value: 'russian', icon: <RuFlagIcon /> },
-    { label: 'en', value: 'english', icon: <EnFlagIcon /> },
-  ]
+  const options = useMemo(() => {
+    return Array.isArray(locales)
+      ? locales.map(el => ({
+          value: el,
+          label: el == 'ru' ? <RussiaFlagComponent /> : <EnglishFlagComponent />,
+        }))
+      : []
+  }, [locales])
 
   return (
     <div>
-      <Select options={options} value={locale ?? ''} onChange={selectHandler} />
+      <Select
+        variant={'language'}
+        placeholder={locale ? countries[typedLocale] : countries.ru}
+        options={options}
+        value={countries[value]}
+        onChange={changeLangHandler}
+      />
     </div>
   )
-}
+})
