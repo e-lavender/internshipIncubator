@@ -44,30 +44,33 @@
       border: 0.1rem solid var(--color-dark-100);
       border-radius: 0.2rem;
 
+      &::placeholder {
+        color: var(--text-color-secondary);
+      }
+
+      &:focus {
+        background-color: var(--bg-color-secondary);
+        border-color: var(--color-accent-500);
+        outline: none;
+      }
+
       &:-webkit-autofill,
       &:-webkit-autofill:hover,
       &:-webkit-autofill:focus {
-        box-shadow: 0 0 0 30px var(--color-dark-700) inset !important;
+        box-shadow: 0 0 0 30px var(--bg-color-secondary) inset !important;
 
-        -webkit-text-fill-color: var(--color-dark-100) !important;
-      }
-
-      &::placeholder {
-        color: var(--text-color-secondary);
+        -webkit-text-fill-color: var(--bg-color-secondary) !important;
       }
 
       &.error {
         color: var(--color-danger-500);
       }
+
       &.inputError {
         color: var(--color-light-100);
         border-color: var(--color-danger-500);
       }
-      &:focus {
-        border-color: var(--color-accent-500);
-        background-color: var(--bg-color-secondary);
-        outline: none;
-      }
+
       &:focus + .leftIcon {
         color: var(--text-color-primary);
       }

@@ -26,7 +26,13 @@ export const Text: Story = {
 }
 
 export const Password: Story = {
-  args: { disabled: false, label: 'Password', inputType: 'password', placeholder: 'password' },
+  args: {
+    disabled: false,
+    label: 'Password',
+    inputType: 'password',
+    placeholder: 'password',
+    value: 'asdasdasd',
+  },
 }
 
 export const Search: Story = {
