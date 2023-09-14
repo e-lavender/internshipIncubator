@@ -60,9 +60,7 @@ export const Checkbox: FC<CheckboxProps> = ({
 
       {labelTitle && (
         <Label id={id || fallbackId}>
-          <Typography className={styles.label} variant="regular-16">
-            {labelTitle}
-          </Typography>
+          <Typography className={styles.label}>{labelTitle}</Typography>
         </Label>
       )}
     </div>
