@@ -8,6 +8,7 @@ export const en: LocaleType = {
   navigation: {
     title: navigation.title,
     menu: navigation.links,
+    header: navigation.language
   },
   characterPage: characterPage,
 }
