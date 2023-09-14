@@ -40,7 +40,7 @@
       line-height: var(--line-height-m);
       color: var(--color-light-100);
 
-      background-color: transparent ;
+      background-color: transparent;
       border: 0.1rem solid var(--color-dark-100);
       border-radius: 0.2rem;
 
@@ -63,15 +63,13 @@
         color: var(--color-light-100);
         border-color: var(--color-danger-500);
       }
-      &:focus  {
+      &:focus {
         border-color: var(--color-accent-500);
         background-color: var(--bg-color-secondary);
         outline: none;
-
-
       }
       &:focus + .leftIcon {
-        color:  var(--text-color-primary);
+        color: var(--text-color-primary);
       }
 
       &[disabled] {
@@ -96,8 +94,6 @@
           display: none;
         }
       }
-
-
     }
 
     .leftIcon {
@@ -111,7 +107,6 @@
       width: 2rem;
 
       color: inherit;
-
     }
 
     .rightIcon {
