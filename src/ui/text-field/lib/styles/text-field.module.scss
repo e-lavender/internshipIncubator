@@ -44,6 +44,14 @@
       border: 0.1rem solid var(--color-dark-100);
       border-radius: 0.2rem;
 
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        box-shadow: 0 0 0 30px var(--color-dark-700) inset !important;
+
+        -webkit-text-fill-color: var(--color-dark-100) !important;
+      }
+
       &::placeholder {
         color: var(--text-color-secondary);
       }
