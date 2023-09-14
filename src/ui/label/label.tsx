@@ -6,13 +6,13 @@ import { Typography } from '../typography/typography'
 
 type LabelProps = {
   id?: string
-  labelTitle?: ReactNode
+  title?: string
 } & ComponentPropsWithoutRef<'label'>
 
-export const Label: FC<PropsWithChildren<LabelProps>> = ({ id, labelTitle, children }) => (
+export const Label: FC<LabelProps> = ({ id, title, children }) => (
   <>
     <LabelRDX.Root htmlFor={id}>
-      <Typography variant="regular-16">{labelTitle}</Typography>
+      {title && <Typography>{title}</Typography>}
 
       {children}
     </LabelRDX.Root>

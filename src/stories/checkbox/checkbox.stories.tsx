@@ -37,7 +37,7 @@ export const WithLabel: Story = {
 
 export const Disabled: Story = {
   args: {
-    labelTitle: 'Diabled checkbox',
+    labelTitle: 'Disabled checkbox',
     disabled: true,
   },
 }

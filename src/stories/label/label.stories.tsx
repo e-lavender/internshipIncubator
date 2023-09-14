@@ -21,6 +21,6 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    labelTitle: 'Label Title',
+    title: 'Label Title',
   },
 }

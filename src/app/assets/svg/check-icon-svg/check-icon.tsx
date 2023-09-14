@@ -1,7 +1,7 @@
 import { SVGProps, Ref, forwardRef, memo } from 'react'
 
 const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => {
-  const colorFill = props.color || '#fff'
+  const colorFill = props.color || 'currentColor'
 
   return (
     <svg
