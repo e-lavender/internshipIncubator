@@ -1,4 +1,4 @@
-import { EnFlagIcon, RuFlagIcon } from "@/app/assets";
+import { EnFlagIcon } from '@/app/assets/en-flag-icon'
 import { useTranslation } from '@/app/hooks'
 
 export const EnglishFlagComponent = () => {
