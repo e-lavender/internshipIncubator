@@ -41,7 +41,10 @@
     display: flex;
     align-items: center;
   }
-
+  &.language {
+      min-width: 163px;
+    gap: 33px;
+  }
   &.pagination {
     gap: 2px;
     min-width: 40px;
