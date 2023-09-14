@@ -15,6 +15,7 @@ export const Button = <T extends ElementType = 'button'>(
     name,
     variant = 'primary',
     fullWidth,
+    children,
     as: Component = 'button',
     ...rest
   } = props
@@ -23,6 +24,8 @@ export const Button = <T extends ElementType = 'button'>(
   return (
     <button onClick={onClickHandler} disabled={disabled} className={classNames} {...rest}>
       {name}
+
+      {children}
     </button>
   )
 }
