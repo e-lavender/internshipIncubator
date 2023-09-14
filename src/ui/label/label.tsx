@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, PropsWithChildren, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, FC } from 'react'
 
 import * as LabelRDX from '@radix-ui/react-label'
 
@@ -6,13 +6,13 @@ import { Typography } from '../typography/typography'
 
 type LabelProps = {
   id?: string
-  labelTitle?: ReactNode
+  title?: string
 } & ComponentPropsWithoutRef<'label'>
 
-export const Label: FC<PropsWithChildren<LabelProps>> = ({ id, labelTitle, children }) => (
+export const Label: FC<LabelProps> = ({ id, title, children, ...rest }) => (
   <>
-    <LabelRDX.Root htmlFor={id}>
-      <Typography variant="regular-16">{labelTitle}</Typography>
+    <LabelRDX.Root htmlFor={id} {...rest}>
+      {title && <Typography>{title}</Typography>}
 
       {children}
     </LabelRDX.Root>
