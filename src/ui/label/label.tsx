@@ -7,11 +7,12 @@ import { Typography } from '../typography/typography'
 type LabelProps = {
   id?: string
   title?: string
+  // className?: string
 } & ComponentPropsWithoutRef<'label'>
 
-export const Label: FC<LabelProps> = ({ id, title, children }) => (
+export const Label: FC<LabelProps> = ({ id, title, children, ...rest }) => (
   <>
-    <LabelRDX.Root htmlFor={id}>
+    <LabelRDX.Root htmlFor={id} {...rest}>
       {title && <Typography>{title}</Typography>}
 
       {children}
