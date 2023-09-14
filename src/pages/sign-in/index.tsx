@@ -1,11 +1,9 @@
 import React from 'react'
 
+import { Typography } from '@/ui/typography/typography'
+
 const SignIn = () => {
-  return (
-    <div>
-      <span>Sign In</span>
-    </div>
-  )
+  return <Typography variant="h2">Sign In</Typography>
 }
 
 export default SignIn

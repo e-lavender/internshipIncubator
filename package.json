@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.8",
-    "@radix-ui/react-select": "^1.2.2",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-label": "^2.0.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
@@ -37,12 +38,15 @@
     "@storybook/addon-links": "7.4.0",
     "@storybook/addon-onboarding": "1.0.8",
     "@storybook/blocks": "7.4.0",
+    "@storybook/manager-api": "^7.4.0",
     "@storybook/nextjs": "7.4.0",
     "@storybook/react": "7.4.0",
     "@storybook/testing-library": "0.2.0",
+    "@storybook/theming": "^7.4.0",
     "eslint-plugin-storybook": "^0.6.13",
     "sass": "^1.66.1",
     "storybook": "7.4.0",
+    "storybook-dark-mode": "^3.0.1",
     "stylelint": "^15.10.3"
   }
 }
