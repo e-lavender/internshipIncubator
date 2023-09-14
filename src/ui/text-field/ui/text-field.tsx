@@ -7,6 +7,7 @@ import s from '../lib/styles/text-field.module.scss'
 import { InputProps } from '../model/text-field-types'
 
 import { HideIcon, SearchIcon, ShowIcon } from '@/app/assets/svg'
+import { Typography } from '@/ui/typography/typography'
 
 export const TextField = forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, inputType, disabled, error, ...rest }, ref) => {
@@ -43,13 +44,24 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={classNames.root}>
-        <div className={classNames.label}>{label}</div>
+        <Typography variant="regular-14" as="label" className={classNames.label}>
+          {label}
+        </Typography>
         <div className={classNames.container}>
-          <input disabled={disabled} className={classNames.input} type={type} ref={ref} {...rest} />
+          <input
+            aria-label={label}
+            disabled={disabled}
+            className={classNames.input}
+            type={type}
+            ref={ref}
+            {...rest}
+          />
           {leftIcon}
           {rightIcon}
         </div>
-        <div className={classNames.error}>{error}</div>
+        <Typography variant="regular-14" as="span" className={classNames.error}>
+          {error}
+        </Typography>
       </div>
     )
   }

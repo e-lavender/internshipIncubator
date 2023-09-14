@@ -1,6 +1,6 @@
 @mixin button-mixin() {
   all: unset;
-cursor: pointer;
+  cursor: pointer;
   display: flex;
   gap: 0.625rem;
   align-items: center;

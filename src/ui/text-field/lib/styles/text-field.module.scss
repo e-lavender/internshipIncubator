@@ -23,7 +23,7 @@
     user-select: none;
     width: 100%;
     height: 2.4rem;
-    font-size: var(--font-size-s);
+    color: var(--text-color-secondary);
   }
 
   .inputContainer {
@@ -38,31 +38,46 @@
       padding: 0.6rem 1.2rem;
 
       line-height: var(--line-height-m);
-      color: inherit;
+      color: var(--color-light-100);
 
       background-color: transparent;
       border: 0.1rem solid var(--color-dark-100);
       border-radius: 0.2rem;
 
       &::placeholder {
-        color: inherit;
+        color: var(--text-color-secondary);
+      }
+
+      &:focus {
+        background-color: var(--bg-color-secondary);
+        border-color: var(--color-accent-500);
+        outline: none;
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        box-shadow: 0 0 0 30px var(--bg-color-secondary) inset !important;
+
+        -webkit-text-fill-color: var(--bg-color-secondary) !important;
       }
 
       &.error {
         color: var(--color-danger-500);
       }
 
-      &:focus {
-        border-color: var(--color-accent-500);
-        outline: none;
+      &.inputError {
+        color: var(--color-light-100);
+        border-color: var(--color-danger-500);
+      }
 
-        &::placeholder {
-          color: transparent;
-        }
+      &:focus + .leftIcon {
+        color: var(--text-color-primary);
       }
 
       &[disabled] {
         user-select: none;
+        color: var(--text-color-secondary);
       }
 
       &:enabled:active {
@@ -81,11 +96,6 @@
         &::-webkit-search-cancel-button {
           display: none;
         }
-      }
-
-      &.inputError {
-        color: var(--color-light-100);
-        border-color: var(--color-danger-500);
       }
     }
 
@@ -117,14 +127,14 @@
       border: none;
 
       &[disabled] {
-        color: var(--color-dark-100);
+        color: var(--text-color-disabled);
       }
     }
   }
 
   &.disabled {
     user-select: none;
-    color: var(--color-dark-100);
+    color: var(--text-color-disabled);
   }
 
   .error {
@@ -134,7 +144,6 @@
     width: 100%;
     height: 2.4rem;
 
-    font-size: var(--font-size-s);
     color: var(--color-danger-500);
   }
 }

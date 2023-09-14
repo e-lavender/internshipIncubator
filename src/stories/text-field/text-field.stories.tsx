@@ -22,13 +22,19 @@ export const Default: Story = {
 }
 
 export const Text: Story = {
-  args: { disabled: false, label: 'Title', inputType: 'text', placeholder: 'Placeholder' },
+  args: { disabled: false, label: 'Text', inputType: 'text', placeholder: 'type some text' },
 }
 
 export const Password: Story = {
-  args: { disabled: false, label: 'Title', inputType: 'password', placeholder: 'Placeholder' },
+  args: {
+    disabled: false,
+    label: 'Password',
+    inputType: 'password',
+    placeholder: 'password',
+    value: 'asdasdasd',
+  },
 }
 
 export const Search: Story = {
-  args: { disabled: false, label: 'Title', inputType: 'search', placeholder: 'Placeholder' },
+  args: { disabled: false, label: 'Search', inputType: 'search', placeholder: 'search...' },
 }
