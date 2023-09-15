@@ -1,5 +1,6 @@
 .root {
   width: 100%;
+
 }
 
 .trigger {
@@ -26,6 +27,11 @@
   border: 1px solid var(--color-dark-100);
   border-radius: 0.125rem;
 
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   &:focus-visible {
     border: var(--text-light-100);
   }
@@ -41,10 +47,12 @@
     display: flex;
     align-items: center;
   }
+
   &.language {
     min-width: 163px;
     gap: 0px;
   }
+
   &.pagination {
     gap: 2px;
     min-width: 40px;
@@ -92,7 +100,11 @@
   border: 1px solid var(--color-light-100);
   border-radius: 0 0 0.125rem 0.125rem;
 
-
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .icon {
