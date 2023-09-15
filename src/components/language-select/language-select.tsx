@@ -7,8 +7,10 @@ import { RussiaFlagComponent } from '@/components/language-select/russian-flag-c
 import { Select } from '@/ui/select'
 
 type LocalType = 'ru' | 'en'
-
-export const LanguageSelect = memo(() => {
+export type LanguageSelectTypes = {
+  testOptions?: any
+}
+export const LanguageSelect = memo(({testOptions}: LanguageSelectTypes) => {
   const { locale, push, pathname, query, asPath, locales } = useRouter()
   const typedLocale = locale as LocalType
   const [value, setValue] = useState(typedLocale)
@@ -30,7 +32,7 @@ export const LanguageSelect = memo(() => {
           value: el,
           label: el == 'ru' ? <RussiaFlagComponent /> : <EnglishFlagComponent />,
         }))
-      : []
+      : testOptions
   }, [locales])
 
   return (
