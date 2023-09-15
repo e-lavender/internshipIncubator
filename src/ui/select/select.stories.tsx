@@ -56,7 +56,11 @@ export const Simple = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
-    return <Select {...args} value={value} onChange={setValue} />
+    return (
+      <div style={{ display: 'flex', columnGap: '20px' }}>
+        <Select {...args} value={value} onChange={setValue} />
+      </div>
+    )
   },
 
   args: {
@@ -69,7 +73,11 @@ export const SimpleWithLabel = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
-    return <Select {...args} value={value} onChange={setValue} />
+    return (
+      <div>
+        <Select {...args} value={value} onChange={setValue} />
+      </div>
+    )
   },
 
   args: {

@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactElement } from 'react'
+import { ComponentPropsWithoutRef, CSSProperties, FC, ReactElement } from 'react'
 
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
@@ -9,24 +9,18 @@ import { ArrowDownIcon } from '@/app/assets/arrow-down-icon'
 
 export type Option = { label: string | ReactElement; value: string }
 
-type ConditionalMultipleProps = {
-  multiple?: true
+type CommonProps = {
   value: string | ReactElement
   onChange: (value: string) => void
-}
-
-type CommonProps = {
-  className?: string
-  disabled?: boolean
   placeholder?: string | ReactElement
-  required?: boolean
   variant?: 'primary' | 'pagination' | 'language'
   options: Array<Option>
   label?: string
   width?: CSSProperties['width']
   rootClassName?: string
+  open?: boolean
 }
-export type SelectProps = CommonProps & ConditionalMultipleProps
+export type SelectProps = Omit<ComponentPropsWithoutRef<'select'>, keyof CommonProps> & CommonProps
 export const Select: FC<SelectProps> = ({
   variant = 'primary',
   placeholder,
@@ -38,6 +32,7 @@ export const Select: FC<SelectProps> = ({
   label,
   rootClassName,
   width,
+  open,
 }) => {
   const IconSize = {
     Small: 16,
@@ -58,7 +53,7 @@ export const Select: FC<SelectProps> = ({
     <div className={classNames.root}>
       <SelectRadix.Group>
         <SelectRadix.Label className={classNames.label}>{label}</SelectRadix.Label>
-        <SelectRadix.Root disabled={disabled} onValueChange={onChange}>
+        <SelectRadix.Root disabled={disabled} onValueChange={onChange} open={open}>
           <SelectRadix.Trigger className={classNames.trigger} style={rootStyles}>
             <SelectRadix.Value placeholder={placeholder || withoutPlaceholder}>
               {value}

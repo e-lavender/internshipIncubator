@@ -7,7 +7,7 @@ export const ru = {
   navigation: {
     title: navigation.title,
     menu: navigation.links,
-    header: navigation.language
+    header: navigation.language,
   },
   characterPage: characterPage,
 }
