@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactElement, ReactNode } from 'react'
+import { CSSProperties, FC, ReactElement } from 'react'
 
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
@@ -18,12 +18,10 @@ type ConditionalMultipleProps = {
 type CommonProps = {
   className?: string
   disabled?: boolean
-  name?: string
   placeholder?: string | ReactElement
   required?: boolean
   variant?: 'primary' | 'pagination' | 'language'
   options: Array<Option>
-  portal?: boolean
   label?: string
   width?: CSSProperties['width']
   rootClassName?: string
@@ -41,6 +39,10 @@ export const Select: FC<SelectProps> = ({
   rootClassName,
   width,
 }) => {
+  const IconSize = {
+    Small: 16,
+    Large: 24,
+  } as const
   const classNames = {
     root: rootClassName,
     trigger: clsx(s.trigger, s[variant], className),
@@ -62,7 +64,7 @@ export const Select: FC<SelectProps> = ({
               {value}
             </SelectRadix.Value>
             <SelectRadix.Icon className={classNames.icon}>
-              <ArrowDownIcon size={variant === 'pagination' ? 16 : 24} />
+              <ArrowDownIcon size={variant === 'pagination' ? IconSize.Small : IconSize.Large} />
             </SelectRadix.Icon>
           </SelectRadix.Trigger>
 
@@ -76,7 +78,7 @@ export const Select: FC<SelectProps> = ({
                     className={classNames.item}
                     key={`${option.value}`}
                   >
-                    {<span style={{ display: 'flex', columnGap: '12px' }}>{option.label}</span>}
+                    {<span>{option.label}</span>}
                   </SelectRadix.Item>
                 )
               })}
