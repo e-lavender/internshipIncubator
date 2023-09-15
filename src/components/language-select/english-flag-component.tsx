@@ -1,4 +1,4 @@
-import { EnFlagIcon } from '@/app/assets/en-flag-icon'
+import { EnFlag } from '@/app/assets/svg/en-flag-icon/en-flag-icon'
 import { useTranslation } from '@/app/hooks'
 
 export const EnglishFlagComponent = () => {
@@ -6,9 +6,7 @@ export const EnglishFlagComponent = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div style={{ marginRight: '12px', display: 'flex', alignItems: 'center' }}>
-        <EnFlagIcon />
-      </div>
+      <div style={{ marginRight: '12px', display: 'flex', alignItems: 'center' }}>{EnFlag}</div>
       <span>{t.navigation.header.english}</span>
     </div>
   )
