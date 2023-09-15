@@ -10,7 +10,7 @@ type LocalType = 'ru' | 'en'
 export type LanguageSelectTypes = {
   testOptions?: any
 }
-export const LanguageSelect = memo(({testOptions}: LanguageSelectTypes) => {
+export const LanguageSelect = memo(({ testOptions }: LanguageSelectTypes) => {
   const { locale, push, pathname, query, asPath, locales } = useRouter()
   const typedLocale = locale as LocalType
   const [value, setValue] = useState(typedLocale)
