@@ -1,27 +1,49 @@
-import { ChangeEvent } from 'react'
+import { memo, useMemo, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-export const LanguageSelect = () => {
+import { EnglishFlagComponent } from '@/components/language-select/english-flag-component'
+import { RussiaFlagComponent } from '@/components/language-select/russian-flag-component'
+import { Select } from '@/ui/select'
+
+type LocalType = 'ru' | 'en'
+export type LanguageSelectTypes = {
+  testOptions?: any
+}
+export const LanguageSelect = memo(({ testOptions }: LanguageSelectTypes) => {
   const { locale, push, pathname, query, asPath, locales } = useRouter()
+  const typedLocale = locale as LocalType
+  const [value, setValue] = useState(typedLocale)
 
-  const changeLangHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-    const selectedLocale = event.currentTarget.value
+  const changeLangHandler = (value: string) => {
+    const locale = value as LocalType
 
-    push({ pathname, query }, asPath, { locale: selectedLocale }).then(() => {})
+    push({ pathname, query }, asPath, { locale })
+    setValue(locale)
   }
+
+  const countries = {
+    en: <EnglishFlagComponent />,
+    ru: <RussiaFlagComponent />,
+  }
+  const options = useMemo(() => {
+    return Array.isArray(locales)
+      ? locales.map(el => ({
+          value: el,
+          label: el == 'ru' ? <RussiaFlagComponent /> : <EnglishFlagComponent />,
+        }))
+      : testOptions
+  }, [locales])
 
   return (
     <div>
-      <select onChange={changeLangHandler} defaultValue={locale}>
-        {locales?.map(l => {
-          return (
-            <option value={l} key={l}>
-              {l}
-            </option>
-          )
-        })}
-      </select>
+      <Select
+        variant={'language'}
+        placeholder={locale ? countries[typedLocale] : countries.ru}
+        options={options}
+        value={countries[value]}
+        onChange={changeLangHandler}
+      />
     </div>
   )
-}
+})
