@@ -8,6 +8,10 @@
       "createNewPassword": "создать новый пароль",
       "passwordRecovery": "Восстановление пароля",
       "userProfile": "Профиль пользователя"
+    },
+    "language": {
+      "russian": "Русский",
+      "english": "Английский"
     }
   },
   "en": {
@@ -19,6 +23,10 @@
       "createNewPassword": "CreateNewPassword",
       "passwordRecovery": "PasswordRecovery",
       "userProfile": "UserProfile"
+    },
+    "language": {
+      "russian": "Russian",
+      "english": "English"
     }
   }
 }
