@@ -2,14 +2,17 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { Button } from '@/ui/button'
+import s from './github-button.module.scss'
 
+import { GithubIcon } from '@/app/assets/svg'
+import { Button } from '@/ui/button'
 export const GithubButton = () => {
   const { push } = useRouter()
   const link = ''
 
   return (
     <Button
+      className={s.button}
       as={'a'}
       href={'#'}
       onClick={() => {

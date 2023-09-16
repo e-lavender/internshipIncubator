@@ -1,6 +1,8 @@
 @mixin button-mixin() {
   all: unset;
+
   cursor: pointer;
+
   display: flex;
   gap: 0.625rem;
   align-items: center;
@@ -16,6 +18,7 @@
 
   border-radius: 2px;
   outline: 2px solid transparent;
+
   &:focus-visible {
     outline: 2px solid var(--color-accent-700);
   }
@@ -32,6 +35,7 @@
 
 .primary {
   @include button-mixin;
+
   background: var(--color-accent-500);
 
   &:hover {
@@ -77,6 +81,7 @@
 
 .outlined {
   @include button-mixin;
+
   color: var(--color-accent-500);
   background: transparent;
   outline: 1px solid var(--color-accent-500);
@@ -87,9 +92,9 @@
   }
 
   &:active {
+    color: var(--color-accent-100);
     background: var(--color-accent-700);
     outline: 1px solid var(--color-accent-700);
-    color: var(--color-accent-100);
   }
 
   &:focus-visible {
@@ -105,6 +110,7 @@
 
 .link {
   @include button-mixin;
+
   color: var(--color-accent-500);
   background: transparent;
 

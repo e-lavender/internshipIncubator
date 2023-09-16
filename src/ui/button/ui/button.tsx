@@ -17,14 +17,14 @@ export const Button = <T extends ElementType = 'button'>(
     fullWidth,
     children,
     as: Component = 'button',
+    className,
     ...rest
   } = props
-  const classNames = clsx(cls[variant], fullWidth && cls.fullWidth)
+  const classNames = clsx(cls[variant], fullWidth && cls.fullWidth, className)
 
   return (
     <button onClick={onClickHandler} disabled={disabled} className={classNames} {...rest}>
       {name}
-
       {children}
     </button>
   )

@@ -1,4 +1,8 @@
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   width: 37.8rem;
   padding: 2.4rem;
 
@@ -6,5 +10,11 @@
     display: flex;
     column-gap: 6rem;
     justify-content: center;
+    margin: 1.3rem 0 2.4rem;
+  }
+
+  .button {
+    margin-top: 1.2rem;
+    margin-bottom: 1.8rem;
   }
 }

@@ -7,13 +7,14 @@ import s from './sign-up-form.module.scss'
 import { Checkbox } from '@/ui'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
-import GithubButton from '@/ui/github-button'
-import GoogleButton from '@/ui/google-button'
+import { GithubButton } from '@/ui/github-button'
+import { GoogleButton } from '@/ui/google-button'
 import { TextField } from '@/ui/text-field'
 import { Typography } from '@/ui/typography/typography'
 const classNames = {
   card: clsx(s.card),
   oauth: clsx(s.oauth),
+  button: clsx(s.button),
 }
 
 export const SignUpForm = () => {
@@ -24,14 +25,25 @@ export const SignUpForm = () => {
         <GoogleButton />
         <GithubButton />
       </div>
-      <TextField title={'User name'} inputType={'text'} />
-      <TextField title={'Email'} inputType={'text'} />
-      <TextField title={'Password'} inputType={'password'} />
-      <TextField title={'Confirm password'} inputType={'password'} />
-      <Checkbox left={true} labelTitle={'I agree to the Terms of Service and Privacy Policy'} />
-      <Button variant={'primary'}>Sign Up</Button>
+      <TextField label={'User name'} inputType={'text'} />
+      <TextField label={'Email'} inputType={'text'} />
+      <TextField label={'Password'} inputType={'password'} />
+      <TextField label={'Confirm password'} inputType={'password'} />
+      <Checkbox
+        left={true}
+        labelTitle={
+          <Typography variant={'small'}>
+            {'I agree to the Terms of Service and Privacy Policy'}
+          </Typography>
+        }
+      />
+      <Button className={classNames.button} type={'submit'} variant={'primary'} fullWidth>
+        <Typography variant={'h3'}>Sign Up</Typography>
+      </Button>
       <Typography variant={'regular-16'}>Do you have an account?</Typography>
-      <Button variant={'link'}>Sign In</Button>
+      <Button variant={'link'}>
+        <Typography variant={'h3'}>Sign In</Typography>
+      </Button>
     </Card>
   )
 }
