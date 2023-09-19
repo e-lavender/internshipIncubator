@@ -7,4 +7,5 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   name?: string
   disabled?: boolean
   onClickHandler?: () => void
+  href?: string
 } & ComponentPropsWithoutRef<T>
