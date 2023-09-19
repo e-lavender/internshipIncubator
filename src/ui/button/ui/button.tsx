@@ -13,7 +13,6 @@ export const Button = <T extends ElementType = 'button'>(
     onClickHandler,
     disabled,
     name,
-   
     variant = 'primary',
     fullWidth,
     children,
