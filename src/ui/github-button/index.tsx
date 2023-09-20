@@ -1,26 +1,13 @@
-import React from 'react'
-
-import { useRouter } from 'next/router'
+import React, { FC } from 'react'
 
 import s from './github-button.module.scss'
 
 import { GithubIcon } from '@/app/assets/svg'
 import { Button } from '@/ui/button'
-export const GithubButton = () => {
-  const { push } = useRouter()
-  const link = ''
 
+export const GithubButton: FC<{ onClick?: () => void }> = ({ onClick }) => {
   return (
-    <Button
-      className={s.button}
-      as={'a'}
-      href={'#'}
-      onClick={() => {
-        push(link).then(() => {
-          console.log('redirected to the github oAuth page')
-        })
-      }}
-    >
+    <Button className={s.button} onClick={onClick}>
       <GithubIcon width={36} height={36} />
     </Button>
   )
