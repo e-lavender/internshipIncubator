@@ -5,12 +5,12 @@ import s from './bell.module.scss'
 import { BellIcon } from '@/app/assets/svg'
 
 type BellProps = {
-  messageСount?: number
+  messageNumber?: number
   onClick?: () => void
   className?: string
 }
 
-export const Bell = ({ messageСount = 3, onClick, className }: BellProps): JSX.Element => {
+export const Bell = ({ messageNumber = 3, onClick, className }: BellProps): JSX.Element => {
   const classNames = {
     root: clsx(s.root, className),
     bell: clsx(s.bell),
