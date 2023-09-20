@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { useTranslation } from '@/app/hooks'
+import { NotificationsBell } from '@/components/notifications-bell'
 import { Typography } from '@/ui/typography/typography'
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <Typography as="h1" variant="regular-link">
         asdsad
       </Typography>
+      <NotificationsBell></NotificationsBell>
       <Typography as="h1" variant="large">
         {t.navigation.title}
       </Typography>

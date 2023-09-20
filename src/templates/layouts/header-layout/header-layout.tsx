@@ -2,12 +2,11 @@ import React from 'react'
 
 import { Header } from '@/modules/header'
 
-function HeaderLayout(props) {
+export const HeaderLayout = ({ children }: any) => {
   return (
     <>
-      <Header></Header>
+      <Header />
+      {children}
     </>
   )
 }
-
-export default HeaderLayout
