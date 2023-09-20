@@ -22,7 +22,7 @@ export const Button = <T extends ElementType = 'button'>(
   const classNames = clsx(cls[variant], fullWidth && cls.fullWidth)
 
   return (
-    <Component onClick={onClickHandler} disabled={disabled} className={classNames} {...rest}>
+    <Component  onClick={onClickHandler} disabled={disabled} className={classNames} {...rest}>
       {children}
     </Component>
   )
