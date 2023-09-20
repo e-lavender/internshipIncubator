@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { clsx } from 'clsx'
+import Link from 'next/link'
 
 import s from './sign-up-form.module.scss'
 
+import { useOpenGoogleQuery } from '@/app/services/auth/auth.api'
 import { Checkbox } from '@/ui'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
@@ -18,11 +20,17 @@ const classNames = {
 }
 
 export const SignUpForm = () => {
+  const [openGoogle, setOpenGoogle] = useState<boolean>(true)
+  const { data } = useOpenGoogleQuery(undefined, { skip: openGoogle })
+  const googleButtonHandler = () => {
+    setOpenGoogle(false)
+  }
+
   return (
     <Card className={classNames.card}>
       <Typography variant={'h1'}>Sign Up</Typography>
       <div className={classNames.oauth}>
-        <GoogleButton />
+        <GoogleButton onClick={googleButtonHandler} />
         <GithubButton />
       </div>
       <TextField label={'User name'} inputType={'text'} />
@@ -37,13 +45,13 @@ export const SignUpForm = () => {
           </Typography>
         }
       />
-      <Button className={classNames.button} type={'submit'} variant={'primary'} fullWidth>
-        <Typography variant={'h3'}>Sign Up</Typography>
-      </Button>
+      <Link href={'#'}>
+        <Button type={'submit'} variant={'primary'} fullWidth>
+          Sign Up
+        </Button>
+      </Link>
       <Typography variant={'regular-16'}>Do you have an account?</Typography>
-      <Button variant={'link'}>
-        <Typography variant={'h3'}>Sign In</Typography>
-      </Button>
+      <Button variant={'link'}>Sign In</Button>
     </Card>
   )
 }

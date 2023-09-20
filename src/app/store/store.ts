@@ -1,14 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
-import { cardsReducer } from '@/services/cards/cards.params.slice.ts'
-import { commonApi } from '@/services/common/common.api.ts'
-import { decksReducer } from '@/services/decks/decks.params.slice.ts'
+import { commonApi } from '@/app/services/common/common.api'
 
 export const store = configureStore({
   reducer: {
-    decksParams: decksReducer,
-    cardsParams: cardsReducer,
     [commonApi.reducerPath]: commonApi.reducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(commonApi.middleware),
