@@ -1,6 +1,6 @@
-import { Bell } from '../../ui/bell'
+import { Bell } from '@/ui/bell'
 
-export const NotificationsBell = ({ messageСount = 3, onClick, className }: any) => {
+export const NotificationsBell = ({ className }: any) => {
   return (
     <>
       <Bell className={className} />
