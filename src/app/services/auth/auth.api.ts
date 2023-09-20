@@ -87,6 +87,8 @@ export const authAPI = commonApi.injectEndpoints({
     }),
     openGoogle: builder.query<any, void>({
       query: () => {
+        debugger
+
         return {
           method: 'GET',
           url: '/api/auth/google',

@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { clsx } from 'clsx'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import s from './sign-up-form.module.scss'
 
-import { useOpenGoogleQuery } from '@/app/services/auth/auth.api'
 import { Checkbox } from '@/ui'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
@@ -13,6 +12,7 @@ import { GithubButton } from '@/ui/github-button'
 import { GoogleButton } from '@/ui/google-button'
 import { TextField } from '@/ui/text-field'
 import { Typography } from '@/ui/typography/typography'
+
 const classNames = {
   card: clsx(s.card),
   oauth: clsx(s.oauth),
@@ -20,10 +20,9 @@ const classNames = {
 }
 
 export const SignUpForm = () => {
-  const [openGoogle, setOpenGoogle] = useState<boolean>(true)
-  const { data } = useOpenGoogleQuery(undefined, { skip: openGoogle })
+  const router = useRouter()
   const googleButtonHandler = () => {
-    setOpenGoogle(false)
+    router.push(`https://flying-merch.vercel.app/api/auth/google`)
   }
 
   return (
@@ -45,13 +44,13 @@ export const SignUpForm = () => {
           </Typography>
         }
       />
-      <Link href={'#'}>
-        <Button type={'submit'} variant={'primary'} fullWidth>
-          Sign Up
-        </Button>
-      </Link>
+      <Button type={'submit'} variant={'primary'} fullWidth={true}>
+        Sign Up
+      </Button>
       <Typography variant={'regular-16'}>Do you have an account?</Typography>
-      <Button variant={'link'}>Sign In</Button>
+      <Button variant={'link'} as={'a'}>
+        Sign In
+      </Button>
     </Card>
   )
 }
