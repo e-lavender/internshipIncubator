@@ -20,7 +20,7 @@ export const Bell = ({ messageNumber = 3, onClick, className }: BellProps): JSX.
   return (
     <div onClick={onClick} className={classNames.root}>
       <BellIcon className={classNames.bell} />
-      {messageСount && <span className={classNames.label}>{messageСount}</span>}
+      {messageNumber && <span className={classNames.label}>{messageNumber}</span>}
     </div>
   )
 }
