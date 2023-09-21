@@ -18,9 +18,6 @@ export default function Home() {
 
   return (
     <div style={{ padding: '35px' }}>
-      <Typography as="h1" variant="regular-link">
-        asdsad
-      </Typography>
       <Typography as="h1" variant="large">
         {t.navigation.title}
       </Typography>
