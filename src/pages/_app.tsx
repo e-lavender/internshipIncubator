@@ -3,14 +3,14 @@ import '@/app/styles/index.scss'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
-import { WithHomePageLayout } from '@/templates'
+import { HeaderLayout } from '@/templates/layouts/header-layout'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <WithHomePageLayout>
+      <HeaderLayout>
         <Component {...pageProps} />
-      </WithHomePageLayout>
+      </HeaderLayout>
     </Provider>
   )
 }

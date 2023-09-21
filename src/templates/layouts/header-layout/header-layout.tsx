@@ -1,13 +1,14 @@
 import React from 'react'
 
+import '@/app/styles/_global-classes.scss'
+
 import { Header } from '@/modules/header'
 
-function HeaderLayout(props) {
+export const HeaderLayout = ({ children }: any) => {
   return (
     <>
-      <Header></Header>
+      <Header />
+      <div className="container">{children}</div>
     </>
   )
 }
-
-export default HeaderLayout
