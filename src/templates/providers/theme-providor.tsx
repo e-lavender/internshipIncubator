@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ThemeProvidor(props) {
+function ThemeProvidor() {
   return <div></div>
 }
 
