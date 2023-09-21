@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import Link from 'next/link'
 
@@ -8,7 +8,10 @@ import { LanguageSelect } from '@/components'
 import { NotificationsBell } from '@/components/notifications-bell'
 import { Typography } from '@/ui/typography/typography'
 
-export function Header(props: any) {
+type HeaderProps = {
+  children?: ReactNode
+}
+export function Header({ children }: HeaderProps) {
   return (
     <header className={s.container}>
       <Link href="/">
@@ -17,6 +20,7 @@ export function Header(props: any) {
         </Typography>
       </Link>
       <div className={s.list_wrapper}>
+        {children}
         <NotificationsBell />
         <LanguageSelect />
       </div>

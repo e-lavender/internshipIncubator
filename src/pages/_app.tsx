@@ -7,9 +7,7 @@ import { HeaderLayout } from '@/templates/layouts/header-layout'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <HeaderLayout>
-      <WithHomePageLayout>
-        <Component {...pageProps} />
-      </WithHomePageLayout>
+      <Component {...pageProps} />
     </HeaderLayout>
   )
 }
