@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { useTranslation } from '@/app/hooks'
-import { NotificationsBell } from '@/components/notifications-bell'
 import { Typography } from '@/ui/typography/typography'
 
 export default function Home() {
