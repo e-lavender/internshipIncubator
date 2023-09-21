@@ -1,0 +1,24 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 37.8rem;
+  padding: 2.4rem;
+
+  .oauth {
+    display: flex;
+    column-gap: 6rem;
+    justify-content: center;
+    margin: 1.3rem 0 2.4rem;
+  }
+
+  .text {
+    margin-bottom: 0.6rem;
+  }
+
+  .button {
+    margin-top: 2.4rem;
+    margin-bottom: 1.8rem;
+  }
+}

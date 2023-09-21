@@ -30,6 +30,19 @@
     position: relative;
     width: 100%;
 
+    .leftIcon {
+      @include icon;
+
+      left: 1.2rem;
+
+      display: grid;
+      place-items: center;
+
+      width: 2rem;
+
+      color: inherit;
+    }
+
     .input {
       display: flex;
       align-items: center;
@@ -57,7 +70,7 @@
       &:-webkit-autofill,
       &:-webkit-autofill:hover,
       &:-webkit-autofill:focus {
-        box-shadow: 0 0 0 30px var(--bg-color-secondary) inset !important;
+        box-shadow: 0 0 0 3rem var(--bg-color-secondary) inset !important;
 
         -webkit-text-fill-color: var(--text-color-primary) !important;
       }
@@ -97,19 +110,6 @@
           display: none;
         }
       }
-    }
-
-    .leftIcon {
-      @include icon;
-
-      left: 1.2rem;
-
-      display: grid;
-      place-items: center;
-
-      width: 2rem;
-
-      color: inherit;
     }
 
     .rightIcon {
