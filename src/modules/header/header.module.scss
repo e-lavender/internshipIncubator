@@ -1,11 +1,16 @@
 .container {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
-  max-width: 1280px;
-  height: 60px;
-  padding-right: 64px;
-  padding-left: 60px;
+  max-width: 128rem;
+  height: 6rem;
+  margin: 0 auto;
+  padding-right: 6.4rem;
+  padding-left: 6rem;
 
-  background-color: var(--color-light-900);
+  .list_wrapper {
+    display: flex;
+    align-items: center;
+  }
 }

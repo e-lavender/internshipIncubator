@@ -1,0 +1,39 @@
+.button {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-right: 4.8rem;
+}
+
+.menu_content {
+  will-change: transform, opacity;
+
+  position: relative;
+  right: 14rem;
+  bottom: 8px;
+
+  min-width: 22rem;
+  padding: 0 5px;
+
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+  .card {
+    width: 33.1rem;
+    margin: 0;
+    padding: 12px;
+    border-color: var(--color-dark-100) !important;
+  }
+
+  .separator {
+    height: 1px;
+    margin: 5px 0;
+    background-color: var(--color-dark-100);
+  }
+
+  .arrow {
+    position: relative;
+    bottom: 0.8rem;
+    left: 1.6rem;
+    transform: rotate(180deg);
+  }
+}
