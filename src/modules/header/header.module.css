@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 128rem;
+  height: 6rem;
+  margin: 0 auto;
+  padding-right: 6.4rem;
+  padding-left: 6rem;
+}
+.container .list_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/*# sourceMappingURL=header.module.css.map */
