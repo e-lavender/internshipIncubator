@@ -22,22 +22,22 @@ export default function Home() {
         {t.navigation.title}
       </Typography>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Link href={'/sign-in'}>
+        <Link href={'/auth/sign-in'}>
           <Typography variant="regular-link">{signIn}</Typography>
         </Link>
-        <Link href={'/sign-up'}>
+        <Link href={'/auth/sign-up'}>
           <Typography variant="regular-link">{signUp}</Typography>
         </Link>
-        <Link href={'/forgot-password'}>
+        <Link href={'/auth/forgot-password'}>
           <Typography variant="regular-link">{forgotPassword}</Typography>
         </Link>
-        <Link href={'/create-new-password'}>
+        <Link href={'/auth/create-new-password'}>
           <Typography variant="regular-link">{createNewPassword}</Typography>
         </Link>
-        <Link href={'/password-recovery'}>
+        <Link href={'/auth/password-recovery'}>
           <Typography variant="regular-link">{passwordRecovery}</Typography>
         </Link>
-        <Link href={`/user-profile/${id}`}>
+        <Link href={`/auth/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
         <Typography variant="h1">Some text test</Typography>

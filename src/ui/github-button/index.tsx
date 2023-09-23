@@ -1,13 +1,21 @@
-import React, { FC } from 'react'
+import React from 'react'
+
+import { useRouter } from 'next/router'
 
 import s from './github-button.module.scss'
 
 import { GithubIcon } from '@/app/assets/svg'
 import { Button } from '@/ui/button'
 
-export const GithubButton: FC<{ onClick?: () => void }> = ({ onClick }) => {
+export const GithubButton = () => {
+  const router = useRouter()
+
+  const gitHubButtonHandler = () => {
+    router.push(`https://flying-merch.vercel.app/api/auth/github`)
+  }
+
   return (
-    <Button className={s.button} onClick={onClick}>
+    <Button className={s.button} onClick={gitHubButtonHandler}>
       <GithubIcon width={36} height={36} />
     </Button>
   )

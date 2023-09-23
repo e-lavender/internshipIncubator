@@ -1,5 +1,5 @@
-import { GitHubGetType, GoogleGetType } from '@/app/services/auth/auth.api.types'
 import { commonApi } from '@/app/services/common/common.api'
+import { GoogleUser } from '@/app/services/google/google.api.types'
 
 export const authAPI = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -40,7 +40,7 @@ export const authAPI = commonApi.injectEndpoints({
       },
     }),
     signUp: builder.mutation<any, any>({
-      query: ({ email, password }) => {
+      query: ({ login, email, password }) => {
         return {
           method: 'POST',
           url: '/api/auth/registration',
@@ -85,39 +85,21 @@ export const authAPI = commonApi.injectEndpoints({
         }
       },
     }),
-    openGoogle: builder.query<any, void>({
-      query: () => {
-        debugger
-
-        return {
-          method: 'GET',
-          url: '/api/auth/google',
-        }
-      },
-    }),
-    getGoogle: builder.mutation<any, GoogleGetType>({
-      query: args => {
+    googleAuth: builder.mutation<any, GoogleUser>({
+      query: user => {
         return {
           method: 'POST',
           url: '/api/auth/google/register',
-          body: { args },
+          body: user,
         }
       },
     }),
+
     openGitHub: builder.query<any, any>({
       query: () => {
         return {
           method: 'GET',
           url: '/api/auth/github',
-        }
-      },
-    }),
-    getGitHub: builder.mutation<any, GitHubGetType>({
-      query: args => {
-        return {
-          method: 'POST',
-          url: '/api/auth/github/register',
-          body: { args },
         }
       },
     }),
@@ -131,8 +113,6 @@ export const {
   useSignUpMutation,
   useSignInMutation,
   useResetPasswordMutation,
-  useGetGitHubMutation,
-  useGetGoogleMutation,
-  useOpenGoogleQuery,
   useOpenGitHubQuery,
+  useGoogleAuthMutation,
 } = authAPI
