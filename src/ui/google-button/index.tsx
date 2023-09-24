@@ -14,7 +14,7 @@ export const GoogleButton = () => {
   }
 
   return (
-    <Button className={s.button} onClick={googleButtonHandler}>
+    <Button type={'button'} className={s.button} onClick={googleButtonHandler}>
       <GoogleIcon width={36} height={36} />
     </Button>
   )

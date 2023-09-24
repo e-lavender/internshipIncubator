@@ -15,7 +15,7 @@ export const GithubButton = () => {
   }
 
   return (
-    <Button className={s.button} onClick={gitHubButtonHandler}>
+    <Button type={'button'} className={s.button} onClick={gitHubButtonHandler}>
       <GithubIcon width={36} height={36} />
     </Button>
   )

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import s from './sign-up-form.module.scss'
 import { signUpFormSchema, SignUpFormType } from './sign-up-schema'
 
+import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { Checkbox } from '@/ui'
 import { Button } from '@/ui/button'
@@ -16,15 +17,30 @@ import { GoogleButton } from '@/ui/google-button'
 import { Typography } from '@/ui/typography/typography'
 
 export const SignUpForm = () => {
-  const { control, handleSubmit } = useForm<SignUpFormType>({
+  const { control, handleSubmit, reset } = useForm<SignUpFormType>({
     resolver: zodResolver(signUpFormSchema),
     mode: 'onBlur',
   })
-  const onSubmitForm = (data: SignUpFormType) => {}
+  const [signUp] = useSignUpMutation()
+  const onSubmitForm = handleSubmit(data => {
+    signUp({
+      login: data.userName,
+      password: data.password,
+      email: data.email,
+    })
+      .unwrap()
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    reset()
+  })
 
   return (
     <Card>
-      <form onSubmit={handleSubmit(onSubmitForm)}>
+      <form onSubmit={onSubmitForm}>
         <div className={s.wrapper}>
           <Typography variant={'h1'}>Sign Up</Typography>
           <div className={s.oauth}>

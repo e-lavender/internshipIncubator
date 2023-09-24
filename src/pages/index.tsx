@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Link from 'next/link'
 
+import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
 import { Typography } from '@/ui/typography/typography'
 
@@ -22,22 +23,22 @@ export default function Home() {
         {t.navigation.title}
       </Typography>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Link href={'/auth/sign-in'}>
+        <Link href={authNavigationUrls.signIn()}>
           <Typography variant="regular-link">{signIn}</Typography>
         </Link>
-        <Link href={'/auth/sign-up'}>
+        <Link href={authNavigationUrls.signUp()}>
           <Typography variant="regular-link">{signUp}</Typography>
         </Link>
-        <Link href={'/auth/forgot-password'}>
+        <Link href={authNavigationUrls.forgotPassword()}>
           <Typography variant="regular-link">{forgotPassword}</Typography>
         </Link>
-        <Link href={'/auth/create-new-password'}>
+        <Link href={authNavigationUrls.createNewPassword()}>
           <Typography variant="regular-link">{createNewPassword}</Typography>
         </Link>
-        <Link href={'/auth/password-recovery'}>
+        <Link href={authNavigationUrls.passwordRecovery()}>
           <Typography variant="regular-link">{passwordRecovery}</Typography>
         </Link>
-        <Link href={`/auth/user-profile/${id}`}>
+        <Link href={`/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
         <Typography variant="h1">Some text test</Typography>
