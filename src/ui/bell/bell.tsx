@@ -13,7 +13,7 @@ type BellProps = {
 export const Bell = ({ messageNumber = 3, onClick, className }: BellProps): JSX.Element => {
   const classNames = {
     root: clsx(s.root, className),
-    bell: clsx(s.bell),
+    bell: clsx(s.bell, className),
     label: clsx(s.label),
   }
 
