@@ -4,6 +4,10 @@
   margin-right: 4.8rem;
 }
 
+.bell[data-state='open'] {
+  color: var(--color-accent-500);
+}
+
 .menu_content {
   will-change: transform, opacity;
 
@@ -12,22 +16,52 @@
   bottom: 8px;
 
   min-width: 22rem;
+  max-height: 33rem;
   padding: 0 5px;
 
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 
+  :hover {
+    outline: none;
+  }
+
+  .main_content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 33rem;
+    margin-right: -6px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 111px;
+      margin-right: 6px;
+
+      background-color: var(--color-dark-300);
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+      box-shadow: inset 1px 1px 10px var(--color-dark-100);
+    }
+
+    .date {
+      color: var(--text-color-secondary);
+    }
+  }
+
   .card {
     width: 33.1rem;
     margin: 0;
-    padding: 12px;
+    padding: 16px;
     border-color: var(--color-dark-100) !important;
-  }
 
-  .separator {
-    height: 1px;
-    margin: 5px 0;
-    background-color: var(--color-dark-100);
+    .separator {
+      height: 1px;
+      margin: 12px 8px 12px 0;
+      background-color: var(--color-dark-100);
+    }
   }
 
   .arrow {
