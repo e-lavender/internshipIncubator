@@ -8,8 +8,8 @@ import s from './sign-up-form.module.scss'
 import { signUpFormSchema, SignUpFormType } from './sign-up-schema'
 
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
+import { ControlledCheckbox } from '@/components/checkbox-controlled/controlled-checkbox'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
-import { Checkbox } from '@/ui'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
 import { GithubButton } from '@/ui/github-button'
@@ -17,10 +17,17 @@ import { GoogleButton } from '@/ui/google-button'
 import { Typography } from '@/ui/typography/typography'
 
 export const SignUpForm = () => {
-  const { control, handleSubmit, reset } = useForm<SignUpFormType>({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<SignUpFormType>({
     resolver: zodResolver(signUpFormSchema),
     mode: 'onBlur',
   })
+  const disableSignUpButton = Object.keys(errors).length > 0 || !isDirty
+
   const [signUp] = useSignUpMutation()
   const onSubmitForm = handleSubmit(data => {
     signUp({
@@ -30,12 +37,12 @@ export const SignUpForm = () => {
     })
       .unwrap()
       .then(data => {
+        reset()
         console.log(data)
       })
       .catch(error => {
         console.log(error)
       })
-    reset()
   })
 
   return (
@@ -72,15 +79,23 @@ export const SignUpForm = () => {
             name={'confirmPassword'}
             control={control}
           />
-          <Checkbox
+          <ControlledCheckbox
             left={true}
             labelTitle={
               <Typography variant={'small'}>
-                {'I agree to the Terms of Service and Privacy Policy'}
+                I agree to the Terms of Service and Privacy Policy
               </Typography>
             }
+            name={'policy'}
+            control={control}
           />
-          <Button type={'submit'} variant={'primary'} fullWidth={true} className={s.button}>
+          <Button
+            disabled={disableSignUpButton}
+            type={'submit'}
+            variant={'primary'}
+            fullWidth={true}
+            className={s.button}
+          >
             Sign Up
           </Button>
           <Typography variant={'regular-16'} className={s.text}>
