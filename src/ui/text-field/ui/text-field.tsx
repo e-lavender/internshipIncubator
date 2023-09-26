@@ -44,7 +44,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={classNames.root}>
-        <Typography className={classNames.label}>{label}</Typography>
+        {label && <Typography className={classNames.label}>{label}</Typography>}
         <div className={classNames.container}>
           <input
             aria-label={label}
@@ -57,7 +57,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
           {leftIcon}
           {rightIcon}
         </div>
-        <Typography className={classNames.error}>{error}</Typography>
+        {error && <Typography className={classNames.error}>{error}</Typography>}
       </div>
     )
   }

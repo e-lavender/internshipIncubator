@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Typography } from '@/ui/typography/typography'
+import { ForgotPasswordForm } from '@/components/forgot-password-form/forgot-password-form'
 
 const ForgotPassword = () => {
-  return <Typography variant="large">ForgotPassword</Typography>
+  return <ForgotPasswordForm />
 }
 
 export default ForgotPassword
