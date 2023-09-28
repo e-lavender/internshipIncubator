@@ -3,12 +3,13 @@ import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import s from './sign-up-form.module.scss'
-import { signUpFormSchema, SignUpFormType } from './sign-up-schema'
 
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { ControlledCheckbox } from '@/components/checkbox-controlled/controlled-checkbox'
+import { useSignupForm } from '@/components/sign-up-form/sign-up-schema'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
@@ -17,6 +18,9 @@ import { GoogleButton } from '@/ui/google-button'
 import { Typography } from '@/ui/typography/typography'
 
 export const SignUpForm = () => {
+  const { signUpFormSchema } = useSignupForm()
+
+  type SignUpFormType = z.infer<typeof signUpFormSchema>
   const {
     control,
     handleSubmit,
