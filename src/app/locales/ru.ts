@@ -1,6 +1,4 @@
 import {
-  CharacterPageTextModel,
-  NavigationTextModel,
   TermsTextModel,
   PrivatyPolicyTextModel,
 } from '@/app/locales/text-models'
