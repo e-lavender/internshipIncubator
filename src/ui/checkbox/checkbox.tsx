@@ -1,4 +1,4 @@
-import { FC, useId } from 'react'
+import { FC, ReactNode, useId } from 'react'
 
 import * as CheckboxRDX from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
@@ -16,7 +16,7 @@ export type CheckboxProps = {
   onChange?: (checked: boolean) => void
   disabled?: boolean
   required?: boolean
-  labelTitle?: string
+  labelTitle?: string | ReactNode
   id?: string
   left?: boolean
 }

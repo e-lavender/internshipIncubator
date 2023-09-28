@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from '@/ui/button/index'
+import { Button } from '@/ui/button'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -16,7 +16,7 @@ export const Default: Story = {
   args: {
     variant: 'primary',
     disabled: false,
-    name: 'primary',
+    children: 'Default',
     fullWidth: false,
   },
 }
@@ -25,27 +25,27 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     disabled: false,
-    name: 'primary',
+    children: 'Primary',
   },
 }
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
     disabled: false,
-    name: 'secondary',
+    children: 'Secondary',
   },
 }
 export const Outlined: Story = {
   args: {
     variant: 'outlined',
     disabled: false,
-    name: 'outlined',
+    children: 'Outlined',
   },
 }
 export const Link: Story = {
   args: {
     variant: 'link',
     disabled: false,
-    name: 'Link',
+    children: 'Link',
   },
 }

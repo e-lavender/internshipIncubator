@@ -3,6 +3,7 @@ import {
   PrivatyPolicyTextModel,
   TermsTextModel,
 } from '@/app/locales/text-models'
+import {CharacterPageTextModel} from "@/app/locales/text-models/character-page-text-model";
 
 const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
@@ -13,7 +14,8 @@ export const en: LocaleType = {
   navigation: {
     title: navigation.title,
     menu: navigation.links,
-  
+    header: navigation.language,
+
   },
   termsdecription: {
     title: descriptionTerms.title,
