@@ -2,7 +2,7 @@ import React from 'react'
 
 import { TagProcessor } from '@/app/helpers/tag-processor'
 import { useTranslation } from '@/app/hooks/useTranslation'
-import { Typography } from '@/ui/typography/typography'
+import { Typography } from '@/ui'
 
 const CreateNewPassword = () => {
   const { t } = useTranslation()

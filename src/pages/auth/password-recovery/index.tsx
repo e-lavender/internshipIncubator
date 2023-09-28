@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Typography } from '@/ui/typography/typography'
+import { Typography } from '@/ui'
 
 const PasswordRecovery = () => {
   return <Typography variant="h2">PasswordRecovery</Typography>

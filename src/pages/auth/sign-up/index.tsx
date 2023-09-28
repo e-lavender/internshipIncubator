@@ -2,7 +2,7 @@ import React from 'react'
 
 import { SignUpForm } from '@/components'
 import FlexWrapper from '@/components/wrappers/flex-wrapper/flex-wrapper'
-import { Typography } from '@/ui/typography/typography'
+import { Typography } from '@/ui'
 
 const SignUp = () => {
   return (
