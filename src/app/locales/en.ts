@@ -1,7 +1,5 @@
 import { LocaleType } from '@/app/locales/ru'
 import {
-  CharacterPageTextModel,
-  NavigationTextModel,
   PrivatyPolicyTextModel,
   TermsTextModel,
 } from '@/app/locales/text-models'
@@ -15,7 +13,7 @@ export const en: LocaleType = {
   navigation: {
     title: navigation.title,
     menu: navigation.links,
-    header: navigation.language,
+  
   },
   termsdecription: {
     title: descriptionTerms.title,
