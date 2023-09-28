@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import s from '@/ui/BackToPrevios/backtoprevios.module.scss'
-import { BackToPreviousIcon } from '@/ui/BackToPrevios/backtopreviousicon'
+import s from '@/ui/back-to-previous/backtoprevious.module.scss'
+import { BackToPreviousIcon } from '@/ui/back-to-previous/backtopreviousicon'
 
 type PropsType = {
   title: string

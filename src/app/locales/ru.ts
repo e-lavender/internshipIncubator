@@ -1,12 +1,14 @@
 import {
   TermsTextModel,
-  PrivatyPolicyTextModel,
+  PrivacyPolicyTextModel,
+  NavigationTextModel,
 } from '@/app/locales/text-models'
+import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
 const navigation = NavigationTextModel.ru
 const characterPage = CharacterPageTextModel.ru
 const descriptionTerms = TermsTextModel.ru
-const descritionPrivaty = PrivatyPolicyTextModel.ru
+const descriptionPrivacy = PrivacyPolicyTextModel.ru
 
 export const ru = {
   navigation: {
@@ -14,14 +16,14 @@ export const ru = {
     menu: navigation.links,
     header: navigation.language,
   },
-  termsdecription: {
+  termsDescription: {
     title: descriptionTerms.title,
     description: descriptionTerms.description,
     header: descriptionTerms.language,
   },
-  privatyDescriotn: {
-    title: descritionPrivaty.title,
-    description: descritionPrivaty.description,
+  privacyDescription: {
+    title: descriptionPrivacy.title,
+    description: descriptionPrivacy.description,
   },
   characterPage: characterPage,
 }

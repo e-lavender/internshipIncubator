@@ -1,30 +1,30 @@
 import { LocaleType } from '@/app/locales/ru'
 import {
-  PrivatyPolicyTextModel,
+  NavigationTextModel,
+  PrivacyPolicyTextModel,
   TermsTextModel,
 } from '@/app/locales/text-models'
-import {CharacterPageTextModel} from "@/app/locales/text-models/character-page-text-model";
+import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
 const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
 const descriptionTerms = TermsTextModel.en
-const descritionPrivaty = PrivatyPolicyTextModel.en
+const descriptionPrivacy = PrivacyPolicyTextModel.en
 
 export const en: LocaleType = {
   navigation: {
     title: navigation.title,
     menu: navigation.links,
     header: navigation.language,
-
   },
-  termsdecription: {
+  termsDescription: {
     title: descriptionTerms.title,
     description: descriptionTerms.description,
     header: descriptionTerms.language,
   },
-  privatyDescriotn: {
-    title: descritionPrivaty.title,
-    description: descritionPrivaty.description,
+  privacyDescription: {
+    title: descriptionPrivacy.title,
+    description: descriptionPrivacy.description,
   },
   characterPage: characterPage,
 }
