@@ -11,11 +11,7 @@ import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { ControlledCheckbox } from '@/components/checkbox-controlled/controlled-checkbox'
 import { useSignupForm } from '@/components/sign-up-form/sign-up-schema'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
-import { Button } from '@/ui/button'
-import { Card } from '@/ui/card'
-import { GithubButton } from '@/ui/github-button'
-import { GoogleButton } from '@/ui/google-button'
-import { Typography } from '@/ui/typography/typography'
+import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignUpForm = () => {
   const { signUpFormSchema } = useSignupForm()

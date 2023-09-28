@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
-import { Typography } from '@/ui/typography/typography'
+import { Typography } from '@/ui'
 
 export default function Home() {
   const [count, setCount] = useState(0)
