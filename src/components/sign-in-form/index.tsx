@@ -9,6 +9,8 @@ import { LoginFormType, useSignInForm } from '@/components/sign-in-form/use-sign
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
+import { GithubButton } from '@/ui/github-button'
+import { GoogleButton } from '@/ui/google-button'
 import { Typography } from '@/ui/typography/typography'
 
 type PropsType = {
@@ -23,12 +25,8 @@ export const SignIn: FC<PropsType> = ({ onSubmitHandler }) => {
     <Card className={s.wrapper}>
       <Typography variant={'h1'}>Sign In</Typography>
       <div className={s.oauthIcons}>
-        <button className={s.oauthBtn}>
-          <GoogleIcon width={36} height={36} />
-        </button>
-        <button className={s.oauthBtn}>
-          <GithubIcon width={36} height={36} />
-        </button>
+        <GoogleButton />
+        <GithubButton />
       </div>
       <form className={s.form} onSubmit={onSubmit}>
         <DevTool control={control} />
