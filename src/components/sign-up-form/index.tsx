@@ -42,11 +42,8 @@ export const SignUpForm = () => {
       .unwrap()
       .then(data => {
         reset()
-        console.log(data)
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch(error => {})
   })
 
   return (

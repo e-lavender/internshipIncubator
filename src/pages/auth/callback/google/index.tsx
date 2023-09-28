@@ -20,7 +20,7 @@ const GooglePage = () => {
     if (data) {
       signUpWithGoogle(data)
     }
-  }, [accessToken, data])
+  }, [accessToken, data, getGoogleAuthData, isFirst, signUpWithGoogle])
 
   return <div>Google</div>
 }
