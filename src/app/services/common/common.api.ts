@@ -8,7 +8,7 @@ import {
 import { Mutex } from 'async-mutex'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.BASE_API_URL,
+  baseUrl: 'https://flying-merch.vercel.app/',
   credentials: 'include',
 })
 
@@ -59,6 +59,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const commonApi = createApi({
   reducerPath: 'commonApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['ME', 'UPDATE_DECKS', 'UPDATE_CARDS', 'LEARN_CARD'],
+  tagTypes: [],
   endpoints: () => ({}),
 })
