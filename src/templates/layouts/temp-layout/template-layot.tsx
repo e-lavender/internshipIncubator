@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 
 import Link from 'next/link'
 
-import { LanguageSelect } from '@/components/language-select'
+import { LanguageSelect } from '@/components'
 
 type Props = PropsWithChildren
 export const WithHomePageLayout: FC<Props> = ({ children }) => {

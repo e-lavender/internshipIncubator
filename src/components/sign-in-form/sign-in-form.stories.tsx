@@ -1,10 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
-import { Label } from '@/ui'
+import { SignIn } from '@/components/sign-in-form/index'
 
 const meta = {
-  title: 'Components/Label',
-  component: Label,
+  title: 'Components/SignInForm',
+  component: SignIn,
+  tags: ['autodocs'],
+  args: {},
   decorators: [
     Story => (
       <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
@@ -12,15 +14,12 @@ const meta = {
       </div>
     ),
   ],
-  tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof Label>
+} satisfies Meta<typeof SignIn>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    title: 'Label Title',
-  },
+  args: {},
 }

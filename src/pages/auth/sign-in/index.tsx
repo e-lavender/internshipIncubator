@@ -1,9 +1,14 @@
 import React from 'react'
 
-import { Typography } from '@/ui/typography/typography'
-
-const SignIn = () => {
-  return <Typography variant="h2">Sign In</Typography>
+import { SignIn, FlexWrapper } from '@/components'
+const SignUp = () => {
+  return (
+    <React.Fragment>
+      <FlexWrapper>
+        <SignIn />
+      </FlexWrapper>
+    </React.Fragment>
+  )
 }
 
-export default SignIn
+export default SignUp
