@@ -3,7 +3,7 @@ import React from 'react'
 import { FlexWrapper } from '@/components'
 import { SignInForm } from '@/components/sign-in-form'
 
-const SignUp = () => {
+const SignInPage = () => {
   return (
     <React.Fragment>
       <FlexWrapper>
@@ -13,4 +13,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignInPage
