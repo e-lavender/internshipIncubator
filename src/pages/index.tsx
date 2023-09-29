@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
+import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { Typography } from '@/ui'
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
   const { t } = useTranslation()
   const { userProfile, passwordRecovery, createNewPassword, forgotPassword, signUp, signIn } =
     t.navigation.menu
+  const { data } = useGetMeQuery()
 
   return (
     <div style={{ padding: '35px' }}>

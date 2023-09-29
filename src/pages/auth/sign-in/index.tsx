@@ -1,14 +1,16 @@
 import React from 'react'
 
-import { SignIn, FlexWrapper } from '@/components'
-const SignUp = () => {
+import { FlexWrapper } from '@/components'
+import { SignInForm } from '@/components/sign-in-form'
+
+const SignInPage = () => {
   return (
     <React.Fragment>
       <FlexWrapper>
-        <SignIn />
+        <SignInForm />
       </FlexWrapper>
     </React.Fragment>
   )
 }
 
-export default SignUp
+export default SignInPage

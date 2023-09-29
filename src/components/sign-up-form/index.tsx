@@ -76,16 +76,17 @@ export const SignUpForm = () => {
             name={'confirmPassword'}
             control={control}
           />
-          <ControlledCheckbox
-            left={true}
-            labelTitle={
-              <Typography variant={'small'}>
-                I agree to the Terms of Service and Privacy Policy
-              </Typography>
-            }
-            name={'policy'}
-            control={control}
-          />
+          <ControlledCheckbox left={true} name={'policy'} control={control} />
+          <Typography variant={'small'}>
+            I agree to the
+            <Typography variant={'small-link'} as={'span'}>
+              Terms of Service
+            </Typography>
+            and
+            <Typography variant={'small-link'} as={'span'}>
+              Privacy Policy
+            </Typography>
+          </Typography>
           <Button
             disabled={disableSignUpButton}
             type={'submit'}

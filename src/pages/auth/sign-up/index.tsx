@@ -3,7 +3,7 @@ import React from 'react'
 import { SignUpForm, FlexWrapper } from '@/components'
 import { Typography } from '@/ui'
 
-const SignUp = () => {
+const SignUpPage = () => {
   return (
     <React.Fragment>
       <Typography variant="h2">SignUp</Typography>
@@ -14,4 +14,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignUpPage
