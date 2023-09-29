@@ -33,7 +33,7 @@ export const LanguageSelect = memo(({ testOptions }: LanguageSelectTypes) => {
           label: el == 'ru' ? <RussiaFlagComponent /> : <EnglishFlagComponent />,
         }))
       : testOptions
-  }, [locales])
+  }, [locales, testOptions])
 
   return (
     <div>
