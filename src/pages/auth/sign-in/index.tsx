@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { SignIn } from '@/components'
-import FlexWrapper from '@/components/wrappers/flex-wrapper/flex-wrapper'
+import { SignIn, FlexWrapper } from '@/components'
 const SignUp = () => {
   return (
     <React.Fragment>
