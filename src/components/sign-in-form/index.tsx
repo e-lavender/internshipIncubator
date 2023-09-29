@@ -4,7 +4,6 @@ import { DevTool } from '@hookform/devtools'
 
 import s from './sign-in-form.module.scss'
 
-import { GithubIcon, GoogleIcon } from '@/app/assets/svg'
 import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { LoginFormType, useSignInForm } from '@/components/sign-in-form/use-sign-in-form'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
