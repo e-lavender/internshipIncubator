@@ -11,11 +11,7 @@ import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { ControlledCheckbox } from '@/components/checkbox-controlled/controlled-checkbox'
 import { useSignupForm } from '@/components/sign-up-form/sign-up-schema'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
-import { Button } from '@/ui/button'
-import { Card } from '@/ui/card'
-import { GithubButton } from '@/ui/github-button'
-import { GoogleButton } from '@/ui/google-button'
-import { Typography } from '@/ui/typography/typography'
+import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignUpForm = () => {
   const { signUpFormSchema } = useSignupForm()
@@ -42,11 +38,8 @@ export const SignUpForm = () => {
       .unwrap()
       .then(data => {
         reset()
-        console.log(data)
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch(error => {})
   })
 
   return (
@@ -83,16 +76,17 @@ export const SignUpForm = () => {
             name={'confirmPassword'}
             control={control}
           />
-          <ControlledCheckbox
-            left={true}
-            labelTitle={
-              <Typography variant={'small'}>
-                I agree to the Terms of Service and Privacy Policy
-              </Typography>
-            }
-            name={'policy'}
-            control={control}
-          />
+          <ControlledCheckbox left={true} name={'policy'} control={control} />
+          <Typography variant={'small'}>
+            I agree to the
+            <Typography variant={'small-link'} as={'span'}>
+              Terms of Service
+            </Typography>
+            and
+            <Typography variant={'small-link'} as={'span'}>
+              Privacy Policy
+            </Typography>
+          </Typography>
           <Button
             disabled={disableSignUpButton}
             type={'submit'}

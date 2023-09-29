@@ -6,9 +6,7 @@ import s from './notifications-bell.module.scss'
 
 import { ArrowDropdown } from '@/app/assets/svg/arrow-dropdown-icon-svg'
 import { notifications } from '@/app/data/notifications-bell/notifications-bell'
-import { Bell } from '@/ui/bell'
-import { Card } from '@/ui/card'
-import { Typography } from '@/ui/typography/typography'
+import { Bell, Card, Typography } from '@/ui'
 
 export const NotificationsBell = () => {
   const [isOpen, setIsOpen] = useState(true)
