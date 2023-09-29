@@ -29,6 +29,6 @@ export type LoginFormType = z.infer<typeof schema>
 export const useSignInForm = () => {
   return useForm<LoginFormType>({
     resolver: zodResolver(schema),
-    mode: 'onSubmit',
+    mode: 'onBlur',
   })
 }

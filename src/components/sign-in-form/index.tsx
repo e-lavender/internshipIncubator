@@ -5,6 +5,7 @@ import { DevTool } from '@hookform/devtools'
 import s from './sign-in-form.module.scss'
 
 import { GithubIcon, GoogleIcon } from '@/app/assets/svg'
+import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { LoginFormType, useSignInForm } from '@/components/sign-in-form/use-sign-in-form'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { Button } from '@/ui/button'
@@ -16,10 +17,12 @@ import { Typography } from '@/ui/typography/typography'
 type PropsType = {
   onSubmitHandler?: (data: LoginFormType) => void
 }
-export const SignIn: FC<PropsType> = ({ onSubmitHandler }) => {
+export const SignInForm: FC<PropsType> = () => {
   const { handleSubmit, control } = useSignInForm()
-
-  const onSubmit = handleSubmit(data => onSubmitHandler!(data))
+  const [signIn] = useSignInMutation()
+  const onSubmitForm = handleSubmit(data => {
+    signIn(data)
+  })
 
   return (
     <Card className={s.wrapper}>
@@ -28,7 +31,7 @@ export const SignIn: FC<PropsType> = ({ onSubmitHandler }) => {
         <GoogleButton />
         <GithubButton />
       </div>
-      <form className={s.form} onSubmit={onSubmit}>
+      <form className={s.form} onSubmit={onSubmitForm}>
         <DevTool control={control} />
         <ControlledTextField label={'Email'} name={'email'} control={control} />
         <ControlledTextField
