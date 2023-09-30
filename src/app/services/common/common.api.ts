@@ -7,9 +7,20 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 
+import { RootState } from '@/app/store/store'
+
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://flying-merch.vercel.app/',
   credentials: 'include',
+  prepareHeaders: (headers, api) => {
+    const token = (api.getState() as RootState).auth.accessToken
+
+    if (token) {
+      headers.set('authorization', `${token}`)
+    }
+
+    return headers
+  },
 })
 
 const mutex = new Mutex()
