@@ -30,7 +30,12 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
     }
 
     const rightIcon = inputType === INPUT_TYPES.PASSWORD && (
-      <button className={s.rightIcon} disabled={disabled} onClick={showHidePassword}>
+      <button
+        type={'button'}
+        className={s.rightIcon}
+        disabled={disabled}
+        onClick={showHidePassword}
+      >
         {showPassword ? <HideIcon /> : <ShowIcon />}
       </button>
     )

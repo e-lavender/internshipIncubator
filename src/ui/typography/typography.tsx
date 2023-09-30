@@ -9,7 +9,6 @@ import s from '@/ui/typography/typography.module.scss'
 export const Typography = <T extends ElementType>({
   variant = 'regular-14',
   as = 'span',
-  children,
   className,
   ...rest
 }: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
@@ -17,9 +16,5 @@ export const Typography = <T extends ElementType>({
 
   const Component = as || Tags[variant]
 
-  return (
-    <Component className={styles} {...rest}>
-      {children}
-    </Component>
-  )
+  return <Component className={styles} {...rest} />
 }
