@@ -1,3 +1,5 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 export const useSignupForm = () => {
@@ -39,5 +41,17 @@ export const useSignupForm = () => {
       return data
     })
 
-  return { signUpFormSchema }
+  type SignUpFormType = z.infer<typeof signUpFormSchema>
+
+  return useForm<SignUpFormType>({
+    resolver: zodResolver(signUpFormSchema),
+    mode: 'onBlur',
+    defaultValues: {
+      confirmPassword: '',
+      email: '',
+      password: '',
+      userName: '',
+      policy: false,
+    },
+  })
 }

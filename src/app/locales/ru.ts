@@ -2,6 +2,7 @@ import {
   TermsTextModel,
   PrivacyPolicyTextModel,
   NavigationTextModel,
+  SignUpTextModel,
 } from '@/app/locales/text-models'
 import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
@@ -9,6 +10,7 @@ const navigation = NavigationTextModel.ru
 const characterPage = CharacterPageTextModel.ru
 const descriptionTerms = TermsTextModel.ru
 const descriptionPrivacy = PrivacyPolicyTextModel.ru
+const signUp = SignUpTextModel.ru
 
 export const ru = {
   navigation: {
@@ -26,5 +28,12 @@ export const ru = {
     description: descriptionPrivacy.description,
   },
   characterPage: characterPage,
+  authPages: {
+    signUpPage: {
+      signUpForm: {
+        ...signUp,
+      },
+    },
+  },
 }
 export type LocaleType = typeof ru

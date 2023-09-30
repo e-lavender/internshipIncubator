@@ -1,0 +1,79 @@
+{
+  "en": {
+    "haveAccount": "Do you have an account?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "userName": "User name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "policy": "I agree to the ",
+    "policyLinks": "<1>termsOfService</1> and <2>privacyPolicy</2>",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "notificationMessage": "We have sent a link to confirm your email to ",
+    "formErrors": {
+      "userName": {
+        "required": "Enter User name",
+        "length": "User name must be at least 6 characters",
+        "maxLength": "User name must be less than 30 characters",
+        "pattern": "User name should only contain alphanumeric characters, hyphens, and underscores"
+      },
+      "email": {
+        "required": "Enter email",
+        "invalidEmail": "Invalid email address"
+      },
+      "password": {
+        "required": "Enter password",
+        "length": "Password must be at least 6 characters",
+        "maxLength": "Password must be less than 20 characters",
+        "pattern": "One lowercase letter, digit, special character"
+      },
+      "confirmPassword": {
+        "required": "Confirm password"
+      },
+      "policy": {
+        "required": "You must agree to the Terms of Service and Privacy Policy"
+      }
+    }
+  },
+  "ru": {
+    "userName": "Имя пользователя",
+    "confirmPassword": "Подтверждение пароля",
+    "signUp": "Зарегистрироваться",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "haveAccount": "У вас уже есть аккаунт?",
+    "signIn": "Войти",
+    "policy": "Я соглашаюсь с ",
+    "policyLinks": "<1>termsOfService</1> и <2>privacyPolicy</2>",
+    "termsOfService": "Условия обслуживания",
+    "privacyPolicy": "Политика конфиденциальности",
+
+    "notificationMessage": "Мы отправили ссылку для подтверждения вашей электронной почты на",
+    "formErrors": {
+      "userName": {
+        "required": "Введите имя пользователя",
+        "length": "Имя пользователя должно содержать не менее 6 символов",
+        "maxLength": "Имя пользователя должно содержать не более 30 символов",
+        "pattern": "Имя пользователя должно содержать только буквы, цифры, дефисы и подчеркивания"
+      },
+      "email": {
+        "required": "Введите адрес электронной почты",
+        "invalidEmail": "Неверный адрес электронной почты"
+      },
+      "password": {
+        "required": "Введите пароль",
+        "length": "Пароль должен содержать не менее 6 символов",
+        "maxLength": "Пароль должен содержать не более 20 символов",
+        "pattern": "Пароль должен содержать как минимум одну строчную букву, цифру и специальный символ"
+      },
+      "confirmPassword": {
+        "required": "Введите подтверждение пароля"
+      },
+      "policy": {
+        "required": "Вы должны согласиться с Условиями обслуживания и Политикой конфиденциальности"
+      }
+    }
+  }
+}

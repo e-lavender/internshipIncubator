@@ -2,6 +2,7 @@ import { LocaleType } from '@/app/locales/ru'
 import {
   NavigationTextModel,
   PrivacyPolicyTextModel,
+  SignUpTextModel,
   TermsTextModel,
 } from '@/app/locales/text-models'
 import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
@@ -10,6 +11,7 @@ const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
 const descriptionTerms = TermsTextModel.en
 const descriptionPrivacy = PrivacyPolicyTextModel.en
+const signUp = SignUpTextModel.en
 
 export const en: LocaleType = {
   navigation: {
@@ -27,4 +29,11 @@ export const en: LocaleType = {
     description: descriptionPrivacy.description,
   },
   characterPage: characterPage,
+  authPages: {
+    signUpPage: {
+      signUpForm: {
+        ...signUp,
+      },
+    },
+  },
 }
