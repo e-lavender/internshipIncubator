@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, JSXElementConstructor, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementType, JSXElementConstructor } from 'react'
 
 import { Tags } from './enum'
 
@@ -9,6 +9,4 @@ export type ReactTag = keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 export type TypographyProps<T extends ElementType> = {
   variant?: keyof typeof Tags
   as?: T | Extract<ReactTag, Tag>
-  children: ReactNode
-  className?: string | null
 } & ComponentPropsWithoutRef<T>
