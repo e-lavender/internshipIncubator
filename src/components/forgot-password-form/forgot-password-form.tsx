@@ -1,68 +1,129 @@
-import { SyntheticEvent, useRef } from 'react'
+import { BaseSyntheticEvent, useRef, useState } from 'react'
 
+import { DevTool } from '@hookform/devtools'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import s from './forgot-password-form.module.scss'
 
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
+import { ControlledReCaptcha } from '@/ui/recaptcha/controlled-recaptcha/controlled-recaptcha'
 import { TextField } from '@/ui/text-field'
 import { Typography } from '@/ui/typography/typography'
 
+const schema = z.object({
+  email: z
+    .string({ required_error: 'Enter email' })
+    .trim()
+    .nonempty('Enter email')
+    .email({ message: "User with this email doesn't exist" }),
+  token: z
+    .string({
+      required_error: 'Please verify that you are not a robot',
+      invalid_type_error: 'Please verify that you are not a robot',
+    })
+    .trim()
+    .nonempty(),
+})
+
+type ForgotPassFormType = z.infer<typeof schema>
+
 export const ForgotPasswordForm = () => {
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+
   const { locale } = useRouter()
-  const reChaptchaRef = useRef<ReCAPTCHA>(null)
+  const reCaptchaRef = useRef<ReCAPTCHA>(null)
 
-  const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const {
+    control,
+    resetField,
+    setValue,
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ForgotPassFormType>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: '',
+      token: '',
+    },
+    mode: 'all',
+  })
 
-    const token = reChaptchaRef?.current?.getValue()
+  const sendForm = handleSubmit(async (data: ForgotPassFormType, e?: BaseSyntheticEvent) => {
+    e?.preventDefault()
 
-    reChaptchaRef?.current?.reset()
-    const encodedURL = encodeURI(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY}&response=${token}`
-    )
+    // const token = reCaptchaRef?.current?.getValue()
+    //
+    // reCaptchaRef?.current?.reset()
+    //
+    // if (token) setTokenCopy(token)
+
+    // const token = getValues('token')
+
+    console.log(data)
 
     try {
-      const response = await fetch(encodedURL, {
+      const response = await fetch('http://localhost:5000/verify', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-        mode: 'no-cors',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(data),
       })
 
       if (!response.ok) {
-        throw Error('Invalid token. Access denied.')
+        throw Error('Unsuccessful request')
       }
 
-      console.log('response from google >>> ', response)
-    } catch (error) {
-      console.error(error)
-    }
+      const json = await response.json()
+      const { message } = json
 
-    console.log({
-      token,
-      boolean: Boolean(token),
-    })
-  }
+      console.log('Response from sever >>>', message)
+
+      setIsSubmitted(true)
+
+      resetField('email')
+      setValue('token', 'submitted', { shouldValidate: true })
+    } catch (error) {
+      setIsSubmitted(true)
+      resetField('email')
+
+      alert(error)
+    }
+  })
 
   return (
-    <Card className={s.container}>
+    <Card className={s.card}>
       <Typography as={'h1'} variant={'h1'} className={s.title}>
         Forgot Password
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={sendForm}>
+        {/*{DEVTOOLS}*/}
+        <DevTool control={control} />
+        {/*{DEVTOOLS}*/}
+
         <TextField
+          {...register('email')}
           label={'Email'}
           className={s.email}
-          error={"User with this email doesn't exist"}
+          error={errors?.email?.message}
         />
         <Typography as={'p'} variant={'regular-14'} className={s.description}>
           Enter your email address and we will send you further instructions
         </Typography>
-        <Button fullWidth className={s.button}>
-          Send Link
+
+        {isSubmitted && (
+          <Typography as={'p'} variant={'regular-14'} className={s.submitted}>
+            The link has been sent by email. If you don’t receive an email send link again
+          </Typography>
+        )}
+
+        <Button fullWidth className={s.button} type={'submit'} disabled={!isValid}>
+          {isSubmitted ? 'Send Link Again' : 'Send Link'}
         </Button>
         <Link href={'/sign-in'}>
           <Typography as={'h3'} variant={'bold-16'} className={s.link}>
@@ -70,13 +131,17 @@ export const ForgotPasswordForm = () => {
           </Typography>
         </Link>
 
-        <ReCAPTCHA
-          ref={reChaptchaRef}
-          hl={locale}
-          theme={'dark'}
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY!}
-          className={s.recaptcha}
-        />
+        {!isSubmitted && (
+          <ControlledReCaptcha
+            control={control}
+            name={'token'}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY!}
+            hl={locale}
+            theme={'dark'}
+            className={s.recaptcha}
+            error={errors?.token?.message}
+          />
+        )}
       </form>
     </Card>
   )

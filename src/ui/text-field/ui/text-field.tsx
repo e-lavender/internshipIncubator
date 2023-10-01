@@ -20,7 +20,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
       leftIcon: clsx(s.leftIcon),
       input: clsx(s.input, s[`${inputType}`], error && s.inputError),
       rightIcon: clsx(s.rightIcon),
-      error: clsx(s.error),
+      error: clsx(error && s.error),
     }
 
     const showHidePassword = () => {
@@ -30,7 +30,12 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
     }
 
     const rightIcon = inputType === INPUT_TYPES.PASSWORD && (
-      <button className={s.rightIcon} disabled={disabled} onClick={showHidePassword}>
+      <button
+        className={s.rightIcon}
+        disabled={disabled}
+        onClick={showHidePassword}
+        type={'button'}
+      >
         {showPassword ? <HideIcon /> : <ShowIcon />}
       </button>
     )

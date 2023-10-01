@@ -1,8 +1,15 @@
 import { LocaleType } from '@/app/locales/ru'
-import { CharacterPageTextModel, NavigationTextModel } from '@/app/locales/text-models'
+import {
+  CharacterPageTextModel,
+  NavigationTextModel,
+  NewPasswordConfirmationRedirection,
+  NewPasswordLinkExpired,
+} from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
+const newPasswordConfirmationRedirection = NewPasswordConfirmationRedirection.en
+const newPasswordLinkExpired = NewPasswordLinkExpired.en
 
 export const en: LocaleType = {
   navigation: {
@@ -11,4 +18,6 @@ export const en: LocaleType = {
     header: navigation.language,
   },
   characterPage: characterPage,
+  newPasswordConfirmationRedirection,
+  newPasswordLinkExpired,
 }
