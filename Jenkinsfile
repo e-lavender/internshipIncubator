@@ -8,8 +8,8 @@ pipeline {
         NAMESPACE = "freedomindz-site"
         REGISTRY_HOSTNAME = "flyingmerch123"
         REGISTRY = "registry.hub.docker.com"
-        PROJECT = "instagram-frontend-gateway"
-        DEPLOYMENT_NAME = "instagram-frontend-gateway-deployment"
+        PROJECT = "instargram-frontend-gateway"
+        DEPLOYMENT_NAME = "instargram-frontend-gateway-deployment"
         IMAGE_NAME = "${env.BUILD_ID}_${env.ENV_TYPE}_${env.GIT_COMMIT}"
         DOCKER_BUILD_NAME = "${env.REGISTRY_HOSTNAME}/${env.PROJECT}:${env.IMAGE_NAME}"
     }
