@@ -17,7 +17,7 @@ export default function Home() {
   const { t } = useTranslation()
   const { userProfile, passwordRecovery, createNewPassword, forgotPassword, signUp, signIn } =
     t.navigation.menu
-  const { data } = useGetMeQuery()
+  const { data: me } = useGetMeQuery()
 
   return (
     <div style={{ padding: '35px' }}>
