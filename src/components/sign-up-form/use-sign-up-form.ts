@@ -23,7 +23,7 @@ export const useSignupForm = () => {
         .min(6, 'Password must be at least 6 characters')
         .max(20, 'Password must be less than 20 characters')
         .regex(
-          /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g,
+          /(?=.*[0-9])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^{|}~])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^{|}~]{6,}/g,
           'One lowercase letter, digit, special character'
         ),
       confirmPassword: z.string({ required_error: 'Confirm password' }).trim(),
