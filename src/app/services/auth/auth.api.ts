@@ -10,6 +10,16 @@ import { GoogleUser } from '@/app/services/google/google.api.types'
 
 export const authAPI = commonApi.injectEndpoints({
   endpoints: builder => ({
+    getMe: builder.query<any, void>({
+      query: () => {
+        return {
+          method: 'GET',
+          url: authApiUrls.getMe(),
+        }
+      },
+      extraOptions: { maxRetries: 0 },
+      providesTags: ['ME'],
+    }),
     signUp: builder.mutation<void, UserCredentials>({
       query: args => {
         return {
@@ -87,16 +97,19 @@ export const authAPI = commonApi.injectEndpoints({
         method: 'POST',
         url: authApiUrls.logout(),
       }),
-    }),
-    getMe: builder.query<any, void>({
-      query: () => {
-        return {
-          method: 'GET',
-          url: authApiUrls.getMe(),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          authAPI.util.updateQueryData('getMe', undefined, () => {
+            return null
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
         }
       },
-      extraOptions: { maxRetries: 0 },
-      providesTags: ['ME'],
     }),
 
     googleAuth: builder.mutation<any, GoogleUser>({

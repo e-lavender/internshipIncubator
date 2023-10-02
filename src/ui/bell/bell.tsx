@@ -10,7 +10,7 @@ type BellProps = {
   className?: string
 }
 
-export const Bell = ({ messageNumber = 3, onClick, className }: BellProps): JSX.Element => {
+export const Bell = ({ messageNumber, onClick, className }: BellProps): JSX.Element => {
   const classNames = {
     root: clsx(s.root, className),
     bell: clsx(s.bell, className),
