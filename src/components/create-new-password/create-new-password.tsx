@@ -65,7 +65,7 @@ export const NewPasswordForm = () => {
   })
 
   if (isSubmitted) {
-    return <NewPasswordConfirmationRedirection delay={60000} />
+    return <NewPasswordConfirmationRedirection delay={1160000} />
   }
 
   return (

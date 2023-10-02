@@ -34,10 +34,12 @@ export const NewPasswordConfirmationRedirection: FC<ConfirmationProps> = ({ dela
       </Typography>
 
       <div className={s.message}>
-        <Typography as={'h2'} variant={'h2'}>{`${message} - `}</Typography>
-        <Link href={'/sign-in'} className={s.link}>
-          Sign in
-        </Link>
+        <Typography as={'h2'} variant={'h2'}>
+          {`${message} -   `}
+          <Link href={'/sign-in'} className={s.link}>
+            Sign in
+          </Link>
+        </Typography>
       </div>
     </div>
   )

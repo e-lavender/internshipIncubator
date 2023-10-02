@@ -1,0 +1,16 @@
+.wrapper {
+  cursor: pointer;
+  align-self: flex-start;
+  color: var(--color-light-100);
+  text-decoration: none;
+
+  span {
+    margin-left: 15px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    color: var(--color-light-100);
+  }
+}
