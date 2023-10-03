@@ -1,1 +1,1 @@
-export { Bell } from '@/ui/bell/bell'
+export * from '@/ui/bell/bell'

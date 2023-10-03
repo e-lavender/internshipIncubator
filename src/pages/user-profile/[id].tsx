@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Typography } from '@/ui/typography/typography'
+import { Typography } from '@/ui'
 
 const UserProfile = () => {
   return <Typography variant="h1">UserProfile</Typography>

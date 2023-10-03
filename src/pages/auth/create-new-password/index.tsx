@@ -2,6 +2,12 @@ import React from 'react'
 
 import { TagProcessor } from '@/app/helpers/tag-processor'
 import { useTranslation } from '@/app/hooks/useTranslation'
+<<<<<<<< HEAD:src/pages/create-new-password/index.tsx
+import { NewPasswordForm } from '@/components/create-new-password/create-new-password'
+import { Typography } from '@/ui/typography/typography'
+========
+import { Typography } from '@/ui'
+>>>>>>>> develop:src/pages/auth/create-new-password/index.tsx
 <<<<<<< HEAD:src/pages/create-new-password/index.tsx
 import { NewPasswordForm } from '@/components/create-new-password/create-new-password'
 import { Typography } from '@/ui/typography/typography'

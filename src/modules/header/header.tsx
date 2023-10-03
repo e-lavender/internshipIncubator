@@ -4,9 +4,8 @@ import Link from 'next/link'
 
 import s from './header.module.scss'
 
-import { LanguageSelect } from '@/components'
-import { NotificationsBell } from '@/components/notifications-bell'
-import { Typography } from '@/ui/typography/typography'
+import { LanguageSelect, NotificationsBell } from '@/components'
+import { Typography } from '@/ui'
 
 type HeaderProps = {
   children?: ReactNode

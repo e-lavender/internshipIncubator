@@ -129,6 +129,14 @@
       &[disabled] {
         color: var(--text-color-disabled);
       }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:focus-visible {
+        outline: 1px solid var(--color-accent-500);
+      }
     }
   }
 
@@ -142,7 +150,7 @@
     align-items: center;
 
     width: 100%;
-    height: 2.4rem;
+    min-height: 2.4rem;
 
     color: var(--color-danger-500);
   }
