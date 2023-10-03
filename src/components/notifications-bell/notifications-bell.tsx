@@ -5,10 +5,13 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import s from './notifications-bell.module.scss'
 
 import { ArrowDropdown } from '@/app/assets/svg/arrow-dropdown-icon-svg'
-import { notifications } from '@/app/data/notifications-bell/notifications-bell'
 import { Bell, Card, Typography } from '@/ui'
 
-export const NotificationsBell = () => {
+type Props = {
+  notifications?: { title: string; text: string; date: string }[]
+}
+
+export const NotificationsBell = ({ notifications }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
@@ -16,7 +19,7 @@ export const NotificationsBell = () => {
       <DropdownMenu.Root>
         <DropdownMenu.Trigger className={s.bell} asChild>
           <button className={s.button}>
-            <Bell messageNumber={notifications.length} />
+            <Bell messageNumber={notifications?.length} />
           </button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Portal>

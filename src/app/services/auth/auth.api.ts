@@ -5,12 +5,21 @@ import {
   SignInCredentials,
   UserCredentials,
 } from '@/app/services/auth/auth.api.types'
-import { authActions } from '@/app/services/auth/auth.slice'
 import { commonApi } from '@/app/services/common/common.api'
 import { GoogleUser } from '@/app/services/google/google.api.types'
 
 export const authAPI = commonApi.injectEndpoints({
   endpoints: builder => ({
+    getMe: builder.query<any, void>({
+      query: () => {
+        return {
+          method: 'GET',
+          url: authApiUrls.getMe(),
+        }
+      },
+      extraOptions: { maxRetries: 0 },
+      providesTags: ['ME'],
+    }),
     signUp: builder.mutation<void, UserCredentials>({
       query: args => {
         return {
@@ -65,16 +74,10 @@ export const authAPI = commonApi.injectEndpoints({
           body: args,
         }
       },
-      async onQueryStarted({ ...args }, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled
-          const patchResult = dispatch(authActions.setToken({ accessToken: data.accessToken }))
-        } catch {
-          console.log('error')
-        }
-      },
+
+      invalidatesTags: ['ME'],
     }),
-    refreshMe: builder.query<void, void>({
+    refreshMe: builder.query<{ accessToken: string }, void>({
       query: () => {
         return {
           method: 'GET',
@@ -87,15 +90,19 @@ export const authAPI = commonApi.injectEndpoints({
         method: 'POST',
         url: authApiUrls.logout(),
       }),
-    }),
-    getMe: builder.query<any, void>({
-      query: () => {
-        return {
-          method: 'GET',
-          url: authApiUrls.getMe(),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          authAPI.util.updateQueryData('getMe', undefined, () => {
+            return null
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
         }
       },
-      extraOptions: { maxRetries: 0 },
     }),
 
     googleAuth: builder.mutation<any, GoogleUser>({
