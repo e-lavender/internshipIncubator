@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 
+import { authActions } from '@/app/services/auth/auth.slice'
 import { RootState } from '@/app/store/store'
 
 const baseQuery = fetchBaseQuery({
@@ -38,12 +39,22 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 
       try {
         const refreshResult = await baseQuery(
-          { method: 'POST', url: '/api/auth/new-tokens' },
+          {
+            method: 'POST',
+            url: '/api/auth/new-tokens',
+          },
           api,
           extraOptions
         )
 
         if (refreshResult.meta?.response?.status === 200) {
+          if (refreshResult?.data) {
+            api.dispatch(
+              authActions.setToken({
+                data: refreshResult.data,
+              })
+            )
+          }
           result = await baseQuery(args, api, extraOptions)
         } else {
           await baseQuery(
@@ -70,6 +81,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const commonApi = createApi({
   reducerPath: 'commonApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: [],
+  tagTypes: ['ME'],
   endpoints: () => ({}),
 })
