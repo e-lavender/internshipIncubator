@@ -1,82 +1,63 @@
-import { BaseSyntheticEvent, useState } from 'react'
-
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { useEffect, useState } from 'react'
 
 import s from './create-new-password.module.scss'
 
+import { useTranslation } from '@/app/hooks'
 import { NewPasswordConfirmationRedirection } from '@/components/create-new-password/create-new-password-confirmation/create-new-password-confirmation'
+import { useNewPasswordForm } from '@/components/create-new-password/schema/schema'
+import { Loader } from '@/ui'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
 import { TextField } from '@/ui/text-field'
 import { Typography } from '@/ui/typography/typography'
 
-const schema = z
-  .object({
-    password: z
-      .string({ required_error: 'Enter password' })
-      .trim()
-      .min(6, 'Password must be at least 6 characters')
-      .max(20, 'Password must be less than 20 characters')
-      .regex(
-        /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g,
-        'One lowercase letter, digit, special character'
-      ),
-    confirmPassword: z.string({ required_error: 'Confirm password' }).trim(),
-  })
-  .superRefine((input, ctx) => {
-    if (input.password !== input.confirmPassword) {
-      ctx.addIssue({
-        message: 'The passwords must match',
-        code: z.ZodIssueCode.custom,
-        path: ['confirmPassword'],
-      })
-    }
-
-    return input
-  })
-
-type NewPassFormType = z.infer<typeof schema>
-
 export const NewPasswordForm = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const { t } = useTranslation()
+
+  const { title, password, passwordConfirmation, description, button } = t.newPasswordPage
+
   const {
-    formState: { errors },
+    formState: { errors, isValid },
+    setFocus,
     handleSubmit,
     register,
     reset,
-  } = useForm<NewPassFormType>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      password: '',
-      confirmPassword: '',
-    },
-    mode: 'all',
-  })
+  } = useNewPasswordForm()
 
-  const setNewPassword = handleSubmit((data: NewPassFormType, e?: BaseSyntheticEvent) => {
+  useEffect(() => {
+    setFocus('password')
+  }, [])
+
+  const setNewPassword = handleSubmit((data, e?) => {
     e?.preventDefault()
 
-    console.log(data)
+    setIsLoading(true)
 
-    setIsSubmitted(true)
-    reset()
+    setTimeout(() => {
+      console.log(data)
+
+      setIsSubmitted(true)
+      setIsLoading(false)
+      reset()
+    }, 1500)
   })
 
   if (isSubmitted) {
-    return <NewPasswordConfirmationRedirection delay={1160000} />
+    return <NewPasswordConfirmationRedirection delay={5000} />
   }
 
   return (
     <Card className={s.card}>
       <Typography as={'h1'} variant={'h1'} className={s.title}>
-        Create New Password
+        {title}
       </Typography>
       <form onSubmit={setNewPassword}>
         <TextField
           {...register('password')}
-          label={'New Password'}
+          label={password.label}
           inputType={'password'}
           className={s.email}
           error={errors?.password?.message}
@@ -84,17 +65,17 @@ export const NewPasswordForm = () => {
 
         <TextField
           {...register('confirmPassword')}
-          label={'Password confirmation'}
+          label={passwordConfirmation.label}
           inputType={'password'}
           className={s.confirmation}
           error={errors?.confirmPassword?.message}
         />
         <Typography as={'p'} variant={'regular-14'} className={s.description}>
-          Your password must be between 6 and 20 characters
+          {description}
         </Typography>
 
-        <Button fullWidth className={s.button} type={'submit'}>
-          Create new password
+        <Button fullWidth className={s.button} type={'submit'} disabled={!isValid}>
+          {isLoading ? <Loader /> : button.submit}
         </Button>
       </form>
     </Card>

@@ -1,11 +1,25 @@
 import { LocaleType } from '@/app/locales/ru'
-import { CharacterPageTextModel, NavigationTextModel,NewPasswordConfirmationRedirection,
-    NewPasswordLinkExpired, } from '@/app/locales/text-models'
+import {
+  ForgotPasswordModel,
+  NavigationTextModel,
+  NewPasswordConfirmationRedirectionModel,
+  NewPasswordLinkExpiredModel,
+  NewPasswordModel,
+  PrivacyPolicyTextModel,
+  SignUpTextModel,
+  TermsTextModel,
+} from '@/app/locales/text-models'
+import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
 const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
-const newPasswordConfirmationRedirection = NewPasswordConfirmationRedirection.en
-const newPasswordLinkExpired = NewPasswordLinkExpired.en
+const newPasswordPage = NewPasswordModel.en
+const forgotPasswordPage = ForgotPasswordModel.en
+const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.en
+const newPasswordLinkExpiredPage = NewPasswordLinkExpiredModel.en
+const descriptionTerms = TermsTextModel.en
+const descriptionPrivacy = PrivacyPolicyTextModel.en
+const signUp = SignUpTextModel.en
 
 export const en: LocaleType = {
   navigation: {
@@ -23,6 +37,15 @@ export const en: LocaleType = {
     description: descriptionPrivacy.description,
   },
   characterPage: characterPage,
-    newPasswordConfirmationRedirection,
-    newPasswordLinkExpired,
+  newPasswordPage: newPasswordPage,
+  forgotPasswordPage: forgotPasswordPage,
+  newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
+  newPasswordLinkExpiredPage: newPasswordLinkExpiredPage,
+  authPages: {
+    signUpPage: {
+      signUpForm: {
+        ...signUp,
+      },
+    },
+  },
 }

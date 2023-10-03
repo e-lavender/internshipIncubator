@@ -8,7 +8,7 @@ import { Typography } from '@/ui/typography/typography'
 
 export const NewPasswordLinkExpired = () => {
   const { t } = useTranslation()
-  const { title, description, button: buttonLabel } = t.newPasswordLinkExpired
+  const { title, description, button: label } = t.newPasswordLinkExpiredPage
 
   return (
     <div>
@@ -19,7 +19,7 @@ export const NewPasswordLinkExpired = () => {
         <Typography as={'p'} variant={'regular-16'} className={s.description}>
           {description}
         </Typography>
-        <Button className={s.button}>{buttonLabel}</Button>
+        <Button className={s.button}>{label}</Button>
       </div>
       <Image
         src={'/assets/images/link-expired.svg'}

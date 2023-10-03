@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { NewPasswordConfirmationRedirection } from './create-new-password-confirmation'
+import { NewPasswordForm } from '@/components/create-new-password'
 
 const meta = {
-  title: 'Components/NewPasswordConfirmationRedirection',
-  component: NewPasswordConfirmationRedirection,
+  title: 'Components/NewPasswordForm',
+  component: NewPasswordForm,
   tags: ['autodocs'],
   args: {},
   decorators: [
@@ -15,7 +15,7 @@ const meta = {
     ),
   ],
   argTypes: {},
-} satisfies Meta<typeof NewPasswordConfirmationRedirection>
+} satisfies Meta<typeof NewPasswordForm>
 
 export default meta
 type Story = StoryObj<typeof meta>
