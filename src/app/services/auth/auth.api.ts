@@ -74,14 +74,7 @@ export const authAPI = commonApi.injectEndpoints({
           body: args,
         }
       },
-      // async onQueryStarted({ ...args }, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const { data } = await queryFulfilled
-      //     const patchResult = dispatch(authActions.setToken({ accessToken: data.accessToken }))
-      //   } catch {
-      //     console.log('error')
-      //   }
-      // },
+
       invalidatesTags: ['ME'],
     }),
     refreshMe: builder.query<{ accessToken: string }, void>({
