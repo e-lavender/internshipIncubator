@@ -1,13 +1,21 @@
 import {
   TermsTextModel,
   PrivacyPolicyTextModel,
-  NavigationTextModel,
   SignUpTextModel,
+  CharacterPageTextModel,
+  NavigationTextModel,
+  NewPasswordLinkExpiredModel,
+  NewPasswordConfirmationRedirectionModel,
+  NewPasswordModel,
+  ForgotPasswordModel,
 } from '@/app/locales/text-models'
-import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
 const navigation = NavigationTextModel.ru
 const characterPage = CharacterPageTextModel.ru
+const newPasswordPage = NewPasswordModel.ru
+const forgotPasswordPage = ForgotPasswordModel.ru
+const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.ru
+const newPasswordLinkExpiredPage = NewPasswordLinkExpiredModel.ru
 const descriptionTerms = TermsTextModel.ru
 const descriptionPrivacy = PrivacyPolicyTextModel.ru
 const signUp = SignUpTextModel.ru
@@ -28,6 +36,10 @@ export const ru = {
     description: descriptionPrivacy.description,
   },
   characterPage: characterPage,
+  newPasswordPage: newPasswordPage,
+  forgotPasswordPage: forgotPasswordPage,
+  newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
+  newPasswordLinkExpiredPage: newPasswordLinkExpiredPage,
   authPages: {
     signUpPage: {
       signUpForm: {
