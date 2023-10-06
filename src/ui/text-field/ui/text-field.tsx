@@ -20,7 +20,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
       leftIcon: clsx(s.leftIcon),
       input: clsx(s.input, s[`${inputType}`], error && s.inputError),
       rightIcon: clsx(s.rightIcon),
-      error: clsx(s.error),
+      error: clsx(error && s.error),
     }
 
     const showHidePassword = () => {
@@ -49,7 +49,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={classNames.root}>
-        <Typography className={classNames.label}>{label}</Typography>
+        {label && <Typography className={classNames.label}>{label}</Typography>}
         <div className={classNames.container}>
           <input
             aria-label={label}
@@ -62,7 +62,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
           {leftIcon}
           {rightIcon}
         </div>
-        <Typography className={classNames.error}>{error}</Typography>
+        {error && <Typography className={classNames.error}>{error}</Typography>}
       </div>
     )
   }
