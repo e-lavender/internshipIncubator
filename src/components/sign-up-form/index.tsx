@@ -74,7 +74,7 @@ export const SignUpForm = () => {
       <div style={{ height: '3px' }}>
         {progressBar && <LinearProgress thickness={3} color={'neutral'} />}
       </div>
-      <Card>
+      <Card className={s.container}>
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography variant={'h1'}>{text.signUp}</Typography>
