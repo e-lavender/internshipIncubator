@@ -5,7 +5,7 @@ import { store } from '@/app/store/store'
 import { SignInForm } from '@/components'
 
 const meta = {
-  title: 'Components/SignInForm',
+  title: 'Pages/SignInForm',
   component: SignInForm,
   tags: ['autodocs'],
   args: {},

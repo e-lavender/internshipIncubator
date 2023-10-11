@@ -5,7 +5,7 @@ import { store } from '@/app/store/store'
 import { ForgotPasswordForm } from '@/components'
 
 const meta = {
-  title: 'Components/ForgotPasswordForm',
+  title: 'Pages/ForgotPasswordForm',
   component: ForgotPasswordForm,
   tags: ['autodocs'],
   args: {},

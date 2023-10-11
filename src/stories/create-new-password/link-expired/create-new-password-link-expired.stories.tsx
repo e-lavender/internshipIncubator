@@ -5,7 +5,7 @@ import { store } from '@/app/store/store'
 import { NewPasswordLinkExpired } from '@/components/create-new-password'
 
 const meta = {
-  title: 'Components/NewPasswordLinkExpired',
+  title: 'Pages/NewPasswordLinkExpired',
   component: NewPasswordLinkExpired,
   tags: ['autodocs'],
   args: {},

@@ -5,7 +5,7 @@ import { store } from '@/app/store/store'
 import { NewPasswordForm } from '@/components/create-new-password'
 
 const meta = {
-  title: 'Components/NewPasswordForm',
+  title: 'Pages/NewPasswordForm',
   component: NewPasswordForm,
   tags: ['autodocs'],
   args: {},
