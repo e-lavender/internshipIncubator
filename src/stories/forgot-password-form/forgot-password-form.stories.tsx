@@ -1,17 +1,21 @@
 import { Meta, StoryObj } from '@storybook/react'
+import { Provider } from 'react-redux'
 
+import { store } from '@/app/store/store'
 import { ForgotPasswordForm } from '@/components'
 
 const meta = {
-  title: 'Components/ForgotPasswordForm',
+  title: 'Pages/ForgotPasswordForm',
   component: ForgotPasswordForm,
   tags: ['autodocs'],
   args: {},
   decorators: [
     Story => (
-      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
-        <Story />
-      </div>
+      <Provider store={store}>
+        <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   argTypes: {},

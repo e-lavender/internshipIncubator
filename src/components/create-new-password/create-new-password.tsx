@@ -4,7 +4,7 @@ import s from './create-new-password.module.scss'
 
 import { useTranslation } from '@/app/hooks'
 import { NewPasswordConfirmationRedirection } from '@/components/create-new-password/create-new-password-confirmation/create-new-password-confirmation'
-import { useNewPasswordForm } from '@/components/create-new-password/schema/schema'
+import { useNewPasswordForm } from '@/components/create-new-password/validation-schema'
 import { Loader } from '@/ui'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'

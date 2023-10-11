@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { NewPasswordConfirmationRedirection } from '@/components/create-new-password'
 
 const meta = {
-  title: 'Components/NewPasswordConfirmation',
+  title: 'Pages/NewPasswordConfirmation',
   component: NewPasswordConfirmationRedirection,
   tags: ['autodocs'],
   args: {},
