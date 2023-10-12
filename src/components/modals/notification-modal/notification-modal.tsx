@@ -17,7 +17,11 @@ export const NotificationModal = ({ trigger, message, isOpen, onOpen, onClose }:
     <div>
       <Modal open={isOpen} onOpenChange={onOpen}>
         {trigger && <Modal.Button asChild>{trigger}</Modal.Button>}
-        <Modal.Content className={s.content} title="Email sent">
+        <Modal.Content
+          className={s.content}
+          title="Email sent"
+          onInteractOutside={e => e.preventDefault()}
+        >
           <Typography variant="regular-16">{message}</Typography>
           <div className={s.confirm}>
             <Button onClick={onClose}>Ok</Button>

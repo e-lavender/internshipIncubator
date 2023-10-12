@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import Link from 'next/link'
@@ -8,9 +8,10 @@ import s from './forgot-password-form.module.scss'
 
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
+import { useDisclose } from '@/app/hooks/useDisclose'
 import { usePasswordRecoveryMutation } from '@/app/services/auth/auth.api'
-import { SendEmailModal } from '@/components'
 import { useForgotPasswordForm } from '@/components/forgot-password-form/validation-schema'
+import { NotificationModal } from '@/components/modals/notification-modal'
 import { Loader, Button, Card } from '@/ui'
 import { ControlledReCaptcha } from '@/ui/recaptcha/controlled-recaptcha/controlled-recaptcha'
 import { TextField } from '@/ui/text-field'
@@ -19,6 +20,8 @@ import { Typography } from '@/ui/typography/typography'
 export const ForgotPasswordForm = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
+
+  const { isOpen, onClose, onOpen, onToggle } = useDisclose()
 
   const { locale } = useRouter()
   const [recoverPassword, { isLoading }] = usePasswordRecoveryMutation()
@@ -38,27 +41,36 @@ export const ForgotPasswordForm = () => {
     resetField,
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid },
   } = useForgotPasswordForm()
+
+  const emailAddress = watch('email')
+
+  const clearError = () => {
+    setError('')
+  }
+
+  const onModalClose = () => {
+    onToggle()
+
+    resetField('email')
+    setIsSubmitted(true)
+    clearError()
+  }
 
   const sendForm = handleSubmit((data, e?) => {
     e?.preventDefault()
 
     recoverPassword(data)
       .unwrap()
-      .then(() => {
-        resetField('email')
-        setIsSubmitted(true)
-      })
+      .then(onOpen)
       .catch(() => {
         setError(email.validation.serverError)
-
-        setTimeout(() => {
-          setError('')
-          resetField('email')
-        }, 3000)
       })
   })
+
+  console.log('render!')
 
   return (
     <Card className={s.card}>
@@ -74,7 +86,7 @@ export const ForgotPasswordForm = () => {
           {...register('email')}
           label={email.label}
           className={s.email}
-          error={error || errors?.email?.message}
+          error={errors?.email?.message || error}
         />
         <Typography as={'p'} variant={'regular-14'} className={s.description}>
           {message.beforeSubmission}
@@ -107,6 +119,13 @@ export const ForgotPasswordForm = () => {
           />
         )}
       </form>
+
+      <NotificationModal
+        isOpen={isOpen}
+        onOpen={onModalClose}
+        onClose={onModalClose}
+        message={`${message.notificationMessage} ${emailAddress} `}
+      />
     </Card>
   )
 }
