@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, SyntheticEvent } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
+import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 import { clsx } from 'clsx'
 
 import s from './modal.module.scss'
@@ -17,6 +18,7 @@ type ModalContentProps = {
   title?: string
   children: ReactNode
   className?: string
+  onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
 }
 export const Modal = ({ open, onOpenChange, children }: ModalProps) => {
   return (
@@ -26,7 +28,7 @@ export const Modal = ({ open, onOpenChange, children }: ModalProps) => {
   )
 }
 
-const ModalContent = ({ title, children, className }: ModalContentProps) => {
+const ModalContent = ({ title, children, className, ...props }: ModalContentProps) => {
   const classNames = {
     main: clsx(s.main, className),
   }
@@ -34,7 +36,7 @@ const ModalContent = ({ title, children, className }: ModalContentProps) => {
   return (
     <Dialog.Portal>
       <Dialog.Overlay className={s.overlay} />
-      <Dialog.Content className={s.content}>
+      <Dialog.Content className={s.content} {...props}>
         <div className={s.header}>
           <Dialog.Title>
             <Typography className={s.title} variant="h1">
