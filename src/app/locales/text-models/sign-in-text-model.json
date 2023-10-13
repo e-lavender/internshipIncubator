@@ -1,0 +1,42 @@
+{
+  "en": {
+    "haveAccount": "Do you have an account?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "forgotPassword",
+    "formErrors": {
+      "email": {
+        "required": "Email must be longer than or equal to 6 characters",
+        "invalidEmailFormat": "Invalid email format"
+      },
+      "password": {
+        "required": "Enter password",
+        "length": "Password must be at least 6 characters",
+        "maxLength": "Password must be less than 20 characters",
+        "pattern": "One lowercase letter, digit, special character"
+      }
+    }
+  },
+  "ru": {
+    "haveAccount": "У вас уже есть аккаунт?",
+    "signIn": "Войти",
+    "signUp": "Зарегистрироваться",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "forgotPassword": "Забыли Пароль",
+    "formErrors": {
+      "email": {
+        "required": "Введите адрес электронной почты",
+        "invalidEmailFormat": "Неверный адрес электронной почты"
+      },
+      "password": {
+        "required": "Введите пароль",
+        "length": "Пароль должен содержать не менее 6 символов",
+        "maxLength": "Пароль должен содержать не более 20 символов",
+        "pattern": "Пароль должен содержать как минимум одну строчную букву, цифру и специальный символ"
+      }
+    }
+  }
+}
