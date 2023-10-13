@@ -2,13 +2,14 @@ import { LocaleType } from '@/app/locales/ru'
 import {
   ForgotPasswordModel,
   NavigationTextModel,
-  NewPasswordConfirmationRedirectionModel,
-  NewPasswordLinkExpiredModel,
+  LinkExpiredModel,
+  LinkConfirmationModel,
   NewPasswordModel,
   PrivacyPolicyTextModel,
   SignInTextModel,
   SignUpTextModel,
   TermsTextModel,
+  NewPasswordConfirmationRedirectionModel,
 } from '@/app/locales/text-models'
 import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
@@ -16,10 +17,11 @@ const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
 const newPasswordPage = NewPasswordModel.en
 const forgotPasswordPage = ForgotPasswordModel.en
-const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.en
-const newPasswordLinkExpiredPage = NewPasswordLinkExpiredModel.en
+const LinkExpiredPage = LinkExpiredModel.en
+const LinkConfirmationPage = LinkConfirmationModel.en
 const descriptionTerms = TermsTextModel.en
 const descriptionPrivacy = PrivacyPolicyTextModel.en
+const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.en
 const signUp = SignUpTextModel.en
 const signIn = SignInTextModel.en
 
@@ -41,8 +43,9 @@ export const en: LocaleType = {
   characterPage: characterPage,
   newPasswordPage: newPasswordPage,
   forgotPasswordPage: forgotPasswordPage,
+  LinkConfirmationPage: LinkConfirmationPage,
+  LinkExpiredPage: LinkExpiredPage,
   newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
-  newPasswordLinkExpiredPage: newPasswordLinkExpiredPage,
   authPages: {
     signUpPage: {
       signUpForm: {

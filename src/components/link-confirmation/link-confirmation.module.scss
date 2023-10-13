@@ -1,0 +1,29 @@
+.wrapper {
+  width: 29.4rem;
+  margin: auto;
+}
+
+.title {
+  margin-top: 3.5rem;
+  text-align: center;
+}
+
+.description {
+  margin-top: 1.9rem;
+  text-align: center;
+}
+
+.button {
+  width: 29.4rem;
+  margin-top: 5.4rem;
+}
+
+.image {
+  display: block;
+
+  max-width: 43.2rem;
+  max-height: 30rem;
+  margin: 7.2rem auto 0;
+
+  object-fit: cover;
+}
