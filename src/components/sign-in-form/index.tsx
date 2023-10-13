@@ -39,7 +39,7 @@ export const SignInForm: FC<PropsType> = () => {
         <DevTool control={control} />
         <ControlledTextField label={text.email} name={'email'} control={control} />
         <ControlledTextField
-          className={s.textField}
+          className={s.textfield}
           label={text.password}
           name={'password'}
           inputType={'password'}
@@ -57,7 +57,7 @@ export const SignInForm: FC<PropsType> = () => {
           {text.haveAccount}
         </Typography>
         <Link href={authNavigationUrls.signUp()}>
-          <Button fullWidth={true} variant={'link'} as={'a'}>
+          <Button fullWidth={true} variant={'link'}>
             {text.signUp}
           </Button>
         </Link>
