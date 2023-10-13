@@ -4,21 +4,23 @@ import {
   SignUpTextModel,
   CharacterPageTextModel,
   NavigationTextModel,
-  NewPasswordLinkExpiredModel,
-  NewPasswordConfirmationRedirectionModel,
+  LinkExpiredModel,
+  LinkConfirmationModel,
   NewPasswordModel,
   ForgotPasswordModel,
   SignInTextModel,
+  NewPasswordConfirmationRedirectionModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
 const characterPage = CharacterPageTextModel.ru
 const newPasswordPage = NewPasswordModel.ru
 const forgotPasswordPage = ForgotPasswordModel.ru
-const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.ru
-const newPasswordLinkExpiredPage = NewPasswordLinkExpiredModel.ru
+const LinkExpiredPage = LinkExpiredModel.ru
+const LinkConfirmationPage = LinkConfirmationModel.ru
 const descriptionTerms = TermsTextModel.ru
 const descriptionPrivacy = PrivacyPolicyTextModel.ru
+const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.ru
 const signUp = SignUpTextModel.ru
 const signIn = SignInTextModel.ru
 
@@ -40,8 +42,9 @@ export const ru = {
   characterPage: characterPage,
   newPasswordPage: newPasswordPage,
   forgotPasswordPage: forgotPasswordPage,
+  LinkConfirmationPage: LinkConfirmationPage,
+  LinkExpiredPage: LinkExpiredPage,
   newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
-  newPasswordLinkExpiredPage: newPasswordLinkExpiredPage,
   authPages: {
     signUpPage: {
       signUpForm: {

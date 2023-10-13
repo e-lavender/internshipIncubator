@@ -1,15 +1,16 @@
 import Image from 'next/image'
 
-import s from './create-new-password-link-expired.module.scss'
+import expiredImg from '../../../public/assets/images/link-expired.svg'
 
-import expiredImg from '@/../public/assets/images/link-expired.svg'
+import s from './link-expired.module.scss'
+
 import { useTranslation } from '@/app/hooks'
 import { Button } from '@/ui/button'
 import { Typography } from '@/ui/typography/typography'
 
-export const NewPasswordLinkExpired = () => {
+export const LinkExpired = () => {
   const { t } = useTranslation()
-  const { title, description, button: label } = t.newPasswordLinkExpiredPage
+  const { title, description, button: label } = t.LinkExpiredPage
 
   return (
     <div>

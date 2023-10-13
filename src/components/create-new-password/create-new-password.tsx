@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import s from './create-new-password.module.scss'
 
+import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
-import { NewPasswordConfirmationRedirection } from '@/components/create-new-password/create-new-password-confirmation/create-new-password-confirmation'
 import { useNewPasswordForm } from '@/components/create-new-password/validation-schema'
 import { Loader } from '@/ui'
 import { Button } from '@/ui/button'
@@ -12,8 +14,8 @@ import { TextField } from '@/ui/text-field'
 import { Typography } from '@/ui/typography/typography'
 
 export const NewPasswordForm = () => {
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const router = useRouter()
 
   const { t } = useTranslation()
 
@@ -37,17 +39,12 @@ export const NewPasswordForm = () => {
     setIsLoading(true)
 
     setTimeout(() => {
-      console.log(data)
+      router.push(authNavigationUrls.newPasswordConfirmation())
 
-      setIsSubmitted(true)
       setIsLoading(false)
       reset()
     }, 1500)
   })
-
-  if (isSubmitted) {
-    return <NewPasswordConfirmationRedirection delay={5000} />
-  }
 
   return (
     <Card className={s.card}>
