@@ -21,7 +21,7 @@ export const ForgotPasswordForm = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
-  const { isOpen, onClose, onOpen, onToggle } = useDisclose()
+  const { isOpen, onOpen, onToggle } = useDisclose()
 
   const { locale } = useRouter()
   const [recoverPassword, { isLoading }] = usePasswordRecoveryMutation()
@@ -69,8 +69,6 @@ export const ForgotPasswordForm = () => {
         setError(email.validation.serverError)
       })
   })
-
-  console.log('render!')
 
   return (
     <Card className={s.card}>
