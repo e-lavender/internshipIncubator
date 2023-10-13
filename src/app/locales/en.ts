@@ -6,6 +6,7 @@ import {
   LinkConfirmationModel,
   NewPasswordModel,
   PrivacyPolicyTextModel,
+  SignInTextModel,
   SignUpTextModel,
   TermsTextModel,
   NewPasswordConfirmationRedirectionModel,
@@ -22,6 +23,7 @@ const descriptionTerms = TermsTextModel.en
 const descriptionPrivacy = PrivacyPolicyTextModel.en
 const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.en
 const signUp = SignUpTextModel.en
+const signIn = SignInTextModel.en
 
 export const en: LocaleType = {
   navigation: {
@@ -48,6 +50,11 @@ export const en: LocaleType = {
     signUpPage: {
       signUpForm: {
         ...signUp,
+      },
+    },
+    signInPage: {
+      signInForm: {
+        ...signIn,
       },
     },
   },

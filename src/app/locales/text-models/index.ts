@@ -6,6 +6,7 @@ import NavigationTextModel from './navigation-text-model.json'
 import NewPasswordConfirmationRedirectionModel from './new-password-confirmation-redirection-model.json'
 import NewPasswordModel from './new-password.model.json'
 import PrivacyPolicyTextModel from './privaty-text-model.json'
+import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
 import TermsTextModel from './terms-text-model.json'
 
@@ -20,4 +21,5 @@ export {
   LinkExpiredModel,
   LinkConfirmationModel,
   NewPasswordModel,
+  SignInTextModel,
 }

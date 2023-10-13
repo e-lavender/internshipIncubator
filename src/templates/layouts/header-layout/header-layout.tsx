@@ -2,6 +2,8 @@ import React from 'react'
 
 import '@/app/styles/_global-classes.scss'
 
+import s from './header-layout.module.scss'
+
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { Header } from '@/modules/header'
 
@@ -11,6 +13,7 @@ export const HeaderLayout = ({ children }: any) => {
   return (
     <>
       <Header isAuthed={!!me} />
+      <div className={s.border}></div>
       <div className="container">{children}</div>
     </>
   )

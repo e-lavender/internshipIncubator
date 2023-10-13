@@ -1,0 +1,12 @@
+:root {
+  @keyframes content-show {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+  --animate: content-show 150ms cubic-bezier(.74,.3,.83,.67);
+}

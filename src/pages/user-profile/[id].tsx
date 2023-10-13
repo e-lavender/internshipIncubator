@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -8,12 +8,14 @@ import { Button, Typography } from '@/ui'
 
 const UserProfile = () => {
   const { data: me } = useGetMeQuery(undefined, { refetchOnMountOrArgChange: true })
-  const { push } = useRouter()
+  const router = useRouter()
   const [logout] = useSignOutMutation()
 
-  if (!me) {
-    push(authNavigationUrls.signIn())
-  }
+  useEffect(() => {
+    if (!me) {
+      router.push(authNavigationUrls.signIn())
+    }
+  }, [me, router])
 
   return (
     <>
