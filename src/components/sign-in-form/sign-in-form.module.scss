@@ -26,8 +26,17 @@
   .form {
     width: 100%;
 
+    .textField {
+      padding-top: 24px;
+    }
+
     .forgotPassword {
+      cursor: pointer;
+
       display: block;
+
+      padding-top: 3.6rem;
+
       color: var(--color-light-900);
       text-align: right;
     }

@@ -6,6 +6,7 @@ import {
   NewPasswordLinkExpiredModel,
   NewPasswordModel,
   PrivacyPolicyTextModel,
+  SignInTextModel,
   SignUpTextModel,
   TermsTextModel,
 } from '@/app/locales/text-models'
@@ -20,6 +21,7 @@ const newPasswordLinkExpiredPage = NewPasswordLinkExpiredModel.en
 const descriptionTerms = TermsTextModel.en
 const descriptionPrivacy = PrivacyPolicyTextModel.en
 const signUp = SignUpTextModel.en
+const signIn = SignInTextModel.en
 
 export const en: LocaleType = {
   navigation: {
@@ -45,6 +47,11 @@ export const en: LocaleType = {
     signUpPage: {
       signUpForm: {
         ...signUp,
+      },
+    },
+    signInPage: {
+      signInForm: {
+        ...signIn,
       },
     },
   },

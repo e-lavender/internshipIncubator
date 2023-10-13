@@ -8,6 +8,7 @@ import {
   NewPasswordConfirmationRedirectionModel,
   NewPasswordModel,
   ForgotPasswordModel,
+  SignInTextModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
@@ -19,6 +20,7 @@ const newPasswordLinkExpiredPage = NewPasswordLinkExpiredModel.ru
 const descriptionTerms = TermsTextModel.ru
 const descriptionPrivacy = PrivacyPolicyTextModel.ru
 const signUp = SignUpTextModel.ru
+const signIn = SignInTextModel.ru
 
 export const ru = {
   navigation: {
@@ -44,6 +46,11 @@ export const ru = {
     signUpPage: {
       signUpForm: {
         ...signUp,
+      },
+    },
+    signInPage: {
+      signInForm: {
+        ...signIn,
       },
     },
   },
