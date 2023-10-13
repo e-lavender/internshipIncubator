@@ -57,7 +57,7 @@ export const SignInForm: FC<PropsType> = () => {
           {text.haveAccount}
         </Typography>
         <Link href={authNavigationUrls.signUp()}>
-          <Button fullWidth={true} variant={'link'} as={'a'}>
+          <Button fullWidth={true} variant={'link'}>
             {text.signUp}
           </Button>
         </Link>
