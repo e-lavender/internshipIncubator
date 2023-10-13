@@ -39,7 +39,7 @@ export const SignInForm: FC<PropsType> = () => {
         <DevTool control={control} />
         <ControlledTextField label={text.email} name={'email'} control={control} />
         <ControlledTextField
-          className={s.textfield}
+          className={s.textField}
           label={text.password}
           name={'password'}
           inputType={'password'}
