@@ -7,8 +7,7 @@ import s from './link-confirmation.module.scss'
 
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
-import { Button } from '@/ui/button'
-import { Typography } from '@/ui/typography/typography'
+import { Button, Typography } from '@/ui'
 
 export const LinkConfirmation = () => {
   const { t } = useTranslation()

@@ -7,11 +7,7 @@ import s from './create-new-password.module.scss'
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
 import { useNewPasswordForm } from '@/modules/create-new-password-form/validation-schema'
-import { Loader } from '@/ui'
-import { Button } from '@/ui/button'
-import { Card } from '@/ui/card'
-import { TextField } from '@/ui/text-field'
-import { Typography } from '@/ui/typography/typography'
+import { Loader, Button, Card, TextField, Typography } from '@/ui'
 
 export const NewPasswordForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

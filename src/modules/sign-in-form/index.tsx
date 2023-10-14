@@ -10,11 +10,7 @@ import { useTranslation } from '@/app/hooks'
 import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { LoginFormType, useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
-import { Button } from '@/ui/button'
-import { Card } from '@/ui/card'
-import { GithubButton } from '@/ui/github-button'
-import { GoogleButton } from '@/ui/google-button'
-import { Typography } from '@/ui/typography/typography'
+import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 type PropsType = {
   onSubmitHandler?: (data: LoginFormType) => void

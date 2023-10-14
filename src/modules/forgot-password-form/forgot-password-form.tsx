@@ -12,11 +12,7 @@ import { useDisclose } from '@/app/hooks/useDisclose'
 import { usePasswordRecoveryMutation } from '@/app/services/auth/auth.api'
 import { NotificationModal } from '@/components/modals/notification-modal'
 import { useForgotPasswordForm } from '@/modules/forgot-password-form/validation-schema'
-import { Loader, Button, Card } from '@/ui'
-import { ControlledReCaptcha } from '@/ui/recaptcha/controlled-recaptcha/controlled-recaptcha'
-import { TextField } from '@/ui/text-field'
-import { Typography } from '@/ui/typography/typography'
-
+import { Loader, Button, Card, TextField, Typography, ControlledReCaptcha } from '@/ui'
 export const ForgotPasswordForm = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
