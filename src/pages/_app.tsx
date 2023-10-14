@@ -3,6 +3,7 @@ import '@/app/styles/index.scss'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
+import { Toaster } from '@/components/toaster'
 import { HeaderLayout } from '@/templates/layouts/header-layout'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -11,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <HeaderLayout>
         <Component {...pageProps} />
       </HeaderLayout>
+      <Toaster />
     </Provider>
   )
 }

@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 import s from './sign-in-form.module.scss'
 
@@ -10,11 +11,7 @@ import { useTranslation } from '@/app/hooks'
 import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { LoginFormType, useSignInForm } from '@/components/sign-in-form/use-sign-in-form'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
-import { Button } from '@/ui/button'
-import { Card } from '@/ui/card'
-import { GithubButton } from '@/ui/github-button'
-import { GoogleButton } from '@/ui/google-button'
-import { Typography } from '@/ui/typography/typography'
+import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 type PropsType = {
   onSubmitHandler?: (data: LoginFormType) => void
@@ -26,6 +23,13 @@ export const SignInForm: FC<PropsType> = () => {
   const { signInForm: text } = t.authPages.signInPage
   const onSubmitForm = handleSubmit(data => {
     signIn(data)
+      .unwrap()
+      .then(() => {
+        toast.success('you are sign in successfully')
+      })
+      .catch(error => {
+        toast.error(error.data.message)
+      })
   })
 
   return (
