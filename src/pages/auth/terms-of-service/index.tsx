@@ -1,7 +1,7 @@
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
-import { TextContainer } from '@/components/text-container/textContainer'
-import { BackToPrevious } from '@/ui/back-to-previous/backtoprevious'
+import { TextContainer } from '@/components'
+import { BackToPrevious } from '@/ui'
 
 export default function PolicyPage() {
   const { t } = useTranslation()

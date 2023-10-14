@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
-import { NewPasswordLinkExpired } from '@/components/create-new-password'
+import { NewPasswordLinkExpired } from '@/modules/create-new-password-form'
 
 const meta = {
   title: 'Pages/NewPasswordLinkExpired',

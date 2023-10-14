@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { Typography } from '@/ui'
-
+import { LinkExpired } from '@/components/link-expired'
 const PasswordRecovery = () => {
-  return <Typography variant="h2">PasswordRecovery</Typography>
+  return <LinkExpired />
 }
 
 export default PasswordRecovery

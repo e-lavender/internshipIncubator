@@ -1,4 +1,4 @@
-import { ForgotPasswordForm } from '@/components'
+import { ForgotPasswordForm } from '@/modules'
 
 const ForgotPassword = () => {
   return <ForgotPasswordForm />
