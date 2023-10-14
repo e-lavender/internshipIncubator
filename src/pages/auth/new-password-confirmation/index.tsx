@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NewPasswordConfirmationRedirection } from '@/modules/create-new-password-form'
+import { NewPasswordConfirmationRedirection } from '@/modules'
 
 const NewPasswordConfirmation = () => {
   return <NewPasswordConfirmationRedirection />
