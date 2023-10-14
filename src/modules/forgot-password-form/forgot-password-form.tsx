@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import Link from 'next/link'

@@ -2,10 +2,9 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { SignInForm } from '../../../modules/sign-in-form'
-
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { FlexWrapper } from '@/components'
+import { SignInForm } from '@/modules/sign-in-form'
 
 const SignInPage = () => {
   const { data: me } = useGetMeQuery()
