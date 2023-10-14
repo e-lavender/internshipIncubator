@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { FlexWrapper, SignUpForm } from '@/components'
+import { SignUpForm } from '@/modules'
+import { FlexWrapper } from '@/templates'
 
 const SignUpPage = () => {
   return (

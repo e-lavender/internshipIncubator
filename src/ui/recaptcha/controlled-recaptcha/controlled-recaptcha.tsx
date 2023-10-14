@@ -1,10 +1,10 @@
-import { forwardRef, RefAttributes } from 'react'
+import { RefAttributes } from 'react'
 
 import { clsx } from 'clsx'
-import ReCAPTCHA, { ReCAPTCHAProps } from 'react-google-recaptcha'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useController, UseControllerProps, FieldValues } from 'react-hook-form'
 
-import { RECAPTCHA, RecaptchaProps } from '@/ui/recaptcha/recaptcha'
+import { RecaptchaProps } from '@/ui/recaptcha/recaptcha'
 import s from '@/ui/recaptcha/recaptcha.module.scss'
 
 type ControlledRecaptchaProps<T extends FieldValues> = UseControllerProps<T> &

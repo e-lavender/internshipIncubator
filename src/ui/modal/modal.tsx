@@ -1,4 +1,4 @@
-import React, { ReactNode, SyntheticEvent } from 'react'
+import React, { ReactNode } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'

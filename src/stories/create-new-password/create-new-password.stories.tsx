@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
-import { NewPasswordForm } from '@/components/create-new-password'
+import { NewPasswordForm } from '@/modules/create-new-password-form'
 
 const meta = {
   title: 'Pages/NewPasswordForm',

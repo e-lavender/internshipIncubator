@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import Link from 'next/link'
@@ -10,13 +10,9 @@ import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
 import { useDisclose } from '@/app/hooks/useDisclose'
 import { usePasswordRecoveryMutation } from '@/app/services/auth/auth.api'
-import { useForgotPasswordForm } from '@/components/forgot-password-form/validation-schema'
 import { NotificationModal } from '@/components/modals/notification-modal'
-import { Loader, Button, Card } from '@/ui'
-import { ControlledReCaptcha } from '@/ui/recaptcha/controlled-recaptcha/controlled-recaptcha'
-import { TextField } from '@/ui/text-field'
-import { Typography } from '@/ui/typography/typography'
-
+import { useForgotPasswordForm } from '@/modules/forgot-password-form/validation-schema'
+import { Loader, Button, Card, TextField, Typography, ControlledReCaptcha } from '@/ui'
 export const ForgotPasswordForm = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
