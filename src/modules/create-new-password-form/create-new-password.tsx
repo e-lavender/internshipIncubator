@@ -6,7 +6,7 @@ import s from './create-new-password.module.scss'
 
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
-import { useNewPasswordForm } from '@/components/create-new-password/validation-schema'
+import { useNewPasswordForm } from '@/modules/create-new-password-form/validation-schema'
 import { Loader } from '@/ui'
 import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'

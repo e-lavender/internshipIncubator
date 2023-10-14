@@ -7,7 +7,7 @@ import s from './create-new-password-confirmation.module.scss'
 
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
-import { NewPasswordLinkExpired } from '@/components/create-new-password'
+import { NewPasswordLinkExpired } from '@/modules/create-new-password-form'
 import { Typography } from '@/ui/typography/typography'
 
 type ConfirmationProps = {

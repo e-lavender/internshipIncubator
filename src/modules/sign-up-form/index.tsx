@@ -13,8 +13,8 @@ import { useDisclose } from '@/app/hooks/useDisclose'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { ControlledCheckbox } from '@/components/checkbox-controlled/controlled-checkbox'
 import { NotificationModal } from '@/components/modals/notification-modal'
-import { useSignupForm } from '@/components/sign-up-form/use-sign-up-form'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
+import { useSignupForm } from '@/modules/sign-up-form/use-sign-up-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignUpForm = () => {
