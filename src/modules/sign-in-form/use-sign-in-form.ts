@@ -2,33 +2,39 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]).*$/
-const schema = z.object({
-  email: z
-    .string({
-      required_error: 'Email is required',
-      invalid_type_error: 'Email must be a string',
-    })
-    .trim()
-    .nonempty('Enter email')
-    .email('Invalid email address'),
-  password: z
-    .string({
-      required_error: 'Password is required',
-      invalid_type_error: 'Password must be a string',
-    })
-    .trim()
-    .refine(value => passwordRegex.test(value), {
-      message:
-        'Password must contain a-z, A-Z, ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` { | } ~',
-    }),
-})
+import { useTranslation } from '@/app/hooks'
 
-export type LoginFormType = z.infer<typeof schema>
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]).*$/
 
 export const useSignInForm = () => {
+  const { t } = useTranslation()
+
+  const {
+    signInForm: { formErrors },
+  } = t.authPages.signInPage
+  const { email, password } = formErrors
+
+  const loginFormSchema = z.object({
+    email: z
+      .string({
+        required_error: `${email.required}`,
+        invalid_type_error: `${email.invalidEmailFormat}`,
+      })
+      .trim()
+      .nonempty(`${email.required}`)
+      .email(`${email.invalidEmailFormat}`),
+    password: z
+      .string({ required_error: `${password.required}` })
+      .trim()
+      .min(6, `${password.length}`)
+      .max(20, `${password.maxLength}`)
+      .regex(passwordRegex, `${password.pattern}`),
+  })
+
+  type LoginFormType = z.infer<typeof loginFormSchema>
+
   return useForm<LoginFormType>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginFormSchema),
     mode: 'onBlur',
   })
 }
