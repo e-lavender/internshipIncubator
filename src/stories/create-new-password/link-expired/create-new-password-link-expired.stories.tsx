@@ -2,11 +2,11 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
-import { NewPasswordLinkExpired } from '@/components/create-new-password'
+import { LinkExpired } from '@/components'
 
 const meta = {
   title: 'Pages/NewPasswordLinkExpired',
-  component: NewPasswordLinkExpired,
+  component: LinkExpired,
   tags: ['autodocs'],
   args: {},
   decorators: [
@@ -19,7 +19,7 @@ const meta = {
     ),
   ],
   argTypes: {},
-} satisfies Meta<typeof NewPasswordLinkExpired>
+} satisfies Meta<typeof LinkExpired>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -5,8 +5,7 @@ import expiredImg from '../../../public/assets/images/link-expired.svg'
 import s from './link-expired.module.scss'
 
 import { useTranslation } from '@/app/hooks'
-import { Button } from '@/ui/button'
-import { Typography } from '@/ui/typography/typography'
+import { Button, Typography } from '@/ui'
 
 export const LinkExpired = () => {
   const { t } = useTranslation()

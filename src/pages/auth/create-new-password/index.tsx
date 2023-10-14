@@ -1,4 +1,4 @@
-import { NewPasswordForm } from '@/components/create-new-password'
+import { NewPasswordForm } from '@/modules'
 
 const CreateNewPassword = () => {
   return <NewPasswordForm />

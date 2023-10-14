@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding: 0.8rem 0.7rem;
 
-  border: 1px solid #f00;
+  border: 1px solid var(--color-danger-500);
 }
 
 .recaptcha {
@@ -17,5 +17,5 @@
   margin-top: 1.2rem;
   font-size: 1rem;
   line-height: 1.2rem;
-  color: #f00;
+  color: var(--color-danger-500);
 }
