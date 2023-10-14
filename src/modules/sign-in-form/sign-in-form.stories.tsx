@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
-import { SignInForm } from '@/components'
+import { SignInForm } from '@/modules'
 
 const meta = {
   title: 'Pages/SignInForm',
