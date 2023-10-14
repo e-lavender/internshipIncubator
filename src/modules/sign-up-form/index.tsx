@@ -46,9 +46,7 @@ export const SignUpForm = () => {
         onOpen()
         setProgressBar(false)
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch(error => {})
   })
 
   const policyLinks = (
