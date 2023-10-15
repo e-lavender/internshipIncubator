@@ -5,7 +5,7 @@
     "signUp": "Sign Up",
     "email": "Email",
     "password": "Password",
-    "forgotPassword": "forgotPassword",
+    "forgotPassword": "Forgot Password",
     "formErrors": {
       "email": {
         "required": "Email must be longer than or equal to 6 characters",

@@ -16,8 +16,8 @@ const navigation = NavigationTextModel.ru
 const characterPage = CharacterPageTextModel.ru
 const newPasswordPage = NewPasswordModel.ru
 const forgotPasswordPage = ForgotPasswordModel.ru
-const LinkExpiredPage = LinkExpiredModel.ru
-const LinkConfirmationPage = LinkConfirmationModel.ru
+const linkExpiredPage = LinkExpiredModel.ru
+const linkConfirmedPage = LinkConfirmationModel.ru
 const descriptionTerms = TermsTextModel.ru
 const descriptionPrivacy = PrivacyPolicyTextModel.ru
 const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.ru
@@ -42,8 +42,8 @@ export const ru = {
   characterPage: characterPage,
   newPasswordPage: newPasswordPage,
   forgotPasswordPage: forgotPasswordPage,
-  LinkConfirmationPage: LinkConfirmationPage,
-  LinkExpiredPage: LinkExpiredPage,
+  linkExpiredPage: linkExpiredPage,
+  linkConfirmedPage: linkConfirmedPage,
   newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
   authPages: {
     signUpPage: {

@@ -65,7 +65,7 @@ export const Select: FC<SelectProps> = ({
 
           <SelectRadix.Portal>
             <SelectRadix.Content className={classNames.content} position={'popper'}>
-              {options.map(option => {
+              {options?.map(option => {
                 return (
                   <SelectRadix.Item
                     asChild={true}
