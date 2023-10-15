@@ -2,15 +2,15 @@
   margin-top: 2.4rem;
   animation: var(--animate);
 
-
   .wrapper {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-
     width: 37.8rem;
     padding: 2.4rem;
 
+    .header {
+      display: block;
+      text-align: center;
+    }
 
     .progressBar {
       width: 100%;
@@ -21,7 +21,7 @@
       display: flex;
       column-gap: 6rem;
       justify-content: center;
-      margin: 1.3rem 0 ;
+      margin: 1.3rem 0;
 
       .oauthBtn {
         cursor: pointer;
@@ -40,7 +40,7 @@
       cursor: pointer;
 
       float: right;
-      display: inline-block;
+      display: block;
 
       margin-top: 3.6rem;
       margin-bottom: 2.4rem;
