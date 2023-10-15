@@ -10,8 +10,8 @@ import {
   SignUpTextModel,
   TermsTextModel,
   NewPasswordConfirmationRedirectionModel,
+  CharacterPageTextModel,
 } from '@/app/locales/text-models'
-import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
 const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en

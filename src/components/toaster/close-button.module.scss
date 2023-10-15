@@ -1,0 +1,29 @@
+.closeButton {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  padding-right: 25px;
+  padding-left: 0;
+
+  color: #fff;
+
+  opacity: 0.7;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  transition: 0.3s ease;
+}
+
+.closeButton > svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-light-100);
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  opacity: 1;
+}
