@@ -10,7 +10,7 @@ const meta = {
   decorators: [
     Story => (
       <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
-        <NotificationsBell />
+        <Story />
       </div>
     ),
   ],

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LinkExpired } from '../../../modules/link-expired'
+import { LinkExpired } from '@/modules'
 const PasswordRecovery = () => {
   return <LinkExpired />
 }
