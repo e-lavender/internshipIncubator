@@ -4,8 +4,7 @@ import { useRouter } from 'next/router'
 
 import s from './create-new-password.module.scss'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
+import { authNavigationUrls, useTranslation } from '@/app'
 import { useNewPasswordForm } from '@/modules/create-new-password-form/validation-schema'
 import { Loader, Button, Card, TextField, Typography } from '@/ui'
 

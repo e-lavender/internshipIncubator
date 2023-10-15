@@ -4,7 +4,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import s from './notifications-bell.module.scss'
 
-import { ArrowDropdown } from '@/app/assets/svg/arrow-dropdown-icon-svg'
+import { ArrowDropdown } from '@/app'
 import { Bell, Card, Typography } from '@/ui'
 
 type Props = {

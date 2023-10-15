@@ -2,8 +2,9 @@ import { memo, useMemo, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { EnglishFlagComponent } from '@/components/language-select/english-flag-component'
-import { RussiaFlagComponent } from '@/components/language-select/russian-flag-component'
+import { EnglishFlagComponent } from './english-flag-component'
+import { RussiaFlagComponent } from './russian-flag-component'
+
 import { Select } from '@/ui/select'
 
 type LocalType = 'ru' | 'en'

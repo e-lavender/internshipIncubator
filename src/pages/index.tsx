@@ -2,8 +2,7 @@ import React from 'react'
 
 import Link from 'next/link'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
+import { authNavigationUrls, useTranslation } from '@/app'
 import { Typography } from '@/ui'
 
 export default function Home() {

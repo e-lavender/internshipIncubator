@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 
 import s from './github-button.module.scss'
 
-import { GithubIcon } from '@/app/assets/svg'
-import { Button } from '@/ui/button'
+import { GithubIcon } from '@/app'
+import { Button } from '@/ui'
 type Props = {
   onClick?: (value: boolean) => void
 }

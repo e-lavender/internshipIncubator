@@ -6,9 +6,7 @@ import { toast } from 'react-toastify'
 
 import s from './sign-in-form.module.scss'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
-import { useSignInMutation } from '@/app/services/auth/auth.api'
+import { authNavigationUrls, useTranslation, useSignInMutation } from '@/app'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { LoginFormType, useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
