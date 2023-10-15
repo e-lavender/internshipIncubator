@@ -1,12 +1,15 @@
 import React from 'react'
 
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
+import '../../app/styles/react-toastify.scss'
+import { LoseButton } from './сlose-button'
+
 export const Toaster = () => {
   return (
     <ToastContainer
       position="bottom-left"
-      autoClose={false}
+      autoClose={5000}
       hideProgressBar={true}
       newestOnTop={false}
       closeOnClick
@@ -16,6 +19,7 @@ export const Toaster = () => {
       pauseOnHover
       icon={false}
       theme={'colored'}
+      closeButton={LoseButton}
     />
   )
 }
