@@ -11,6 +11,8 @@ import { TagProcessor } from '@/app/helpers/tag-processor'
 import { useTranslation } from '@/app/hooks'
 import { useDisclose } from '@/app/hooks/useDisclose'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
+import { ErrorWithData } from '@/app/types/common-types'
+import { showError } from '@/app/utils/common-utils'
 import { ControlledCheckbox } from '@/components/checkbox-controlled/controlled-checkbox'
 import { NotificationModal } from '@/components/modals/notification-modal'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
@@ -44,9 +46,13 @@ export const SignUpForm = () => {
       .unwrap()
       .then(() => {
         onOpen()
+      })
+      .catch((error: ErrorWithData) => {
+        showError(error)
+      })
+      .finally(() => {
         setProgressBar(false)
       })
-      .catch(error => {})
   })
 
   const policyLinks = (

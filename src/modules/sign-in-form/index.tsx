@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 import s from './sign-in-form.module.scss'
 
@@ -22,6 +23,13 @@ export const SignInForm: FC<PropsType> = () => {
   const { signInForm: text } = t.authPages.signInPage
   const onSubmitForm = handleSubmit(data => {
     signIn(data)
+      .unwrap()
+      .then(() => {
+        toast.success('you are sign in successfully')
+      })
+      .catch(error => {
+        toast.error(error.data.message)
+      })
   })
 
   return (
@@ -53,7 +61,12 @@ export const SignInForm: FC<PropsType> = () => {
           {text.haveAccount}
         </Typography>
 
-        <Button as={Link} fullWidth={true} variant={'link'} href={authNavigationUrls.signUp()}>
+        <Button
+          className={s.signUpBtn}
+          as={Link}
+          variant={'link'}
+          href={authNavigationUrls.signUp()}
+        >
           {text.signUp}
         </Button>
       </form>
