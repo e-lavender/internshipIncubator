@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { NotificationModal } from './notification-modal'
+import { NotificationModal } from '@/components'
 
 const meta: Meta<typeof NotificationModal> = {
   title: 'Components/NotificationModal',

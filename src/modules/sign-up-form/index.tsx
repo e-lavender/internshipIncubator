@@ -13,9 +13,7 @@ import { useDisclose } from '@/app/hooks/useDisclose'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { ErrorWithData } from '@/app/types/common-types'
 import { showError } from '@/app/utils/common-utils'
-import { ControlledCheckbox } from '@/components/checkbox-controlled/controlled-checkbox'
-import { NotificationModal } from '@/components/modals/notification-modal'
-import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
+import { ControlledCheckbox, NotificationModal, ControlledTextField } from '@/components'
 import { useSignupForm } from '@/modules/sign-up-form/use-sign-up-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
@@ -54,7 +52,6 @@ export const SignUpForm = () => {
         setProgressBar(false)
       })
   })
-
   const policyLinks = (
     <Typography variant={'small'}>
       <TagProcessor
