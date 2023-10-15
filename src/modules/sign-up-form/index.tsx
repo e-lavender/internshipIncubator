@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { LinearProgress } from '@mui/joy'
 import Link from 'next/link'
@@ -28,6 +28,7 @@ export const SignUpForm = () => {
   const { signUpForm: text } = t.authPages.signUpPage
   const {
     control,
+    setFocus,
     formState: { isValid, dirtyFields },
     handleSubmit,
     reset,
@@ -54,6 +55,10 @@ export const SignUpForm = () => {
         setProgressBar(false)
       })
   })
+
+  useEffect(() => {
+    setFocus('userName')
+  }, [])
   const policyLinks = (
     <Typography variant={'small'}>
       <TagProcessor
@@ -76,10 +81,10 @@ export const SignUpForm = () => {
 
   return (
     <div>
-      <div style={{ height: '3px' }}>
-        {progressBar && <LinearProgress thickness={3} color={'neutral'} />}
-      </div>
       <Card className={s.container}>
+        <div style={{ height: '3px' }}>
+          {progressBar && <LinearProgress thickness={3} color={'neutral'} />}
+        </div>
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography variant={'h1'}>{text.signUp}</Typography>
@@ -87,26 +92,29 @@ export const SignUpForm = () => {
               <GoogleButton onClick={setProgressBar} />
               <GithubButton onClick={setProgressBar} />
             </div>
-
             <ControlledTextField
+              className={s.textField}
               label={text.userName}
               inputType={'text'}
               name={'userName'}
               control={control}
             />
             <ControlledTextField
+              className={s.textField}
               label={text.email}
               inputType={'text'}
               name={'email'}
               control={control}
             />
             <ControlledTextField
+              className={s.textField}
               label={text.password}
               inputType={'password'}
               name={'password'}
               control={control}
             />
             <ControlledTextField
+              className={s.textField}
               label={text.confirmPassword}
               inputType={'password'}
               name={'confirmPassword'}
