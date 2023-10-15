@@ -1,17 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Link from 'next/link'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
+import { authNavigationUrls, useTranslation } from '@/app'
 import { Typography } from '@/ui'
 
 export default function Home() {
-  const [count, setCount] = useState(0)
-
-  const increaseCountHandler = () => setCount(count + 1)
-  const decreaseCountHandler = () => setCount(count - 1)
-  const resetCountHandler = () => setCount(0)
   const id = 'idFromURL'
   const { t } = useTranslation()
   const { userProfile, passwordRecovery, createNewPassword, forgotPassword, signUp, signIn } =
@@ -41,13 +35,6 @@ export default function Home() {
         <Link href={`/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
-        <Typography variant="h1">Some text test</Typography>
-      </div>
-      <div>
-        <Typography variant="h1">{t.characterPage.getCount(count)}</Typography>
-        <button onClick={decreaseCountHandler}>-</button>
-        <button onClick={increaseCountHandler}>+</button>
-        <button onClick={resetCountHandler}>0</button>
       </div>
     </div>
   )

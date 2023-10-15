@@ -1,3 +1,3 @@
-import { default as HideIcon } from './ui/HideIcon'
+import { default as HideIcon } from './hide-icon'
 
 export { HideIcon }

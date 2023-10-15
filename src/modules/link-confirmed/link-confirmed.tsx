@@ -5,8 +5,7 @@ import confirmationImg from '../../../public/assets/images/link-confirmation.svg
 
 import s from './link-confirmed.module.scss'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
+import { useTranslation, authNavigationUrls } from '@/app'
 import { Button, Typography } from '@/ui'
 
 export const LinkConfirmed = () => {

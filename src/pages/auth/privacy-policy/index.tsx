@@ -1,5 +1,4 @@
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
+import { authNavigationUrls, useTranslation } from '@/app'
 import { TextContainer } from '@/components'
 import { BackToPrevious } from '@/ui'
 
