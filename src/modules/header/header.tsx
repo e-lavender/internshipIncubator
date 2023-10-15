@@ -11,9 +11,9 @@ import { Button, Typography } from '@/ui'
 
 type HeaderProps = {
   children?: ReactNode
-  isAuthed?: boolean
+  isAuthed: boolean
 }
-export function Header({ children, isAuthed }: HeaderProps) {
+export function Header({ children, isAuthed = false }: HeaderProps) {
   return (
     <header className={s.container}>
       <Link href="/">
@@ -27,12 +27,13 @@ export function Header({ children, isAuthed }: HeaderProps) {
         <LanguageSelect />
         {!isAuthed && (
           <>
-            <Link href={authNavigationUrls.signIn()}>
-              <Button variant={'link'}>Log In</Button>
-            </Link>
-            <Link href={authNavigationUrls.signUp()}>
-              <Button variant={'primary'}>Sign Up</Button>
-            </Link>
+            <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
+              Log In
+            </Button>
+
+            <Button as={Link} variant={'primary'} href={authNavigationUrls.signUp()}>
+              Sign Up
+            </Button>
           </>
         )}
       </div>

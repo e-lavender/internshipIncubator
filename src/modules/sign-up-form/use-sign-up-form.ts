@@ -2,37 +2,46 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { useTranslation } from '@/app/hooks'
+
 export const useSignupForm = () => {
+  const { t } = useTranslation()
+
+  const {
+    signUpForm: { formErrors },
+  } = t.authPages.signUpPage
+  const { email, password, userName, confirmPassword, policy } = formErrors
+
   const signUpFormSchema = z
     .object({
       userName: z
-        .string({ required_error: 'Enter User name' })
+        .string({ required_error: `${userName.required}` })
         .trim()
-        .min(6, 'User name must be at least 6 characters')
-        .max(30, 'Password must be less than 30 characters')
+        .min(6, `${userName.length}`)
+        .max(30, `${userName.maxLength}`)
         .regex(/^[0-9A-Za-z_-]+$/),
       email: z
-        .string({ required_error: 'Enter email' })
+        .string({ required_error: `${email.required}` })
         .trim()
-        .nonempty('Enter email')
-        .email('Invalid email address'),
+        .nonempty(`${email.required}`)
+        .email(`${email.invalidEmail}`),
 
       password: z
-        .string({ required_error: 'Enter password' })
+        .string({ required_error: `${password.required}` })
         .trim()
-        .min(6, 'Password must be at least 6 characters')
-        .max(20, 'Password must be less than 20 characters')
+        .min(6, `${password.length}`)
+        .max(20, `${password.maxLength}`)
         .regex(
           /(?=.*[0-9])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^{|}~])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^{|}~]{6,}/g,
-          'One lowercase letter, digit, special character'
+          `${password.pattern}`
         ),
-      confirmPassword: z.string({ required_error: 'Confirm password' }).trim(),
+      confirmPassword: z.string({ required_error: `${confirmPassword.required}` }).trim(),
       policy: z.literal<boolean>(true),
     })
     .superRefine((data, ctx) => {
       if (data.password !== data.confirmPassword) {
         ctx.addIssue({
-          message: 'Passwords do not match',
+          message: `${confirmPassword.required}`,
           code: z.ZodIssueCode.custom,
           path: ['confirmPassword'],
         })

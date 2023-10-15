@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { LinkConfirmation } from '@/components'
+import { LinkConfirmed } from '@/components'
 
 const RegistrationConfirmation = () => {
-  return <LinkConfirmation />
+  return <LinkConfirmed />
 }
 
 export default RegistrationConfirmation

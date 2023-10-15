@@ -10,15 +10,15 @@ import {
   SignUpTextModel,
   TermsTextModel,
   NewPasswordConfirmationRedirectionModel,
+  CharacterPageTextModel,
 } from '@/app/locales/text-models'
-import { CharacterPageTextModel } from '@/app/locales/text-models/character-page-text-model'
 
 const navigation = NavigationTextModel.en
 const characterPage = CharacterPageTextModel.en
 const newPasswordPage = NewPasswordModel.en
 const forgotPasswordPage = ForgotPasswordModel.en
-const LinkExpiredPage = LinkExpiredModel.en
-const LinkConfirmationPage = LinkConfirmationModel.en
+const linkExpiredPage = LinkExpiredModel.en
+const linkConfirmedPage = LinkConfirmationModel.en
 const descriptionTerms = TermsTextModel.en
 const descriptionPrivacy = PrivacyPolicyTextModel.en
 const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.en
@@ -43,8 +43,8 @@ export const en: LocaleType = {
   characterPage: characterPage,
   newPasswordPage: newPasswordPage,
   forgotPasswordPage: forgotPasswordPage,
-  LinkConfirmationPage: LinkConfirmationPage,
-  LinkExpiredPage: LinkExpiredPage,
+  linkExpiredPage: linkExpiredPage,
+  linkConfirmedPage: linkConfirmedPage,
   newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
   authPages: {
     signUpPage: {

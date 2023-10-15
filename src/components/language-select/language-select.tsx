@@ -28,7 +28,7 @@ export const LanguageSelect = memo(({ testOptions }: LanguageSelectTypes) => {
   }
   const options = useMemo(() => {
     return Array.isArray(locales)
-      ? locales.map(el => ({
+      ? locales?.map(el => ({
           value: el,
           label: el == 'ru' ? <RussiaFlagComponent /> : <EnglishFlagComponent />,
         }))
