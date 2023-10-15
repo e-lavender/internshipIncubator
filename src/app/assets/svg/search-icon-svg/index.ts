@@ -1,3 +1,3 @@
-import { default as SearchIcon } from './ui/SearchIcon'
+import { default as SearchIcon } from './search-icon'
 
 export { SearchIcon }

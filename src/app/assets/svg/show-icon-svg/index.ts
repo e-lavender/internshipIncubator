@@ -1,3 +1,3 @@
-import { default as ShowIcon } from './ui/ShowIcon'
+import { default as ShowIcon } from './show-icon'
 
 export { ShowIcon }
