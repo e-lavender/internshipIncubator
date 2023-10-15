@@ -9,7 +9,7 @@ import { Button, Typography } from '@/ui'
 
 export const LinkExpired = () => {
   const { t } = useTranslation()
-  const { title, description, button: label } = t.LinkExpiredPage
+  const { title, description, button: label } = t.linkExpiredPage
 
   return (
     <div>

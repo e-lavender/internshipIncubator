@@ -17,7 +17,7 @@ export const NewPasswordConfirmationRedirection: FC<ConfirmationProps> = ({ dela
   const router = useRouter()
   const { t } = useTranslation()
 
-  const { message, title } = t.newPasswordConfirmationRedirectionPage
+  const { message, title, link: label } = t.newPasswordConfirmationRedirectionPage
 
   useEffect(() => {
     const timer = setTimeout(() => router.push(authNavigationUrls.signIn()), delay)
@@ -35,7 +35,7 @@ export const NewPasswordConfirmationRedirection: FC<ConfirmationProps> = ({ dela
         <Typography as={'h2'} variant={'h2'}>
           {`${message} -   `}
           <Link href={authNavigationUrls.signIn()} className={s.link}>
-            Sign in
+            {label}
           </Link>
         </Typography>
       </div>

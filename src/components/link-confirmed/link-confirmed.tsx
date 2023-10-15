@@ -3,15 +3,15 @@ import Link from 'next/link'
 
 import confirmationImg from '../../../public/assets/images/link-confirmation.svg'
 
-import s from './link-confirmation.module.scss'
+import s from './link-confirmed.module.scss'
 
 import { authNavigationUrls } from '@/app/constants/routes/auth'
 import { useTranslation } from '@/app/hooks'
 import { Button, Typography } from '@/ui'
 
-export const LinkConfirmation = () => {
+export const LinkConfirmed = () => {
   const { t } = useTranslation()
-  const { title, description, button: label } = t.LinkConfirmationPage
+  const { title, description, button: label } = t.linkConfirmedPage
 
   return (
     <div>

@@ -52,11 +52,10 @@ export const SignInForm: FC<PropsType> = () => {
         <Typography className={s.accountText} variant={'regular-16'}>
           {text.haveAccount}
         </Typography>
-        <Link href={authNavigationUrls.signUp()}>
-          <Button fullWidth={true} variant={'link'}>
-            {text.signUp}
-          </Button>
-        </Link>
+
+        <Button as={Link} fullWidth={true} variant={'link'} href={authNavigationUrls.signUp()}>
+          {text.signUp}
+        </Button>
       </form>
     </Card>
   )
