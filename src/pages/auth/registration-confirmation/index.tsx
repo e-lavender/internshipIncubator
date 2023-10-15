@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LinkConfirmed } from '@/components'
+import { LinkConfirmed } from '@/modules'
 
 const RegistrationConfirmation = () => {
   return <LinkConfirmed />

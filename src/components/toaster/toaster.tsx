@@ -2,8 +2,8 @@ import React from 'react'
 
 import { ToastContainer } from 'react-toastify'
 
-import '../../app/styles/react-toastify.scss'
-import { LoseButton } from './сlose-button'
+import '@/app/styles/react-toastify.scss'
+import { LoseButton } from '@/components'
 
 export const Toaster = () => {
   return (

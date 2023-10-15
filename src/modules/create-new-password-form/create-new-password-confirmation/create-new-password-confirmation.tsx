@@ -5,8 +5,7 @@ import { useRouter } from 'next/router'
 
 import s from './create-new-password-confirmation.module.scss'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
+import { authNavigationUrls, useTranslation } from '@/app'
 import { Typography } from '@/ui'
 
 type ConfirmationProps = {

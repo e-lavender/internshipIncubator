@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import s from './header.module.scss'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
+import { authNavigationUrls } from '@/app'
 import { notifications } from '@/app/data/notifications-bell/notifications-bell'
 import { LanguageSelect, NotificationsBell } from '@/components'
 import { Button, Typography } from '@/ui'

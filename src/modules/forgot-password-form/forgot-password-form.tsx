@@ -5,13 +5,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './forgot-password-form.module.scss'
+import { useForgotPasswordForm } from './validation-schema'
 
-import { authNavigationUrls } from '@/app/constants/routes/auth'
-import { useTranslation } from '@/app/hooks'
-import { useDisclose } from '@/app/hooks/useDisclose'
-import { usePasswordRecoveryMutation } from '@/app/services/auth/auth.api'
-import { NotificationModal } from '@/components/modals/notification-modal'
-import { useForgotPasswordForm } from '@/modules/forgot-password-form/validation-schema'
+import { authNavigationUrls, useTranslation, useDisclose, usePasswordRecoveryMutation } from '@/app'
+import { NotificationModal } from '@/components'
 import { Loader, Button, Card, TextField, Typography, ControlledReCaptcha } from '@/ui'
 export const ForgotPasswordForm = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
