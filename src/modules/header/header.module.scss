@@ -14,14 +14,14 @@
     align-items: center;
   }
 
-  .buttons{
+  .buttons {
     display: flex;
   }
 }
 
-@media screen and (width <= 420px){
-  .container{
-    margin: 0 ;
+@media screen and (width <= 420px) {
+  .container {
+    margin: 0;
     padding: 1.5rem;
   }
 }
