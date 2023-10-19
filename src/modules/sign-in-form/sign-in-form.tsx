@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import { LinearProgress } from '@mui/joy'
@@ -7,15 +7,13 @@ import { toast } from 'react-toastify'
 
 import s from './sign-in-form.module.scss'
 
-import { authNavigationUrls, useTranslation, useSignInMutation, useMatchMedia } from '@/app'
+import { authNavigationUrls, useTranslation, useSignInMutation } from '@/app'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignInForm = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false)
-  const { isMobile, isTablet, isDesktop } = useMatchMedia()
-
   const {
     handleSubmit,
     formState: { isValid },
@@ -41,11 +39,9 @@ export const SignInForm = () => {
       })
   })
 
-  const Tag = isMobile ? 'div' : Card
-
   return (
     <div>
-      <Tag className={s.container}>
+      <Card className={s.container}>
         <div className={s.progressBar}>
           {isSignIn && <LinearProgress thickness={3} color={'neutral'} />}
         </div>
@@ -94,7 +90,7 @@ export const SignInForm = () => {
             </Button>
           </div>
         </form>
-      </Tag>
+      </Card>
     </div>
   )
 }
