@@ -8,13 +8,15 @@ import { toast } from 'react-toastify'
 import s from './sign-in-form.module.scss'
 
 import { authNavigationUrls, useTranslation, useSignInMutation } from '@/app'
+import { useMatchMedia } from '@/app/hooks/useMatchMedia'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignInForm = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false)
-  const [isButtonDisable, setIsButtonDisable] = useState<boolean>(true)
+  const { isMobile, isTablet, isDesktop } = useMatchMedia()
+
   const {
     handleSubmit,
     formState: { isValid },
@@ -23,10 +25,10 @@ export const SignInForm = () => {
   } = useSignInForm()
   const [signIn] = useSignInMutation()
   const { t } = useTranslation()
+
   const { signInForm: text } = t.authPages.signInPage
   const onSubmitForm = handleSubmit(data => {
     setIsSignIn(true)
-    setIsButtonDisable(true)
     signIn(data)
       .unwrap()
       .then(() => {
@@ -37,25 +39,14 @@ export const SignInForm = () => {
       })
       .finally(() => {
         setIsSignIn(false)
-        setIsButtonDisable(false)
       })
   })
 
-  useEffect(() => {
-    if (isValid) {
-      setIsButtonDisable(false)
-    } else {
-      setIsButtonDisable(true)
-    }
-  }, [isValid])
-
-  useEffect(() => {
-    setFocus('email')
-  }, [])
+  const Tag = isMobile ? 'div' : Card
 
   return (
     <div>
-      <Card className={s.container}>
+      <Tag className={s.container}>
         <div className={s.progressBar}>
           {isSignIn && <LinearProgress thickness={3} color={'neutral'} />}
         </div>
@@ -87,12 +78,7 @@ export const SignInForm = () => {
                 {text.forgotPassword}
               </Typography>
             </Link>
-            <Button
-              disabled={isButtonDisable}
-              type={'submit'}
-              className={s.signInBtn}
-              fullWidth={true}
-            >
+            <Button disabled={!isValid} type={'submit'} className={s.signInBtn} fullWidth={true}>
               {text.signIn}
             </Button>
             <Typography className={s.accountText} variant={'regular-16'}>
@@ -109,7 +95,7 @@ export const SignInForm = () => {
             </Button>
           </div>
         </form>
-      </Card>
+      </Tag>
     </div>
   )
 }
