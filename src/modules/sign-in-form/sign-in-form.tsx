@@ -17,7 +17,6 @@ export const SignInForm = () => {
   const {
     handleSubmit,
     formState: { isValid },
-    setFocus,
     control,
   } = useSignInForm()
   const [signIn] = useSignInMutation()
