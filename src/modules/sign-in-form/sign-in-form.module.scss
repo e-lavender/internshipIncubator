@@ -8,7 +8,8 @@
     padding: 2.4rem;
 
     .header {
-      display: block;
+      display: flex;
+      justify-content: center;
       text-align: center;
     }
 
@@ -61,5 +62,27 @@
       margin-bottom: 6px;
       text-align: center;
     }
+  }
+}
+
+@media screen and (width <= 420px) {
+  .container {
+    margin-top: 0;
+    background: none;
+    border: none;
+    animation: var(--animate);
+  }
+
+  .wrapper {
+    padding: 0 1.5rem;
+  }
+
+  .signUpBtn {
+    max-width: 33rem;
+  }
+
+  .textField {
+    max-width: 33rem;
+    margin-top: 2.4rem;
   }
 }
