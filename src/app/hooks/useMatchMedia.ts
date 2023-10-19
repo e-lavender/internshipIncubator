@@ -3,8 +3,8 @@ import { useState, useLayoutEffect } from 'react'
 import { MatchMedia } from '@/app'
 
 const queries = [
-  '(min-width: 320px) and (max-width: 400px)',
-  '(min-width: 767px) and (max-width: 1199px)',
+  '(min-width: 320px) and (max-width: 420px)',
+  '(min-width: 421px) and (max-width: 1199px)',
   '(min-width: 1200px)',
 ]
 
