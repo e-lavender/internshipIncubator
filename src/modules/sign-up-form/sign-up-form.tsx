@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { LinearProgress } from '@mui/joy'
 import Link from 'next/link'
@@ -28,7 +28,6 @@ export const SignUpForm = () => {
   const { signUpForm: text } = t.authPages.signUpPage
   const {
     control,
-    setFocus,
     formState: { isValid, dirtyFields },
     handleSubmit,
     reset,
@@ -39,7 +38,7 @@ export const SignUpForm = () => {
   const onCloseNotification = () => {
     onClose()
     reset()
-    router.push(authNavigationUrls.signIn())
+    void router.push(authNavigationUrls.signIn())
   }
   const onSubmitForm = handleSubmit(data => {
     setProgressBar(true)
@@ -56,9 +55,6 @@ export const SignUpForm = () => {
       })
   })
 
-  useEffect(() => {
-    setFocus('userName')
-  }, [])
   const policyLinks = (
     <Typography variant={'small'}>
       <TagProcessor
