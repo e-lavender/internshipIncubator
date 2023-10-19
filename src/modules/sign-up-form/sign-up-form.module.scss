@@ -41,3 +41,25 @@
     margin-top: 2.4rem;
   }
 }
+
+@media screen and (width <= 420px){
+  .container {
+    margin-top: 1.7rem;
+    background: none;
+    border: none;
+    animation: var(--animate);
+  }
+
+  .wrapper {
+    padding: 0 15px;
+  }
+
+  .textField {
+    max-width: 330px;
+    margin-top: 2.4rem;
+  }
+
+  .button {
+    width: 330px;
+  }
+}
