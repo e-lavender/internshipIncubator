@@ -15,9 +15,13 @@ const slice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addMatcher(authAPI.endpoints.signIn.matchFulfilled, (state, action) => {
-      state.accessToken = action.payload.accessToken
-    })
+    builder
+      .addMatcher(authAPI.endpoints.signIn.matchFulfilled, (state, action) => {
+        state.accessToken = action.payload.accessToken
+      })
+      .addMatcher(authAPI.endpoints.googleAuth.matchFulfilled, (state, action) => {
+        state.accessToken = action.payload.accessToken
+      })
   },
 })
 

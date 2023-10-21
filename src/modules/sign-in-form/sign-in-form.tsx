@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import { LinearProgress } from '@mui/joy'
@@ -7,26 +7,27 @@ import { toast } from 'react-toastify'
 
 import s from './sign-in-form.module.scss'
 
-import { authNavigationUrls, useTranslation, useSignInMutation } from '@/app'
+import { authNavigationUrls, useSignInMutation, useTranslation } from '@/app'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignInForm = () => {
-  const [isSignIn, setIsSignIn] = useState<boolean>(false)
-  const [isButtonDisable, setIsButtonDisable] = useState<boolean>(true)
+  //TODO remove progressBar state after refactoring oAuthButtons
+  const [progressBar, setProgressBar] = useState<boolean>(false)
+  const [signIn, { isLoading }] = useSignInMutation()
+
   const {
     handleSubmit,
-    formState: { isValid },
-    setFocus,
+    formState: { isValid, dirtyFields },
     control,
   } = useSignInForm()
-  const [signIn] = useSignInMutation()
+  const isButtonDisabled = isLoading || (dirtyFields && !isValid)
+
   const { t } = useTranslation()
   const { signInForm: text } = t.authPages.signInPage
+
   const onSubmitForm = handleSubmit(data => {
-    setIsSignIn(true)
-    setIsButtonDisable(true)
     signIn(data)
       .unwrap()
       .then(() => {
@@ -35,29 +36,13 @@ export const SignInForm = () => {
       .catch(error => {
         toast.error(error.data.message)
       })
-      .finally(() => {
-        setIsSignIn(false)
-        setIsButtonDisable(false)
-      })
   })
-
-  useEffect(() => {
-    if (isValid) {
-      setIsButtonDisable(false)
-    } else {
-      setIsButtonDisable(true)
-    }
-  }, [isValid])
-
-  useEffect(() => {
-    setFocus('email')
-  }, [])
 
   return (
     <div>
       <Card className={s.container}>
         <div className={s.progressBar}>
-          {isSignIn && <LinearProgress thickness={3} color={'neutral'} />}
+          {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}
         </div>
         <form className={s.form} onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
@@ -65,8 +50,8 @@ export const SignInForm = () => {
               {text.signIn}
             </Typography>
             <div className={s.oauthIcons}>
-              <GoogleButton />
-              <GithubButton />
+              <GoogleButton onClick={setProgressBar} />
+              <GithubButton onClick={setProgressBar} />
             </div>
             <DevTool control={control} />
             <ControlledTextField
@@ -88,7 +73,7 @@ export const SignInForm = () => {
               </Typography>
             </Link>
             <Button
-              disabled={isButtonDisable}
+              disabled={isButtonDisabled}
               type={'submit'}
               className={s.signInBtn}
               fullWidth={true}

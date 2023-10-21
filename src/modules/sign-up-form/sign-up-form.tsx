@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { LinearProgress } from '@mui/joy'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 import s from './sign-up-form.module.scss'
 
 import {
   authNavigationUrls,
-  TagProcessor,
-  useTranslation,
-  useDisclose,
-  useSignUpMutation,
   ErrorWithData,
   showError,
+  TagProcessor,
+  useDisclose,
+  useSignUpMutation,
+  useTranslation,
 } from '@/app'
-import { ControlledCheckbox, NotificationModal, ControlledTextField } from '@/components'
+import { ControlledCheckbox, ControlledTextField, NotificationModal } from '@/components'
 import { useSignupForm } from '@/modules/sign-up-form/use-sign-up-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignUpForm = () => {
+  //TODO remove progressBar state after refactoring oAuthButtons
   const [progressBar, setProgressBar] = useState<boolean>(false)
+  const [register, { isLoading }] = useSignUpMutation()
   const { isOpen, onClose, onOpen } = useDisclose()
-  const [register] = useSignUpMutation()
-  const router = useRouter()
+
   const { t } = useTranslation()
   const { signUpForm: text } = t.authPages.signUpPage
+
   const {
     control,
-    setFocus,
     formState: { isValid, dirtyFields },
     handleSubmit,
     reset,
     watch,
   } = useSignupForm()
   const email = watch('email')
-  const disableSignUpButton = dirtyFields && !isValid
+  const isButtonDisabled = isLoading || (dirtyFields && !isValid)
+
   const onCloseNotification = () => {
     onClose()
     reset()
-    router.push(authNavigationUrls.signIn())
   }
+
   const onSubmitForm = handleSubmit(data => {
-    setProgressBar(true)
     register({ ...data, login: data.userName })
       .unwrap()
       .then(() => {
@@ -51,14 +51,8 @@ export const SignUpForm = () => {
       .catch((error: ErrorWithData) => {
         showError(error)
       })
-      .finally(() => {
-        setProgressBar(false)
-      })
   })
 
-  useEffect(() => {
-    setFocus('userName')
-  }, [])
   const policyLinks = (
     <Typography variant={'small'}>
       <TagProcessor
@@ -83,7 +77,7 @@ export const SignUpForm = () => {
     <div>
       <Card className={s.container}>
         <div style={{ height: '3px' }}>
-          {progressBar && <LinearProgress thickness={3} color={'neutral'} />}
+          {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}
         </div>
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
@@ -130,7 +124,7 @@ export const SignUpForm = () => {
               {policyLinks}
             </div>
             <Button
-              disabled={disableSignUpButton}
+              disabled={isButtonDisabled}
               type={'submit'}
               variant={'primary'}
               fullWidth={true}
