@@ -97,11 +97,12 @@ export const authAPI = commonApi.injectEndpoints({
           })
         )
 
-        // try {
-        //   await queryFulfilled
-        // } catch {
-        //   patchResult.undo()
-        // }
+        try {
+          await queryFulfilled
+        } catch {
+          //TODO uncomment after back logoff will be ready
+          //patchResult.undo()
+        }
       },
     }),
 
