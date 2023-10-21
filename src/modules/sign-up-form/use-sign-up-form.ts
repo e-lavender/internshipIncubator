@@ -10,7 +10,7 @@ export const useSignupForm = () => {
   const {
     signUpForm: { formErrors },
   } = t.authPages.signUpPage
-  const { email, password, userName, confirmPassword, policy } = formErrors
+  const { email, password, userName, confirmPassword } = formErrors
 
   const signUpFormSchema = z
     .object({
@@ -32,7 +32,7 @@ export const useSignupForm = () => {
         .min(6, `${password.length}`)
         .max(20, `${password.maxLength}`)
         .regex(
-          /(?=.*[0-9])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^{|}~])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^{|}~]{6,}/g,
+          /(?=.*[0-9])(?=.*[!"#$%&'()*+,-_./:;<=>?@[\]^{|}~])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!"#$%&'()*+,-_./:;<=>?@[\]^{|}~]{6,}/g,
           `${password.pattern}`
         ),
       confirmPassword: z.string({ required_error: `${confirmPassword.required}` }).trim(),
