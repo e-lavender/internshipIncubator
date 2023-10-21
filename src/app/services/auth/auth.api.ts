@@ -91,17 +91,17 @@ export const authAPI = commonApi.injectEndpoints({
         url: authApiUrls.logout(),
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
+        dispatch(
           authAPI.util.updateQueryData('getMe', undefined, () => {
             return null
           })
         )
 
-        try {
-          await queryFulfilled
-        } catch {
-          patchResult.undo()
-        }
+        // try {
+        //   await queryFulfilled
+        // } catch {
+        //   patchResult.undo()
+        // }
       },
     }),
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -6,7 +6,7 @@ import s from './create-new-password.module.scss'
 
 import { authNavigationUrls, useTranslation } from '@/app'
 import { useNewPasswordForm } from '@/modules/create-new-password-form/validation-schema'
-import { Loader, Button, Card, TextField, Typography } from '@/ui'
+import { Button, Card, Loader, TextField, Typography } from '@/ui'
 
 export const NewPasswordForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -18,15 +18,10 @@ export const NewPasswordForm = () => {
 
   const {
     formState: { errors, isValid },
-    setFocus,
     handleSubmit,
     register,
     reset,
   } = useNewPasswordForm()
-
-  useEffect(() => {
-    setFocus('password')
-  }, [])
 
   const setNewPassword = handleSubmit((data, e?) => {
     e?.preventDefault()
@@ -34,7 +29,7 @@ export const NewPasswordForm = () => {
     setIsLoading(true)
 
     setTimeout(() => {
-      router.push(authNavigationUrls.newPasswordConfirmation())
+      void router.push(authNavigationUrls.newPasswordConfirmation())
 
       setIsLoading(false)
       reset()

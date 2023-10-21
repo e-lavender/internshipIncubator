@@ -5,11 +5,9 @@ import { FlexWrapper } from '@/templates'
 
 const SignUpPage = () => {
   return (
-    <React.Fragment>
-      <FlexWrapper>
-        <SignUpForm />
-      </FlexWrapper>
-    </React.Fragment>
+    <FlexWrapper>
+      <SignUpForm />
+    </FlexWrapper>
   )
 }
 
