@@ -33,6 +33,8 @@ export const SignUpForm = () => {
     handleSubmit,
     reset,
     watch,
+    setError,
+    clearErrors,
   } = useSignupForm()
   const email = watch('email')
   const isButtonDisabled = isLoading || (dirtyFields && !isValid)
@@ -52,6 +54,17 @@ export const SignUpForm = () => {
         showError(error)
       })
   })
+
+  const onBlurConfirmPassword = () => {
+    if (watch('password') != watch('confirmPassword')) {
+      return setError('confirmPassword', {
+        type: 'custom',
+        message: `${text.formErrors.confirmPassword.machPasswords}`,
+      })
+    }
+
+    clearErrors('confirmPassword')
+  }
 
   const policyLinks = (
     <Typography variant={'small'}>
@@ -113,6 +126,7 @@ export const SignUpForm = () => {
               inputType={'password'}
               name={'confirmPassword'}
               control={control}
+              onBlur={onBlurConfirmPassword}
             />
             <div className={s.policy}>
               <ControlledCheckbox
@@ -124,8 +138,8 @@ export const SignUpForm = () => {
               {policyLinks}
             </div>
             <Button
-              disabled={isButtonDisabled}
               type={'submit'}
+              disabled={isButtonDisabled}
               variant={'primary'}
               fullWidth={true}
               className={s.button}
