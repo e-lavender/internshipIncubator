@@ -12,15 +12,13 @@ const SignInPage = () => {
   const { push } = useRouter()
 
   if (me) {
-    push('/user-profile/idFromURL')
+    void push('/user-profile/idFromURL')
   }
 
   return (
-    <React.Fragment>
-      <FlexWrapper>
-        <SignInForm />
-      </FlexWrapper>
-    </React.Fragment>
+    <FlexWrapper>
+      <SignInForm />
+    </FlexWrapper>
   )
 }
 

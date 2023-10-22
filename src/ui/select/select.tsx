@@ -6,11 +6,12 @@ import { clsx } from 'clsx'
 import s from './select.module.scss'
 
 import { ArrowDownIcon } from '@/app/assets/svg/arrow-down-icon-svg/arrow-down-icon'
+import { Typography } from '@/ui'
 
 export type Option = { label: string | ReactElement; value: string }
 
 type CommonProps = {
-  value: string | ReactElement
+  value: ReactElement
   onChange: (value: string) => void
   placeholder?: string | ReactElement
   variant?: 'primary' | 'pagination' | 'language'
@@ -73,7 +74,7 @@ export const Select: FC<SelectProps> = ({
                     className={classNames.item}
                     key={`${option.value}`}
                   >
-                    {<span>{option.label}</span>}
+                    <Typography variant={'regular-16'}>{option.label}</Typography>
                   </SelectRadix.Item>
                 )
               })}

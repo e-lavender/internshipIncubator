@@ -3,7 +3,7 @@
     "haveAccount": "Do you have an account?",
     "signIn": "Sign In",
     "signUp": "Sign Up",
-    "userName": "User name",
+    "userName": "Username",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm password",
@@ -14,10 +14,10 @@
     "notificationMessage": "We have sent a link to confirm your email to ",
     "formErrors": {
       "userName": {
-        "required": "Enter User name",
-        "length": "User name must be at least 6 characters",
-        "maxLength": "User name must be less than 30 characters",
-        "pattern": "User name should only contain alphanumeric characters, hyphens, and underscores"
+        "required": "Enter Username",
+        "length": "Username must be at least 6 characters",
+        "maxLength": "Username must be less than 30 characters",
+        "pattern": "Username should only contain alphanumeric characters, hyphens, and underscores"
       },
       "email": {
         "required": "Enter email",

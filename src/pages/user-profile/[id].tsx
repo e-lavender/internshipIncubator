@@ -7,12 +7,13 @@ import { Button, Typography } from '@/ui'
 
 const UserProfile = () => {
   const { data: me } = useGetMeQuery(undefined, { refetchOnMountOrArgChange: true })
+
   const router = useRouter()
   const [logout] = useSignOutMutation()
 
   useEffect(() => {
     if (!me) {
-      router.push(authNavigationUrls.signIn())
+      void router.push(authNavigationUrls.signIn())
     }
   }, [me, router])
 
