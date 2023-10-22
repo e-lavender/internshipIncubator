@@ -59,7 +59,7 @@ export const SignUpForm = () => {
     if (watch('password') != watch('confirmPassword')) {
       return setError('confirmPassword', {
         type: 'custom',
-        message: `${text.formErrors.confirmPassword.machPasswords}`,
+        message: `${text.formErrors.confirmPassword.matchPasswords}`,
       })
     }
 
