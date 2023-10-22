@@ -31,7 +31,7 @@
       },
       "confirmPassword": {
         "required": "Confirm password",
-        "machPasswords": "Those passwords didn`t match. Try again."
+        "matchPasswords": "Those passwords didn`t match. Try again."
       },
       "policy": {
         "required": "You must agree to the Terms of Service and Privacy Policy"
@@ -71,7 +71,7 @@
       },
       "confirmPassword": {
         "required": "Введите подтверждение пароля",
-        "machPasswords": "Эти пароли не совпали. Попробуйте еще раз."
+        "matchPasswords": "Эти пароли не совпали. Попробуйте еще раз."
       },
       "policy": {
         "required": "Вы должны согласиться с Условиями обслуживания и Политикой конфиденциальности"
