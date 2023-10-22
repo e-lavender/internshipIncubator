@@ -41,7 +41,7 @@ export const useSignupForm = () => {
     .superRefine((data, ctx) => {
       if (data.password !== data.confirmPassword) {
         ctx.addIssue({
-          message: `${confirmPassword.required}`,
+          message: `${confirmPassword.machPasswords}`,
           code: z.ZodIssueCode.custom,
           path: ['confirmPassword'],
         })

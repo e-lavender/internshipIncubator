@@ -30,7 +30,8 @@
         "pattern": "One lowercase letter, digit, special character"
       },
       "confirmPassword": {
-        "required": "Confirm password"
+        "required": "Confirm password",
+        "machPasswords": "Those passwords didn`t match. Try again."
       },
       "policy": {
         "required": "You must agree to the Terms of Service and Privacy Policy"
@@ -69,7 +70,8 @@
         "pattern": "Пароль должен содержать как минимум одну строчную букву, цифру и специальный символ"
       },
       "confirmPassword": {
-        "required": "Введите подтверждение пароля"
+        "required": "Введите подтверждение пароля",
+        "machPasswords": "Эти пароли не совпали. Попробуйте еще раз."
       },
       "policy": {
         "required": "Вы должны согласиться с Условиями обслуживания и Политикой конфиденциальности"

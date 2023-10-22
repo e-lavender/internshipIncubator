@@ -58,7 +58,7 @@ export const Simple = {
 
     return (
       <div style={{ display: 'flex', columnGap: '20px' }}>
-        <Select {...args} value={value} onChange={setValue} />
+        <Select {...args} onChange={setValue} />
       </div>
     )
   },
@@ -75,7 +75,7 @@ export const SimpleWithLabel = {
 
     return (
       <div>
-        <Select {...args} value={value} onChange={setValue} />
+        <Select {...args} onChange={setValue} />
       </div>
     )
   },
@@ -92,7 +92,7 @@ export const Pagination = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
-    return <Select {...args} value={value} onChange={setValue} />
+    return <Select {...args} onChange={setValue} />
   },
 
   args: {
@@ -108,7 +108,7 @@ export const FullWidth = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
-    return <Select {...args} value={value} onChange={setValue} />
+    return <Select {...args} onChange={setValue} />
   },
 
   args: {
