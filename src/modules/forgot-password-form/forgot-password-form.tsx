@@ -7,10 +7,17 @@ import { useRouter } from 'next/router'
 import s from './forgot-password-form.module.scss'
 import { useForgotPasswordForm } from './validation-schema'
 
-import { authNavigationUrls, useTranslation, useDisclose, usePasswordRecoveryMutation } from '@/app'
+import {
+  authNavigationUrls,
+  useTranslation,
+  useDisclose,
+  usePasswordRecoveryMutation,
+  useMatchMedia,
+} from '@/app'
 import { NotificationModal } from '@/components'
 import { Loader, Button, Card, TextField, Typography, ControlledReCaptcha } from '@/ui'
 export const ForgotPasswordForm = () => {
+  const { isMobile } = useMatchMedia()
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
@@ -88,7 +95,17 @@ export const ForgotPasswordForm = () => {
             {message.afterSubmission}
           </Typography>
         )}
-
+        {isMobile ? (
+          <ControlledReCaptcha
+            control={control}
+            name={'token'}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY!}
+            hl={locale}
+            theme={'dark'}
+            className={s.recaptcha}
+            error={errors?.token?.message}
+          />
+        ) : null}
         <Button fullWidth className={s.button} type={'submit'} disabled={!isValid}>
           {labels.submission()}
         </Button>
@@ -98,7 +115,7 @@ export const ForgotPasswordForm = () => {
           </Typography>
         </Link>
 
-        {!isSubmitted && (
+        {!isMobile && !isSubmitted && (
           <ControlledReCaptcha
             control={control}
             name={'token'}
