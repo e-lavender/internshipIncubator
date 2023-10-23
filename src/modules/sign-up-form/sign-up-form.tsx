@@ -82,7 +82,7 @@ export const SignUpForm = () => {
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography variant={'h1'}>{text.signUp}</Typography>
-            <div className={s.oauth}>
+            <div className={s.oauthIcons}>
               <GoogleButton onClick={setProgressBar} />
               <GithubButton onClick={setProgressBar} />
             </div>
