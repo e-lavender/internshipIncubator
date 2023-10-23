@@ -76,7 +76,7 @@ export const SignUpForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        <div style={{ height: '3px' }}>
+        <div className={s.progressBar}>
           {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}
         </div>
         <form onSubmit={onSubmitForm}>
