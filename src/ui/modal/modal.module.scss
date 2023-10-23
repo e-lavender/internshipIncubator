@@ -64,3 +64,9 @@
     cursor: pointer;
   }
 }
+
+@media screen and (width <= 420px) {
+  .content {
+    width: 90%;
+  }
+}
