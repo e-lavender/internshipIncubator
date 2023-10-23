@@ -14,7 +14,7 @@
   justify-content: space-between;
 
   box-sizing: border-box;
-  min-width: 16.3rem;
+  width: 16.3rem;
   height: 3.6rem;
   padding: 0.6rem 1.2rem;
 
@@ -27,6 +27,13 @@
   border-radius: 0.125rem;
 
   -webkit-touch-callout: none;
+
+  &.language-mobile {
+    gap: 0;
+    justify-content: center;
+    max-width: 84px;
+    border: none;
+  }
 
   &:focus-visible {
     border: var(--text-light-100);
@@ -101,6 +108,11 @@
   border-radius: 0 0 0.125rem 0.125rem;
 
   -webkit-touch-callout: none;
+
+  .language-mobile {
+    justify-content: center;
+    height: 68px;
+  }
 }
 
 .icon {
