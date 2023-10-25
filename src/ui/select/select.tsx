@@ -14,7 +14,7 @@ type CommonProps = {
   value: ReactElement
   onChange: (value: string) => void
   placeholder?: string | ReactElement
-  variant?: 'primary' | 'pagination' | 'language'
+  variant?: 'primary' | 'pagination' | 'language' | 'language-mobile'
   options: Array<Option>
   label?: string
   width?: CSSProperties['width']
