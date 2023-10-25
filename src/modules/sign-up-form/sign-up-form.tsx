@@ -89,13 +89,13 @@ export const SignUpForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        <div style={{ height: '3px' }}>
+        <div className={s.progressBar}>
           {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}
         </div>
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography variant={'h1'}>{text.signUp}</Typography>
-            <div className={s.oauth}>
+            <div className={s.oauthIcons}>
               <GoogleButton onClick={setProgressBar} />
               <GithubButton onClick={setProgressBar} />
             </div>
