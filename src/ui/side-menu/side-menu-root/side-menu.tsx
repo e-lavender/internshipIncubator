@@ -5,7 +5,9 @@ import s from './side-menu.module.scss'
 export const SideMenu = ({ children }: PropsWithChildren) => {
   return (
     <aside className={s.container}>
-      <nav className={s.menu}>{children}</nav>
+      <nav>
+        <ul className={s.menu}>{children}</ul>
+      </nav>
     </aside>
   )
 }

@@ -17,5 +17,16 @@
 .menu {
   display: inline-flex;
   flex-direction: column;
-  gap: 2.6rem;
+
+  & li {
+    margin-bottom: 2.6rem;
+  }
+
+  & li:nth-child(5) {
+    margin-bottom: 6rem;
+  }
+
+  & li:nth-child(7) {
+    margin-bottom: 18rem;
+  }
 }
