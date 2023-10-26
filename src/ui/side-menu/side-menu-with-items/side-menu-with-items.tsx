@@ -44,7 +44,12 @@ export const SideMenuWithItems = () => {
       />
       <MenuItem href={'/'} icon={StatisticsMenuIcon} label={'Statistics'} disabled />
       <MenuItem href={'/'} icon={FavoritesMenuIcon} label={'Favorites'} disabled />
-      <MenuItem href={'/'} icon={LogOutMenuIcon} label={'Log Out'} />
+      <MenuItem
+        as={'button'}
+        onClick={() => console.log('button was clicked!')}
+        icon={LogOutMenuIcon}
+        label={'Log Out'}
+      />
     </SideMenu>
   )
 }

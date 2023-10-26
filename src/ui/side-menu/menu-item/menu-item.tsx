@@ -1,21 +1,33 @@
+import { ComponentPropsWithoutRef, ElementType, Fragment } from 'react'
+
 import { clsx } from 'clsx'
-import Link, { LinkProps } from 'next/link'
+import Link from 'next/link'
 
 import s from './menu-item.module.scss'
 
 import { SVGIconType } from '@/app/assets/svg/menu-icons/model'
-import { Button, Typography } from '@/ui'
+import { Typography } from '@/ui'
 
-type MenuItemProps = {
+type MenuItemProps<T extends ElementType = typeof Link> = {
+  as?: T
   label?: string
-  icon: SVGIconType
+  icon?: SVGIconType
   className?: string
   disabled?: boolean
   isSelected?: boolean
-} & LinkProps
+} & ComponentPropsWithoutRef<T>
 
-export const MenuItem = ({ href, icon, label, disabled, isSelected, ...props }: MenuItemProps) => {
-  const SVGMenuIcon = icon
+export const MenuItem = <T extends ElementType = typeof Link>({
+  as,
+  href,
+  icon,
+  label,
+  disabled,
+  isSelected,
+  ...props
+}: MenuItemProps<T> & Omit<MenuItemProps<T>, keyof MenuItemProps<T>>) => {
+  const SVGMenuIcon = icon || Fragment
+  const Component = as || Link
 
   const styles = {
     link: clsx(s.link, disabled && s.disabled, isSelected && s.selected),
@@ -24,7 +36,7 @@ export const MenuItem = ({ href, icon, label, disabled, isSelected, ...props }: 
 
   return (
     <li>
-      <Link
+      <Component
         href={href}
         className={styles.link}
         aria-disabled={disabled}
@@ -33,7 +45,7 @@ export const MenuItem = ({ href, icon, label, disabled, isSelected, ...props }: 
       >
         <SVGMenuIcon />
         <Typography className={styles.label}>{label}</Typography>
-      </Link>
+      </Component>
     </li>
   )
 }
