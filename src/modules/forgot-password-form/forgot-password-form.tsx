@@ -61,7 +61,6 @@ export const ForgotPasswordForm = () => {
 
   const sendForm = handleSubmit((data, e?) => {
     e?.preventDefault()
-
     recoverPassword(data)
       .unwrap()
       .then(onOpen)
