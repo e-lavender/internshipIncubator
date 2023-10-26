@@ -13,11 +13,13 @@ import {
 } from '@/app'
 import { SidebarItem, SidebarMenu } from '@/ui'
 
+import s from './sidebar-menu-with-items.module.scss'
+
 export const SidebarMenuWithItems = () => {
   const { pathname } = useRouter()
 
   return (
-    <SidebarMenu>
+    <SidebarMenu className={s.container}>
       <SidebarItem href={SidebarNavigation.home()} icon={HomeMenuIcon} label={'Home'} />
       <SidebarItem
         href={SidebarNavigation.create()}

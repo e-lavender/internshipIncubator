@@ -1,12 +1,14 @@
 .container {
-  --header-height: 6rem;
-
   position: fixed;
-  top: var(--header-height);
+
+  //top: var(--header-height);
+  top: 0;
   left: 0;
 
   width: 22rem;
-  height: calc(100vh - var(--header-height));
+  height: 100vh;
+
+  //height: calc(100vh - var(--header-height));
   padding: 7.2rem 0 3.6rem 6rem;
 
   background-color: inherit;

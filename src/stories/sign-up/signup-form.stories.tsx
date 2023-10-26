@@ -5,7 +5,7 @@ import { store } from '@/app/store/store'
 import { SignUpForm } from '@/modules'
 
 const meta = {
-  title: 'Pages/SignUpForm',
+  title: 'Auth/SignUpForm',
   component: SignUpForm,
   tags: ['autodocs'],
   args: {},
