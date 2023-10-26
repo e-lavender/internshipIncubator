@@ -7,7 +7,13 @@ import { toast } from 'react-toastify'
 
 import s from './sign-in-form.module.scss'
 
-import { authNavigationUrls, useSignInMutation, useTranslation } from '@/app'
+import {
+  authNavigationUrls,
+  ErrorWithData,
+  showError,
+  useSignInMutation,
+  useTranslation,
+} from '@/app'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
@@ -33,8 +39,8 @@ export const SignInForm = () => {
       .then(() => {
         toast.success('you are sign in successfully')
       })
-      .catch(error => {
-        toast.error(error.data.message)
+      .catch((error: ErrorWithData) => {
+        showError(error)
       })
   })
 
