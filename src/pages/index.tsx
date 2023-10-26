@@ -3,6 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 
 import { authNavigationUrls, useTranslation } from '@/app'
+import { Calendar } from '@/components'
 import { Typography } from '@/ui'
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
         <Link href={`/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
+        <Calendar />
       </div>
     </div>
   )
