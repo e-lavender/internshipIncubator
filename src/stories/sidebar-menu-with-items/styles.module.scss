@@ -1,11 +1,6 @@
-//.container {
-//  --container-height: 150vh;
-//
-//  height: var(--container-height);
-//}
-
 .story {
+  position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
+  border-top-color: #333;
 }

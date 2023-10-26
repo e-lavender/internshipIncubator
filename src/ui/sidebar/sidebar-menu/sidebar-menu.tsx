@@ -8,16 +8,11 @@ type SidebarMenuProps = {
   className?: string
 }
 export const SidebarMenu = ({ children, className }: PropsWithChildren<SidebarMenuProps>) => {
-  const styles = clsx(s.container, className && className)
+  const styles = clsx(className ? className : s.container)
 
   return (
     <SideBarMenu.Root className={styles}>
       <SideBarMenu.List className={s.menu}>{children}</SideBarMenu.List>
     </SideBarMenu.Root>
-    // <aside >
-    //   <nav>
-    //     <ul ></ul>
-    //   </nav>
-    // </aside>
   )
 }

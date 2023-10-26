@@ -1,0 +1,22 @@
+{
+  "en": {
+      "home": "Home",
+      "create": "Create",
+      "profile":  "Profile",
+      "messenger": "Messenger",
+      "search": "Search",
+      "statistics": "Statistics",
+      "favorites": "Favorites",
+      "logout": "Log Out"
+  },
+  "ru": {
+    "home": "Главная",
+    "create": "Создать",
+    "profile":  "Профиль",
+    "messenger": "Собщения",
+    "search": "Поиск",
+    "statistics": "Статистика",
+    "favorites": "Избранное",
+    "logout": "Выйти"
+  }
+}

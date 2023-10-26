@@ -9,6 +9,7 @@ import PrivacyPolicyTextModel from './privaty-text-model.json'
 import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
 import TermsTextModel from './terms-text-model.json'
+import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 
 export {
   SignUpTextModel,
@@ -22,4 +23,5 @@ export {
   LinkConfirmationModel,
   NewPasswordModel,
   SignInTextModel,
+  SidebarMenuModel,
 }
