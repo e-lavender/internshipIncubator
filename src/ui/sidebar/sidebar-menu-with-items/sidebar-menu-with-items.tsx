@@ -8,6 +8,7 @@ import {
   MessageMenuIcon,
   ProfileMenuIcon,
   SearchMenuIcon,
+  SidebarNavigation,
   StatisticsMenuIcon,
 } from '@/app'
 import { SidebarItem, SidebarMenu } from '@/ui'
@@ -17,33 +18,33 @@ export const SidebarMenuWithItems = () => {
 
   return (
     <SidebarMenu>
-      <SidebarItem href={'/'} icon={HomeMenuIcon} label={'Home'} />
+      <SidebarItem href={SidebarNavigation.home()} icon={HomeMenuIcon} label={'Home'} />
       <SidebarItem
-        href={'/create'}
+        href={SidebarNavigation.create()}
         icon={CreateMenuIcon}
         label={'Create'}
-        isSelected={pathname.startsWith('/create')}
+        isSelected={pathname.startsWith(SidebarNavigation.create())}
       />
       <SidebarItem
-        href={'/user-profile'}
+        href={SidebarNavigation.profile()}
         icon={ProfileMenuIcon}
         label={'Profile'}
-        isSelected={pathname.startsWith('/user-profile')}
+        isSelected={pathname.startsWith(SidebarNavigation.profile())}
       />
       <SidebarItem
-        href={'/messenger'}
+        href={SidebarNavigation.messenger()}
         icon={MessageMenuIcon}
         label={'Messenger'}
-        isSelected={pathname.startsWith('/messenger')}
+        isSelected={pathname.startsWith(SidebarNavigation.messenger())}
       />
       <SidebarItem
-        href={'/search'}
+        href={SidebarNavigation.search()}
         icon={SearchMenuIcon}
         label={'Search'}
-        isSelected={pathname.startsWith('/search')}
+        isSelected={pathname.startsWith(SidebarNavigation.search())}
       />
-      <SidebarItem href={'/'} icon={StatisticsMenuIcon} label={'Statistics'} disabled />
-      <SidebarItem href={'/'} icon={FavoritesMenuIcon} label={'Favorites'} disabled />
+      <SidebarItem href={'#'} icon={StatisticsMenuIcon} label={'Statistics'} disabled />
+      <SidebarItem href={'#'} icon={FavoritesMenuIcon} label={'Favorites'} disabled />
       <SidebarItem
         as={'button'}
         onClick={() => console.log('Logged Out!')}
