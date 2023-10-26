@@ -10,46 +10,46 @@ import {
   SearchMenuIcon,
   StatisticsMenuIcon,
 } from '@/app'
-import { MenuItem, SideMenu } from '@/ui/side-menu'
+import { SidebarItem, SidebarMenu } from '@/ui'
 
-export const SideMenuWithItems = () => {
+export const SidebarMenuWithItems = () => {
   const { pathname } = useRouter()
 
   return (
-    <SideMenu>
-      <MenuItem href={'/'} icon={HomeMenuIcon} label={'Home'} />
-      <MenuItem
+    <SidebarMenu>
+      <SidebarItem href={'/'} icon={HomeMenuIcon} label={'Home'} />
+      <SidebarItem
         href={'/create'}
         icon={CreateMenuIcon}
         label={'Create'}
         isSelected={pathname.startsWith('/create')}
       />
-      <MenuItem
+      <SidebarItem
         href={'/user-profile'}
         icon={ProfileMenuIcon}
         label={'Profile'}
         isSelected={pathname.startsWith('/user-profile')}
       />
-      <MenuItem
+      <SidebarItem
         href={'/messenger'}
         icon={MessageMenuIcon}
         label={'Messenger'}
         isSelected={pathname.startsWith('/messenger')}
       />
-      <MenuItem
+      <SidebarItem
         href={'/search'}
         icon={SearchMenuIcon}
         label={'Search'}
         isSelected={pathname.startsWith('/search')}
       />
-      <MenuItem href={'/'} icon={StatisticsMenuIcon} label={'Statistics'} disabled />
-      <MenuItem href={'/'} icon={FavoritesMenuIcon} label={'Favorites'} disabled />
-      <MenuItem
+      <SidebarItem href={'/'} icon={StatisticsMenuIcon} label={'Statistics'} disabled />
+      <SidebarItem href={'/'} icon={FavoritesMenuIcon} label={'Favorites'} disabled />
+      <SidebarItem
         as={'button'}
-        onClick={() => console.log('button was clicked!')}
+        onClick={() => console.log('Logged Out!')}
         icon={LogOutMenuIcon}
         label={'Log Out'}
       />
-    </SideMenu>
+    </SidebarMenu>
   )
 }
