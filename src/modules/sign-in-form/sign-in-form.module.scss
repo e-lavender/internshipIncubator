@@ -63,3 +63,23 @@
     }
   }
 }
+
+@media screen and (width <= 420px) {
+  .container {
+    margin-top: 0;
+    background: none;
+    border: none;
+    animation: var(--animate);
+  }
+
+  .wrapper {
+  }
+
+  .signInBtn {
+    height: 4.8rem;
+  }
+
+  .signUpBtn {
+    height: 4.8rem;
+  }
+}

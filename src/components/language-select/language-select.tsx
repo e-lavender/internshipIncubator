@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { EnglishFlagComponent } from './english-flag-component'
 import { RussiaFlagComponent } from './russian-flag-component'
 
+import { useMatchMedia } from '@/app'
 import { Select } from '@/ui/select'
 
 type LocalType = 'ru' | 'en'
@@ -12,10 +13,10 @@ export type LanguageSelectTypes = {
   testOptions?: any
 }
 export const LanguageSelect = memo(({ testOptions }: LanguageSelectTypes) => {
+  const { isMobile } = useMatchMedia()
   const { locale, push, pathname, query, asPath, locales } = useRouter()
   const typedLocale = locale as LocalType
   const [value, setValue] = useState(typedLocale)
-
   const changeLangHandler = (value: string) => {
     const locale = value as LocalType
 
@@ -39,7 +40,7 @@ export const LanguageSelect = memo(({ testOptions }: LanguageSelectTypes) => {
   return (
     <div>
       <Select
-        variant={'language'}
+        variant={isMobile ? 'language-mobile' : 'language'}
         placeholder={locale ? countries[typedLocale] : countries.ru}
         options={options}
         value={countries[value]}
