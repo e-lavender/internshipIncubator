@@ -13,31 +13,33 @@ type HeaderProps = {
   isAuthed: boolean
 }
 export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderProps>) {
-    const { isMobile, isTablet } = useMatchMedia()
-    const showAuthButtons = !isAuthed && !isMobile && !isTablet
+  const { isMobile, isTablet } = useMatchMedia()
+  const showAuthButtons = !isAuthed && !isMobile && !isTablet
 
-    return (
-    <header className={s.container}>
-      <Link href="/">
-        <Typography as="span" variant="large">
-          Inctagram
-        </Typography>
-      </Link>
-      <div className={s.list_wrapper}>
-        {children}
-        {isAuthed && <NotificationsBell notifications={notifications} />}
-        <LanguageSelect />
-        {showAuthButtons && (
-          <>
-            <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
-              Log In
-            </Button>
-            <Button as={Link} variant={'primary'} href={authNavigationUrls.signUp()}>
-              Sign Up
-            </Button>
-          </>
-        )}
-      </div>
-    </header>
+  return (
+    <div className={s.wrapper}>
+      <header className={s.container}>
+        <Link href="/">
+          <Typography as="span" variant="large">
+            Inctagram
+          </Typography>
+        </Link>
+        <div className={s.list_wrapper}>
+          {children}
+          {isAuthed && <NotificationsBell notifications={notifications} />}
+          <LanguageSelect />
+          {showAuthButtons && (
+            <>
+              <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
+                Log In
+              </Button>
+              <Button as={Link} variant={'primary'} href={authNavigationUrls.signUp()}>
+                Sign Up
+              </Button>
+            </>
+          )}
+        </div>
+      </header>
+    </div>
   )
 }
