@@ -1,8 +1,9 @@
 import { PropsWithChildren } from 'react'
+
 import * as SideBarMenu from '@radix-ui/react-navigation-menu'
+import { clsx } from 'clsx'
 
 import s from './sidebar-menu.module.scss'
-import { clsx } from 'clsx'
 
 type SidebarMenuProps = {
   className?: string

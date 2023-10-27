@@ -1,4 +1,4 @@
-export const SidebarNavigation = {
+export const sidebarNavigation = {
   home: () => '/',
   create: () => '/create',
   profile: () => '/user-profile',
