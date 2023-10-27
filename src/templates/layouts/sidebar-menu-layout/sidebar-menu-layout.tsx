@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react'
 
-import { HeaderLayout } from '@/templates/layouts/header-layout'
-
 import s from './sidebar-menu-layout.module.scss'
-import { SidebarMenuWithItems } from '@/ui'
+
+import { SidebarMenuWithItems } from '@/modules'
+import { HeaderLayout } from '@/templates/layouts/header-layout'
 
 export const SidebarMenuLayout = ({ children }: PropsWithChildren) => {
   return (

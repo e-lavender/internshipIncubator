@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { SidebarItem } from '@/ui'
+
 import { HomeMenuIcon, LogOutMenuIcon } from '@/app'
+import { SidebarItem } from '@/ui'
 
 const meta = {
   title: 'Navigation/SidebarItem',

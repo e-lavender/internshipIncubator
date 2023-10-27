@@ -9,7 +9,7 @@ type SidebarMenuProps = {
   className?: string
 }
 export const SidebarMenu = ({ children, className }: PropsWithChildren<SidebarMenuProps>) => {
-  const styles = clsx(className ? className : s.container)
+  const styles = clsx(s.container, className)
 
   return (
     <SideBarMenu.Root className={styles}>

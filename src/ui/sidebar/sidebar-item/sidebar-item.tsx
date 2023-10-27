@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType, Fragment } from 'react'
-import * as SideBarMenu from '@radix-ui/react-navigation-menu'
 
+import * as SideBarMenu from '@radix-ui/react-navigation-menu'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 

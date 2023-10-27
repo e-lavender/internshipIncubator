@@ -1,14 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { SidebarMenuWithItems } from '@/ui'
 
 import s from './styles.module.scss'
+
+import { SidebarMenuWithItems } from '@/modules'
 
 const meta = {
   title: 'Navigation/SidebarMenuWithItems',
   component: SidebarMenuWithItems,
-  // args: {
-  //   className: s.story,
-  // },
   decorators: [
     Story => (
       <div style={{ height: '100vh' }}>

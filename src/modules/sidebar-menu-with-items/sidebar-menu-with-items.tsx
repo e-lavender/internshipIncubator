@@ -23,7 +23,7 @@ export const SidebarMenuWithItems = () => {
   const labels = t.sidebarMenu
 
   return (
-    <SidebarMenu className={s.container}>
+    <SidebarMenu className={s.nav}>
       <SidebarItem href={sidebarNavigation.home()} icon={HomeMenuIcon} label={labels.home} />
       <SidebarItem
         href={sidebarNavigation.create()}
