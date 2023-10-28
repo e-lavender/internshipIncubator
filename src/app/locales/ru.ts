@@ -10,6 +10,7 @@ import {
   ForgotPasswordModel,
   SignInTextModel,
   NewPasswordConfirmationRedirectionModel,
+  SidebarMenuModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
@@ -23,6 +24,7 @@ const descriptionPrivacy = PrivacyPolicyTextModel.ru
 const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectionModel.ru
 const signUp = SignUpTextModel.ru
 const signIn = SignInTextModel.ru
+const sidebarMenu = SidebarMenuModel.ru
 
 export const ru = {
   navigation: {
@@ -57,5 +59,6 @@ export const ru = {
       },
     },
   },
+  sidebarMenu: sidebarMenu,
 }
 export type LocaleType = typeof ru

@@ -13,8 +13,7 @@ export const HeaderLayout = ({ children }: any) => {
   return (
     <>
       <Header isAuthed={!!me} />
-      <div className={s.border}></div>
-      <div className="container">{children}</div>
+      <div className={s.container}>{children}</div>
     </>
   )
 }

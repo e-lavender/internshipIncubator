@@ -37,7 +37,7 @@
   }
 
   &:focus-visible {
-    border: var(--text-light-100);
+    border-color: var(--text-light-100);
   }
 
   &[data-state='open'] {

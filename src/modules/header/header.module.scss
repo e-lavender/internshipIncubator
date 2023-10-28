@@ -1,10 +1,22 @@
+.wrapper {
+  --header-height: 6rem;
+
+  position: sticky;
+  top: 0;
+
+  height: var(--header-height);
+
+  background-color: var(--bg-color-primary);
+  border-bottom: 1px solid var(--color-dark-300);
+}
+
 .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   max-width: 128rem;
-  height: 6rem;
+  height: 100%;
   margin: 0 auto;
   padding-right: 6.4rem;
   padding-left: 6rem;

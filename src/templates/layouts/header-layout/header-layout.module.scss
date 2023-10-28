@@ -1,3 +1,7 @@
-.border {
-  border-bottom: 1px solid var(--color-dark-300);
+.container {
+  --header-height: 6rem;
+
+  max-width: 128rem;
+  margin: 0 auto;
+  padding: var(--header-height) 2rem 0;
 }

@@ -1,0 +1,9 @@
+.wrapper {
+  --side-menu-width: 22rem;
+
+  padding-left: var(--side-menu-width);
+}
+
+.content {
+  min-height: 200vh;
+}
