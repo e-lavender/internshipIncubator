@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import Link from 'next/link'
 
@@ -10,35 +10,36 @@ import { LanguageSelect, NotificationsBell } from '@/components'
 import { Button, Typography } from '@/ui'
 
 type HeaderProps = {
-  children?: ReactNode
   isAuthed: boolean
 }
-export function Header({ children, isAuthed = false }: HeaderProps) {
+export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderProps>) {
   const { isMobile, isTablet } = useMatchMedia()
   const showAuthButtons = !isAuthed && !isMobile && !isTablet
 
   return (
-    <header className={s.container}>
-      <Link href="/">
-        <Typography as="span" variant="large">
-          Inctagram
-        </Typography>
-      </Link>
-      <div className={s.list_wrapper}>
-        {children}
-        {isAuthed && <NotificationsBell notifications={notifications} />}
-        <LanguageSelect />
-        {showAuthButtons && (
-          <>
-            <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
-              Log In
-            </Button>
-            <Button as={Link} variant={'primary'} href={authNavigationUrls.signUp()}>
-              Sign Up
-            </Button>
-          </>
-        )}
-      </div>
-    </header>
+    <div className={s.wrapper}>
+      <header className={s.container}>
+        <Link href="/">
+          <Typography as="span" variant="large">
+            Inctagram
+          </Typography>
+        </Link>
+        <div className={s.list_wrapper}>
+          {children}
+          {isAuthed && <NotificationsBell notifications={notifications} />}
+          <LanguageSelect />
+          {showAuthButtons && (
+            <>
+              <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
+                Log In
+              </Button>
+              <Button as={Link} variant={'primary'} href={authNavigationUrls.signUp()}>
+                Sign Up
+              </Button>
+            </>
+          )}
+        </div>
+      </header>
+    </div>
   )
 }

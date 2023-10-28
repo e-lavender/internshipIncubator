@@ -74,7 +74,7 @@ export const Select: FC<SelectProps> = ({
                     className={classNames.item}
                     key={`${option.value}`}
                   >
-                    <Typography variant={'regular-16'}>{option.label}</Typography>
+                    <span>{option.label}</span>
                   </SelectRadix.Item>
                 )
               })}

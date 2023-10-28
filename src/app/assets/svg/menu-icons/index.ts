@@ -1,0 +1,8 @@
+export { HomeMenuIcon } from './home-icon'
+export { CreateMenuIcon } from './create-icon'
+export { ProfileMenuIcon } from './profile-icon'
+export { MessageMenuIcon } from './message-icon'
+export { SearchMenuIcon } from './search-icon'
+export { StatisticsMenuIcon } from './statistics-icon'
+export { FavoritesMenuIcon } from './favorites-icon'
+export { LogOutMenuIcon } from './log-out-icon'

@@ -4,14 +4,15 @@ import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
 import { Toaster } from '@/components'
-import { HeaderLayout } from '@/templates/layouts/header-layout'
+import { SidebarMenuLayout } from '@/templates/layouts/sidebar-menu-layout/sidebar-menu-layout'
+import { WithHomePageLayout } from '@/templates'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <HeaderLayout>
+      <WithHomePageLayout>
         <Component {...pageProps} />
-      </HeaderLayout>
+      </WithHomePageLayout>
       <Toaster />
     </Provider>
   )

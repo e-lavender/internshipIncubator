@@ -5,7 +5,7 @@ import { store } from '@/app/store/store'
 import { LinkConfirmed } from '@/modules'
 
 const meta = {
-  title: 'Pages/LinkConfirmed',
+  title: 'Auth/LinkConfirmed',
   component: LinkConfirmed,
   tags: ['autodocs'],
   args: {},
