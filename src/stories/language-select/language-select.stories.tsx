@@ -1,9 +1,7 @@
-import { Meta } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 
 import { LanguageSelect } from '@/components'
-import { EnglishFlagComponent } from '@/components/language-select/english-flag-component'
-import { LanguageSelectTypes } from '@/components/language-select/language-select'
-import { RussiaFlagComponent } from '@/components/language-select/russian-flag-component'
+import meta from '@/stories/link-expired/link-expired.stories'
 
 export default {
   title: 'Components/Select',
@@ -11,23 +9,7 @@ export default {
   tags: ['autodocs'],
 } satisfies Meta<typeof LanguageSelect>
 
-const optionsLanguageSelect = [
-  {
-    value: 'ru',
-    label: <RussiaFlagComponent />,
-  },
-  {
-    value: 'en',
-    label: <EnglishFlagComponent />,
-  },
-]
-
-export const LanguageSelectStories = {
-  render: ({ testOptions }: LanguageSelectTypes) => {
-    return <LanguageSelect testOptions={testOptions} />
-  },
-
-  args: {
-    testOptions: optionsLanguageSelect,
-  },
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
+  args: {},
 }

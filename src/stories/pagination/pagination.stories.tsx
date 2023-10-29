@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Pagination, PaginationPropsType } from '../../ui/pagination'
+import { Pagination, PaginationPropsType } from '@/ui/pagination'
 
 const meta = {
   title: 'Components/Pagination',

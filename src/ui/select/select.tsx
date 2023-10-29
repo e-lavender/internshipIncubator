@@ -11,11 +11,11 @@ import { Typography } from '@/ui'
 export type Option = { label: string | ReactElement; value: string }
 
 type CommonProps = {
-  value: ReactElement
+  value: string | number
   onChange: (value: string) => void
   placeholder?: string | ReactElement
   variant?: 'primary' | 'pagination' | 'language' | 'language-mobile'
-  options: Array<Option>
+  options: Array<Option | string>
   label?: string
   width?: CSSProperties['width']
   rootClassName?: string
@@ -66,15 +66,15 @@ export const Select: FC<SelectProps> = ({
 
           <SelectRadix.Portal>
             <SelectRadix.Content className={classNames.content} position={'popper'}>
-              {options?.map(option => {
+              {options?.map((option, index) => {
                 return (
                   <SelectRadix.Item
                     asChild={true}
-                    value={option.value}
+                    value={typeof option !== 'string' ? option.value : option}
                     className={classNames.item}
-                    key={`${option.value}`}
+                    key={index}
                   >
-                    <span>{option.label}</span>
+                    <span>{typeof option !== 'string' ? option.label : option}</span>
                   </SelectRadix.Item>
                 )
               })}
