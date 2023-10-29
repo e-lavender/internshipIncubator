@@ -12,6 +12,7 @@ import {
   NewPasswordConfirmationRedirectionModel,
   CharacterPageTextModel,
   SidebarMenuModel,
+  PaginationTextModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
@@ -26,6 +27,7 @@ const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectio
 const signUp = SignUpTextModel.en
 const signIn = SignInTextModel.en
 const sidebarMenu = SidebarMenuModel.en
+const pagination = PaginationTextModel.en
 
 export const en: LocaleType = {
   navigation: {
@@ -61,4 +63,5 @@ export const en: LocaleType = {
     },
   },
   sidebarMenu: sidebarMenu,
+  pagination: pagination,
 }

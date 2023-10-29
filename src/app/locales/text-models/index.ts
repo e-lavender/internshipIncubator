@@ -5,11 +5,12 @@ import LinkExpiredModel from './link-expired-model.json'
 import NavigationTextModel from './navigation-text-model.json'
 import NewPasswordConfirmationRedirectionModel from './new-password-confirmation-redirection-model.json'
 import NewPasswordModel from './new-password.model.json'
-import PrivacyPolicyTextModel from './privaty-text-model.json'
+import PaginationTextModel from './pagination-text-model.json'
+import PrivacyPolicyTextModel from './privacy-text-model.json'
+import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
 import TermsTextModel from './terms-text-model.json'
-import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 
 export {
   SignUpTextModel,
@@ -24,4 +25,5 @@ export {
   NewPasswordModel,
   SignInTextModel,
   SidebarMenuModel,
+  PaginationTextModel,
 }
