@@ -6,7 +6,6 @@ import { clsx } from 'clsx'
 import s from './select.module.scss'
 
 import { ArrowDownIcon } from '@/app/assets/svg/arrow-down-icon-svg/arrow-down-icon'
-import { Typography } from '@/ui'
 
 export type Option = { label: string | ReactElement; value: string }
 
