@@ -36,8 +36,13 @@
         cursor: auto;
         display: block;
 
+        -webkit-tap-highlight-color: transparent;
+
+        &:active,
         &:hover {
-          all: unset;
+          color: var(--focus-color-primary);
+
+          -webkit-tap-highlight-color: transparent;
         }
       }
     }
