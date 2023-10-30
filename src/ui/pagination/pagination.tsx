@@ -5,9 +5,10 @@ import { clsx } from 'clsx'
 import s from './pagination.module.scss'
 import { usePagination } from './usePagination'
 
-import { ChevronRight, ChevronLeft, useTranslation } from '@/app'
+import { ChevronLeft, ChevronRight, useTranslation } from '@/app'
 import { Select, Typography } from '@/ui'
 import { ROWS_PER_PAGE } from '@/ui/pagination/constants'
+import { SelectVariant } from '@/ui/select/select-types'
 
 export type PaginationPropsType = {
   currentPage: number
@@ -132,11 +133,10 @@ export const Pagination: FC<PaginationPropsType> = props => {
         <Typography variant={'regular-14'}>{pagination.show}</Typography>
         <Select
           className={cNames.select}
-          width={80}
           value={pageSize}
           options={ROWS_PER_PAGE}
           onChange={onPageSizeChange}
-          variant={'pagination'}
+          variant={SelectVariant.Pagination}
         />
         <Typography variant={'regular-14'}>{pagination.onPage}</Typography>
       </div>

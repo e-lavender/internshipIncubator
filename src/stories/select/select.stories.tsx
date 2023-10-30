@@ -2,7 +2,8 @@ import { useState } from 'react'
 
 import type { Meta } from '@storybook/react'
 
-import { Select, SelectProps } from '@/ui/select/select'
+import { Select } from '@/ui/select/select'
+import { SelectModel } from '@/ui/select/select-types'
 
 export default {
   title: 'Components/Select',
@@ -52,7 +53,7 @@ const optionsPagination = [
 ]
 
 export const Simple = {
-  render: (args: SelectProps) => {
+  render: (args: SelectModel) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
@@ -69,7 +70,7 @@ export const Simple = {
 }
 
 export const SimpleWithLabel = {
-  render: (args: SelectProps) => {
+  render: (args: SelectModel) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
@@ -88,7 +89,7 @@ export const SimpleWithLabel = {
 }
 
 export const Pagination = {
-  render: (args: SelectProps) => {
+  render: (args: SelectModel) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
@@ -104,7 +105,7 @@ export const Pagination = {
 }
 
 export const FullWidth = {
-  render: (args: SelectProps) => {
+  render: (args: SelectModel) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 

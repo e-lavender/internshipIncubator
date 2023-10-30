@@ -20,14 +20,7 @@ const meta = {
       exclude: /(?:\b|')(currentPage|pageSize|onPageChange)(?:\b|')/g,
     },
   },
-  argTypes: {
-    // currentPage: {
-    //   table: {
-    //     disable: true,
-    //   },
-    //   control: false,
-    // },
-  },
+  argTypes: {},
 } satisfies Meta<typeof Pagination>
 
 const ControlledPagination: FC<PaginationPropsType> = ({
