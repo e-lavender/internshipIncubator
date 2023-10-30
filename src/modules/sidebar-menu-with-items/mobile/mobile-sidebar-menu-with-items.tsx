@@ -17,7 +17,11 @@ export const MobileSidebarMenuWithItems = () => {
 
   return (
     <SidebarMenu className={s.nav}>
-      <SidebarItem href={sidebarNavigation.home()} icon={HomeMenuIcon} />
+      <SidebarItem
+        href={sidebarNavigation.home()}
+        icon={HomeMenuIcon}
+        isSelected={pathname === sidebarNavigation.home()}
+      />
       <SidebarItem
         href={sidebarNavigation.create()}
         icon={CreateMenuIcon}
