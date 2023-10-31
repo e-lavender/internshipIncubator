@@ -1,0 +1,14 @@
+.container {
+  display: inline-block;
+  background-color: transparent;
+  caret-color: transparent;
+}
+
+.image {
+  object-fit: cover;
+  border-radius: 5%;
+}
+
+.rounded {
+  border-radius: 100%;
+}
