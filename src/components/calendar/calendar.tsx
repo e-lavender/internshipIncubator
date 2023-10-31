@@ -4,7 +4,7 @@ import { getMonth, getYear } from 'date-fns'
 import DatePicker from 'react-datepicker'
 
 import './react-datepicker.scss'
-import { CalendarIcon } from '@/app'
+import { CalendarIcon, NextIcon, PreviousIcon } from '@/app'
 
 import range from 'lodash/range'
 import { background } from '@storybook/theming'
@@ -15,19 +15,19 @@ export const Calendar = () => {
   const [isYearPiker, setIsYearPiker] = useState(false)
   const years = range(1900, getYear(new Date()) + 45, 1)
 
-  const months = [
-    'Janvier',
-    'Février',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juillet',
-    'Août',
-    'Septembre',
-    'Octobre',
-    'Novembre',
-    'Décembre',
+  const MONTH = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ]
   const handleMonthPiker = (): void => {
     setIsYearPiker(false)
@@ -79,22 +79,28 @@ export const Calendar = () => {
               justifyContent: 'space-between',
             }}
           >
-            <button onClick={handleMonthPiker}>{months[getMonth(date)]}</button>
-            <button onClick={handleYearPick}>{getYear(date)}</button>
+            <div>
+              <button className="react-datepicker__navigation--month" onClick={handleMonthPiker}>
+                {MONTH[getMonth(date)]}
+              </button>
+              <button className="react-datepicker__navigation--year" onClick={handleYearPick}>
+                {getYear(date)}
+              </button>
+            </div>
             <div>
               <button
                 className="react-datepicker__navigation--previous"
                 onClick={isYearPiker ? decreaseYear : decreaseMonth}
                 disabled={isYearPiker ? prevYearButtonDisabled : prevMonthButtonDisabled}
               >
-                {'<'}
+                <PreviousIcon />
               </button>
               <button
                 className="react-datepicker__navigation--next"
                 onClick={isYearPiker ? increaseYear : increaseMonth}
                 disabled={isYearPiker ? nextYearButtonDisabled : nextMonthButtonDisabled}
               >
-                {'>'}
+                <NextIcon />
               </button>
             </div>
           </div>
