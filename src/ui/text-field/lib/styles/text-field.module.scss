@@ -27,7 +27,7 @@
   }
 
   .inputContainer {
-    --rightIcon-width: 2rem;
+    --right-icon-width: 2.4rem;
 
     position: relative;
     width: 100%;
@@ -50,7 +50,7 @@
       align-items: center;
 
       width: 100%;
-      padding: 0.6rem calc(1.5rem + var(--rightIcon-width)) 0.6rem 1.2rem;
+      padding: 0.6rem calc(1.5rem + var(--right-icon-width)) 0.6rem 1.2rem;
 
       line-height: var(--line-height-m);
       color: var(--color-light-100);
@@ -119,7 +119,7 @@
 
       right: 1.2rem;
 
-      width: var(--rightIcon-width);
+      width: var(--right-icon-width);
       margin: 0;
       padding: 0;
 
