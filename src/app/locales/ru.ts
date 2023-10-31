@@ -11,6 +11,7 @@ import {
   SignInTextModel,
   NewPasswordConfirmationRedirectionModel,
   SidebarMenuModel,
+  PaginationTextModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
@@ -25,6 +26,7 @@ const newPasswordConfirmationRedirectionPage = NewPasswordConfirmationRedirectio
 const signUp = SignUpTextModel.ru
 const signIn = SignInTextModel.ru
 const sidebarMenu = SidebarMenuModel.ru
+const pagination = PaginationTextModel.ru
 
 export const ru = {
   navigation: {
@@ -60,5 +62,6 @@ export const ru = {
     },
   },
   sidebarMenu: sidebarMenu,
+  pagination: pagination,
 }
 export type LocaleType = typeof ru
