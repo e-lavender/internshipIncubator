@@ -56,6 +56,7 @@ export const Calendar = () => {
         shouldCloseOnSelect={!isMonthPiker && !isYearPiker}
         showYearPicker={isYearPiker}
         //locale={enAU}
+        //dateFormat="yyyy"
         showMonthYearPicker={isMonthPiker}
         dayClassName={date => (date.getDay() === 0 || date.getDay() === 6 ? 'weekend' : null)}
         renderCustomHeader={({
@@ -66,6 +67,10 @@ export const Calendar = () => {
           increaseMonth,
           prevMonthButtonDisabled,
           nextMonthButtonDisabled,
+          prevYearButtonDisabled,
+          nextYearButtonDisabled,
+          increaseYear,
+          decreaseYear,
         }) => (
           <div
             style={{
@@ -76,46 +81,22 @@ export const Calendar = () => {
           >
             <button onClick={handleMonthPiker}>{months[getMonth(date)]}</button>
             <button onClick={handleYearPick}>{getYear(date)}</button>
-            {/*<select*/}
-            {/*  value={months[getMonth(date)]}*/}
-            {/*  onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}*/}
-            {/*>*/}
-            {/*  {months.map(option => (*/}
-            {/*    <option key={option} value={option}>*/}
-            {/*      {option}*/}
-            {/*    </option>*/}
-            {/*  ))}*/}
-            {/*</select>*/}
-
-            {/*<select*/}
-            {/*  className="react-datepicker__navigation--select"*/}
-            {/*  value={getYear(date)}*/}
-            {/*  onChange={({ target: { value } }) => changeYear(value)}*/}
-            {/*>*/}
-            {/*  {years.map((option: any) => (*/}
-            {/*    <option*/}
-            {/*      key={option}*/}
-            {/*      value={option}*/}
-            {/*      className="react-datepicker__navigation--option"*/}
-            {/*    >*/}
-            {/*      {option}*/}
-            {/*    </option>*/}
-            {/*  ))}*/}
-            {/*</select>*/}
-            <button
-              className="react-datepicker__navigation--previous"
-              onClick={decreaseMonth}
-              disabled={prevMonthButtonDisabled}
-            >
-              {'<'}
-            </button>
-            <button
-              className="react-datepicker__navigation--next"
-              onClick={increaseMonth}
-              disabled={nextMonthButtonDisabled}
-            >
-              {'>'}
-            </button>
+            <div>
+              <button
+                className="react-datepicker__navigation--previous"
+                onClick={isYearPiker ? decreaseYear : decreaseMonth}
+                disabled={isYearPiker ? prevYearButtonDisabled : prevMonthButtonDisabled}
+              >
+                {'<'}
+              </button>
+              <button
+                className="react-datepicker__navigation--next"
+                onClick={isYearPiker ? increaseYear : increaseMonth}
+                disabled={isYearPiker ? nextYearButtonDisabled : nextMonthButtonDisabled}
+              >
+                {'>'}
+              </button>
+            </div>
           </div>
         )}
         onChange={date => setStartDate(date)}
