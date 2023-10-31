@@ -14,11 +14,11 @@ export const FlagComponent = ({ locale = LocalType.EN }: FlagComponentProps) => 
   return (
     <div className={s.container}>
       <div className={s.languageSelect}>{flagIcons[locale]}</div>
-      {!isMobile ? (
+      {!isMobile && (
         <Typography className={s.text} variant={'regular-16'}>
           {language}
         </Typography>
-      ) : null}
+      )}
     </div>
   )
 }

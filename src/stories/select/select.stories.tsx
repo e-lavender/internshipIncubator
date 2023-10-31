@@ -3,11 +3,20 @@ import { useState } from 'react'
 import type { Meta } from '@storybook/react'
 
 import { Select } from '@/ui/select/select'
-import { SelectModel } from '@/ui/select/select-types'
+import { SelectModel, SelectVariant } from '@/ui/select/select-types'
 
 export default {
   title: 'Components/Select',
   component: Select,
+  decorators: [
+    Story => (
+      <div
+        style={{ margin: '3em', display: 'flex', justifyContent: 'center', listStyleType: 'none' }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof Select>
 
@@ -59,7 +68,7 @@ export const Simple = {
 
     return (
       <div style={{ display: 'flex', columnGap: '20px' }}>
-        <Select {...args} onChange={setValue} />
+        <Select {...args} value={value} onChange={setValue} />
       </div>
     )
   },
@@ -76,7 +85,7 @@ export const SimpleWithLabel = {
 
     return (
       <div>
-        <Select {...args} onChange={setValue} />
+        <Select {...args} value={value} onChange={setValue} />
       </div>
     )
   },
@@ -93,7 +102,7 @@ export const Pagination = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
-    return <Select {...args} onChange={setValue} />
+    return <Select {...args} value={value} onChange={setValue} />
   },
 
   args: {
@@ -109,7 +118,7 @@ export const FullWidth = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState('')
 
-    return <Select {...args} onChange={setValue} />
+    return <Select {...args} value={value} onChange={setValue} />
   },
 
   args: {

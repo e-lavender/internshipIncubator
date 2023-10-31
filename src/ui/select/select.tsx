@@ -6,12 +6,12 @@ import s from './select.module.scss'
 
 import { ArrowDownIcon } from '@/app/assets/svg/arrow-down-icon-svg/arrow-down-icon'
 
-enum IconSize {
-  pagination = 16,
-  primary = 24,
-  language = primary,
-  mobile = primary,
-}
+const IconSize = {
+  [SelectVariant.Pagination]: 16,
+  [SelectVariant.Primary]: 24,
+  [SelectVariant.Language]: 24,
+  [SelectVariant.LanguageMobile]: 24,
+} as const
 
 export const Select = ({
   variant = SelectVariant.Primary,

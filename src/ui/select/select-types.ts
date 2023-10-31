@@ -4,7 +4,7 @@ export enum SelectVariant {
   Primary = 'primary',
   Pagination = 'pagination',
   Language = 'language',
-  LanguageMobile = 'mobile',
+  LanguageMobile = 'language-mobile',
 }
 
 type ObjectOption = { label: string | ReactElement; value: string }
