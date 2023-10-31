@@ -16,7 +16,7 @@ export const useNewPasswordForm = () => {
         .min(6, `${password.validation.length}`)
         .max(20, `${password.validation.maxLength}`)
         .regex(
-          /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{6,20}$/,
+          /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*[а-яА-Я])(?!.* ).{6,20}$/,
           `${password.validation.pattern}`
         ),
       confirmPassword: z
