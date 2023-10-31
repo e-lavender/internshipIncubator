@@ -6,6 +6,7 @@ import { languageSelectOptions } from './language-select-data'
 import { useMatchMedia } from '@/app'
 import { LocalType } from '@/app/constants/enums'
 import { Select } from '@/ui/select'
+import { SelectVariant } from '@/ui/select/select-types'
 
 export const LanguageSelect = () => {
   const { isMobile } = useMatchMedia()
@@ -21,7 +22,7 @@ export const LanguageSelect = () => {
   return (
     <div>
       <Select
-        variant={isMobile ? 'language-mobile' : 'language'}
+        variant={isMobile ? SelectVariant.LanguageMobile : SelectVariant.Language}
         placeholder={currentSelectedLocale}
         options={languageSelectOptions}
         onChange={changeLangHandler}

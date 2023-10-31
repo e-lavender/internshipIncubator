@@ -5,17 +5,18 @@ import { useMatchMedia, useTranslation } from '@/app'
 import { flagIcons, LocalType } from '@/app/constants/enums'
 import { Typography } from '@/ui'
 
-export const FlagComponent = ({ locale }: FlagComponentProps) => {
+export const FlagComponent = ({ locale = LocalType.EN }: FlagComponentProps) => {
   const { isMobile } = useMatchMedia()
   const { t } = useTranslation()
-  const defaultLocale = LocalType.EN
+
+  const { [locale]: language } = t.navigation.header
 
   return (
     <div className={s.container}>
-      <div className={s.languageSelect}>{flagIcons[locale ?? defaultLocale]}</div>
+      <div className={s.languageSelect}>{flagIcons[locale]}</div>
       {!isMobile ? (
         <Typography className={s.text} variant={'regular-16'}>
-          {t.navigation.header[locale ?? defaultLocale]}
+          {language}
         </Typography>
       ) : null}
     </div>

@@ -53,16 +53,12 @@ export const Select = ({
           <SelectRadix.Portal>
             <SelectRadix.Content className={classNames.content} position={'popper'}>
               {options?.map((option, index) => {
-                const optionData =
+                const { value, label } =
                   typeof option === 'string' ? { value: option, label: option } : option
 
                 return (
-                  <SelectRadix.Item
-                    value={optionData.value}
-                    className={classNames.item}
-                    key={index}
-                  >
-                    {optionData.label}
+                  <SelectRadix.Item value={value} className={classNames.item} key={index}>
+                    {label}
                   </SelectRadix.Item>
                 )
               })}
