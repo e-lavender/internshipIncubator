@@ -7,7 +7,7 @@ import Image from 'next/image'
 import s from './avatar.module.scss'
 
 import { useMatchMedia } from '@/app'
-import { SIZES } from '@/app/constants/sizes/avatar'
+import { AVATAR_SIZE } from '@/app/constants/sizes/avatar'
 
 type AvatarPropsType = {
   width?: number
@@ -26,17 +26,14 @@ export const Avatar = ({
   ...props
 }: AvatarPropsType) => {
   const { isMobile } = useMatchMedia()
-  const defaultSize = { x: SIZES.SET_MODE(isMobile), y: SIZES.SET_MODE(isMobile) }
+  const defaultSize = { x: AVATAR_SIZE.set(isMobile), y: AVATAR_SIZE.set(isMobile) }
 
   const { height = defaultSize.y, width = defaultSize.x } = props
 
-  const styles = {
-    container: clsx(s.container, rounded && s.rounded, className),
-    image: clsx(s.image, rounded && s.rounded),
-  }
+  const styles = clsx(s.container, rounded && s.rounded, className)
 
   return (
-    <RadixAvatar.Root className={styles.container}>
+    <RadixAvatar.Root className={styles}>
       <RadixAvatar.Image
         className={s.image}
         width={width}
@@ -47,7 +44,7 @@ export const Avatar = ({
       />
       <RadixAvatar.Fallback asChild delayMs={delay}>
         <Image
-          className={styles.image}
+          className={s.image}
           width={width}
           height={height}
           src={'/assets/avatar/avatar-fallback.webp'}

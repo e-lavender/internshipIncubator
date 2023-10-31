@@ -1,14 +1,19 @@
 .container {
+  overflow: hidden;
   display: inline-block;
+
+  height: 100%;
+
   background-color: transparent;
   caret-color: transparent;
+
+  &.rounded,
+  &.rounded img {
+    border-radius: 100%;
+  }
 }
 
 .image {
   object-fit: cover;
   border-radius: 5%;
-}
-
-.rounded {
-  border-radius: 100%;
 }
