@@ -1,29 +1,20 @@
-import { ComponentPropsWithoutRef, CSSProperties, FC, ReactElement } from 'react'
-
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
+import { SelectModel, SelectVariant } from './select-types'
 import s from './select.module.scss'
 
 import { ArrowDownIcon } from '@/app/assets/svg/arrow-down-icon-svg/arrow-down-icon'
-import { Typography } from '@/ui'
 
-export type Option = { label: string | ReactElement; value: string }
+const IconSize = {
+  [SelectVariant.Pagination]: 16,
+  [SelectVariant.Primary]: 24,
+  [SelectVariant.Language]: 24,
+  [SelectVariant.LanguageMobile]: 24,
+} as const
 
-type CommonProps = {
-  value: ReactElement
-  onChange: (value: string) => void
-  placeholder?: string | ReactElement
-  variant?: 'primary' | 'pagination' | 'language' | 'language-mobile'
-  options: Array<Option>
-  label?: string
-  width?: CSSProperties['width']
-  rootClassName?: string
-  open?: boolean
-}
-export type SelectProps = Omit<ComponentPropsWithoutRef<'select'>, keyof CommonProps> & CommonProps
-export const Select: FC<SelectProps> = ({
-  variant = 'primary',
+export const Select = ({
+  variant = SelectVariant.Primary,
   placeholder,
   value,
   disabled,
@@ -34,11 +25,7 @@ export const Select: FC<SelectProps> = ({
   rootClassName,
   width,
   open,
-}) => {
-  const IconSize = {
-    Small: 16,
-    Large: 24,
-  } as const
+}: SelectModel) => {
   const classNames = {
     root: rootClassName,
     trigger: clsx(s.trigger, s[variant], className),
@@ -47,7 +34,7 @@ export const Select: FC<SelectProps> = ({
     content: clsx(s.content, s[variant]),
     label: clsx(s.label, disabled && s.disabled),
   }
-  const withoutPlaceholder = variant === 'pagination' ? value : 'Select Box'
+  const withoutPlaceholder = variant === SelectVariant.Pagination ? value : 'Select Box'
   const rootStyles = { width }
 
   return (
@@ -60,21 +47,18 @@ export const Select: FC<SelectProps> = ({
               {value}
             </SelectRadix.Value>
             <SelectRadix.Icon className={classNames.icon}>
-              <ArrowDownIcon size={variant === 'pagination' ? IconSize.Small : IconSize.Large} />
+              <ArrowDownIcon size={IconSize[variant]} />
             </SelectRadix.Icon>
           </SelectRadix.Trigger>
-
           <SelectRadix.Portal>
             <SelectRadix.Content className={classNames.content} position={'popper'}>
-              {options?.map(option => {
+              {options?.map((option, index) => {
+                const { value, label } =
+                  typeof option === 'string' ? { value: option, label: option } : option
+
                 return (
-                  <SelectRadix.Item
-                    asChild={true}
-                    value={option.value}
-                    className={classNames.item}
-                    key={`${option.value}`}
-                  >
-                    <span>{option.label}</span>
+                  <SelectRadix.Item value={value} className={classNames.item} key={index}>
+                    {label}
                   </SelectRadix.Item>
                 )
               })}

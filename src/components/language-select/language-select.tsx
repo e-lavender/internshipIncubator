@@ -1,51 +1,33 @@
-import { memo, useMemo, useState } from 'react'
-
 import { useRouter } from 'next/router'
 
-import { EnglishFlagComponent } from './english-flag-component'
-import { RussiaFlagComponent } from './russian-flag-component'
+import { FlagComponent } from './flag-component'
+import { languageSelectOptions } from './language-select-data'
 
 import { useMatchMedia } from '@/app'
+import { LocalType } from '@/app/constants/enums'
 import { Select } from '@/ui/select'
+import { SelectVariant } from '@/ui/select/select-types'
 
-type LocalType = 'ru' | 'en'
-export type LanguageSelectTypes = {
-  testOptions?: any
-}
-export const LanguageSelect = memo(({ testOptions }: LanguageSelectTypes) => {
+export const LanguageSelect = () => {
   const { isMobile } = useMatchMedia()
-  const { locale, push, pathname, query, asPath, locales } = useRouter()
+  const { locale, push, pathname, query, asPath } = useRouter()
   const typedLocale = locale as LocalType
-  const [value, setValue] = useState(typedLocale)
+
+  const currentSelectedLocale = FlagComponent({ locale: typedLocale })
+
   const changeLangHandler = (value: string) => {
-    const locale = value as LocalType
-
-    push({ pathname, query }, asPath, { locale })
-    setValue(locale)
+    void push({ pathname, query }, asPath, { locale: value })
   }
-
-  const countries = {
-    en: <EnglishFlagComponent />,
-    ru: <RussiaFlagComponent />,
-  }
-  const options = useMemo(() => {
-    return Array.isArray(locales)
-      ? locales?.map(el => ({
-          value: el,
-          label: el == 'ru' ? <RussiaFlagComponent /> : <EnglishFlagComponent />,
-        }))
-      : testOptions
-  }, [locales, testOptions])
 
   return (
     <div>
       <Select
-        variant={isMobile ? 'language-mobile' : 'language'}
-        placeholder={locale ? countries[typedLocale] : countries.ru}
-        options={options}
-        value={countries[value]}
+        variant={isMobile ? SelectVariant.LanguageMobile : SelectVariant.Language}
+        placeholder={currentSelectedLocale}
+        options={languageSelectOptions}
         onChange={changeLangHandler}
+        value={currentSelectedLocale}
       />
     </div>
   )
-})
+}
