@@ -7,6 +7,7 @@ import Image from 'next/image'
 import s from './avatar.module.scss'
 
 import { useMatchMedia } from '@/app'
+import avatarImg from '@/app/assets/avatar/avatar.jpg'
 import { AVATAR_SIZE } from '@/app/constants/sizes/avatar'
 
 type AvatarPropsType = {
@@ -21,7 +22,7 @@ export const Avatar = ({
   rounded = true,
   src,
   alt = 'avatar image',
-  delay,
+  delay = 0,
   className,
   ...props
 }: AvatarPropsType) => {
@@ -42,12 +43,13 @@ export const Avatar = ({
         alt={alt}
         {...props}
       />
+
       <RadixAvatar.Fallback asChild delayMs={delay}>
         <Image
           className={s.image}
           width={width}
           height={height}
-          src={'/assets/avatar/avatar-fallback.webp'}
+          src={'/assets/avatar/avatar.jpg'}
           alt={alt}
         />
       </RadixAvatar.Fallback>

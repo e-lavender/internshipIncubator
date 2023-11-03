@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.8rem;
+  padding: 3.5rem 6.4rem 2.5rem 2.4rem;
+}
+
+.profile {
+  flex: 1 1 55rem;
+  min-width: 0;
+
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+}

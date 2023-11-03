@@ -11,14 +11,17 @@ import { HeaderLayout } from '@/templates/layouts/header-layout'
 export const SidebarMenuLayout = ({ children }: PropsWithChildren) => {
   const { isMobile } = useMatchMedia()
 
-  const styles = clsx(!isMobile && s.wrapper)
+  const styles = {
+    root: clsx(s.container),
+    wrapper: clsx(!isMobile && s.wrapper),
+  }
 
   return (
     <>
       <HeaderLayout />
-      <div className={styles}>
+      <div className={styles.root}>
         {isMobile ? <MobileSidebarMenuWithItems /> : <SidebarMenuWithItems />}
-        <div className={s.content}>{children}</div>
+        <div className={styles.wrapper}>{children}</div>
       </div>
     </>
   )
