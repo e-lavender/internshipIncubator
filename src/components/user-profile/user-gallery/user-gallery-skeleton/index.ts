@@ -1,1 +1,1 @@
-export * from '../user-gallery.module.scss'
+export * from './user-gallery-skeleton'

@@ -24,8 +24,8 @@
     align-items: center;
     justify-content: center;
 
-    li,
-    li:nth-child(5) {
+    & li,
+    & li:nth-child(5) {
       margin: 0;
 
       &:hover {
