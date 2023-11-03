@@ -7,7 +7,6 @@ import Image from 'next/image'
 import s from './avatar.module.scss'
 
 import { useMatchMedia } from '@/app'
-import avatarImg from '@/app/assets/avatar/avatar.jpg'
 import { AVATAR_SIZE } from '@/app/constants/sizes/avatar'
 
 type AvatarPropsType = {
@@ -49,7 +48,7 @@ export const Avatar = ({
           className={s.image}
           width={width}
           height={height}
-          src={'/assets/avatar/avatar.jpg'}
+          src={'/assets/avatar/avatar-fallback.webp'}
           alt={alt}
         />
       </RadixAvatar.Fallback>

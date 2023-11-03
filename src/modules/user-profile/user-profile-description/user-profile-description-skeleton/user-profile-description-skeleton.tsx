@@ -27,7 +27,8 @@ export const UserProfileDescriptionSkeleton = () => {
         <SkeletonCard>
           <Typography as={'p'} variant={'regular-16'}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem
-            ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur
+            adipiscing elit.
           </Typography>
         </SkeletonCard>
       </div>

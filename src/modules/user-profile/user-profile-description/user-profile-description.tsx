@@ -10,7 +10,9 @@ import { Button, Typography } from '@/ui'
 export const UserProfileDescription = () => {
   return (
     <div className={s.container}>
-      <Avatar src={''} />
+      <div className={s.avatar}>
+        <Avatar src={'/assets/avatar/avatar.jpg'} />
+      </div>
       <div className={s.profile}>
         <div className={s.header}>
           <div className={s.title}>
@@ -25,7 +27,7 @@ export const UserProfileDescription = () => {
         <Typography as={'p'} variant={'regular-16'}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco{' '}
+          ullamco.{' '}
           <Typography as={'span'} variant={'regular-link'}>
             <Link href={'#'}>laboris nisi ut aliquip ex ea commodo consequat.</Link>
           </Typography>
