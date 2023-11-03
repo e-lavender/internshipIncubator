@@ -1,3 +1,5 @@
+export * from './menu-icons'
+
 export * from './arrow-down-icon-svg'
 export * from './arrow-dropdown-icon-svg'
 export * from './back-to-previous-icon-svg'
@@ -11,7 +13,6 @@ export * from './google-icon-svg'
 export * from './github-icon-svg'
 export * from './en-flag-icon'
 export * from './ru-flag-icon'
-export * from './menu-icons'
 export * from './chevron-left'
 export * from './chevron-right'
 export * from './checked-icon-svg'

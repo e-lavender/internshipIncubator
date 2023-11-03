@@ -7,7 +7,8 @@
       "search": "Search",
       "statistics": "Statistics",
       "favorites": "Favorites",
-      "logout": "Log Out"
+      "logout": "Log Out",
+    "setting": "Profile Setting"
   },
   "ru": {
     "home": "Главная",
@@ -17,6 +18,7 @@
     "search": "Поиск",
     "statistics": "Статистика",
     "favorites": "Избранное",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "setting": "Настройка Профиля"
   }
 }
