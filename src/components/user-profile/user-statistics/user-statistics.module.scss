@@ -3,11 +3,32 @@
   flex-wrap: wrap;
   margin: 2rem 0 2.3rem;
 
-  & div:first-child {
+  div:first-child {
     margin-right: 10rem;
   }
 
-  & div:nth-child(2) {
+  div:nth-child(2) {
     margin-right: 8.8rem;
+  }
+
+  &.mobile {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+
+    margin: 0;
+
+    & div {
+      margin: 0;
+
+      //&:nth-child(1) {
+      //  margin: 0;
+      //}
+      //
+      //&:nth-child(2) {
+      //  margin: 0;
+      //}
+    }
   }
 }

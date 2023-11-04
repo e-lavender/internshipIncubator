@@ -1,12 +1,12 @@
 .navigation {
-  --animation-duration: 0.5s;
-  --animation-delay: 0.1s;
+  --animation-duration: 400ms;
+  --animation-delay: 50ms;
 
   position: relative;
 
   display: inline-block;
 
-  height: 4rem;
+  height: 6rem;
   margin-left: 1.2rem;
 
   -webkit-tap-highlight-color: transparent;
@@ -24,8 +24,8 @@
     justify-content: space-around;
 
     width: 2.4rem;
-    height: 100%;
-    padding-top: 1.6rem;
+    height: 1rem;
+    padding: 3rem 0 2rem;
 
     .dot {
       width: 0.4rem;
@@ -41,11 +41,14 @@
 
   .list {
     position: absolute;
+    top: 5rem;
     right: 0;
     transform: translateY(-1rem);
 
+    overflow: hidden;
+
     width: 16.1rem;
-    height: 20.4rem;
+    min-height: 20.4rem;
     padding: 1.8rem 0 1.2rem 1.2rem;
 
     opacity: 0;
@@ -60,8 +63,8 @@
     & ul {
       display: flex;
       flex-direction: column;
+      gap: 1.2rem;
       align-items: flex-start;
-      justify-content: space-between;
 
       height: 100%;
 
@@ -72,9 +75,11 @@
 
         display: inline-flex;
         gap: 1.2rem;
+        align-items: center;
         justify-content: flex-start;
 
         min-width: 2rem;
+        min-height: 3.6rem;
 
         color: var(--text-color-primary);
         list-style-type: none;

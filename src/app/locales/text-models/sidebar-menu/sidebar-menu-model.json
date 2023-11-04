@@ -1,19 +1,19 @@
 {
   "en": {
-      "home": "Home",
-      "create": "Create",
-      "profile":  "Profile",
-      "messenger": "Messenger",
-      "search": "Search",
-      "statistics": "Statistics",
-      "favorites": "Favorites",
-      "logout": "Log Out",
+    "home": "Home",
+    "create": "Create",
+    "profile": "Profile",
+    "messenger": "Messenger",
+    "search": "Search",
+    "statistics": "Statistics",
+    "favorites": "Favorites",
+    "logout": "Log Out",
     "setting": "Profile Setting"
   },
   "ru": {
     "home": "Главная",
     "create": "Создать",
-    "profile":  "Профиль",
+    "profile": "Профиль",
     "messenger": "Сообщения",
     "search": "Поиск",
     "statistics": "Статистика",

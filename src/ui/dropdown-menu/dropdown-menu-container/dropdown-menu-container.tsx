@@ -1,18 +1,17 @@
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
+import { useRouter } from 'next/router'
 
 import s from './dropdown-menu-container.module.scss'
 
-type DropdownMenuContainerProps = {
-  className?: string
-}
-
-export const DropdownMenuContainer = ({
-  children,
-  className,
-}: PropsWithChildren<DropdownMenuContainerProps>) => {
+export const DropdownMenuContainer = ({ children }: PropsWithChildren) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { pathname } = useRouter()
+
+  useEffect(() => {
+    return () => setIsOpen(false)
+  }, [pathname])
 
   const clickHandler = () => {
     setIsOpen(prev => !prev)

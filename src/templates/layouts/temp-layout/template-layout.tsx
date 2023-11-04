@@ -14,13 +14,5 @@ export const WithHomePageLayout = ({ children }: PropsWithChildren) => {
 
   const isAuthed = true
 
-  return (
-    <>
-      {isAuthed ? (
-        <SidebarMenuLayout>{children}</SidebarMenuLayout>
-      ) : (
-        <HeaderLayout>{children}</HeaderLayout>
-      )}
-    </>
-  )
+  return <SidebarMenuLayout isAuthed={isAuthed}>{children}</SidebarMenuLayout>
 }

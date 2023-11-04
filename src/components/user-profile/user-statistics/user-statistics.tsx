@@ -1,6 +1,10 @@
+import { clsx } from 'clsx'
+
 import { MOCKED_DATA_STATISTICS } from './data'
 import { UserStatisticsItem } from './user-statistics-item'
 import s from './user-statistics.module.scss'
+
+import { useMatchMedia } from '@/app'
 
 type FetchedData = {
   category?: string
@@ -12,8 +16,12 @@ type UserStatisticsProps = {
 }
 
 export const UserStatistics = ({ data = [] }: UserStatisticsProps) => {
+  const { isMobile } = useMatchMedia()
+
+  const styles = clsx(s.container, isMobile && s.mobile)
+
   return (
-    <div className={s.container}>
+    <div className={styles}>
       {MOCKED_DATA_STATISTICS.map(({ category, qty }) => (
         <UserStatisticsItem key={category} category={category} qty={qty} />
       ))}

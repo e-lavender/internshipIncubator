@@ -13,6 +13,7 @@ export const UserProfileDescription = () => {
       <div className={s.avatar}>
         <Avatar src={'/assets/avatar/avatar.jpg'} />
       </div>
+
       <div className={s.profile}>
         <div className={s.header}>
           <div className={s.title}>
