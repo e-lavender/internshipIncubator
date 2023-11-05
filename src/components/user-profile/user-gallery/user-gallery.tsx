@@ -1,10 +1,10 @@
 import { clsx } from 'clsx'
 
-import { GalleryItem } from './gallery-item'
 import s from './user-gallery.module.scss'
 
 import { useMatchMedia } from '@/app'
-import { GALLERY_DATA } from '@/app/data/user-profile-data'
+import { GALLERY_DATA } from '@/app/data'
+import { GalleryItem } from '@/components'
 
 export const UserProfileGallery = ({ data = ['test'] }: any) => {
   const { isMobile } = useMatchMedia()

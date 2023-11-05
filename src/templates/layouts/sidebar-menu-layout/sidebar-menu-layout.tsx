@@ -6,7 +6,7 @@ import s from './sidebar-menu-layout.module.scss'
 
 import { useMatchMedia } from '@/app'
 import { SidebarMenuWithItems, MobileSidebarMenuWithItems } from '@/modules'
-import { HeaderLayout } from '@/templates/layouts/header-layout'
+import { HeaderLayout } from '@/templates/layouts'
 
 type SidebarMenuLayoutProps = {
   isAuthed?: boolean
@@ -28,6 +28,7 @@ export const SidebarMenuLayout = ({
   return (
     <>
       <HeaderLayout />
+
       <div className={styles.root}>
         {isAuthed && SidebarVersion}
         <div className={styles.wrapper}>{children}</div>

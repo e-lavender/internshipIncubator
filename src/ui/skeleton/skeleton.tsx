@@ -16,7 +16,7 @@ export const Skeleton = ({
 
   return (
     <div className={styles} {...props}>
-      <div className={s.children}>{children}</div>
+      <div className={s.content}>{children}</div>
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import { HeaderLayout } from '@/templates/layouts/header-layout'
-import { SidebarMenuLayout } from '@/templates/layouts/sidebar-menu-layout'
+import { SidebarMenuLayout } from '@/templates/layouts'
 
 type Props = PropsWithChildren
 export const WithHomePageLayout = ({ children }: PropsWithChildren) => {

@@ -1,8 +1,7 @@
 import { clsx } from 'clsx'
 
-import s from '../../mobile/mobile-user-profile-description.module.scss'
-
 import { Avatar, UserStatistics, UserStatisticsSkeleton } from '@/components'
+import s from '@/modules/user-profile/user-profile-description/mobile-user-profile/mobile-user-profile-description.module.scss'
 import { Typography } from '@/ui'
 import { SkeletonCard } from '@/ui/skeleton'
 

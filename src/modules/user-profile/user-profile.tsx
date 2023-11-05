@@ -1,13 +1,14 @@
+import s from './user-profile.module.scss'
+
 import { useMatchMedia } from '@/app'
-import { UserProfileGallery } from '@/components/user-profile/user-gallery'
-import { UserProfileDescription } from '@/modules/user-profile/user-profile-description'
-import { MobileUserProfileDescription } from '@/modules/user-profile/user-profile-description/mobile'
+import { UserProfileGallery } from '@/components'
+import { MobileUserProfileDescription, UserProfileDescription } from '@/modules'
 
 export const UserProfile = () => {
   const { isMobile } = useMatchMedia()
 
   return (
-    <section>
+    <section className={s.container}>
       {isMobile ? <MobileUserProfileDescription /> : <UserProfileDescription />}
       <UserProfileGallery />
     </section>

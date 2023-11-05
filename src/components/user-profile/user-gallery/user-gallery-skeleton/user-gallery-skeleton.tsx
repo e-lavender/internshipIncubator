@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 import s from '../user-gallery.module.scss'
 
 import { useMatchMedia } from '@/app'
-import { SkeletonCard } from '@/ui/skeleton'
+import { SkeletonCard } from '@/ui'
 export const UserGallerySkeleton = () => {
   const { isMobile } = useMatchMedia()
 

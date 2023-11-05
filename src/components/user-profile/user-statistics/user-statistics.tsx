@@ -1,10 +1,10 @@
 import { clsx } from 'clsx'
 
 import { MOCKED_DATA_STATISTICS } from './data'
-import { UserStatisticsItem } from './user-statistics-item'
 import s from './user-statistics.module.scss'
 
 import { useMatchMedia } from '@/app'
+import { UserStatisticsItem } from '@/components'
 
 type FetchedData = {
   category?: string

@@ -1,9 +1,9 @@
 import { MOCKED_DATA_STATISTICS } from '../data'
-import { UserStatisticsItem } from '../user-statistics-item'
 
 import s from './user-statistics-skeleton.module.scss'
 
-import { SkeletonCard } from '@/ui/skeleton'
+import { UserStatisticsItem } from '@/components'
+import { SkeletonCard } from '@/ui'
 
 export const UserStatisticsSkeleton = () => {
   return (

@@ -27,9 +27,10 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
         </Link>
         <div className={s.list_wrapper}>
           {children}
-
           {isAuthed && <NotificationsBell notifications={notifications} />}
+
           <LanguageSelect />
+
           {showAuthButtons && (
             <>
               <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
