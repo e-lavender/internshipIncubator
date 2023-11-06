@@ -1,34 +1,45 @@
 import React, { useState } from 'react'
 
-import { getMonth, getYear } from 'date-fns'
-import DatePicker from 'react-datepicker'
-
+import en, { getMonth, getYear, de } from 'date-fns'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import './react-datepicker.scss'
+
+import ru from 'date-fns/locale/ru'
+
 import { CalendarIcon, NextIcon, PreviousIcon } from '@/app'
 
 import range from 'lodash/range'
-import { background } from '@storybook/theming'
+
+import { Typography } from '@/ui'
+registerLocale('en', en)
+registerLocale('ru', ru)
+const MONTH = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+type calendarProps = {
+  type?: 'default' | 'range'
+}
 
 export const Calendar = () => {
   const [startDate, setStartDate] = useState(new Date())
   const [isMonthPiker, setIsMonthPiker] = useState(false)
   const [isYearPiker, setIsYearPiker] = useState(false)
-  const years = range(1900, getYear(new Date()) + 45, 1)
+  const [dateRange, setDateRange] = useState([null, null])
+  const [startDateInRange, endDateInRange] = dateRange
 
-  const MONTH = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ]
+  let isRange = false
   const handleMonthPiker = (): void => {
     setIsYearPiker(false)
     setIsMonthPiker(prev => !prev)
@@ -37,32 +48,28 @@ export const Calendar = () => {
     setIsMonthPiker(false)
     setIsYearPiker(prev => !prev)
   }
-  const renderYearContent = (year: any) => {
-    const tooltipText = `Tooltip for year: ${year}`
-
-    return years.map((year: any) => <div key={year}>{year}</div>)
-
-    //return <span title={tooltipText}>{year}</span>
-  }
 
   return (
     <div className="react__datepicker">
       <DatePicker
+        calendarStartDay={1}
+        isClearable={true}
         className="red-border"
         showIcon
         icon={CalendarIcon}
         selected={startDate}
-        //renderYearContent={renderYearContent}
         shouldCloseOnSelect={!isMonthPiker && !isYearPiker}
         showYearPicker={isYearPiker}
-        //locale={enAU}
+        locale="ru"
         //dateFormat="yyyy"
         showMonthYearPicker={isMonthPiker}
+        startDate={isRange ? startDateInRange : null}
+        endDate={isRange ? endDateInRange : null}
+        selectsRange={isRange}
         dayClassName={date => (date.getDay() === 0 || date.getDay() === 6 ? 'weekend' : null)}
+        onChange={date => (isRange ? setDateRange(date) : setStartDate(date))}
         renderCustomHeader={({
           date,
-          changeYear,
-          changeMonth,
           decreaseMonth,
           increaseMonth,
           prevMonthButtonDisabled,
@@ -80,11 +87,15 @@ export const Calendar = () => {
             }}
           >
             <div>
-              <button className="react-datepicker__navigation--month" onClick={handleMonthPiker}>
-                {MONTH[getMonth(date)]}
+              <button onClick={handleMonthPiker}>
+                <Typography className="react-datepicker__navigation--month" variant="bold-16">
+                  {MONTH[getMonth(date)]}
+                </Typography>
               </button>
-              <button className="react-datepicker__navigation--year" onClick={handleYearPick}>
-                {getYear(date)}
+              <button onClick={handleYearPick}>
+                <Typography className="react-datepicker__navigation--year" variant="bold-16">
+                  {getYear(date)}
+                </Typography>
               </button>
             </div>
             <div>
@@ -105,7 +116,6 @@ export const Calendar = () => {
             </div>
           </div>
         )}
-        onChange={date => setStartDate(date)}
       />
     </div>
   )
