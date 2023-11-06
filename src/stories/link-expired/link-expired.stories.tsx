@@ -5,7 +5,7 @@ import { store } from '@/app/store/store'
 import { LinkExpired } from '@/modules'
 
 const meta = {
-  title: 'Pages/LinkExpired',
+  title: 'Auth/LinkExpired',
   component: LinkExpired,
   tags: ['autodocs'],
   args: {},

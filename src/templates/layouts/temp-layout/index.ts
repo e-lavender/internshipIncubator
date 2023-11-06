@@ -1,1 +1,1 @@
-export { WithHomePageLayout } from './template-layot'
+export { WithHomePageLayout } from './template-layout'

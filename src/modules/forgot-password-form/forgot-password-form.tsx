@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
 import Link from 'next/link'
@@ -13,6 +13,7 @@ import {
   useDisclose,
   usePasswordRecoveryMutation,
   useMatchMedia,
+  TagProcessor,
 } from '@/app'
 import { NotificationModal } from '@/components'
 import { Loader, Button, Card, TextField, Typography, ControlledReCaptcha } from '@/ui'
@@ -28,9 +29,10 @@ export const ForgotPasswordForm = () => {
 
   const { t } = useTranslation()
   const { title, email, message, button } = t.forgotPasswordPage
+  const { link, submitTextV1, submitTextV2 } = button
 
   const labels = {
-    button: isSubmitted ? button.submitV2 : button.submitV1,
+    button: isSubmitted ? submitTextV2 : submitTextV1,
     submission() {
       return isLoading ? <Loader /> : this.button
     },
@@ -61,7 +63,6 @@ export const ForgotPasswordForm = () => {
 
   const sendForm = handleSubmit((data, e?) => {
     e?.preventDefault()
-
     recoverPassword(data)
       .unwrap()
       .then(onOpen)
@@ -95,7 +96,7 @@ export const ForgotPasswordForm = () => {
             {message.afterSubmission}
           </Typography>
         )}
-        {isMobile ? (
+        {isMobile && (
           <ControlledReCaptcha
             control={control}
             name={'token'}
@@ -105,15 +106,15 @@ export const ForgotPasswordForm = () => {
             className={s.recaptcha}
             error={errors?.token?.message}
           />
-        ) : null}
+        )}
         <Button fullWidth className={s.button} type={'submit'} disabled={!isValid}>
           {labels.submission()}
         </Button>
-        <Link href={authNavigationUrls.signIn()}>
-          <Typography as={'h3'} variant={'bold-16'} className={s.link}>
-            {button.link}
-          </Typography>
-        </Link>
+
+        <Typography as={'h3'} variant={'bold-16'} className={s.link}>
+          {link.description}
+          <Link href={authNavigationUrls.signIn()}>{link.text}</Link>
+        </Typography>
 
         {!isMobile && !isSubmitted && (
           <ControlledReCaptcha

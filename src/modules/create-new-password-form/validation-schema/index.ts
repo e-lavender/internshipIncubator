@@ -16,23 +16,16 @@ export const useNewPasswordForm = () => {
         .min(6, `${password.validation.length}`)
         .max(20, `${password.validation.maxLength}`)
         .regex(
-          /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g,
+          /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*[а-яА-Я])(?!.* ).{6,20}$/,
           `${password.validation.pattern}`
         ),
       confirmPassword: z
         .string({ required_error: `${passwordConfirmation.validation.required}` })
         .trim(),
     })
-    .superRefine((input, ctx) => {
-      if (input.password !== input.confirmPassword) {
-        ctx.addIssue({
-          message: `${passwordConfirmation.validation.required}`,
-          code: z.ZodIssueCode.custom,
-          path: ['confirmPassword'],
-        })
-      }
-
-      return input
+    .refine(data => data.password === data.confirmPassword, {
+      message: `${passwordConfirmation.validation.required}`,
+      path: ['confirmPassword'],
     })
 
   type NewPassFormType = z.infer<typeof NewPasswordSchema>
