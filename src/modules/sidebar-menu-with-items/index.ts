@@ -1,2 +1,2 @@
 export * from './sidebar-menu-with-items'
-export * from './mobile'
+export * from './mobile-sidebar'

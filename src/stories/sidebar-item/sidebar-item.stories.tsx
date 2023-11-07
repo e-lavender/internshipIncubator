@@ -119,7 +119,7 @@ export const SidebarItemOnlyLabel: Story = {
 export const SidebarItemAsButton: Story = {
   args: {
     as: 'button',
-    onClick: () => console.log('Logged Out!'),
+    onClick: () => {},
     icon: LogOutMenuIcon,
     label: 'Log Out',
   },

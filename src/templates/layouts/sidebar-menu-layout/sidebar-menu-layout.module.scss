@@ -1,9 +1,17 @@
-.wrapper {
+.container {
   --side-menu-width: 22rem;
+  --header-height: 6rem;
 
-  padding-left: var(--side-menu-width);
-}
+  max-width: 128rem;
+  margin: 0 auto;
 
-.content {
-  min-height: 200vh;
+  .wrapper {
+    position: absolute;
+    z-index: -1;
+    top: var(--header-height);
+    right: 0;
+    left: var(--side-menu-width);
+
+    min-height: 200vh;
+  }
 }

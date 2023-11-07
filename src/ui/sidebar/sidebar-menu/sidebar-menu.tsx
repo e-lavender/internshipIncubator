@@ -12,8 +12,10 @@ export const SidebarMenu = ({ children, className }: PropsWithChildren<SidebarMe
   const styles = clsx(s.container, className)
 
   return (
-    <SideBarMenu.Root className={styles}>
-      <SideBarMenu.List className={s.menu}>{children}</SideBarMenu.List>
-    </SideBarMenu.Root>
+    <aside>
+      <SideBarMenu.Root className={styles}>
+        <SideBarMenu.List className={s.menu}>{children}</SideBarMenu.List>
+      </SideBarMenu.Root>
+    </aside>
   )
 }
