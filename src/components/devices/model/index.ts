@@ -1,4 +1,4 @@
-const DEVICES = {
+const SESSION_DEVICES = {
   DESKTOP: 'DESKTOP',
   MOBILE: 'MOBILE',
 } as const
@@ -17,6 +17,8 @@ const BROWSERS = {
 
 type ObjectValuesType<T> = T[keyof T]
 
-export type DeviceType = ObjectValuesType<typeof DEVICES>
+export type SessionDeviceType = ObjectValuesType<typeof SESSION_DEVICES>
 
 export type BrowserType = ObjectValuesType<typeof BROWSERS>
+
+export type Nullable<T> = T | null

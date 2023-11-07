@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 import s from './sidebar-item.module.scss'
 
-import { SVGIconType } from '@/app/assets/svg/menu-icons/model'
+import { SVGIconType } from '@/app'
 import { Typography } from '@/ui'
 
 type MenuItemProps<T extends ElementType = typeof Link> = {
@@ -16,6 +16,7 @@ type MenuItemProps<T extends ElementType = typeof Link> = {
   className?: string
   disabled?: boolean
   isSelected?: boolean
+  asListItem?: boolean
 } & ComponentPropsWithoutRef<T>
 
 export const SidebarItem = <T extends ElementType = typeof Link>({
@@ -25,11 +26,13 @@ export const SidebarItem = <T extends ElementType = typeof Link>({
   label,
   disabled,
   isSelected,
+  asListItem = true,
   children,
   ...props
 }: MenuItemProps<T> & Omit<MenuItemProps<T>, keyof MenuItemProps<T>>) => {
   const SVGMenuIcon = icon || Fragment
   const Component = as || Link
+  const Container = asListItem ? SideBarMenu.Item : Fragment
 
   const styles = {
     link: clsx(s.link, disabled && s.disabled, isSelected && s.selected),
@@ -37,7 +40,7 @@ export const SidebarItem = <T extends ElementType = typeof Link>({
   }
 
   return (
-    <SideBarMenu.Item>
+    <Container>
       <Component
         href={href}
         className={styles.link}
@@ -49,6 +52,6 @@ export const SidebarItem = <T extends ElementType = typeof Link>({
         <SVGMenuIcon />
         <Typography className={styles.label}>{label}</Typography>
       </Component>
-    </SideBarMenu.Item>
+    </Container>
   )
 }

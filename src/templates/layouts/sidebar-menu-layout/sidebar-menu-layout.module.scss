@@ -1,7 +1,13 @@
+.container {
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
 .wrapper {
   --side-menu-width: 22rem;
 
-  padding-left: var(--side-menu-width);
+  max-width: 128rem;
+  padding-left: calc(var(--side-menu-width) + 2.4rem);
 }
 
 .content {

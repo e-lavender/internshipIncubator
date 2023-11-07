@@ -8,16 +8,20 @@ import {
   MobileIcon,
   OperaBrowserIcon,
   SafariBrowserIcon,
+  SVGIconType,
   UcBrowserIcon,
   YandexBrowserIcon,
 } from '@/app'
 
-export const DEVICE_ICON = {
+type IconDataType = {
+  [key: string]: SVGIconType
+}
+export const SESSION_DEVICE_ICON: IconDataType = {
   DESKTOP: DesktopIcon,
   MOBILE: MobileIcon,
 }
 
-export const BROWSER_ICON = {
+export const BROWSER_ICON: IconDataType = {
   BRAVE: BraveBrowserIcon,
   CHROME: ChromeBrowserIcon,
   EDGE: EdgeBrowserIcon,
@@ -28,3 +32,19 @@ export const BROWSER_ICON = {
   YANDEX: YandexBrowserIcon,
   UC: UcBrowserIcon,
 }
+
+// type NumberType = {
+//   name: string;
+//   type: number
+// }
+//
+// type StringType = {
+//   age: number
+//   type: string
+// }
+//
+// type UniversalType = StringType & NumberType
+//
+// const data: UniversalType = {
+//
+// }
