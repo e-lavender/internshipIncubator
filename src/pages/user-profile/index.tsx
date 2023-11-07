@@ -1,15 +1,16 @@
-import { Avatar } from '@/components'
+import { useEffect, useState } from 'react'
 
-const url =
-  'https://img.freepik.com/premium-photo/customer-service-representative-digital-avatar-generative-ai_934475-9273.jpg'
+import { UserProfile, UserProfileSkeleton } from '@/modules/user-profile'
 
-const UserProfile = () => {
-  return (
-    <div style={{ padding: '0 5rem' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '5rem' }}>User Profile</h1>
-      <Avatar src={url} />
-    </div>
-  )
+const UserProfilePage = () => {
+  // Simulation of fetch request
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => setIsLoaded(true), 2000)
+  }, [])
+
+  return isLoaded ? <UserProfile /> : <UserProfileSkeleton />
 }
 
-export default UserProfile
+export default UserProfilePage

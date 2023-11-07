@@ -27,7 +27,7 @@ export const SidebarItem = <T extends ElementType = typeof Link>({
   isSelected,
   children,
   ...props
-}: MenuItemProps<T> & Omit<MenuItemProps<T>, keyof MenuItemProps<T>>) => {
+}: MenuItemProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof MenuItemProps<T>>) => {
   const SVGMenuIcon = icon || Fragment
   const Component = as || Link
 
