@@ -1,18 +1,20 @@
+import { clsx } from 'clsx'
+
+import { BROWSER_ICON, SESSION_DEVICE_ICON } from './data'
 import s from './device-information-card.module.scss'
+import { BrowserType, SessionDeviceType } from './model'
 
 import { LogOutMenuIcon, SVGIconType, useTranslation } from '@/app'
-import { BROWSER_ICON, SESSION_DEVICE_ICON } from '@/components/devices/data'
-import { BrowserType, SessionDeviceType } from '@/components/devices/model'
 import { Card, SidebarItem, Typography } from '@/ui'
 
 type CardType = 'SESSION' | 'DEVICE'
-
-type VariantType<T> = T extends 'SESSION' ? SessionDeviceType : BrowserType
 
 type VariantTypeV2 = {
   SESSION: SessionDeviceType
   DEVICE: BrowserType
 }
+
+// TODO => consider to simplify props type structure in order to eliminate potential errors in the future (as an alternative use icon prop instead of variant)
 
 type DeviceInformationCardProps<T extends CardType> = {
   type: T
@@ -20,6 +22,7 @@ type DeviceInformationCardProps<T extends CardType> = {
   title?: string
   ip?: string
   lastVisit?: string
+  className?: string
 }
 
 export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
@@ -28,14 +31,15 @@ export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
   title,
   ip = '-',
   lastVisit,
+  className,
 }: DeviceInformationCardProps<T>) => {
   const { t } = useTranslation()
   const labels = t.sidebarMenu
 
+  const styles = clsx(s.container, className)
+
   const SVGIcon: SVGIconType =
     type === 'SESSION' ? SESSION_DEVICE_ICON[variant] : BROWSER_ICON[variant]
-
-  // const SVGIcon: SVGIconType = icon
 
   const LogoutButton =
     type === 'SESSION' ? (
@@ -49,7 +53,7 @@ export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
     ) : null
 
   return (
-    <Card className={s.container}>
+    <Card className={styles}>
       <div className={s.wrapper}>
         <div className={s.icon}>
           <SVGIcon />
@@ -67,6 +71,7 @@ export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
           </Typography>
         </div>
       </div>
+
       <div className={s.btn}>{LogoutButton}</div>
     </Card>
   )

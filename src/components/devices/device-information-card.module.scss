@@ -28,3 +28,14 @@
     align-self: center;
   }
 }
+
+@media (width <= 420px) {
+  .container {
+    flex-direction: column;
+
+    .btn {
+      align-self: flex-end;
+      margin-top: 2rem;
+    }
+  }
+}

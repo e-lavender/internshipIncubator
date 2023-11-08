@@ -7,7 +7,7 @@ export const menuNavigation = {
   statistics: () => '/statistics',
   favorites: () => '/favorites',
   settings: () => '/user-profile/settings',
-  devices: () => '/user-profile/devices',
+  devices: () => '/user-profile/user-devices',
   account: () => '/user-profile/account',
   payments: () => '/user-profile/payments',
 }

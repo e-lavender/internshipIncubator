@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import s from './user-profile-description.module.scss'
 
-import { CheckedIcon } from '@/app'
+import { CheckedIcon, menuNavigation } from '@/app'
 import { Avatar } from '@/components'
 import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { Button, Typography } from '@/ui'
@@ -22,7 +22,9 @@ export const UserProfileDescription = () => {
             </Typography>
             <CheckedIcon />
           </div>
-          <Button variant={'secondary'}>Profile Settings</Button>
+          <Button as={Link} href={menuNavigation.settings()} variant={'secondary'}>
+            Profile Settings
+          </Button>
         </div>
         <UserStatistics />
         <Typography as={'p'} variant={'regular-16'}>
