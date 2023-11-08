@@ -6,19 +6,32 @@ import s from './sidebar-menu-layout.module.scss'
 
 import { useMatchMedia } from '@/app'
 import { SidebarMenuWithItems, MobileSidebarMenuWithItems } from '@/modules'
-import { HeaderLayout } from '@/templates/layouts/header-layout'
+import { HeaderLayout } from '@/templates/layouts'
 
-export const SidebarMenuLayout = ({ children }: PropsWithChildren) => {
+type SidebarMenuLayoutProps = {
+  isAuthed?: boolean
+}
+
+export const SidebarMenuLayout = ({
+  children,
+  isAuthed = false,
+}: PropsWithChildren<SidebarMenuLayoutProps>) => {
   const { isMobile } = useMatchMedia()
 
-  const styles = clsx(!isMobile && s.wrapper, s.container)
+  const SidebarVersion = isMobile ? <MobileSidebarMenuWithItems /> : <SidebarMenuWithItems />
+
+  const styles = {
+    root: clsx(s.container),
+    wrapper: clsx(!isMobile && s.wrapper),
+  }
 
   return (
     <>
       <HeaderLayout />
-      <div className={styles}>
-        {isMobile ? <MobileSidebarMenuWithItems /> : <SidebarMenuWithItems />}
-        <div className={s.content}>{children}</div>
+
+      <div className={styles.root}>
+        {isAuthed && SidebarVersion}
+        <div className={styles.wrapper}>{children}</div>
       </div>
     </>
   )

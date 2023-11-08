@@ -1,5 +1,3 @@
-import React from 'react'
-
 import '@/app/styles/_global-classes.scss'
 
 import s from './header-layout.module.scss'

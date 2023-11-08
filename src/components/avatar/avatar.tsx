@@ -21,7 +21,7 @@ export const Avatar = ({
   rounded = true,
   src,
   alt = 'avatar image',
-  delay,
+  delay = 0,
   className,
   ...props
 }: AvatarPropsType) => {
@@ -42,6 +42,7 @@ export const Avatar = ({
         alt={alt}
         {...props}
       />
+
       <RadixAvatar.Fallback asChild delayMs={delay}>
         <Image
           className={s.image}
