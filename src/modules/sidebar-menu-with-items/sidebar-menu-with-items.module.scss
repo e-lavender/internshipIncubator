@@ -4,7 +4,7 @@
   top: var(--header-height);
 }
 
-@media (width >= 320px) and (width <= 420px) {
+@media (width <= 420px) {
   .nav {
     visibility: hidden;
 

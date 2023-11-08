@@ -21,7 +21,7 @@ export const SidebarMenuLayout = ({
   const SidebarVersion = isMobile ? <MobileSidebarMenuWithItems /> : <SidebarMenuWithItems />
 
   const styles = {
-    root: clsx(s.container),
+    root: clsx(s.container, isMobile && s.mobile),
     wrapper: clsx(!isMobile && s.wrapper),
   }
 
