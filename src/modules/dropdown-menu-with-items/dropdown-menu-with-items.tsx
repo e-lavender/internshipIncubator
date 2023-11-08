@@ -8,7 +8,7 @@ import {
   StatisticsMenuIcon,
   useTranslation,
 } from '@/app'
-import { DropdownMenuItem, DropdownMenu } from '@/ui'
+import { DropdownMenu, MenuItem } from '@/ui'
 
 export const DropdownMenuWithItems = () => {
   const { pathname } = useRouter()
@@ -18,18 +18,14 @@ export const DropdownMenuWithItems = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuItem
-        href={menuNavigation.settings()}
-        icon={SettingIcon}
-        label={labels.setting}
-      />
-      <DropdownMenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} />
-      <DropdownMenuItem
+      <MenuItem href={menuNavigation.settings()} icon={SettingIcon} label={labels.setting} />
+      <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} />
+      <MenuItem
         href={menuNavigation.favorites()}
         icon={FavoritesMenuIcon}
         label={labels.favorites}
       />
-      <DropdownMenuItem
+      <MenuItem
         as={'button'}
         onClick={() => console.log('Logged Out!')}
         icon={LogOutMenuIcon}

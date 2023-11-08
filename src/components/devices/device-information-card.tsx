@@ -5,7 +5,7 @@ import s from './device-information-card.module.scss'
 import { BrowserType, SessionDeviceType } from './model'
 
 import { LogOutMenuIcon, SVGIconType, useTranslation } from '@/app'
-import { Card, SidebarItem, Typography } from '@/ui'
+import { Card, MenuItem, Typography } from '@/ui'
 
 type CardType = 'SESSION' | 'DEVICE'
 
@@ -43,7 +43,7 @@ export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
 
   const LogoutButton =
     type === 'SESSION' ? (
-      <SidebarItem
+      <MenuItem
         as={'button'}
         asListItem={false}
         onClick={() => console.log('Logged Out!')}
