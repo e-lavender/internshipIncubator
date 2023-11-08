@@ -32,19 +32,3 @@ export const BROWSER_ICON: IconDataType = {
   YANDEX: YandexBrowserIcon,
   UC: UcBrowserIcon,
 }
-
-// type NumberType = {
-//   name: string;
-//   type: number
-// }
-//
-// type StringType = {
-//   age: number
-//   type: string
-// }
-//
-// type UniversalType = StringType & NumberType
-//
-// const data: UniversalType = {
-//
-// }
