@@ -1,36 +1,55 @@
-import { ComponentProps, ComponentPropsWithoutRef, FC } from 'react'
-
 import { clsx } from 'clsx'
 
 import s from './table.module.scss'
 
 import { ArrowDownIcon } from '@/app'
-import { TableHeaderModel } from '@/components/table/tabel-types'
+import {
+  BodyProps,
+  DataCellProps,
+  HeadCellProps,
+  HeadProps,
+  RowProps,
+  TableProps,
+} from '@/components/table/tabel-types'
 import { Typography } from '@/ui'
 
-type TableProps = { className?: string } & ComponentProps<'table'>
+const Root = (props: TableProps) => {
+  const style = clsx(s.table, props.className)
 
-const Root: FC<TableProps> = ({ className, ...rest }) => {
-  const style = clsx(s.table, className)
-
-  return <table className={style} {...rest} />
+  return <table className={style} {...props} />
 }
+const HeadCell = ({
+  sortable,
+  onClick,
+  sort,
+  columnKey,
+  title,
+  className,
+  ...props
+}: HeadCellProps) => {
+  const style = {
+    th: clsx(s.headCell, !sortable && s.noSort, className),
+    title: clsx(s.title),
+    icon: clsx(s.sortDscIcon, sort?.direction === 'asc' && s.sortAscIcon),
+  }
+  const showSortIcon = sort?.columnKey === columnKey && sort?.direction
 
-export type Sort = {
-  columnKey: string
-  direction: 'asc' | 'desc'
-} | null
+  const handleClick = () => {
+    if (onClick && columnKey) {
+      onClick(columnKey)
+    }
+  }
 
-type HeadProps = Omit<
-  ComponentPropsWithoutRef<'thead'> & {
-    columns: TableHeaderModel[]
-    sort?: Sort
-    onSort?: (sort: Sort) => void
-    className?: string
-  },
-  'children'
->
-const Head: FC<HeadProps> = ({ columns, sort, onSort, className, ...rest }) => {
+  return (
+    <th className={style.th} {...props} onClick={handleClick}>
+      <div className={style.title}>
+        <Typography variant={'regular-14'}>{title}</Typography>
+        <div className={style.icon}>{showSortIcon && <ArrowDownIcon />}</div>
+      </div>
+    </th>
+  )
+}
+const Head = ({ columns, sort, onSort, className, ...rest }: HeadProps) => {
   const handlerSort = (key: string, sortable?: boolean) => {
     if (!onSort || !sortable) return
 
@@ -52,7 +71,7 @@ const Head: FC<HeadProps> = ({ columns, sort, onSort, className, ...rest }) => {
         }
 
         return (
-          <Table.HeadCell
+          <HeadCell
             sort={sort}
             title={col.title}
             onClick={handler}
@@ -66,65 +85,22 @@ const Head: FC<HeadProps> = ({ columns, sort, onSort, className, ...rest }) => {
   )
 }
 
-type BodyProps = { className?: string } & ComponentProps<'tbody'>
-const Body: FC<BodyProps> = ({ className, ...rest }) => {
-  return <tbody className={className} {...rest} />
+const Body = (props: BodyProps) => {
+  return <tbody {...props} />
 }
 
-type RowProps = { className?: string } & ComponentProps<'tr'>
-const Row: FC<RowProps> = ({ className, ...rest }) => {
-  return <tr className={className} {...rest} />
+const Row = (props: RowProps) => {
+  return <tr {...props} />
 }
 
-type HeadCellProps = {
-  minWidth?: number
-  className?: string
-  title?: string
-  columnKey?: string
-  sort?: Sort
-  onClick?: (sortDirection: string) => void
-  sortable?: boolean
-} & ComponentProps<'th'>
-const HeadCell: FC<HeadCellProps> = ({
-  sortable,
-  onClick,
-  sort,
-  columnKey,
-  title,
-  className,
-  ...rest
-}) => {
-  const style = {
-    th: clsx(s.headCell, !sortable && s.noSort, className),
-    title: clsx(s.title),
-    icon: clsx(s.sortDscIcon, sort?.direction === 'asc' && s.sortAscIcon),
-  }
-  const showSortIcon = sort?.columnKey === columnKey && sort?.direction
-  const handleClick = () => {
-    if (onClick && columnKey) {
-      onClick(columnKey)
-    }
-  }
-
-  return (
-    <th className={style.th} {...rest} onClick={handleClick}>
-      <div className={style.title}>
-        <Typography variant={'regular-14'}>{title}</Typography>
-        <div className={style.icon}>{showSortIcon && <ArrowDownIcon />}</div>
-      </div>
-    </th>
-  )
-}
-
-type DataCellProps = { className?: string } & ComponentProps<'td'>
-const DataCell: FC<DataCellProps> = ({ children, content, className, ...rest }) => {
+const DataCell = ({ children, content, className, ...props }: DataCellProps) => {
   const style = clsx(s.dataCell, className)
 
   return (
-    <td className={style} {...rest}>
+    <td className={style} {...props}>
       {children}
     </td>
   )
 }
 
-export const Table = { DataCell, HeadCell, Row, Body, Head, Root }
+export const Table = { Head, DataCell, HeadCell, Row, Body, Root }
