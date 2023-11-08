@@ -2,7 +2,7 @@ import s from './device-information-card.module.scss'
 
 import { LogOutMenuIcon, SVGIconType, useTranslation } from '@/app'
 import { BROWSER_ICON, SESSION_DEVICE_ICON } from '@/components/devices/data'
-import { BrowserType, Nullable, SessionDeviceType } from '@/components/devices/model'
+import { BrowserType, SessionDeviceType } from '@/components/devices/model'
 import { Card, SidebarItem, Typography } from '@/ui'
 
 type CardType = 'SESSION' | 'DEVICE'
@@ -16,8 +16,7 @@ type VariantTypeV2 = {
 
 type DeviceInformationCardProps<T extends CardType> = {
   type: T
-  icon?: SVGIconType
-  variant: VariantType<T>
+  variant: VariantTypeV2[T]
   title?: string
   ip?: string
   lastVisit?: string
@@ -26,7 +25,6 @@ type DeviceInformationCardProps<T extends CardType> = {
 export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
   type,
   variant,
-  icon,
   title,
   ip = '-',
   lastVisit,

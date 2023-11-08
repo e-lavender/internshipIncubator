@@ -10,7 +10,7 @@ import {
   MessageMenuIcon,
   ProfileMenuIcon,
   SearchMenuIcon,
-  sidebarNavigation,
+  menuNavigation,
   StatisticsMenuIcon,
   useTranslation,
 } from '@/app'
@@ -24,30 +24,30 @@ export const SidebarMenuWithItems = () => {
 
   return (
     <SidebarMenu className={s.nav}>
-      <SidebarItem href={sidebarNavigation.home()} icon={HomeMenuIcon} label={labels.home} />
+      <SidebarItem href={menuNavigation.home()} icon={HomeMenuIcon} label={labels.home} />
       <SidebarItem
-        href={sidebarNavigation.create()}
+        href={menuNavigation.create()}
         icon={CreateMenuIcon}
         label={labels.create}
-        isSelected={pathname.startsWith(sidebarNavigation.create())}
+        isSelected={pathname.startsWith(menuNavigation.create())}
       />
       <SidebarItem
-        href={sidebarNavigation.profile()}
+        href={menuNavigation.profile()}
         icon={ProfileMenuIcon}
         label={labels.profile}
-        isSelected={pathname.startsWith(sidebarNavigation.profile())}
+        isSelected={pathname.startsWith(menuNavigation.profile())}
       />
       <SidebarItem
-        href={sidebarNavigation.messenger()}
+        href={menuNavigation.messenger()}
         icon={MessageMenuIcon}
         label={labels.messenger}
-        isSelected={pathname.startsWith(sidebarNavigation.messenger())}
+        isSelected={pathname.startsWith(menuNavigation.messenger())}
       />
       <SidebarItem
-        href={sidebarNavigation.search()}
+        href={menuNavigation.search()}
         icon={SearchMenuIcon}
         label={labels.search}
-        isSelected={pathname.startsWith(sidebarNavigation.search())}
+        isSelected={pathname.startsWith(menuNavigation.search())}
       />
       <SidebarItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} disabled />
       <SidebarItem href={'#'} icon={FavoritesMenuIcon} label={labels.favorites} disabled />

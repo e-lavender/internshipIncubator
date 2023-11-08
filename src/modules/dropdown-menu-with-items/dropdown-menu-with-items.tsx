@@ -4,7 +4,7 @@ import {
   FavoritesMenuIcon,
   LogOutMenuIcon,
   SettingIcon,
-  sidebarNavigation,
+  menuNavigation,
   StatisticsMenuIcon,
   useTranslation,
 } from '@/app'
@@ -18,10 +18,14 @@ export const DropdownMenuWithItems = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuItem href={'#'} icon={SettingIcon} label={labels.setting} />
+      <DropdownMenuItem
+        href={menuNavigation.settings()}
+        icon={SettingIcon}
+        label={labels.setting}
+      />
       <DropdownMenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} />
       <DropdownMenuItem
-        href={sidebarNavigation.favorites()}
+        href={menuNavigation.favorites()}
         icon={FavoritesMenuIcon}
         label={labels.favorites}
       />
