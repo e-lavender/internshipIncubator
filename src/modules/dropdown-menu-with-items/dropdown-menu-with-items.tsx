@@ -18,18 +18,25 @@ export const DropdownMenuWithItems = () => {
 
   return (
     <DropdownMenu>
-      <MenuItem href={menuNavigation.settings()} icon={SettingIcon} label={labels.setting} />
-      <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} />
+      <MenuItem
+        href={menuNavigation.settings()}
+        icon={SettingIcon}
+        label={labels.setting}
+        isStyled={false}
+      />
+      <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} isStyled={false} />
       <MenuItem
         href={menuNavigation.favorites()}
         icon={FavoritesMenuIcon}
         label={labels.favorites}
+        isStyled={false}
       />
       <MenuItem
         as={'button'}
         onClick={() => console.log('Logged Out!')}
         icon={LogOutMenuIcon}
         label={labels.logout}
+        isStyled={false}
       />
     </DropdownMenu>
   )
