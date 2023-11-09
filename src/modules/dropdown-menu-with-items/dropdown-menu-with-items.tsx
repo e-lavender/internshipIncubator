@@ -25,6 +25,7 @@ export const DropdownMenuWithItems = () => {
         isStyled={false}
       />
       <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} isStyled={false} />
+
       <MenuItem
         href={menuNavigation.favorites()}
         icon={FavoritesMenuIcon}

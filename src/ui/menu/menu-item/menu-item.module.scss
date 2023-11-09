@@ -10,7 +10,6 @@
   color: var(--text-color-primary);
 
   caret-color: transparent;
-
   -webkit-tap-highlight-color: transparent;
 
   &:active,
@@ -41,7 +40,6 @@
     &:hover span {
       color: var(--color-accent-100);
     }
-  }
 }
 
 .disabled {
@@ -54,3 +52,4 @@
     color: var(--color-accent-500);
   }
 }
+
