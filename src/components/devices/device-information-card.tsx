@@ -5,11 +5,9 @@ import s from './device-information-card.module.scss'
 import { BrowserType, SessionDeviceType } from './model'
 
 import { LogOutMenuIcon, SVGIconType, useMatchMedia, useTranslation } from '@/app'
-
 import { Card, MenuItem, Typography } from '@/ui'
 
 type CardType = 'SESSION' | 'DEVICE'
-
 
 type VariantType = {
   SESSION: SessionDeviceType
