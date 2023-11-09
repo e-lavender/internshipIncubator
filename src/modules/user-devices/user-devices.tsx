@@ -31,7 +31,7 @@ export const UserDevices = () => {
       </Button>
 
       <Typography as={'h3'} variant={'h3'}>
-        Current device
+        Active sessions
       </Typography>
 
       <div className={s.session}>
