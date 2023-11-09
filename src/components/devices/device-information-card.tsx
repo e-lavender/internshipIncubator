@@ -4,12 +4,14 @@ import { BROWSER_ICON, SESSION_DEVICE_ICON } from './data'
 import s from './device-information-card.module.scss'
 import { BrowserType, SessionDeviceType } from './model'
 
-import { LogOutMenuIcon, SVGIconType, useTranslation } from '@/app'
+import { LogOutMenuIcon, SVGIconType, useMatchMedia, useTranslation } from '@/app'
+
 import { Card, MenuItem, Typography } from '@/ui'
 
 type CardType = 'SESSION' | 'DEVICE'
 
-type VariantTypeV2 = {
+
+type VariantType = {
   SESSION: SessionDeviceType
   DEVICE: BrowserType
 }
@@ -18,7 +20,7 @@ type VariantTypeV2 = {
 
 type DeviceInformationCardProps<T extends CardType> = {
   type: T
-  variant: VariantTypeV2[T]
+  variant: VariantType[T]
   title?: string
   ip?: string
   lastVisit?: string
@@ -33,6 +35,8 @@ export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
   lastVisit,
   className,
 }: DeviceInformationCardProps<T>) => {
+  const { isMobile } = useMatchMedia()
+
   const { t } = useTranslation()
   const labels = t.sidebarMenu
 
@@ -49,6 +53,7 @@ export const DeviceInformationCard = <T extends CardType = 'DEVICE'>({
         onClick={() => console.log('Logged Out!')}
         icon={LogOutMenuIcon}
         label={labels.logout}
+        isStyled={!isMobile}
       />
     ) : null
 

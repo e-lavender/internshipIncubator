@@ -17,6 +17,7 @@ type MenuItemProps<T extends ElementType = typeof Link> = {
   disabled?: boolean
   isSelected?: boolean
   asListItem?: boolean
+  isStyled?: boolean
 } & ComponentPropsWithoutRef<T>
 
 export const MenuItem = <T extends ElementType = typeof Link>({
@@ -27,6 +28,7 @@ export const MenuItem = <T extends ElementType = typeof Link>({
   disabled,
   isSelected,
   asListItem = true,
+  isStyled = true,
   children,
   ...props
 }: MenuItemProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof MenuItemProps<T>>) => {
@@ -35,8 +37,8 @@ export const MenuItem = <T extends ElementType = typeof Link>({
   const Container = asListItem ? SideBarMenu.Item : Fragment
 
   const styles = {
-    link: clsx(s.link, disabled && s.disabled, isSelected && s.selected),
-    label: clsx(s.label, disabled && s.disabled),
+    link: clsx(s.link, isStyled && s.active, disabled && s.disabled, isSelected && s.selected),
+    label: clsx(isStyled && s.label, disabled && s.disabled),
   }
 
   return (
