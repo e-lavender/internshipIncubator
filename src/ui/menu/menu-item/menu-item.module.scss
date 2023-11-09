@@ -43,6 +43,7 @@
     }
   }
 
+  &.disabled,
   .disabled {
     pointer-events: none;
     color: var(--color-dark-100);
