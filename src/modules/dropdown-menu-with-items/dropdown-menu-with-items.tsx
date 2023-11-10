@@ -4,11 +4,11 @@ import {
   FavoritesMenuIcon,
   LogOutMenuIcon,
   SettingIcon,
-  sidebarNavigation,
+  menuNavigation,
   StatisticsMenuIcon,
   useTranslation,
 } from '@/app'
-import { DropdownMenuItem, DropdownMenu } from '@/ui'
+import { DropdownMenu, MenuItem } from '@/ui'
 
 export const DropdownMenuWithItems = () => {
   const { pathname } = useRouter()
@@ -18,18 +18,26 @@ export const DropdownMenuWithItems = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuItem href={'#'} icon={SettingIcon} label={labels.setting} />
-      <DropdownMenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} />
-      <DropdownMenuItem
-        href={sidebarNavigation.favorites()}
+      <MenuItem
+        href={menuNavigation.settings()}
+        icon={SettingIcon}
+        label={labels.setting}
+        isStyled={false}
+      />
+      <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} isStyled={false} />
+
+      <MenuItem
+        href={menuNavigation.favorites()}
         icon={FavoritesMenuIcon}
         label={labels.favorites}
+        isStyled={false}
       />
-      <DropdownMenuItem
+      <MenuItem
         as={'button'}
         onClick={() => console.log('Logged Out!')}
         icon={LogOutMenuIcon}
         label={labels.logout}
+        isStyled={false}
       />
     </DropdownMenu>
   )

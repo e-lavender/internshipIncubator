@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 12rem;
+  padding: 1.8rem 2.4rem;
+
+  .wrapper {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+
+    .icon {
+      margin-top: 0.6rem;
+    }
+
+    .details {
+      & p {
+        margin-bottom: 0.5rem;
+
+        &:first-child {
+          margin-bottom: 1.3rem;
+        }
+      }
+    }
+  }
+
+  .btn {
+    align-self: center;
+  }
+}
+
+@media (width <= 420px) {
+  .container {
+    flex-direction: column;
+
+    .btn {
+      align-self: flex-end;
+      margin-top: 2rem;
+    }
+  }
+}
