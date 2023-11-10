@@ -2,9 +2,10 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Sort, Table } from './table'
-import s from './table.module.scss'
+import s from '../../components/table/table.module.scss'
 
+import { Table } from '@/components/table'
+import { Sort } from '@/components/table/tabel-types'
 import { Checkbox } from '@/ui'
 
 export const Data = [
@@ -206,11 +207,7 @@ const meta = {
 const Container = () => {
   const [sort, setSort] = useState<Sort>(null)
 
-  return (
-    <>
-      <Table.Head columns={Columns} sort={sort} onSort={setSort} />
-    </>
-  )
+  return <Table.Head columns={Columns} sort={sort} onSort={setSort} />
 }
 
 export default meta
