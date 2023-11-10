@@ -1,0 +1,85 @@
+.container {
+  margin-top: 2.4rem;
+  animation: var(--animate);
+
+  .wrapper {
+    flex-direction: column;
+    width: 37.8rem;
+    padding: 2.4rem;
+
+    .header {
+      display: block;
+      text-align: center;
+    }
+
+    .progressBar {
+      width: 100%;
+      height: 3px;
+    }
+
+    .oauthIcons {
+      display: flex;
+      column-gap: 6rem;
+      justify-content: center;
+      margin: 1.3rem 0;
+
+      .oauthBtn {
+        cursor: pointer;
+      }
+    }
+
+    .textField {
+      margin-top: 2.4rem;
+    }
+
+    .form {
+      width: 100%;
+    }
+
+    .forgotPassword {
+      cursor: pointer;
+
+      float: right;
+      display: block;
+
+      margin-top: 3.6rem;
+      margin-bottom: 2.4rem;
+
+      color: var(--color-light-900);
+    }
+
+    .signUpBtn {
+      margin: 0 auto;
+    }
+
+    .signInBtn {
+      margin-bottom: 1.8rem;
+    }
+
+    .accountText {
+      display: block;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (width <= 420px) {
+  .container {
+    margin-top: 0;
+    background: none;
+    border: none;
+    animation: var(--animate);
+  }
+
+  .wrapper {
+  }
+
+  .signInBtn {
+    height: 4.8rem;
+  }
+
+  .signUpBtn {
+    height: 4.8rem;
+  }
+}

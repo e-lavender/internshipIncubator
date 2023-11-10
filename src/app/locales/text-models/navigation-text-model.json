@@ -1,0 +1,32 @@
+{
+  "ru": {
+    "title": "Меню",
+    "links": {
+      "signIn": "Логин",
+      "signUp": "Регистрация",
+      "forgotPassword": "Забыл пароль",
+      "createNewPassword": "создать новый пароль",
+      "passwordRecovery": "Восстановление пароля",
+      "userProfile": "Профиль пользователя"
+    },
+    "language": {
+      "ru": "Русский",
+      "en": "Английский"
+    }
+  },
+  "en": {
+    "title": "Navigation",
+    "links": {
+      "signIn": "SignIn",
+      "signUp": "SignUp",
+      "forgotPassword": "ForgotPassword",
+      "createNewPassword": "CreateNewPassword",
+      "passwordRecovery": "PasswordRecovery",
+      "userProfile": "UserProfile"
+    },
+    "language": {
+      "ru": "Russian",
+      "en": "English"
+    }
+  }
+}

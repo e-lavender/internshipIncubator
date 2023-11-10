@@ -1,0 +1,36 @@
+@import 'react-toastify/dist/ReactToastify.css';
+
+:root {
+  --toastify-color-success: var(--color-success-900);
+  --toastify-color-error: var(--color-danger-900);
+  --toastify-toast-min-height: 48px;
+}
+
+.Toastify__toast {
+  padding: 0;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+
+  border-radius: 2px;
+}
+
+.Toastify__toast-body {
+  align-items: center;
+  margin: 0;
+  padding: 12px 24px;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  color: var(--toastify-text-color-success);
+  background: var(--toastify-color-success);
+  border: 1px solid var(--color-success-500);
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  color: var(--toastify-text-color-error);
+  background: var(--toastify-color-error);
+  border: 1px solid var(--color-danger-500);
+}

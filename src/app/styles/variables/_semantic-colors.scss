@@ -1,0 +1,18 @@
+:root {
+  // typography
+
+  --text-color-primary: var(--color-light-100);
+  --text-color-secondary: var(--color-light-900);
+  --text-color-disabled: var(--color-dark-100);
+
+  // background
+
+  --bg-color-primary: var(--color-dark-700, #0d0d0d);
+  --bg-color-secondary: var(--color-dark-500, #171717);
+  --bg-color-tertiary: var(--color-dark-900, #000);
+  --bg-color-interactive: var(--color-dark-300, #333);
+
+  // buttons/components
+  --focus-color-primary: var(--color-accent-700);
+  --focus-color-secondary: var(--color-accent-500);
+}

@@ -1,0 +1,15 @@
+.container {
+  --side-menu-width: 22rem;
+
+  max-width: 128rem;
+  margin: 0 auto;
+  padding-left: var(--side-menu-width);
+
+  &.mobile {
+    padding-left: 0;
+  }
+
+  .wrapper {
+    min-height: 200vh;
+  }
+}

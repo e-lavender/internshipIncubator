@@ -1,0 +1,42 @@
+.wrapper {
+  --header-height: 6rem;
+
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  height: var(--header-height);
+
+  background-color: var(--bg-color-primary);
+  border-bottom: 1px solid var(--color-dark-300);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 128rem;
+  height: 100%;
+  margin: 0 auto;
+  padding-right: 6.4rem;
+  padding-left: 6rem;
+
+  .list_wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .buttons {
+    display: flex;
+  }
+}
+
+@media screen and (width <= 420px) {
+  .container {
+    margin: 0;
+    padding: 1.5rem;
+  }
+}

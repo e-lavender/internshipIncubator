@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 2.4rem 0 2.9rem;
+  padding: 0 1.5rem;
+
+  .title {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    margin-bottom: 1.3rem;
+  }
+
+  .header {
+    display: flex;
+    gap: 2.7rem;
+    margin-bottom: 0.6rem;
+
+    .avatar {
+      display: flex;
+      align-self: center;
+    }
+  }
+
+  &.mobile {
+    gap: 1rem;
+  }
+}

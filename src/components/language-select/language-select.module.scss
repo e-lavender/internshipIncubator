@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  .languageSelect {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+  }
+
+  .text {
+    display: flex;
+  }
+}
+
+@media screen and (width <= 420px) {
+  .languageSelect {
+    margin-right: 0 !important;
+  }
+}

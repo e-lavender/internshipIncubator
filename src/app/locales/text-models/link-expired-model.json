@@ -1,0 +1,12 @@
+{
+  "en": {
+    "title": "Email verification link expired",
+    "description": "Looks like the verification link has expired. Not to worry, we can send the link again",
+    "button": "Send link"
+  },
+  "ru": {
+    "title": "Срок действия ссылки для активации истек",
+    "description": "Похоже что время отведенное для активации ссылки истекло. Не переживай если это произошло, мы можем выслать новую ссылку",
+    "button": "Выслать ссылку"
+  }
+}
