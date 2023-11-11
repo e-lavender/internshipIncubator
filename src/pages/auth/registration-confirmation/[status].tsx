@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Error from 'next/error'
 import { useRouter } from 'next/router'
 
 import { LinkConfirmed, LinkExpired } from '@/modules'
@@ -9,17 +10,25 @@ const ConfirmationStatus = {
   failed: 'failed',
 } as const
 
+type QueryType = { status: ConfirmationStatusType }
 type ConfirmationStatusType = keyof typeof ConfirmationStatus
 
-const LinkStatusData = {
+const LinkStatusData: {
+  [key in ConfirmationStatusType]: React.ReactElement
+} = {
   [ConfirmationStatus.success]: <LinkConfirmed />,
   [ConfirmationStatus.failed]: <LinkExpired />,
 }
 
 const RegistrationConfirmation = () => {
-  const router = useRouter()
+  const { query } = useRouter()
+  const typedQuery = query as QueryType
 
-  return <>{LinkStatusData[router.query.status as ConfirmationStatusType]}</>
+  if (Object.values(ConfirmationStatus).includes(typedQuery?.status)) {
+    return <>{LinkStatusData[typedQuery.status]}</>
+  }
+
+  return <Error statusCode={404} />
 }
 
 export default RegistrationConfirmation
