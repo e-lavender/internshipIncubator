@@ -2,11 +2,11 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
-import s from '../../components/table/table.module.scss'
+import { Table } from '../../ui/table'
 
-import { Table } from '@/components/table'
-import { Sort } from '@/components/table/tabel-types'
 import { Checkbox } from '@/ui'
+import { Sort } from '@/ui/table/tabel-types'
+import s from '@/ui/table/table.module.scss'
 
 export const Data = [
   {
