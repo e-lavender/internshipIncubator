@@ -62,9 +62,10 @@ const Head = ({ columns, sort, onSort, className, ...rest }: HeadProps) => {
 
     onSort(null)
   }
+  const styles = { head: clsx(s.head, className) }
 
   return (
-    <thead className={className} {...rest}>
+    <thead className={styles.head} {...rest}>
       {columns.map(col => {
         const handler = () => {
           handlerSort(col.key, col.sortable)
