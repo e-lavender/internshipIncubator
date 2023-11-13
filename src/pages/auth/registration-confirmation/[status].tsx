@@ -24,11 +24,7 @@ const RegistrationConfirmation = () => {
   const { query } = useRouter()
   const typedQuery = query as QueryType
 
-  if (Object.values(ConfirmationStatus).includes(typedQuery?.status)) {
-    return <>{LinkStatusData[typedQuery.status]}</>
-  }
-
-  return <Error statusCode={404} />
+  return LinkStatusData[typedQuery.status] || <Error statusCode={404} />
 }
 
 export default RegistrationConfirmation
