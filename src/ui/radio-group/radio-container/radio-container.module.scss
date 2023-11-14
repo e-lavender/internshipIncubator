@@ -1,9 +1,29 @@
 .root {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
 
   & button {
     all: unset;
+  }
+
+  &.disabled {
+    div,
+    button,
+    input,
+    span {
+      pointer-events: auto;
+      pointer-events: none;
+
+      color: var(--color-dark-100);
+
+      border-color: var(--color-dark-100);
+      box-shadow: none;
+    }
+
+    span::after {
+      opacity: 0;
+    }
   }
 }
