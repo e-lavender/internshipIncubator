@@ -18,8 +18,8 @@ export const RadioItem = ({ value, label, disabled }: RadioItemProps) => {
 
   const styles = {
     root: clsx(s.wrapper, disabled && s.disabled),
-    item: clsx(s.item, disabled && s.disabled),
-    indicator: clsx(s.indicator, disabled && s.disabled),
+    item: clsx(s.item),
+    indicator: clsx(s.indicator),
   }
 
   return (

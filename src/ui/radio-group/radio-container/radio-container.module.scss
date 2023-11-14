@@ -11,13 +11,13 @@
   &.disabled {
     div,
     button,
-    input,
     span {
       pointer-events: auto;
       pointer-events: none;
 
       color: var(--color-dark-100);
 
+      background-color: initial;
       border-color: var(--color-dark-100);
       box-shadow: none;
     }

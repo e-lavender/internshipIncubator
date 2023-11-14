@@ -3,9 +3,18 @@
   display: flex;
   align-items: center;
 
-  &.disabled span {
-    cursor: initial;
-    color: var(--color-dark-100);
+  &.disabled {
+    span,
+    button,
+    button:hover {
+      cursor: initial;
+
+      color: var(--color-dark-100);
+
+      background-color: initial;
+      border-color: var(--color-dark-100);
+      box-shadow: none;
+    }
   }
 
   .item {
@@ -28,17 +37,6 @@
       box-shadow: 0 0 0 2px black;
     }
 
-    &.disabled {
-      cursor: initial;
-      color: var(--color-dark-100);
-      border-color: var(--color-dark-100);
-      box-shadow: none;
-
-      &:hover {
-        background-color: initial;
-      }
-    }
-
     .indicator {
       position: relative;
 
@@ -59,10 +57,6 @@
 
         background-color: var(--color-light-100);
         border-radius: 50%;
-      }
-
-      &.disabled {
-        display: none;
       }
     }
   }
