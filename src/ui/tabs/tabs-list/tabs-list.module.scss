@@ -1,0 +1,17 @@
+.list {
+  scrollbar-color: var(--bg-color-primary);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(18rem, 1fr));
+
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb:horizontal,
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
+@media (width <= 420px) {
+  .list {
+    overflow: auto;
+  }
+}

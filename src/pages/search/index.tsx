@@ -1,9 +1,14 @@
-import { ChromeBrowserIcon, DesktopIcon, MobileIcon } from '@/app'
-import { DeviceInformationCard } from '@/components/devices'
-import { Button } from '@/ui'
+import { SettingsTabs } from '@/modules/settings-tabs/settings-tabs'
 
 const Search = () => {
-  return <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>Search</h1>
+  return (
+    <div>
+      <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>Search</h1>
+      <div style={{ padding: '2rem' }}>
+        <SettingsTabs />
+      </div>
+    </div>
+  )
 }
 
 export default Search
