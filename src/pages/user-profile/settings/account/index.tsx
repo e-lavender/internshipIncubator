@@ -1,19 +1,21 @@
 import Link from 'next/link'
 
 import { menuNavigation } from '@/app'
+import { AccountManagement } from '@/modules'
 
-const AccountManagement = () => {
+const AccountSettings = () => {
   return (
     <>
-      <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>Account Management</h1>
       <Link
         href={menuNavigation.settings()}
-        style={{ fontSize: '1.5rem', display: 'inline-block', marginLeft: '2rem' }}
+        style={{ fontSize: '1.5rem', display: 'inline-block', margin: '5rem 2rem' }}
       >
         <h2>🔨 Go Back to Settings</h2>
       </Link>
+      <h1 style={{ textAlign: 'center', margin: '5rem 0' }}>Account Management</h1>
+      <AccountManagement />
     </>
   )
 }
 
-export default AccountManagement
+export default AccountSettings
