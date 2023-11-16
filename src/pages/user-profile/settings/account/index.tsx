@@ -1,13 +1,10 @@
 import { ReactElement } from 'react'
 
+import { AccountSettings } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
 
 const AccountManagement = () => {
-  return (
-    <>
-      <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>Account Management</h1>
-    </>
-  )
+  return <AccountSettings />
 }
 
 AccountManagement.getLayout = function getLayout(page: ReactElement) {

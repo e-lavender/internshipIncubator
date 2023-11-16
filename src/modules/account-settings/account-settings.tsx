@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-import s from './account-management.module.scss'
+import s from './account-settings.module.scss'
 import { PAYMENT_OPTIONS, PROFILE_TYPE } from './data'
 
 import { PaypalIcon, StripeIcon } from '@/app'
 import { Card, RadioContainer, RadioItem, Typography } from '@/ui'
 
-export const AccountManagement = () => {
+export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
   const [accountType, setAccountType] = useState('')
   const hasPaymentAccess = accountType === 'business'
