@@ -1,12 +1,16 @@
 .list {
   scrollbar-color: var(--bg-color-primary);
-  display: grid;
-  grid-template-columns: repeat(4, minmax(18rem, 1fr));
+  display: inline-flex;
 
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-thumb:horizontal,
   &::-webkit-scrollbar-track {
     background-color: transparent;
+  }
+
+  &.full {
+    display: flex;
+    flex-grow: 1;
   }
 }
 

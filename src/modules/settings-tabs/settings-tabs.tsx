@@ -8,7 +8,7 @@ export const SettingsTabs = () => {
 
   return (
     <TabsContainer defaultValue={menuNavigation.settings()} onValueChange={route => push(route)}>
-      <TabsList>
+      <TabsList fullWidth>
         <TabsItem value={menuNavigation.settings()}>General Information</TabsItem>
         <TabsItem value={menuNavigation.devices()}>Devices</TabsItem>
         <TabsItem value={menuNavigation.account()}>Account Management</TabsItem>

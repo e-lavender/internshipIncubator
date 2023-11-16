@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { ProfileSettingLayout } from '@/templates/layouts'
+import { ProfileSettingLayout } from '@/templates'
 
 const AccountManagement = () => {
   return (

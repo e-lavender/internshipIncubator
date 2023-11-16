@@ -3,6 +3,9 @@
 
   position: relative;
 
+  flex-grow: 1;
+  flex-shrink: 0;
+
   padding: 1rem 0.5rem;
 
   font-size: var(--font-size-m);
@@ -58,6 +61,7 @@
   }
 
   &[data-disabled] {
+    cursor: auto;
     color: var(--color-dark-300);
 
     &::after {
