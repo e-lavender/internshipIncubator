@@ -51,6 +51,7 @@
     min-height: 20.4rem;
     padding: 1.8rem 0 1.2rem 1.2rem;
 
+    visibility: hidden;
     opacity: 0;
     background-color: var(--bg-color-secondary);
     border: 0.1rem solid var(--text-color-disabled);
@@ -111,6 +112,7 @@
   @keyframes fade-in {
     to {
       transform: translateY(0);
+      visibility: visible;
       opacity: 1;
     }
   }

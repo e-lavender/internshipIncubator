@@ -1,9 +1,16 @@
-import { ChromeBrowserIcon, DesktopIcon, MobileIcon } from '@/app'
-import { DeviceInformationCard } from '@/components/devices'
-import { Button } from '@/ui'
+import { ReactElement } from 'react'
 
-const Search = () => {
-  return <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>Search</h1>
+import { SettingsTabs } from '@/modules/settings-tabs/settings-tabs'
+import { NextPageWithLayout } from '@/pages/_app'
+import { ProfileSettingLayout } from '@/templates/layouts'
+
+const Search: NextPageWithLayout = () => {
+  return (
+    <div>
+      <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>Search</h1>
+      <div style={{ padding: '2rem' }}>{/*<SettingsTabs />*/}</div>
+    </div>
+  )
 }
 
 export default Search
