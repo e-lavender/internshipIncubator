@@ -29,3 +29,10 @@
     }
   }
 }
+
+@media (width <= 420px) {
+  .payment {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
