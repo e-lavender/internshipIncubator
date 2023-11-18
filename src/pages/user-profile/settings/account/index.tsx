@@ -1,21 +1,13 @@
-import Link from 'next/link'
+import { ReactElement } from 'react'
 
-import { menuNavigation } from '@/app'
-import { AccountManagement } from '@/modules'
+import { AccountSettings } from '@/modules'
+import { ProfileSettingLayout } from '@/templates'
 
-const AccountSettings = () => {
-  return (
-    <>
-      <Link
-        href={menuNavigation.settings()}
-        style={{ fontSize: '1.5rem', display: 'inline-block', margin: '5rem 2rem' }}
-      >
-        <h2>🔨 Go Back to Settings</h2>
-      </Link>
-      <h1 style={{ textAlign: 'center', margin: '5rem 0' }}>Account Management</h1>
-      <AccountManagement />
-    </>
-  )
+const AccountManagement = () => {
+  return <AccountSettings />
 }
 
-export default AccountSettings
+AccountManagement.getLayout = function getLayout(page: ReactElement) {
+  return <ProfileSettingLayout>{page}</ProfileSettingLayout>
+}
+export default AccountManagement
