@@ -36,7 +36,8 @@ export default function Home() {
         <Link href={`/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
-        <Calendar />
+        <Calendar isRange={true} />
+        <Calendar isRange={false} />
       </div>
     </div>
   )

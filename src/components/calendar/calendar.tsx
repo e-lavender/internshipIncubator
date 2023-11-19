@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 
-import en, { getMonth, getYear, de } from 'date-fns'
+import en, { getMonth, getYear } from 'date-fns'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import './react-datepicker.scss'
 
 import ru from 'date-fns/locale/ru'
+import eng from 'date-fns/locale/eng'
 
 import { CalendarIcon, NextIcon, PreviousIcon } from '@/app'
-
-import range from 'lodash/range'
-
 import { Typography } from '@/ui'
 registerLocale('en', en)
 registerLocale('ru', ru)
@@ -29,17 +27,22 @@ const MONTH = [
 ]
 
 type calendarProps = {
-  type?: 'default' | 'range'
+  isRange?: boolean
 }
 
-export const Calendar = () => {
+export const Calendar = ({
+  isRange = false,
+}: PropsWithChildren<calendarProps>): React.JSX.Element => {
   const [startDate, setStartDate] = useState(new Date())
   const [isMonthPiker, setIsMonthPiker] = useState(false)
   const [isYearPiker, setIsYearPiker] = useState(false)
   const [dateRange, setDateRange] = useState([null, null])
   const [startDateInRange, endDateInRange] = dateRange
 
-  let isRange = false
+  useEffect(() => {
+    setIsMonthPiker(false)
+    setIsYearPiker(false)
+  }, [startDate])
   const handleMonthPiker = (): void => {
     setIsYearPiker(false)
     setIsMonthPiker(prev => !prev)
@@ -54,7 +57,7 @@ export const Calendar = () => {
       <DatePicker
         calendarStartDay={1}
         isClearable={true}
-        className="red-border"
+        className="calendar"
         showIcon
         icon={CalendarIcon}
         selected={startDate}
