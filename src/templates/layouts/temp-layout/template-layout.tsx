@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import { HeaderLayout } from '@/templates/layouts/header-layout'
-import { SidebarMenuLayout } from '@/templates/layouts/sidebar-menu-layout'
+import { SidebarMenuLayout } from '@/templates/layouts'
 
 type Props = PropsWithChildren
 export const WithHomePageLayout = ({ children }: PropsWithChildren) => {
@@ -14,13 +13,5 @@ export const WithHomePageLayout = ({ children }: PropsWithChildren) => {
 
   const isAuthed = true
 
-  return (
-    <>
-      {isAuthed ? (
-        <SidebarMenuLayout>{children}</SidebarMenuLayout>
-      ) : (
-        <HeaderLayout>{children}</HeaderLayout>
-      )}
-    </>
-  )
+  return <SidebarMenuLayout isAuthed={isAuthed}>{children}</SidebarMenuLayout>
 }

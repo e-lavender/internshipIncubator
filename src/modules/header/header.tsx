@@ -7,6 +7,7 @@ import s from './header.module.scss'
 import { authNavigationUrls, useMatchMedia } from '@/app'
 import { notifications } from '@/app/data/notifications-bell/notifications-bell'
 import { LanguageSelect, NotificationsBell } from '@/components'
+import { DropdownMenuWithItems } from '@/modules'
 import { Button, Typography } from '@/ui'
 
 type HeaderProps = {
@@ -27,7 +28,9 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
         <div className={s.list_wrapper}>
           {children}
           {isAuthed && <NotificationsBell notifications={notifications} />}
+
           <LanguageSelect />
+
           {showAuthButtons && (
             <>
               <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
@@ -38,6 +41,8 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
               </Button>
             </>
           )}
+
+          {isMobile && <DropdownMenuWithItems />}
         </div>
       </header>
     </div>

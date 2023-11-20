@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { HomeMenuIcon, LogOutMenuIcon } from '@/app'
-import { SidebarItem } from '@/ui'
+import { MenuItem } from '@/ui'
 
 const meta = {
-  title: 'Navigation/SidebarItem',
-  component: SidebarItem,
+  title: 'Navigation/MenuItem',
+  component: MenuItem,
   decorators: [
     Story => (
       <div
@@ -17,7 +17,7 @@ const meta = {
   ],
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof SidebarItem>
+} satisfies Meta<typeof MenuItem>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -119,7 +119,7 @@ export const SidebarItemOnlyLabel: Story = {
 export const SidebarItemAsButton: Story = {
   args: {
     as: 'button',
-    onClick: () => console.log('Logged Out!'),
+    onClick: () => {},
     icon: LogOutMenuIcon,
     label: 'Log Out',
   },
