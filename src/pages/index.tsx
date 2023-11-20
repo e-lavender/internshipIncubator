@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { authNavigationUrls, useTranslation } from '@/app'
+import { Calendar } from '@/components'
 import { NextPageWithLayout } from '@/pages/_app'
 import { Typography } from '@/ui'
 
@@ -34,6 +35,8 @@ const Home: NextPageWithLayout = () => {
         <Link href={`/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
+        <Calendar />
+        <Calendar isRange={true} />
       </div>
     </div>
   )
