@@ -30,7 +30,7 @@ export const Calendar = ({
     setIsYearPiker(false)
     setIsMonthPiker(prev => !prev)
   }
-  const handleYearPick = (): void => {
+  const handleYearPicker = (): void => {
     setIsMonthPiker(false)
     setIsYearPiker(prev => !prev)
   }
@@ -79,7 +79,7 @@ export const Calendar = ({
                   {month[getMonth(date)]}
                 </Typography>
               </button>
-              <button onClick={handleYearPick}>
+              <button onClick={handleYearPicker}>
                 <Typography className="react-datepicker__navigation--year" variant="bold-16">
                   {getYear(date)}
                 </Typography>
