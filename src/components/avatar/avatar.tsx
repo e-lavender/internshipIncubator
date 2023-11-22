@@ -2,11 +2,10 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import * as RadixAvatar from '@radix-ui/react-avatar'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 
 import s from './avatar.module.scss'
 
-import { useMatchMedia } from '@/app'
+import { AccountIcon, useMatchMedia } from '@/app'
 import { AVATAR_SIZE } from '@/app/constants/sizes/avatar'
 
 type AvatarPropsType = {
@@ -29,6 +28,7 @@ export const Avatar = ({
   const defaultSize = { x: AVATAR_SIZE.set(isMobile), y: AVATAR_SIZE.set(isMobile) }
 
   const { height = defaultSize.y, width = defaultSize.x } = props
+  const SVGSizeRatio = 4.25
 
   const styles = clsx(s.container, rounded && s.rounded, className)
 
@@ -44,13 +44,9 @@ export const Avatar = ({
       />
 
       <RadixAvatar.Fallback asChild delayMs={delay}>
-        <Image
-          className={s.image}
-          width={width}
-          height={height}
-          src={'/assets/avatar/avatar-fallback.webp'}
-          alt={alt}
-        />
+        <div className={s.image} style={{ width, height }} role={'image'} aria-label={alt}>
+          <AccountIcon />
+        </div>
       </RadixAvatar.Fallback>
     </RadixAvatar.Root>
   )

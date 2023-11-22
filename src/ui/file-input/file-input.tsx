@@ -10,7 +10,10 @@ type FileInputProps = {
   className?: string
 }
 
-export const FileInput = forwardRef(
+type CustomFileInputType = FileInputProps &
+  Omit<ComponentPropsWithoutRef<'input'>, keyof FileInputProps>
+
+export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
   (
     {
       accept,
@@ -19,8 +22,9 @@ export const FileInput = forwardRef(
       name = 'file',
       disabled,
       className,
+      children,
       ...props
-    }: FileInputProps & Omit<ComponentPropsWithoutRef<'input'>, keyof FileInputProps>,
+    }: CustomFileInputType,
     ref
   ) => {
     const fileFormat = Array.isArray(accept) ? accept.join(', ') : accept
@@ -28,7 +32,7 @@ export const FileInput = forwardRef(
     const styles = clsx(s.label, disabled && s.disabled, className)
 
     return (
-      <form>
+      <form ref={ref}>
         <label className={styles} htmlFor={id}>
           {label}
         </label>
@@ -41,6 +45,7 @@ export const FileInput = forwardRef(
           disabled={disabled}
           {...props}
         />
+        {children}
       </form>
     )
   }

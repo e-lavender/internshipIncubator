@@ -11,9 +11,12 @@
 }
 
 .image {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   object-fit: cover;
+  background-color: var(--color-dark-500);
   filter: blur(5px);
   border-radius: 5%;
 
