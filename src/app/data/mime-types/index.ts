@@ -1,4 +1,3 @@
-// @ts-ignore
 export const MIME_TYPES = {
   AAC: 'audio/aac',
   ABW: 'application/x-abiword',
