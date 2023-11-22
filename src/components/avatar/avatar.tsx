@@ -8,7 +8,7 @@ import s from './avatar.module.scss'
 import { AccountIcon, useMatchMedia } from '@/app'
 import { AVATAR_SIZE } from '@/app/constants/sizes/avatar'
 
-type AvatarPropsType = {
+export type AvatarPropsType = {
   width?: number
   height?: number
   rounded?: boolean
