@@ -12,6 +12,7 @@ import {
   NewPasswordConfirmationRedirectionModel,
   SidebarMenuModel,
   PaginationTextModel,
+  Calendar,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
@@ -27,8 +28,13 @@ const signUp = SignUpTextModel.ru
 const signIn = SignInTextModel.ru
 const sidebarMenu = SidebarMenuModel.ru
 const pagination = PaginationTextModel.ru
+const calendar = Calendar.ru
 
 export const ru = {
+  calendar: {
+    month: calendar.month,
+    locale: calendar.localeMonth,
+  },
   navigation: {
     title: navigation.title,
     menu: navigation.links,
