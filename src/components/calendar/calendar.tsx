@@ -4,7 +4,8 @@ import { getMonth, getYear } from 'date-fns'
 import DatePicker from 'react-datepicker'
 import './react-datepicker.scss'
 
-import { CalendarIcon, NextIcon, PreviousIcon, useTranslation } from '@/app'
+import { CalendarIcon, useTranslation } from '@/app'
+import { CalendarNavigationButton } from '@/components/calendar/calendar-navigation-button/calendar-navigation-button'
 import { Typography } from '@/ui'
 
 type calendarProps = {
@@ -80,20 +81,18 @@ export const Calendar = ({
               </button>
             </div>
             <div>
-              <button
+              <CalendarNavigationButton
                 className="react-datepicker__navigation--previous"
                 onClick={isYearPiker ? decreaseYear : decreaseMonth}
                 disabled={isYearPiker ? prevYearButtonDisabled : prevMonthButtonDisabled}
-              >
-                <PreviousIcon />
-              </button>
-              <button
+                direction="left"
+              />
+              <CalendarNavigationButton
                 className="react-datepicker__navigation--next"
                 onClick={isYearPiker ? increaseYear : increaseMonth}
                 disabled={isYearPiker ? nextYearButtonDisabled : nextMonthButtonDisabled}
-              >
-                <NextIcon />
-              </button>
+                direction="right"
+              />
             </div>
           </div>
         )}
