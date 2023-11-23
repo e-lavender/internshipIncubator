@@ -66,13 +66,7 @@ export const Calendar = ({
           increaseYear,
           decreaseYear,
         }) => (
-          <div
-            style={{
-              margin: 10,
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
+          <div className="react-datepicker__navigation--wrapper">
             <div>
               <button onClick={handleMonthPiker}>
                 <Typography className="react-datepicker__navigation--month" variant="bold-16">

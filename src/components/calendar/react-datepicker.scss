@@ -903,3 +903,9 @@
 
   background-color: var(--color-dark-500);
 }
+
+.react-datepicker__navigation--wrapper{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
