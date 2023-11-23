@@ -7,6 +7,7 @@ import s from './file-input.module.scss'
 type FileInputProps = {
   accept?: string | string[]
   label?: string
+  onUpload?: () => void
   className?: string
 }
 
@@ -20,6 +21,7 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
       id = 'file-input',
       label = 'Select from Computer',
       name = 'file',
+      onUpload,
       disabled,
       className,
       children,
@@ -29,11 +31,14 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
   ) => {
     const fileFormat = Array.isArray(accept) ? accept.join(', ') : accept
 
-    const styles = clsx(s.label, disabled && s.disabled, className)
+    const styles = {
+      label: clsx(s.label, disabled && s.disabled),
+      form: className,
+    }
 
     return (
-      <form ref={ref}>
-        <label className={styles} htmlFor={id}>
+      <form ref={ref} className={styles.form}>
+        <label className={styles.label} htmlFor={id}>
           {label}
         </label>
         <input
@@ -43,6 +48,7 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
           name={name}
           accept={fileFormat}
           disabled={disabled}
+          onChange={onUpload}
           {...props}
         />
         {children}

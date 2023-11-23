@@ -28,20 +28,14 @@ export const Avatar = ({
   const defaultSize = { x: AVATAR_SIZE.set(isMobile), y: AVATAR_SIZE.set(isMobile) }
 
   const { height = defaultSize.y, width = defaultSize.x } = props
-  const SVGSizeRatio = 4.25
 
   const styles = clsx(s.container, rounded && s.rounded, className)
 
   return (
     <RadixAvatar.Root className={styles}>
-      <RadixAvatar.Image
-        className={s.image}
-        width={width}
-        height={height}
-        src={src}
-        alt={alt}
-        {...props}
-      />
+      <div className={s.image}>
+        <RadixAvatar.Image width={width} height={height} src={src} alt={alt} {...props} />
+      </div>
 
       <RadixAvatar.Fallback asChild delayMs={delay}>
         <div className={s.image} style={{ width, height }} role={'image'} aria-label={alt}>
