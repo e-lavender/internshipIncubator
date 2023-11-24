@@ -12,7 +12,7 @@ import { CalendarIcon, useTranslation } from '@/app'
 import { CalendarNavigationButton } from '@/components/calendar/calendar-navigation-button/calendar-navigation-button'
 import { Typography } from '@/ui'
 
-type calendarProps = {
+export type calendarProps = {
   isRange?: boolean
 }
 
@@ -39,8 +39,6 @@ export const Calendar = ({
     setIsMonthPiker(false)
     setIsYearPiker(prev => !prev)
   }
-
-  console.log(month)
 
   return (
     <div className="react__datepicker">
