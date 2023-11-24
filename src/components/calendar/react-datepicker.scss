@@ -113,8 +113,11 @@
   &--previous {
     cursor: pointer;
 
+    display: inline-flex;
+
     width: 28px;
     height: 28px;
+    min-height: auto;
     padding: 4px 6px 4px 3px;
 
     background: var(--color-dark-100, #4c4c4c);
@@ -123,9 +126,11 @@
 
   &--year {
     cursor: pointer;
+    display:block;
+    padding: 0;
 
     &:hover {
-      color: var(--color-accent-500);
+      color: var(--color-accent-500) !important;
     }
   }
 
@@ -141,8 +146,11 @@
   &--next {
     cursor: pointer;
 
+    display: inline-flex;
+
     width: 28px;
     height: 28px;
+    min-height: auto;
     padding: 4px 1px 4px 3px;
 
     background: var(--color-dark-100, #4c4c4c);
@@ -902,4 +910,10 @@
   line-height: 24px; /* 150% */
 
   background-color: var(--color-dark-500);
+}
+
+.react-datepicker__navigation--wrapper{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
 }
