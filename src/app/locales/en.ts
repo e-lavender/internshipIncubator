@@ -13,6 +13,7 @@ import {
   CharacterPageTextModel,
   SidebarMenuModel,
   PaginationTextModel,
+  Calendar,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
@@ -28,8 +29,13 @@ const signUp = SignUpTextModel.en
 const signIn = SignInTextModel.en
 const sidebarMenu = SidebarMenuModel.en
 const pagination = PaginationTextModel.en
+const calendar = Calendar.en
 
 export const en: LocaleType = {
+  calendar: {
+    month: calendar.month,
+    locale: calendar.localeMonth,
+  },
   navigation: {
     title: navigation.title,
     menu: navigation.links,
