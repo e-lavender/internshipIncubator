@@ -1,11 +1,11 @@
-import React from 'react'
-
 import Link from 'next/link'
 
 import { authNavigationUrls, useTranslation } from '@/app'
+import { Calendar } from '@/components'
+import { NextPageWithLayout } from '@/pages/_app'
 import { Typography } from '@/ui'
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
   const id = 'idFromURL'
   const { t } = useTranslation()
   const { userProfile, passwordRecovery, createNewPassword, forgotPassword, signUp, signIn } =
@@ -35,7 +35,11 @@ export default function Home() {
         <Link href={`/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
+        <Calendar />
+        <Calendar isRange={true} />
       </div>
     </div>
   )
 }
+
+export default Home

@@ -1,3 +1,4 @@
+import Calendar from './calendar.json'
 import { CharacterPageTextModel } from './character-page-text-model'
 import ForgotPasswordModel from './forgot-password-model.json'
 import LinkConfirmationModel from './link-confirmation-model.json'
@@ -11,7 +12,6 @@ import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
 import TermsTextModel from './terms-text-model.json'
-
 export {
   SignUpTextModel,
   PrivacyPolicyTextModel,
@@ -26,4 +26,5 @@ export {
   SignInTextModel,
   SidebarMenuModel,
   PaginationTextModel,
+  Calendar,
 }
