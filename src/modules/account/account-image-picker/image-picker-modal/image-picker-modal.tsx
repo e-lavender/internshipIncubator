@@ -1,12 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './image-picker-modal.module.scss'
+import { useImageValidation } from './useImageValidation'
 
-import { MIME_TYPES } from '@/app'
 import { Avatar } from '@/components'
-import { useImageValidation } from '@/components/modals/utils'
 import { Button, FileInput, Modal, Typography } from '@/ui'
 
 type ImagePickerModalType = {
@@ -17,62 +16,13 @@ type ImagePickerModalType = {
   onClose?: () => void
 }
 
-export const ImagePickerModal = ({ isOpen, onChange, onClose, error }: ImagePickerModalType) => {
-  const [step, setStep] = useState<1 | 2>(1)
-  // const [blob, setBlob] = useState<Blob | null>(null)
-  const [url, setUrl] = useState<string>('')
+export const ImagePickerModal = ({ isOpen, onChange }: ImagePickerModalType) => {
+  const { url, step, stepUp, stepBack, errorText } = useImageValidation()
 
-  const { JPG, PNG } = MIME_TYPES
-
-  const {
-    blob,
-    setBlob,
-    error: formatError,
-  } = useImageValidation({
-    sizeLimit: 1, // MB type: number
-    typeLimit: [JPG, PNG],
-  })
-
-  console.log('output', {
-    blob,
-    formatError,
-  })
-
-  const styles = clsx(!error && s.avatar)
-
-  const stepUp = (file: File) => {
-    // setBlob(file)
-    const blob: Blob = new Blob([file], { type: file.type })
-    const url = URL.createObjectURL(blob)
-
-    setBlob(blob)
-
-    // if (!formatError) {
-    //   setStep(2)
-    // }
-  }
-
-  const stepBack = () => setStep(1)
-
-  useEffect(() => {
-    if (formatError || !blob) return
-    const url = URL.createObjectURL(blob)
-
-    setUrl(url)
-    console.log('I dont understand  why its happining!!!!!!!')
-    setStep(2)
-  }, [blob, formatError])
-
-  // useLayoutEffect(() => {
-  //   if (!blob) return
-  //
-  //   const url = URL.createObjectURL(blob)
-  //
-  //   setUrl(url)
-  // }, [blob, formatError])
+  const styles = clsx(!errorText && s.avatar)
 
   const interfaceVariants = {
-    1: <Interface1 url={url} error={formatError} styles={styles} callback={stepUp} />,
+    1: <Interface1 url={url} error={errorText} styles={styles} callback={stepUp} />,
     2: <Interface2 url={url} callback={stepBack} />,
   }
 
@@ -118,7 +68,7 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
     <div className={s.content}>
       {ErrorMessage}
 
-      <Avatar src={url} rounded={false} width={222} height={228} className={styles} />
+      <Avatar src={url} rounded={Boolean(url)} width={222} height={228} className={styles} />
       <FileInput ref={formRef} className={s.input} onUpload={handleUpload} />
     </div>
   )

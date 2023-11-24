@@ -1,6 +1,5 @@
 import { useDisclose } from '@/app'
-import { ImagePickerModal } from '@/components'
-import { AccountImage } from '@/modules'
+import { AccountImage, ImagePickerModal } from '@/modules'
 
 export const AccountImagePicker = () => {
   const { isOpen, onClose, onToggle } = useDisclose()
@@ -8,7 +7,7 @@ export const AccountImagePicker = () => {
   return (
     <>
       <AccountImage onClick={onToggle} />
-      <ImagePickerModal isOpen={isOpen} onChange={onClose} onClose={onClose} error={''} />
+      <ImagePickerModal isOpen={isOpen} onChange={onClose} onClose={onClose} />
     </>
   )
 }

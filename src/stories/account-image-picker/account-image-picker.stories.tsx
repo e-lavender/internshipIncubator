@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { AccountImagePicker } from '@/modules'
 
 const meta = {
-  title: 'Module/AccountImagePicker',
+  title: 'Modules/AccountImagePicker',
   component: AccountImagePicker,
   args: {},
   decorators: [
