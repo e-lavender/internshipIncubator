@@ -1,7 +1,11 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 
 import { getMonth, getYear } from 'date-fns'
-import DatePicker from 'react-datepicker'
+import en from 'date-fns/locale/en-US'
+import ru from 'date-fns/locale/ru'
+import DatePicker, { registerLocale } from 'react-datepicker'
+registerLocale('ru', ru)
+registerLocale('en', en)
 import './react-datepicker.scss'
 
 import { CalendarIcon, useTranslation } from '@/app'
@@ -35,6 +39,8 @@ export const Calendar = ({
     setIsMonthPiker(false)
     setIsYearPiker(prev => !prev)
   }
+
+  console.log(month)
 
   return (
     <div className="react__datepicker">

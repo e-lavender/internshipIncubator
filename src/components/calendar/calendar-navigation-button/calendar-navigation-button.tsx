@@ -6,16 +6,18 @@ type ButtonProps = {
   className?: string
   onClick: () => void
   disabled?: boolean
+  variant?: 'link' | 'primary' | 'secondary' | 'outlined' | undefined
 }
 export const CalendarNavigationButton = ({
   direction,
   className,
   onClick,
   disabled,
+  variant,
   ...rest
 }: ButtonProps) => {
   return (
-    <Button disabled={disabled} onClick={onClick} className={className} {...rest}>
+    <Button variant={variant} disabled={disabled} onClick={onClick} className={className} {...rest}>
       {direction === 'left' ? <PreviousIcon /> : <NextIcon />}
     </Button>
   )
