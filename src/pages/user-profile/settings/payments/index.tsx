@@ -1,8 +1,14 @@
-import { ReactElement } from 'react'
+import { useState } from 'react'
 
-import { Table } from '@/components/table'
-import { TableHeaderModel } from '@/components/table/tabel-types'
-import { ProfileSettingLayout } from '@/templates'
+import Link from 'next/link'
+
+import { Table } from '../../../../ui/table'
+
+import { menuNavigation } from '@/app'
+import { PAYMENTS_DATA } from '@/components/payments-table/payment-table-data'
+import { PaymentsTable } from '@/components/payments-table/payments-table'
+import { Pagination } from '@/ui/pagination'
+import { TableHeaderModel } from '@/ui/table/tabel-types'
 
 const PAYMENTS_TABLE_COLUMNS: TableHeaderModel[] = [
   {
@@ -33,19 +39,35 @@ const PAYMENTS_TABLE_COLUMNS: TableHeaderModel[] = [
 ]
 
 const Payments = () => {
+  const [currenPage, setCurrentPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<string>('7')
+
+  const paginatedData = PAYMENTS_DATA.slice(
+    currenPage * +pageSize,
+    currenPage * +pageSize + +pageSize + 1
+  )
+
   return (
     <>
       <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>Payments</h1>
+      <Link
+        href={menuNavigation.settings()}
+        style={{ fontSize: '1.5rem', display: 'inline-block', marginLeft: '2rem' }}
+      >
+        <h2>🔨 Go Back to Settings</h2>
+      </Link>
 
-      <Table.Root>
-        <Table.Head columns={PAYMENTS_TABLE_COLUMNS}></Table.Head>
-      </Table.Root>
+      <PaymentsTable columns={PAYMENTS_TABLE_COLUMNS} data={paginatedData} />
+      <Pagination
+        currentPage={currenPage}
+        totalCount={PAYMENTS_DATA.length}
+        pageSize={+pageSize}
+        siblingCount={3}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+      />
     </>
   )
-}
-
-Payments.getLayout = function getLayout(page: ReactElement) {
-  return <ProfileSettingLayout>{page}</ProfileSettingLayout>
 }
 
 export default Payments
