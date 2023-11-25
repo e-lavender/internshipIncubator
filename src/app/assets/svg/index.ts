@@ -1,4 +1,3 @@
-export * from './menu-icons'
 export * from './arrow-down-icon-svg'
 export * from './arrow-dropdown-icon-svg'
 export * from './back-to-previous-icon-svg'

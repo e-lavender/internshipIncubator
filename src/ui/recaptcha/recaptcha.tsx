@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 
-import ReCAPTCHA, { ReCAPTCHAProps } from 'react-google-recaptcha'
+import { ReCAPTCHA, ReCAPTCHAProps } from 'react-google-recaptcha'
 
 export type RecaptchaProps = {
   error?: string

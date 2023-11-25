@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { PAYMENTS_DATA, PaymentDataType } from '@/components/payments-table/payment-table-data'
+import { PaymentDataType } from '@/components/payments-table/payment-table-data'
 import { Table } from '@/ui/table'
 import { TableHeaderModel } from '@/ui/table/tabel-types'
-import s from '@/ui/table/table.module.scss'
 
 export const PaymentsTable = ({
   columns,
@@ -17,14 +16,14 @@ export const PaymentsTable = ({
       <Table.Head>
         <Table.Row>
           {columns.map(column => {
-            return <Table.HeadCell>{column.title}</Table.HeadCell>
+            return <Table.HeadCell key={column.key}>{column.title}</Table.HeadCell>
           })}
         </Table.Row>
       </Table.Head>
       <Table.Body>
         {data.map(row => {
           return (
-            <Table.Row>
+            <Table.Row key={row.id}>
               <Table.DataCell>{row.dateOfPayment}</Table.DataCell>
               <Table.DataCell>{row.endDateOfSubscription}</Table.DataCell>
               <Table.DataCell>{row.price}</Table.DataCell>

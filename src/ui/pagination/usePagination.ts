@@ -88,5 +88,5 @@ export const usePagination = ({
     }
 
     return []
-  }, [totalCount, pageSize, siblingCount, currentPage])
+  }, [totalCount, pageSize, siblingCount, currentPage, DOTS])
 }

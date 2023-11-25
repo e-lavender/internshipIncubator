@@ -11,7 +11,7 @@ import { authActions } from '@/app/services/auth/auth.slice'
 import { RootState } from '@/app/store/store'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://flying-merch.vercel.app/',
+  baseUrl: 'https://api.freedomindz.site/api',
   credentials: 'include',
   prepareHeaders: (headers, api) => {
     const token = (api.getState() as RootState).auth.accessToken

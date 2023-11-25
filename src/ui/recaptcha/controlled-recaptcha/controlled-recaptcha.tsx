@@ -1,7 +1,7 @@
 import { RefAttributes } from 'react'
 
 import { clsx } from 'clsx'
-import ReCAPTCHA from 'react-google-recaptcha'
+import { ReCAPTCHA } from 'react-google-recaptcha'
 import { useController, UseControllerProps, FieldValues } from 'react-hook-form'
 
 import { RecaptchaProps } from '@/ui/recaptcha/recaptcha'
