@@ -35,8 +35,6 @@ const Home: NextPageWithLayout = () => {
         <Link href={`/user-profile/${id}`}>
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
-        <Calendar />
-        <Calendar isRange={true} />
       </div>
     </div>
   )
