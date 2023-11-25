@@ -9,14 +9,14 @@ import { useForgotPasswordForm } from './validation-schema'
 
 import {
   authNavigationUrls,
-  useTranslation,
   useDisclose,
-  usePasswordRecoveryMutation,
   useMatchMedia,
-  TagProcessor,
+  usePasswordRecoveryMutation,
+  useTranslation,
 } from '@/app'
 import { NotificationModal } from '@/components'
-import { Loader, Button, Card, TextField, Typography, ControlledReCaptcha } from '@/ui'
+import { Button, Card, ControlledReCaptcha, Loader, TextField, Typography } from '@/ui'
+
 export const ForgotPasswordForm = () => {
   const { isMobile } = useMatchMedia()
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
@@ -131,7 +131,6 @@ export const ForgotPasswordForm = () => {
 
       <NotificationModal
         isOpen={isOpen}
-        onOpen={onModalClose}
         onClose={onModalClose}
         message={`${message.notificationMessage} ${emailAddress} `}
       />
