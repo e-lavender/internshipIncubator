@@ -1,13 +1,18 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 
 import { getMonth, getYear } from 'date-fns'
-import DatePicker from 'react-datepicker'
+import en from 'date-fns/locale/en-US'
+import ru from 'date-fns/locale/ru'
+import DatePicker, { registerLocale } from 'react-datepicker'
+registerLocale('ru', ru)
+registerLocale('en', en)
 import './react-datepicker.scss'
 
-import { CalendarIcon, NextIcon, PreviousIcon, useTranslation } from '@/app'
+import { CalendarIcon, useTranslation } from '@/app'
+import { CalendarNavigationButton } from '@/components/calendar/calendar-navigation-button/calendar-navigation-button'
 import { Typography } from '@/ui'
 
-type calendarProps = {
+export type calendarProps = {
   isRange?: boolean
 }
 
@@ -66,13 +71,7 @@ export const Calendar = ({
           increaseYear,
           decreaseYear,
         }) => (
-          <div
-            style={{
-              margin: 10,
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
+          <div className="react-datepicker__navigation--wrapper">
             <div>
               <button onClick={handleMonthPiker}>
                 <Typography className="react-datepicker__navigation--month" variant="bold-16">
@@ -86,20 +85,18 @@ export const Calendar = ({
               </button>
             </div>
             <div>
-              <button
+              <CalendarNavigationButton
                 className="react-datepicker__navigation--previous"
                 onClick={isYearPiker ? decreaseYear : decreaseMonth}
                 disabled={isYearPiker ? prevYearButtonDisabled : prevMonthButtonDisabled}
-              >
-                <PreviousIcon />
-              </button>
-              <button
+                direction="left"
+              />
+              <CalendarNavigationButton
                 className="react-datepicker__navigation--next"
                 onClick={isYearPiker ? increaseYear : increaseMonth}
                 disabled={isYearPiker ? nextYearButtonDisabled : nextMonthButtonDisabled}
-              >
-                <NextIcon />
-              </button>
+                direction="right"
+              />
             </div>
           </div>
         )}

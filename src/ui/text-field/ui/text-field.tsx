@@ -13,6 +13,8 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, inputType = 'text', disabled, error, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
 
+    const textFieldNames = ['userName', 'email', 'password', 'confirmPassword']
+
     const classNames = {
       root: clsx(s.root, className, disabled && s.disabled),
       label: clsx(s.label),
@@ -22,7 +24,13 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
       rightIcon: clsx(s.rightIcon),
       error: clsx(error && s.error),
     }
-
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (rest.name ? textFieldNames.includes(rest.name) : false) {
+        if (event.key === ' ' || event.code === 'Space') {
+          event.preventDefault()
+        }
+      }
+    }
     const showHidePassword = () => {
       if (!disabled) {
         setShowPassword(!showPassword)
@@ -57,6 +65,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
             className={classNames.input}
             type={type}
             ref={ref}
+            onKeyDown={handleKeyDown}
             {...rest}
           />
           {leftIcon}
