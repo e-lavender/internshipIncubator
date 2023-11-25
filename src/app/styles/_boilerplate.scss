@@ -23,7 +23,7 @@ body {
   font-family: var(--font-family-primary);
   font-size: var(--base-font-size);
   font-style: normal;
-  line-height: calc(28 / 16 * 100%);
+  line-height: var(--line-height-m);
   color: var(--text-color-primary);
 
   background-color: var(--bg-color-primary);
