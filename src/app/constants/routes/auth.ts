@@ -13,15 +13,15 @@ export const authNavigationUrls = {
 }
 
 export const authApiUrls = {
-  signIn: () => '/api/auth/login',
-  refreshMe: () => '/api/auth/new-tokens',
-  registrationConfirmation: () => '/api/auth/registration-confirmation',
+  signIn: () => '/v1/auth/login',
+  refreshMe: () => '/v1/auth/refresh-token',
+  registrationConfirmation: () => '/v1/auth/registration-confirmation',
   signUp: () => '/v1/auth/registration',
-  resendEmail: () => '/api/auth/registration-email-resending',
-  logout: () => '/api/auth/logout',
-  getMe: () => '/api/auth/me',
-  passwordRecovery: () => '/api/auth/password-recovery',
-  createNewPassword: () => '/api/auth/new-password',
+  resendEmail: () => '/v1/auth/resend-code',
+  logout: () => '/v1/auth/logout',
+  getMe: () => '/v1/auth/me',
+  passwordRecovery: () => '/v1/auth/password-recovery',
+  createNewPassword: () => '/v1/auth/new-password',
   openGoogleOAuth: () => '/api/auth/google',
   openGithubOAuth: () => '/api/auth/github',
   signWithGoogle: () => '/api/auth/google/register',

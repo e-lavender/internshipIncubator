@@ -9,3 +9,4 @@ export type ErrorWithData = FetchBaseQueryError & {
     message: MessageArrayModel | string
   }
 }
+export type Nullable<T> = T | null
