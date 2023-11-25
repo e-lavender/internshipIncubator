@@ -123,10 +123,11 @@
   @include button-mixin;
 
   color: var(--color-accent-500);
-  background: transparent;
+  background-color: transparent;
 
   &:hover {
     color: var(--color-accent-100);
+    background-color: inherit;
   }
 
   &:active {
