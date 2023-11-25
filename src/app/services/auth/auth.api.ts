@@ -1,6 +1,7 @@
 import { authApiUrls } from '@/app/constants/routes/auth'
 import {
   Code,
+  GetMe,
   NewPasswordCredentials,
   SignInCredentials,
   UserCredentials,
@@ -10,7 +11,7 @@ import { GoogleUser } from '@/app/services/google/google.api.types'
 
 export const authAPI = commonApi.injectEndpoints({
   endpoints: builder => ({
-    getMe: builder.query<any, void>({
+    getMe: builder.query<GetMe, void>({
       query: () => {
         return {
           method: 'GET',
@@ -57,12 +58,12 @@ export const authAPI = commonApi.injectEndpoints({
       },
     }),
     createNewPassword: builder.mutation<void, NewPasswordCredentials>({
-      query: ({ newPassword, token }) => {
+      query: ({ newPassword, recoveryCode }) => {
         return {
           method: 'POST',
           url: authApiUrls.createNewPassword(),
           body: { newPassword },
-          params: { token },
+          params: { recoveryCode },
         }
       },
     }),

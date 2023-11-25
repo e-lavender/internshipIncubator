@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 
+import { authApiUrls } from '@/app'
 import { authActions } from '@/app/services/auth/auth.slice'
 import { RootState } from '@/app/store/store'
 
@@ -41,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         const refreshResult = await baseQuery(
           {
             method: 'POST',
-            url: '/api/auth/new-tokens',
+            url: authApiUrls.refreshMe(),
           },
           api,
           extraOptions
@@ -59,7 +60,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         } else {
           await baseQuery(
             {
-              url: '/api/auth/logout',
+              url: authApiUrls.logout(),
               method: 'POST',
             },
             api,
