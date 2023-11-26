@@ -107,8 +107,7 @@ export const ForgotPasswordForm = () => {
         </Button>
 
         <Typography as={'h3'} variant={'bold-16'} className={s.link}>
-          {link.description}
-          <Link href={authNavigationUrls.signIn()}>{link.text}</Link>
+          <Link href={authNavigationUrls.signIn()}>{`${link.description} ${link.text}`}</Link>
         </Typography>
 
         {!isMobile && !isSubmitted && (
