@@ -7,13 +7,8 @@ import { toast } from 'react-toastify'
 
 import s from './sign-in-form.module.scss'
 
-import {
-  authNavigationUrls,
-  ErrorWithData,
-  showError,
-  useSignInMutation,
-  useTranslation,
-} from '@/app'
+import { authNavigationUrls, ErrorWithData, showError, useTranslation } from '@/app'
+import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'

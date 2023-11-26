@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { authNavigationUrls, useGetMeQuery, useSignOutMutation } from '@/app'
+import { authNavigationUrls } from '@/app'
+import { useGetMeQuery, useSignOutMutation } from '@/app/services/auth/auth.api'
 import { Button, Typography } from '@/ui'
 
 const UserProfile = () => {

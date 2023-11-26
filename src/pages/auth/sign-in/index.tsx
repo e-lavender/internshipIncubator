@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { useGetMeQuery } from '@/app'
+import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { SignInForm } from '@/modules'
 import { FlexWrapper } from '@/templates'
 

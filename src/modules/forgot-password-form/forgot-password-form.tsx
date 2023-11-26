@@ -7,13 +7,8 @@ import { useRouter } from 'next/router'
 import s from './forgot-password-form.module.scss'
 import { useForgotPasswordForm } from './validation-schema'
 
-import {
-  authNavigationUrls,
-  useDisclose,
-  useMatchMedia,
-  usePasswordRecoveryMutation,
-  useTranslation,
-} from '@/app'
+import { authNavigationUrls, useDisclose, useMatchMedia, useTranslation } from '@/app'
+import { usePasswordRecoveryMutation } from '@/app/services/auth/auth.api'
 import { NotificationModal } from '@/components'
 import { Button, Card, ControlledReCaptcha, Loader, TextField, Typography } from '@/ui'
 
