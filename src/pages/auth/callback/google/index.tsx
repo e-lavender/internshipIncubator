@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { useGoogleAuthMutation, useGetGoogleMutation } from '@/app'
+import { useGoogleAuthMutation } from '@/app/services/auth/auth.api'
+import { useGetGoogleMutation } from '@/app/services/google/google.api'
 
 const GooglePage = () => {
   const [isFirst, setIsFirst] = useState(true)

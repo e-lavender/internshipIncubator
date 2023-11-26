@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react'
 
 import s from './header-layout.module.scss'
 
-import { useGetMeQuery } from '@/app'
+import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { Header } from '@/modules/header'
 
 export const HeaderLayout = ({ children }: PropsWithChildren) => {
