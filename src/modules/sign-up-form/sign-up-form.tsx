@@ -11,9 +11,9 @@ import {
   showError,
   TagProcessor,
   useDisclose,
-  useSignUpMutation,
   useTranslation,
 } from '@/app'
+import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { ControlledCheckbox, ControlledTextField, NotificationModal } from '@/components'
 import { useSignupForm } from '@/modules/sign-up-form/use-sign-up-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
