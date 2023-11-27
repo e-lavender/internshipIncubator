@@ -71,11 +71,15 @@
 
       &:-webkit-autofill,
       &:-webkit-autofill:hover,
-      &:-webkit-autofill:focus {
+      &:-webkit-autofill:focus{
+        color: var(--text-color-primary);
         box-shadow: 0 0 0 3rem var(--bg-color-secondary) inset !important;
+        caret-color: var(--text-color-primary);
 
         -webkit-text-fill-color: var(--text-color-primary) !important;
       }
+
+
 
       &.error {
         color: var(--color-danger-500);
