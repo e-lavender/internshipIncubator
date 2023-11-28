@@ -7,12 +7,11 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 
-import { authApiUrls } from '@/app'
 import { authActions } from '@/app/services/auth/auth.slice'
 import { RootState } from '@/app/store/store'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://api.freedomindz.site/api',
+  baseUrl: 'https://api.freedomindz.site/',
   credentials: 'include',
   prepareHeaders: (headers, api) => {
     const token = (api.getState() as RootState).auth.accessToken
@@ -42,7 +41,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         const refreshResult = await baseQuery(
           {
             method: 'POST',
-            url: authApiUrls.refreshMe(),
+            url: '/api/v1/auth/me',
           },
           api,
           extraOptions
@@ -60,7 +59,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         } else {
           await baseQuery(
             {
-              url: authApiUrls.logout(),
+              url: '/api/v1/auth/logout',
               method: 'POST',
             },
             api,

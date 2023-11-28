@@ -15,7 +15,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: () => {
         return {
           method: 'GET',
-          url: authApiUrls.getMe(),
+          url: '/api/v1/auth/me',
         }
       },
       extraOptions: { maxRetries: 0 },
@@ -25,7 +25,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: args => {
         return {
           method: 'POST',
-          url: authApiUrls.signUp(),
+          url: '/api/v1/auth/registration',
           body: args,
         }
       },
@@ -34,7 +34,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: code => {
         return {
           method: 'POST',
-          url: authApiUrls.resendEmail(),
+          url: '/api/v1/auth/resend-code',
           body: code,
         }
       },
@@ -43,7 +43,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: code => {
         return {
           method: 'GET',
-          url: authApiUrls.registrationConfirmation(),
+          url: '/api/v1/auth/registration-confirmation',
           params: code,
         }
       },
@@ -52,7 +52,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: email => {
         return {
           method: 'POST',
-          url: authApiUrls.passwordRecovery(),
+          url: '/api/v1/auth/registration-confirmation',
           body: email,
         }
       },
@@ -61,7 +61,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: ({ newPassword, recoveryCode }) => {
         return {
           method: 'POST',
-          url: authApiUrls.createNewPassword(),
+          url: '/api/v1/auth/new-password',
           body: { newPassword },
           params: { recoveryCode },
         }
@@ -71,25 +71,25 @@ export const authAPI = commonApi.injectEndpoints({
       query: args => {
         return {
           method: 'POST',
-          url: authApiUrls.signIn(),
+          url: '/api/v1/auth/login',
           body: args,
         }
       },
 
       invalidatesTags: ['ME'],
     }),
-    refreshMe: builder.query<{ accessToken: string }, void>({
+    refreshMe: builder.mutation<{ accessToken: string }, void>({
       query: () => {
         return {
-          method: 'GET',
-          url: authApiUrls.refreshMe(),
+          method: 'POST',
+          url: '/api/v1/auth/refresh-token',
         }
       },
     }),
     signOut: builder.mutation<void, void>({
       query: () => ({
         method: 'POST',
-        url: authApiUrls.logout(),
+        url: '/api/v1/auth/logout',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         dispatch(
@@ -139,9 +139,9 @@ export const authAPI = commonApi.injectEndpoints({
 
 export const {
   useConfirmAccountQuery,
+  useRefreshMeMutation,
   usePasswordRecoveryMutation,
   useCreateNewPasswordMutation,
-  useRefreshMeQuery,
   useResendEmailMutation,
   useSignOutMutation,
   useGetMeQuery,
