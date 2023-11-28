@@ -105,12 +105,14 @@ export const ForgotPasswordForm = () => {
         <Button fullWidth className={s.button} type={'submit'} disabled={!isValid}>
           {labels.submission()}
         </Button>
-
-        <Typography as={'h3'} variant={'bold-16'} className={s.link}>
-          {link.description}
-          <Link href={authNavigationUrls.signIn()}>{link.text}</Link>
-        </Typography>
-
+        <Button
+          className={s.signUpBtn}
+          as={Link}
+          variant={'link'}
+          href={authNavigationUrls.signUp()}
+        >
+          {`${link.description} ${link.text}`}
+        </Button>
         {!isMobile && !isSubmitted && (
           <ControlledReCaptcha
             control={control}
