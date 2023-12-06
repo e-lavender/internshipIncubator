@@ -14,10 +14,12 @@ import {
   StatisticsMenuIcon,
   useTranslation,
 } from '@/app'
+import { useSignOutMutation } from '@/app/services/auth/auth.api'
 import { MenuItem, SidebarMenu } from '@/ui'
 
 export const SidebarMenuWithItems = () => {
   const { pathname } = useRouter()
+  const [signOut, { isLoading }] = useSignOutMutation()
 
   const { t } = useTranslation()
   const labels = t.sidebarMenu
@@ -53,7 +55,7 @@ export const SidebarMenuWithItems = () => {
       <MenuItem href={'#'} icon={FavoritesMenuIcon} label={labels.favorites} disabled />
       <MenuItem
         as={'button'}
-        onClick={() => console.log('Logged Out!')}
+        onClick={() => signOut()}
         icon={LogOutMenuIcon}
         label={labels.logout}
       />

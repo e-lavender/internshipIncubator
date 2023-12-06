@@ -52,7 +52,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: email => {
         return {
           method: 'POST',
-          url: '/api/v1/auth/registration-confirmation',
+          url: '/api/v1/auth/password-recovery',
           body: email,
         }
       },
