@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
     const token = (api.getState() as RootState).auth.accessToken
 
     if (token) {
-      headers.set('authorization', `${token}`)
+      headers.set('authorization', `Bearer ${token}`)
     }
 
     return headers
@@ -33,7 +33,8 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result.error && result.error.status === 401) {
+  // @ts-ignore
+  if (result.meta.response.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
 
@@ -41,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         const refreshResult = await baseQuery(
           {
             method: 'POST',
-            url: '/api/v1/auth/me',
+            url: '/api/v1/auth/refresh-token',
           },
           api,
           extraOptions
