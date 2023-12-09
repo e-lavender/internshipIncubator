@@ -1,5 +1,7 @@
 import React from 'react'
 
+import s from './payment-table.module.scss'
+
 import { PaymentDataType } from '@/components/payments-table/payment-table-data'
 import { Table } from '@/ui/table'
 import { TableHeaderModel } from '@/ui/table/tabel-types'
@@ -11,19 +13,32 @@ export const PaymentsTable = ({
   columns: TableHeaderModel[]
   data: PaymentDataType[]
 }) => {
+  const classNames = {
+    root: s.tableRoot,
+    head: s.tableHead,
+    headCell: s.headCell,
+    row: s.tableRow,
+    rowCell: s.rowCell,
+    body: s.body,
+  }
+
   return (
-    <Table.Root>
-      <Table.Head>
-        <Table.Row>
+    <Table.Root className={classNames.root}>
+      <Table.Head className={classNames.head}>
+        <Table.Row className={classNames.row}>
           {columns.map(column => {
-            return <Table.HeadCell key={column.key}>{column.title}</Table.HeadCell>
+            return (
+              <Table.HeadCell className={classNames.headCell} key={column.key}>
+                {column.title}
+              </Table.HeadCell>
+            )
           })}
         </Table.Row>
       </Table.Head>
-      <Table.Body>
+      <Table.Body className={classNames.body}>
         {data.map(row => {
           return (
-            <Table.Row key={row.id}>
+            <Table.Row key={row.id} className={classNames.row}>
               <Table.DataCell>{row.dateOfPayment}</Table.DataCell>
               <Table.DataCell>{row.endDateOfSubscription}</Table.DataCell>
               <Table.DataCell>{row.price}</Table.DataCell>

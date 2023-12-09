@@ -2,36 +2,9 @@ import { useState } from 'react'
 
 import { PAYMENTS_DATA } from '@/components/payments-table/payment-table-data'
 import { PaymentsTable } from '@/components/payments-table/payments-table'
+import { PAYMENTS_TABLE_COLUMNS } from '@/modules/user-payments/constants'
 import { Pagination } from '@/ui/pagination'
 import { TableHeaderModel } from '@/ui/table/tabel-types'
-
-const PAYMENTS_TABLE_COLUMNS: TableHeaderModel[] = [
-  {
-    key: 'dateOfPayment',
-    title: 'Date of Payment',
-    sortable: false,
-  },
-  {
-    key: 'endDateOfSub',
-    title: 'End date of subscription',
-    sortable: false,
-  },
-  {
-    key: 'price',
-    title: 'Price',
-    sortable: false,
-  },
-  {
-    key: 'subscriptionType',
-    title: 'Subscription Type',
-    sortable: false,
-  },
-  {
-    key: 'paymentType',
-    title: 'Payment Type',
-    sortable: false,
-  },
-]
 
 export const UserPayments = () => {
   const [currenPage, setCurrentPage] = useState<number>(1)
