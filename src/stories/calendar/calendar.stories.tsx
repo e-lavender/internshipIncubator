@@ -2,9 +2,9 @@ import { PropsWithChildren } from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Calendar, calendarProps } from '@/components'
+import { CalendarProps, Calendar } from '../../components'
 
-const meta: Meta<PropsWithChildren<calendarProps>> = {
+const meta: Meta<PropsWithChildren<CalendarProps>> = {
   title: 'Components/Calendar',
   component: Calendar,
   tags: ['autodocs'],

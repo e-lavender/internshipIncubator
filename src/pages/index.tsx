@@ -1,7 +1,11 @@
+import React from 'react'
+
 import Link from 'next/link'
+import Select from 'react-select'
 
 import { authNavigationUrls, useTranslation } from '@/app'
-import { Calendar } from '@/components'
+import { CustomSelect } from '@/components'
+import { COUNTRIES_DATA } from '@/components/custom-select/location-data'
 import { NextPageWithLayout } from '@/pages/_app'
 import { Typography } from '@/ui'
 
@@ -36,6 +40,11 @@ const Home: NextPageWithLayout = () => {
           <Typography variant="regular-link">{userProfile}</Typography>
         </Link>
       </div>
+
+      <CustomSelect label={'Countries'} options={COUNTRIES_DATA} />
+      <Link href={`/user-profile/${id}`}>
+        <Typography variant="regular-link">{userProfile}</Typography>
+      </Link>
     </div>
   )
 }

@@ -12,13 +12,13 @@ import { CalendarIcon, useTranslation } from '@/app'
 import { CalendarNavigationButton } from '@/components/calendar/calendar-navigation-button/calendar-navigation-button'
 import { Typography } from '@/ui'
 
-export type calendarProps = {
+export type CalendarProps = {
   isRange?: boolean
 }
 
 export const Calendar = ({
   isRange = false,
-}: PropsWithChildren<calendarProps>): React.JSX.Element => {
+}: PropsWithChildren<CalendarProps>): React.JSX.Element => {
   const [startDate, setStartDate] = useState(new Date())
   const [isMonthPiker, setIsMonthPiker] = useState(false)
   const [isYearPiker, setIsYearPiker] = useState(false)
