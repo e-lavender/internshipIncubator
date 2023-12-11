@@ -1,14 +1,39 @@
 .container {
   display: flex;
-  gap: 4rem;
+  flex-direction: column;
+  gap: 2.4rem;
 
-  .wrapper {
-    display: inline-flex;
-    flex-direction: column;
-    flex-grow: 1;
+  .divider {
+    height: 1px;
+    background-color: #333;
   }
 
-  .text {
-    color: #8d9094;
+  .btn {
+    align-self: flex-end;
+  }
+
+  .content {
+    display: flex;
+    gap: 4rem;
+
+    .image {
+      padding-top: 2.4rem;
+    }
+
+    .wrapper {
+      display: inline-flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 2.4rem;
+
+      .select {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    .text {
+      color: #8d9094;
+    }
   }
 }
