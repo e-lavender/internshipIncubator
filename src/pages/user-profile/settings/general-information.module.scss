@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  gap: 4rem;
+
+  .wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .text {
+    color: #8d9094;
+  }
+}

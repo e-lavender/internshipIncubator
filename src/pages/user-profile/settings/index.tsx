@@ -1,5 +1,7 @@
 import { ReactElement } from 'react'
 
+import s from './general-information.module.scss'
+
 import { Calendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
@@ -8,12 +10,10 @@ const GeneralInformation = () => {
   return (
     <>
       <h1 style={{ textAlign: 'center', margin: '10rem 0 5rem' }}>General Information</h1>
-      <div style={{ display: 'inline-flex', gap: 30 }}>
+      <div className={s.container}>
         <AccountImagePicker />
-        <div>
+        <div className={s.wrapper}>
           <Calendar />
-          <br />
-          <Calendar isRange />
         </div>
       </div>
     </>
