@@ -17,6 +17,32 @@
 }
 
 .container {
+  position: relative;
+  display: inline-block;
+
+  .btn {
+    all: unset;
+
+    cursor: pointer;
+
+    position: absolute;
+    z-index: 20;
+    top: 1.2rem;
+    right: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.4rem;
+    height: 2.4rem;
+
+    background-color: var(--bg-color-primary);
+    border-radius: 50%;
+  }
+}
+
+.wrapper {
   overflow: hidden;
   display: inline-block;
 

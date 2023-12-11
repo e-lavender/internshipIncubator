@@ -9,7 +9,13 @@ export const AccountImage = (props: AccountImageProps) => {
 
   return (
     <div className={s.container}>
-      <Avatar width={width} height={height} rounded={false} {...restProps} />
+      <Avatar
+        width={width}
+        height={height}
+        rounded={false}
+        onDelete={() => console.log('Avatar deleted!!!')}
+        {...restProps}
+      />
       <Button variant={'outlined'} onClick={onClick}>
         Add a Profile Photo
       </Button>
