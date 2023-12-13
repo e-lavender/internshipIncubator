@@ -4,10 +4,9 @@ import Link from 'next/link'
 import Select from 'react-select'
 
 import { authNavigationUrls, useTranslation } from '@/app'
-import { CustomSelect } from '@/components'
-import { COUNTRIES_DATA } from '@/components/custom-select/location-data'
 import { NextPageWithLayout } from '@/pages/_app'
-import { Typography } from '@/ui'
+import { CustomSelect, Typography } from '@/ui'
+import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const Home: NextPageWithLayout = () => {
   const id = 'idFromURL'
@@ -41,10 +40,16 @@ const Home: NextPageWithLayout = () => {
         </Link>
       </div>
 
-      <CustomSelect label={'Countries'} options={COUNTRIES_DATA} />
       <Link href={`/user-profile/${id}`}>
         <Typography variant="regular-link">{userProfile}</Typography>
       </Link>
+
+      <CustomSelect options={COUNTRIES_DATA} />
+      <Select
+        isClearable={true}
+        options={COUNTRIES_DATA}
+        defaultValue={{ value: 'Armenia', label: 'Armenia' }}
+      />
     </div>
   )
 }

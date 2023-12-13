@@ -1,6 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 25.8rem;
 }
 
 .label {
@@ -19,7 +21,6 @@
   align-items: center;
   justify-content: stretch;
 
-  width: 25.8rem;
   height: 36px;
   padding: 5px 7px 5px 12px;
 
@@ -29,7 +30,6 @@
 
   &:focus {
     background-color: var(--color-dark-500);
-    border-color: red;
   }
 }
 
@@ -56,9 +56,10 @@
   left: -1px;
 
   overflow-y: auto;
+  display: none;
 
   box-sizing: border-box;
-  width: inherit;
+  width: 100%;
   height: 150px;
   padding: 0;
 
@@ -80,6 +81,10 @@
     background-color: var(--color-dark-100);
     border-radius: 2px;
     box-shadow: inset 0 0 6px rgb(0 0 0 / 20%);
+  }
+
+  &.show {
+    display: block;
   }
 }
 
@@ -110,9 +115,15 @@
   border-radius: 2px;
 }
 
-.caret {
+.chevron {
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.open {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
 }

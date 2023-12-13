@@ -9,3 +9,5 @@ declare module 'react-select/base' {
     //additional props if needed
   }
 }
+
+export type SelectValue = { value: string; label: string }

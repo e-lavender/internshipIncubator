@@ -1,13 +1,26 @@
-import { ReactElement } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 
 import s from './general-information.module.scss'
 
+import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import { Calendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
-import { Button, Select, TextArea, TextField } from '@/ui'
+import { Button, CustomSelect, Select, TextArea, TextField } from '@/ui'
+import { SelectValue } from '@/ui/custom-select/custom-select.types'
+import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const GeneralInformation = () => {
+  const [getCities, { data: cities }] = useGetCitiesMutation()
+  const setCountry = (country: SelectValue | undefined) => {
+    country?.value && getCities({ country: country?.value })
+  }
+  const mappedCities: SelectValue[] | undefined = useMemo(() => {
+    return cities?.data.map(city => {
+      return { value: city.toLowerCase(), label: city }
+    })
+  }, [cities])
+
   return (
     <div className={s.container}>
       <div className={s.content}>
@@ -23,8 +36,12 @@ const GeneralInformation = () => {
           <Calendar />
 
           <div className={s.select}>
-            <Select value={'-'} onChange={console.log} options={[]} label={'Select your country'} />
-            <Select value={'-'} onChange={console.log} options={[]} label={'Select your city'} />
+            <CustomSelect
+              onSelect={setCountry}
+              options={COUNTRIES_DATA}
+              label={'Select your country'}
+            />
+            <CustomSelect label={'Select your city'} options={mappedCities} />
           </div>
 
           <TextArea label={'About me'} placeholder={'Please provide information here...'} />
