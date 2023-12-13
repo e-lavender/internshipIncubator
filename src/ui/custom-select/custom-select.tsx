@@ -1,4 +1,12 @@
-import React, { ChangeEvent, FocusEvent, useCallback, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  FocusEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import { clsx } from 'clsx'
 
@@ -7,6 +15,7 @@ import s from './custom-select.module.scss'
 import { ChevronDown } from '@/app/assets/svg/chevron-down'
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
 import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
+import { useFilterOptions } from '@/ui/custom-select/useFilterOptions'
 
 export const CustomSelect = ({
   options,
@@ -28,31 +37,18 @@ export const CustomSelect = ({
   isClearable?: boolean
 }) => {
   const selectRef = useRef<HTMLDivElement>(null)
-  const [filteredOptions, setFilteredOptions] = useState<SelectValue[] | undefined>(() => options)
   const { onHoverValue, isOpen, setIsOpen, onSelectValueHandler, currentValue, clearHandler } =
     useCustomSelect(onSelect)
+  const { filteredData, setFilterHandler } = useFilterOptions(options || [])
+
   const styles = {
     options: clsx(s.options, isOpen && s.show),
     chevron: clsx(s.chevron, isOpen && s.open),
   }
 
-  const onBlurHandler = (e: FocusEvent<HTMLDivElement>) => {
+  const closeSelectOnBlur = (e: FocusEvent<HTMLDivElement>) => {
     if (!selectRef?.current?.contains(e.relatedTarget)) setIsOpen(false)
   }
-
-  const inputFilterHandler = useCallback(
-    (e: ChangeEvent<HTMLInputElement>, options?: SelectValue[]) => {
-      !isOpen && setIsOpen(true)
-      if (options) {
-        setFilteredOptions(
-          options.filter(option => {
-            return option.label.toLowerCase().includes(e.currentTarget.value.toLowerCase())
-          })
-        )
-      }
-    },
-    [options]
-  )
 
   return (
     <div className={s.container}>
@@ -60,7 +56,7 @@ export const CustomSelect = ({
       <div
         className={s.select}
         tabIndex={0}
-        onBlur={onBlurHandler}
+        onBlur={closeSelectOnBlur}
         ref={selectRef}
         onClick={() => {
           !isOpen && setIsOpen(true)
@@ -72,7 +68,10 @@ export const CustomSelect = ({
             placeholder={placeholder || 'Select...'}
             type={'text'}
             className={s.input}
-            onChange={e => inputFilterHandler(e, options)}
+            onChange={e => {
+              setIsOpen(true)
+              setFilterHandler(e)
+            }}
             data-value={'Hello'}
           />
         )}
@@ -94,11 +93,11 @@ export const CustomSelect = ({
           <ChevronDown />
         </button>
         <ul className={styles.options}>
-          {options?.map(option => {
+          {filteredData?.map((option, index) => {
             return (
               <li
                 className={s.option}
-                key={option.value}
+                key={index}
                 onClick={() => onSelectValueHandler(option)}
                 onMouseEnter={() => onHoverValue(option)}
               >
