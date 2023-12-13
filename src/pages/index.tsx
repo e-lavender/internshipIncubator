@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Link from 'next/link'
-import Select from 'react-select'
 
 import { authNavigationUrls, useTranslation } from '@/app'
 import { NextPageWithLayout } from '@/pages/_app'
@@ -45,11 +44,6 @@ const Home: NextPageWithLayout = () => {
       </Link>
 
       <CustomSelect options={COUNTRIES_DATA} />
-      <Select
-        isClearable={true}
-        options={COUNTRIES_DATA}
-        defaultValue={{ value: 'Armenia', label: 'Armenia' }}
-      />
     </div>
   )
 }
