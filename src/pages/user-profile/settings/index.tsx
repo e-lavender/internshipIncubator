@@ -5,7 +5,7 @@ import { useController, useForm } from 'react-hook-form'
 import s from './general-information.module.scss'
 
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
-import { Calendar, ControlledCalendar } from '@/components'
+import { ControlledCalendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
 import { Button, CustomSelect, Select, TextArea, TextField } from '@/ui'
@@ -71,12 +71,6 @@ const GeneralInformation = () => {
     control,
   })
 
-  // const {
-  //   field: { value: ageValue, onChange: onAgeChange },
-  // } = useController({
-  //   name: 'age',
-  //   control,
-  // })
   const onSubmit = (data: GeneralSettingsType) => {
     console.log(data)
   }
@@ -93,14 +87,7 @@ const GeneralInformation = () => {
           <TextField {...register('firstName')} label={'First Name'} required />
           <TextField {...register('lastName')} label={'Last Name'} required />
 
-          <ControlledCalendar
-            label={'Date of birth'}
-            control={control}
-            name={'age'}
-            // error={'You are not adult!!!'}
-            // value={ageValue}
-            // onChange={onAgeChange}
-          />
+          <ControlledCalendar label={'Date of birth'} control={control} name={'age'} />
 
           <div className={s.select}>
             <CustomSelect

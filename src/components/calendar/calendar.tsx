@@ -21,6 +21,7 @@ export type CalendarProps = {
   error?: string
   isRange?: boolean
   value?: string
+  id?: string
   onChange?: (date: DateValueType) => void
 } & ReactDatePickerProps
 
@@ -30,6 +31,7 @@ export const Calendar = ({
   onChange,
   label,
   error,
+  id,
   ...props
 }: CalendarProps): React.JSX.Element => {
   const { isOpen, onOpen, onClose, onToggle } = useDisclose()
@@ -41,8 +43,6 @@ export const Calendar = ({
   const [startDateInRange, endDateInRange] = dateRange
   const { t } = useTranslation()
   const { month, locale } = t.calendar
-
-  const id: string = useId()
 
   useEffect(() => {
     setIsMonthPiker(false)
