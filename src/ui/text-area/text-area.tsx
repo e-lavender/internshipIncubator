@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, useId } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -20,15 +20,18 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaType>(
       textarea: clsx(s.textarea, disabled && s.disabled, error && s.warning),
     }
 
+    const id: string = useId()
+
     return (
       <div className={s.container}>
         {label && (
-          <Typography as={'p'} variant={'regular-14'} className={styles.label}>
+          <Typography as={'label'} variant={'regular-14'} htmlFor={id} className={styles.label}>
             {label}
           </Typography>
         )}
 
         <textarea
+          id={id}
           className={styles.textarea}
           disabled={disabled}
           spellCheck={spellCheck}
