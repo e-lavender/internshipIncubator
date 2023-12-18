@@ -1,26 +1,20 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo } from 'react'
 
-import { useController, useForm } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 
 import s from './general-information.module.scss'
 
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import { ControlledCalendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
+import {
+  GeneralSettingsType,
+  useGeneralSettings,
+} from '@/pages/user-profile/settings/use-general-settings'
 import { ProfileSettingLayout } from '@/templates'
-import { Button, CustomSelect, Select, TextArea, TextField } from '@/ui'
+import { Button, CustomSelect, TextArea, TextField } from '@/ui'
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
-
-type GeneralSettingsType = {
-  userName: string
-  firstName: string
-  lastName: string
-  age?: string
-  country?: string
-  city?: string
-  aboutMe?: string
-}
 
 const GeneralInformation = () => {
   const [getCities, { data: cities }] = useGetCitiesMutation()
@@ -36,26 +30,12 @@ const GeneralInformation = () => {
     })
   }, [cities])
 
-  const defaultSettingsValues = {
-    userName: '',
-    firstName: '',
-    lastName: '',
-    age: '',
-    country: '',
-    city: '',
-    aboutMe: '',
-  }
-
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<GeneralSettingsType>({
-    defaultValues: {
-      ...defaultSettingsValues,
-    },
-  })
+    formState: { errors, isValid },
+  } = useGeneralSettings()
 
   const {
     field: { value: countryValue, onChange: onCountryChange },
@@ -83,11 +63,31 @@ const GeneralInformation = () => {
         </div>
 
         <div className={s.wrapper}>
-          <TextField {...register('userName')} label={'Username'} required />
-          <TextField {...register('firstName')} label={'First Name'} required />
-          <TextField {...register('lastName')} label={'Last Name'} required />
+          <TextField
+            {...register('userName')}
+            label={'Username'}
+            required
+            error={errors?.userName?.message}
+          />
+          <TextField
+            {...register('firstName')}
+            label={'First Name'}
+            required
+            error={errors?.firstName?.message}
+          />
+          <TextField
+            {...register('lastName')}
+            label={'Last Name'}
+            required
+            error={errors?.lastName?.message}
+          />
 
-          <ControlledCalendar label={'Date of birth'} control={control} name={'age'} />
+          <ControlledCalendar
+            label={'Date of birth'}
+            control={control}
+            name={'birthday'}
+            error={errors?.birthday?.message}
+          />
 
           <div className={s.select}>
             <CustomSelect
@@ -108,13 +108,14 @@ const GeneralInformation = () => {
             {...register('aboutMe')}
             label={'About me'}
             placeholder={'Please provide information here...'}
+            maxLength={200}
           />
         </div>
       </form>
 
       <div className={s.divider}></div>
 
-      <Button className={s.btn} onClick={handleSubmit(onSubmit)}>
+      <Button className={s.btn} onClick={handleSubmit(onSubmit)} disabled={!isValid}>
         Save Changes
       </Button>
     </div>

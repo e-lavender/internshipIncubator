@@ -62,10 +62,10 @@ export const Calendar = ({
   }
 
   const onDateChange = (date: DateValueType) => {
-    onOpen()
     onChange && onChange(date)
 
     updateDate(date)
+    onClose()
   }
 
   const styles = {
