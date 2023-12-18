@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo } from 'react'
 
 import s from './general-information.module.scss'
 
@@ -6,7 +6,7 @@ import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import { Calendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
-import { Button, CustomSelect, Select, TextArea, TextField } from '@/ui'
+import { Button, CustomSelect, TextArea, TextField } from '@/ui'
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 

@@ -15,6 +15,9 @@ export const useFilterOptions = (options: SelectValue[]) => {
       return item.label.toLowerCase().includes(filter)
     })
   }, [filter, options])
+  const resetFilter = () => {
+    setFilter('')
+  }
 
-  return { setFilterHandler, filteredData }
+  return { setFilterHandler, filteredData, resetFilter }
 }
