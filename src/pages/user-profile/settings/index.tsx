@@ -12,9 +12,11 @@ import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const GeneralInformation = () => {
   const [getCities, { data: cities }] = useGetCitiesMutation()
+
   const setCountry = (country: SelectValue | undefined) => {
     country?.value && getCities({ country: country?.value })
   }
+
   const mappedCities: SelectValue[] | undefined = useMemo(() => {
     return cities?.data.map(city => {
       return { value: city.toLowerCase(), label: city }

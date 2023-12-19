@@ -59,6 +59,7 @@ export const CustomSelect = ({
     switch (e.code) {
       case 'Space':
         setIsOpen(!isOpen)
+        inputRef.current?.focus()
         break
       case 'ArrowUp':
         {
@@ -115,7 +116,9 @@ export const CustomSelect = ({
           !isOpen && setIsOpen(true)
         }}
       >
-        {!isOpen && currentValue && <div className={s.input}>{currentValue}</div>}
+        {!isOpen && (value || currentValue) && (
+          <div className={s.input}>{value || currentValue}</div>
+        )}
         {(isOpen || !currentValue) && (
           <input
             tabIndex={-1}
