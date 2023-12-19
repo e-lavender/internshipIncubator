@@ -1,26 +1,19 @@
-import { ReactElement, useMemo, useRef } from 'react'
-
-import { useController } from 'react-hook-form'
+import { ReactElement, useEffect, useMemo } from 'react'
 
 import s from './general-information.module.scss'
 
 import { GeneralSettingsType, useGeneralSettings, useTranslation } from '@/app'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
-import { ControlledCalendar } from '@/components'
+import { ControlledCalendar, ControlledSelect } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
-import { Button, CustomSelect, TextArea, TextField } from '@/ui'
+import { Button, TextArea, TextField } from '@/ui'
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const GeneralInformation = () => {
   const [getCities, { data: cities }] = useGetCitiesMutation()
-  const setCountry = (country: SelectValue | undefined) => {
-    if (!country?.value) return
 
-    getCities({ country: country?.value })
-    onCountryChange(country?.value)
-  }
   const mappedCities: SelectValue[] | undefined = useMemo(() => {
     return cities?.data.map(city => {
       return { value: city.toLowerCase(), label: city }
@@ -35,26 +28,20 @@ const GeneralInformation = () => {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors, isValid },
   } = useGeneralSettings()
-
-  const {
-    field: { value: countryValue, onChange: onCountryChange },
-  } = useController({
-    name: 'country',
-    control,
-  })
-
-  const {
-    field: { value: cityValue, onChange: onCityChange },
-  } = useController({
-    name: 'city',
-    control,
-  })
+  const selectedCountry = watch('country')
 
   const onSubmit = (data: GeneralSettingsType) => {
     console.log(data)
   }
+
+  useEffect(() => {
+    if (selectedCountry) {
+      getCities({ country: selectedCountry })
+    }
+  }, [selectedCountry])
 
   return (
     <div className={s.container}>
@@ -91,17 +78,17 @@ const GeneralInformation = () => {
           />
 
           <div className={s.select}>
-            <CustomSelect
-              value={countryValue}
-              onSelect={setCountry}
-              options={COUNTRIES_DATA}
+            <ControlledSelect
               label={country.label}
+              control={control}
+              name={'country'}
+              options={COUNTRIES_DATA}
             />
-            <CustomSelect
+            <ControlledSelect
               label={city.label}
-              value={cityValue}
-              onSelect={city => onCityChange(city?.value)}
               options={mappedCities}
+              name={'city'}
+              control={control}
             />
           </div>
 
