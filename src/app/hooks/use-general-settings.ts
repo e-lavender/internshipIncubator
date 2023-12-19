@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { useTranslation } from '@/app'
+import { isOldEnough, useTranslation } from '@/app'
 
 export type GeneralSettingsType = {
   userName: string
@@ -37,16 +37,16 @@ export const useGeneralSettings = () => {
         .max(30, `${username.validation.maxLength}`)
         .regex(/^[0-9a-zA-Z_;-]+$/, `${username.validation.pattern}`),
       firstName: z
-        .string({ required_error: `${firstName.validation.required}` })
+        .string()
         .trim()
-        .min(6, `${firstName.validation.length}`)
-        .max(30, `${firstName.validation.maxLength}`)
+        .min(2, `${firstName.validation.length}`)
+        .max(20, `${firstName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${firstName.validation.pattern}`),
       lastName: z
         .string()
         .trim()
-        .min(6, `${lastName.validation.length}`)
-        .max(30, `${lastName.validation.maxLength}`)
+        .min(2, `${lastName.validation.length}`)
+        .max(20, `${lastName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${lastName.validation.pattern}`),
       birthday: z.date().optional(),
       country: z.string().optional(),
@@ -56,9 +56,10 @@ export const useGeneralSettings = () => {
     .refine(
       data => {
         if (data.birthday) {
-          const isOldEnough = new Date().getFullYear() - 13 <= data.birthday.getFullYear()
+          const ageLimit: number = 13
+          const dateOfBirth = new Date(data.birthday)
 
-          return !isOldEnough
+          return isOldEnough(dateOfBirth, ageLimit)
         }
 
         return data
