@@ -8,6 +8,7 @@ import NewPasswordConfirmationRedirectionModel from './new-password-confirmation
 import NewPasswordModel from './new-password.model.json'
 import PaginationTextModel from './pagination-text-model.json'
 import PrivacyPolicyTextModel from './privacy-text-model.json'
+import { GeneralSettingsModel, NavigationTabsModel } from './settings'
 import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
@@ -27,4 +28,6 @@ export {
   SidebarMenuModel,
   PaginationTextModel,
   Calendar,
+  GeneralSettingsModel,
+  NavigationTabsModel,
 }
