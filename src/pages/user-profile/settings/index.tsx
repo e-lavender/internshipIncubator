@@ -1,9 +1,10 @@
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo, useRef } from 'react'
 
 import { useController } from 'react-hook-form'
 
 import s from './general-information.module.scss'
 
+import { useTranslation } from '@/app'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import { ControlledCalendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
@@ -29,6 +30,10 @@ const GeneralInformation = () => {
       return { value: city.toLowerCase(), label: city }
     })
   }, [cities])
+
+  const { t } = useTranslation()
+  const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
+    t.profileSettings.generalSettings
 
   const {
     register,
@@ -65,25 +70,25 @@ const GeneralInformation = () => {
         <div className={s.wrapper}>
           <TextField
             {...register('userName')}
-            label={'Username'}
+            label={username.label}
             required
             error={errors?.userName?.message}
           />
           <TextField
             {...register('firstName')}
-            label={'First Name'}
+            label={firstName.label}
             required
             error={errors?.firstName?.message}
           />
           <TextField
             {...register('lastName')}
-            label={'Last Name'}
+            label={lastName.label}
             required
             error={errors?.lastName?.message}
           />
 
           <ControlledCalendar
-            label={'Date of birth'}
+            label={birthday.label}
             control={control}
             name={'birthday'}
             error={errors?.birthday?.message}
@@ -94,10 +99,10 @@ const GeneralInformation = () => {
               value={countryValue}
               onSelect={setCountry}
               options={COUNTRIES_DATA}
-              label={'Select your country'}
+              label={country.label}
             />
             <CustomSelect
-              label={'Select your city'}
+              label={city.label}
               value={cityValue}
               onSelect={city => onCityChange(city?.value)}
               options={mappedCities}
@@ -106,8 +111,8 @@ const GeneralInformation = () => {
 
           <TextArea
             {...register('aboutMe')}
-            label={'About me'}
-            placeholder={'Please provide information here...'}
+            label={aboutMe.label}
+            placeholder={aboutMe.placeholder}
             maxLength={200}
           />
         </div>
@@ -116,7 +121,7 @@ const GeneralInformation = () => {
       <div className={s.divider}></div>
 
       <Button className={s.btn} onClick={handleSubmit(onSubmit)} disabled={!isValid}>
-        Save Changes
+        {submitFormBtn.label}
       </Button>
     </div>
   )

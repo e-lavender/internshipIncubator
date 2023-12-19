@@ -1,10 +1,11 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './image-picker-modal.module.scss'
 import { useImageValidation } from './useImageValidation'
 
+import { useTranslation } from '@/app'
 import { Avatar } from '@/components'
 import { Button, FileInput, Modal, Typography } from '@/ui'
 
@@ -17,7 +18,10 @@ type ImagePickerModalType = {
 }
 
 export const ImagePickerModal = ({ isOpen, onChange }: ImagePickerModalType) => {
-  const { url, step, stepUp, stepBack, errorText } = useImageValidation()
+  const { url, step, stepUp, stepBack, errorText, clearError } = useImageValidation()
+
+  const { t } = useTranslation()
+  const { modal } = t.profileSettings.generalSettings.profileImage
 
   const styles = clsx(!errorText && s.avatar)
 
@@ -28,11 +32,15 @@ export const ImagePickerModal = ({ isOpen, onChange }: ImagePickerModalType) => 
 
   const CurrentInterface: JSX.Element = interfaceVariants[step]
 
+  useEffect(() => {
+    clearError()
+  }, [isOpen])
+
   return (
     <Modal open={isOpen} onOpenChange={onChange}>
       <Modal.Content
         className={s.container}
-        title="Add a Profile Photo"
+        title={modal.label}
         onInteractOutside={e => e.preventDefault()}
       >
         {CurrentInterface}
@@ -49,7 +57,10 @@ type InterfaceType1 = {
 }
 
 const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
-  const formRef = useRef<HTMLFormElement | null>(null)
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const { t } = useTranslation()
+  const { modal } = t.profileSettings.generalSettings.profileImage
 
   const ErrorMessage = error && (
     <Typography variant={'regular-14'} className={s.error}>
@@ -69,7 +80,12 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
       {ErrorMessage}
 
       <Avatar src={url} rounded={Boolean(url)} width={222} height={228} className={styles} />
-      <FileInput ref={formRef} className={s.input} onUpload={handleUpload} />
+      <FileInput
+        ref={formRef}
+        className={s.input}
+        label={modal.btn.label}
+        onUpload={handleUpload}
+      />
     </div>
   )
 }
@@ -80,6 +96,9 @@ type InterfaceType2 = {
 }
 
 const Interface2 = ({ callback, url }: InterfaceType2) => {
+  const { t } = useTranslation()
+  const { modal } = t.profileSettings.generalSettings.profileImage
+
   return (
     <div className={s.wrapper}>
       <div className={s.preview}>
@@ -87,7 +106,7 @@ const Interface2 = ({ callback, url }: InterfaceType2) => {
       </div>
 
       <Button className={s.btn} onClick={callback}>
-        Save
+        {modal.submitBtn.label}
       </Button>
     </div>
   )

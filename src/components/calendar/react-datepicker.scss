@@ -941,4 +941,9 @@
 
 .error {
   color: var(--color-danger-500);
+
+  & a {
+    color: inherit;
+    text-decoration: underline;
+  }
 }

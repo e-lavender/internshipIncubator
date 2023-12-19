@@ -1,18 +1,18 @@
-import React, { forwardRef, PropsWithChildren, useEffect, useId, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 
+import { clsx } from 'clsx'
 import { getMonth, getYear } from 'date-fns'
 import en from 'date-fns/locale/en-US'
 import ru from 'date-fns/locale/ru'
+import Link from 'next/link'
 import DatePicker, { ReactDatePickerProps, registerLocale } from 'react-datepicker'
 registerLocale('ru', ru)
 registerLocale('en', en)
 import './react-datepicker.scss'
 
-import { CalendarIcon, useDisclose, useTranslation } from '@/app'
+import { authNavigationUrls, CalendarIcon, TagProcessor, useDisclose, useTranslation } from '@/app'
 import { CalendarNavigationButton } from '@/components/calendar/calendar-navigation-button/calendar-navigation-button'
 import { Typography } from '@/ui'
-
-import { clsx } from 'clsx'
 
 type DateValueType = Date | [Date | null, Date | null] | null
 
@@ -41,8 +41,10 @@ export const Calendar = ({
   const [isYearPiker, setIsYearPiker] = useState(false)
   const [dateRange, setDateRange] = useState([null, null])
   const [startDateInRange, endDateInRange] = dateRange
+
   const { t } = useTranslation()
   const { month, locale } = t.calendar
+  const { linkLabel } = t.profileSettings.generalSettings.birthday.validation
 
   useEffect(() => {
     setIsMonthPiker(false)
@@ -78,6 +80,15 @@ export const Calendar = ({
     <button className="icon" type={'button'} onClick={onToggle} onBlur={onClose}>
       <CalendarIcon color={error ? '#CC1439' : 'currentColor'} />
     </button>
+  )
+
+  const errorMessage = error && (
+    <TagProcessor
+      text={error}
+      tags={{
+        1: () => <Link href={authNavigationUrls.privacyPolicy()}>{linkLabel}</Link>,
+      }}
+    />
   )
 
   return (
@@ -154,7 +165,7 @@ export const Calendar = ({
 
       {error && (
         <Typography as={'p'} variant={'small'} className="error">
-          {error}
+          {errorMessage}
         </Typography>
       )}
     </div>

@@ -1,6 +1,7 @@
 import Calendar from './calendar.json'
 import { CharacterPageTextModel } from './character-page-text-model'
 import ForgotPasswordModel from './forgot-password-model.json'
+import { GeneralSettingsModel } from './general-settings'
 import LinkConfirmationModel from './link-confirmation-model.json'
 import LinkExpiredModel from './link-expired-model.json'
 import NavigationTextModel from './navigation-text-model.json'
@@ -27,4 +28,5 @@ export {
   SidebarMenuModel,
   PaginationTextModel,
   Calendar,
+  GeneralSettingsModel,
 }
