@@ -34,6 +34,7 @@ export const useCustomSelect = (
     setIsOpen,
     onSelectValueHandler,
     onHoverValue,
+    hoveredValue,
     clearHandler,
   }
 }
