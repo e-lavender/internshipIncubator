@@ -1,31 +1,50 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { clsx } from 'clsx'
 import { getMonth, getYear } from 'date-fns'
 import en from 'date-fns/locale/en-US'
 import ru from 'date-fns/locale/ru'
-import DatePicker, { registerLocale } from 'react-datepicker'
+import Link from 'next/link'
+import DatePicker, { ReactDatePickerProps, registerLocale } from 'react-datepicker'
 registerLocale('ru', ru)
 registerLocale('en', en)
 import './react-datepicker.scss'
 
-import { CalendarIcon, useTranslation } from '@/app'
+import { authNavigationUrls, CalendarIcon, TagProcessor, useDisclose, useTranslation } from '@/app'
 import { CalendarNavigationButton } from '@/components/calendar/calendar-navigation-button/calendar-navigation-button'
 import { Typography } from '@/ui'
 
+type DateValueType = Date | [Date | null, Date | null] | null
+
 export type CalendarProps = {
+  label?: string
+  error?: string
   isRange?: boolean
-}
+  value?: string
+  id?: string
+  onChange?: (date: DateValueType) => void
+} & ReactDatePickerProps
 
 export const Calendar = ({
   isRange = false,
-}: PropsWithChildren<CalendarProps>): React.JSX.Element => {
+  value = '',
+  onChange,
+  label,
+  error,
+  id,
+  ...props
+}: CalendarProps): React.JSX.Element => {
+  const { isOpen, onOpen, onClose, onToggle } = useDisclose()
+
   const [startDate, setStartDate] = useState(new Date())
   const [isMonthPiker, setIsMonthPiker] = useState(false)
   const [isYearPiker, setIsYearPiker] = useState(false)
   const [dateRange, setDateRange] = useState([null, null])
   const [startDateInRange, endDateInRange] = dateRange
+
   const { t } = useTranslation()
   const { month, locale } = t.calendar
+  const { linkLabel } = t.profileSettings.generalSettings.birthday.validation
 
   useEffect(() => {
     setIsMonthPiker(false)
@@ -40,14 +59,57 @@ export const Calendar = ({
     setIsYearPiker(prev => !prev)
   }
 
+  const updateDate = (date: DateValueType) => {
+    isRange ? setDateRange(date as null[]) : setStartDate(date as Date)
+  }
+
+  const onDateChange = (date: DateValueType) => {
+    onChange && onChange(date)
+
+    updateDate(date)
+    onClose()
+  }
+
+  const styles = {
+    calendar: clsx('calendar', error && 'error'),
+    wrapper: clsx('react-datepicker-wrapper', error && 'error'),
+    input: clsx('react-datepicker__input-container', error && 'error'),
+  }
+
+  const calendarIcon = (
+    <button className="icon" type={'button'} onClick={onToggle}>
+      <CalendarIcon color={error ? '#CC1439' : 'currentColor'} />
+    </button>
+  )
+
+  const errorMessage = error && (
+    <TagProcessor
+      text={error}
+      tags={{
+        1: () => <Link href={authNavigationUrls.privacyPolicy()}>{linkLabel}</Link>,
+      }}
+    />
+  )
+
   return (
     <div className="react__datepicker">
+      {label && (
+        <Typography as={'label'} variant={'regular-14'} htmlFor={id} className="label">
+          {label}
+        </Typography>
+      )}
+
       <DatePicker
+        id={id}
+        onInputClick={onOpen}
+        onBlur={onClose}
+        value={value}
         calendarStartDay={1}
-        isClearable={true}
-        className="calendar"
+        isClearable
+        className={styles.calendar}
         showIcon
-        icon={CalendarIcon}
+        icon={calendarIcon}
+        open={isOpen}
         selected={startDate}
         shouldCloseOnSelect={!isMonthPiker && !isYearPiker}
         showYearPicker={isYearPiker}
@@ -57,9 +119,8 @@ export const Calendar = ({
         endDate={isRange ? endDateInRange : null}
         selectsRange={isRange}
         dayClassName={date => (date.getDay() === 0 || date.getDay() === 6 ? 'weekend' : null)}
-        onChange={(date: Date | [Date | null, Date | null] | null) => {
-          isRange ? setDateRange(date as null[]) : setStartDate(date as Date)
-        }}
+        onChange={onDateChange}
+        {...props}
         renderCustomHeader={({
           date,
           decreaseMonth,
@@ -73,12 +134,12 @@ export const Calendar = ({
         }) => (
           <div className="react-datepicker__navigation--wrapper">
             <div>
-              <button onClick={handleMonthPiker}>
+              <button onClick={handleMonthPiker} type={'button'}>
                 <Typography className="react-datepicker__navigation--month" variant="bold-16">
                   {month[getMonth(date)]}
                 </Typography>
               </button>
-              <button onClick={handleYearPicker}>
+              <button onClick={handleYearPicker} type={'button'}>
                 <Typography className="react-datepicker__navigation--year" variant="bold-16">
                   {getYear(date)}
                 </Typography>
@@ -101,6 +162,12 @@ export const Calendar = ({
           </div>
         )}
       />
+
+      {error && (
+        <Typography as={'p'} variant={'small'} className="error">
+          {errorMessage}
+        </Typography>
+      )}
     </div>
   )
 }

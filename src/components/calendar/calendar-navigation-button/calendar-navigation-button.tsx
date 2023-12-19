@@ -17,7 +17,14 @@ export const CalendarNavigationButton = ({
   ...rest
 }: ButtonProps) => {
   return (
-    <Button variant={variant} disabled={disabled} onClick={onClick} className={className} {...rest}>
+    <Button
+      variant={variant}
+      disabled={disabled}
+      onClick={onClick}
+      className={className}
+      type={'button'}
+      {...rest}
+    >
       {direction === 'left' ? <PreviousIcon /> : <NextIcon />}
     </Button>
   )
