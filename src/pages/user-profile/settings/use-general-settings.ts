@@ -24,7 +24,7 @@ const defaultSettingsValues = {
   aboutMe: '',
 }
 
-export const useGeneralSettings = () => {
+const useGeneralSettings = () => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
 
@@ -79,3 +79,5 @@ export const useGeneralSettings = () => {
     mode: 'all',
   })
 }
+
+export default useGeneralSettings

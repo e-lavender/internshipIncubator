@@ -3,15 +3,12 @@ import { ReactElement, useMemo, useRef } from 'react'
 import { useController } from 'react-hook-form'
 
 import s from './general-information.module.scss'
+import useGeneralSettings, { GeneralSettingsType } from './use-general-settings'
 
 import { useTranslation } from '@/app'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import { ControlledCalendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
-import {
-  GeneralSettingsType,
-  useGeneralSettings,
-} from '@/pages/user-profile/settings/use-general-settings'
 import { ProfileSettingLayout } from '@/templates'
 import { Button, CustomSelect, TextArea, TextField } from '@/ui'
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
