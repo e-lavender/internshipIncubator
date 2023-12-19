@@ -13,6 +13,8 @@ import {
   SidebarMenuModel,
   PaginationTextModel,
   Calendar,
+  GeneralSettingsModel,
+  NavigationTabsModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
@@ -29,6 +31,8 @@ const signIn = SignInTextModel.ru
 const sidebarMenu = SidebarMenuModel.ru
 const pagination = PaginationTextModel.ru
 const calendar = Calendar.ru
+const generalSettings = GeneralSettingsModel.ru
+const navigationTabs = NavigationTabsModel.ru
 
 export const ru = {
   calendar: {
@@ -69,5 +73,9 @@ export const ru = {
   },
   sidebarMenu: sidebarMenu,
   pagination: pagination,
+  profileSettings: {
+    navigation: navigationTabs,
+    generalSettings,
+  },
 }
 export type LocaleType = typeof ru

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import { MIME_TYPES } from '@/app'
+import { MIME_TYPES, useTranslation } from '@/app'
 
 export const errorMessage = {
-  type(limit: string | string[]): string {
+  type(limit: string | string[], languageVersion: { text: string; preposition: string }): string {
     const format = /[^/]+$/
     const upperCaseFormat = (): string => {
       const fallbackText: string = 'defined.'
@@ -11,23 +11,23 @@ export const errorMessage = {
       if (Array.isArray(limit)) {
         const arrayOfTypes = limit.map(type => type.match(format)![0].toUpperCase())
 
-        return `The format of the uploaded photo must be ${
+        return `${languageVersion?.text} ${
           arrayOfTypes.length > 2
             ? arrayOfTypes.join(', ')
-            : arrayOfTypes.join(' and ') || fallbackText
+            : arrayOfTypes.join(` ${languageVersion?.preposition} `) || fallbackText
         }`
       } else {
         const type: string = limit.match(format)![0].toUpperCase()
 
-        return `The format of the uploaded photo must be ${type || fallbackText}`
+        return `${languageVersion} ${type || fallbackText}`
       }
     }
 
     return upperCaseFormat()
   },
 
-  size(limit: number): string {
-    return `Photo size must be less than ${limit} MB!`
+  size(limit: number, languageVersion: string): string {
+    return `${languageVersion} ${limit} MB!`
   },
 }
 
@@ -41,6 +41,9 @@ export const useImageValidation = () => {
 
   const { JPG, PNG } = MIME_TYPES
 
+  const { t } = useTranslation()
+  const { errors } = t.profileSettings.generalSettings.profileImage
+
   const stepUp = (file: File) => {
     const blob: Blob = new Blob([file], { type: file?.type })
 
@@ -48,6 +51,8 @@ export const useImageValidation = () => {
   }
 
   const stepBack = () => setStep(1)
+
+  const clearError = () => setErrorText('')
 
   useEffect(() => {
     if (!blob) return
@@ -60,14 +65,14 @@ export const useImageValidation = () => {
 
       if (!typeLimit.includes(type)) {
         setUrl('')
-        setErrorText(errorMessage.type(typeLimit))
+        setErrorText(errorMessage.type(typeLimit, errors.format))
 
         return
       }
 
       if (sizeMb > sizeLimit) {
         setUrl('')
-        setErrorText(errorMessage.size(sizeLimit))
+        setErrorText(errorMessage.size(sizeLimit, errors.size))
 
         return
       }
@@ -89,5 +94,6 @@ export const useImageValidation = () => {
     url,
     blob,
     errorText,
+    clearError,
   }
 }
