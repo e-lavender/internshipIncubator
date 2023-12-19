@@ -1,107 +1,43 @@
-import React, { FocusEvent, useEffect, useRef } from 'react'
+import React from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './custom-select.module.scss'
 
 import { ChevronDown } from '@/app/assets/svg/chevron-down'
-import { SelectValue } from '@/ui/custom-select/custom-select.types'
+import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
 import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
-import { useFilterOptions } from '@/ui/custom-select/useFilterOptions'
-import { useFindNext } from '@/ui/custom-select/useFindNext'
 
 export const CustomSelect = ({
   options,
   label,
   value,
-  onSelect,
   placeholder,
-  setClear,
   isClearable = false,
-}: {
-  label?: string
-  options?: SelectValue[]
-  value?: string
-  onSelect?: (value: SelectValue | undefined) => void
-  placeholder?: string
-  defaultValue?: string
-  onValueChange?: (value: string) => void
-  setClear?: () => void
-  isClearable?: boolean
-}) => {
-  const selectRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const optionsListRef = useRef<HTMLUListElement>(null)
-
+  onChange,
+}: CustomSelectProps) => {
   const {
-    hoveredValue,
-    onHoverValue,
     isOpen,
     setIsOpen,
+    closeSelectOnBlur,
+    keyHandler,
     onSelectValueHandler,
     currentValue,
     clearHandler,
-  } = useCustomSelect(onSelect)
-
-  const { filteredData, setFilterHandler, resetFilter } = useFilterOptions(options || [])
-
-  const { findUp, findDown, indexCurrent, setIndexCurrent } = useFindNext(filteredData?.length)
+    optionsListRef,
+    indexCurrent,
+    filteredData,
+    selectRef,
+    inputRef,
+    setFilterHandler,
+    resetFilter,
+    setIndexCurrent,
+  } = useCustomSelect(options, onChange)
 
   const styles = {
     options: clsx(s.options, isOpen && s.show),
     chevron: clsx(s.chevron, isOpen && s.open),
   }
-
-  const closeSelectOnBlur = (e: FocusEvent<HTMLDivElement>) => {
-    if (!selectRef?.current?.contains(e.relatedTarget)) setIsOpen(false)
-  }
-  const keyHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    switch (e.code) {
-      case 'Space':
-        setIsOpen(!isOpen)
-        inputRef.current?.focus()
-        break
-      case 'ArrowUp':
-        {
-          findUp()
-          e.preventDefault()
-        }
-        break
-      case 'ArrowDown':
-        {
-          findDown()
-          e.preventDefault()
-        }
-        break
-      case 'Enter' || 'NumpadEnter':
-        onSelectValueHandler(filteredData[indexCurrent])
-        break
-      default:
-        break
-    }
-  }
-
-  useEffect(() => {
-    if (optionsListRef.current && indexCurrent !== undefined) {
-      const listElement = optionsListRef.current
-      const selectedElement = listElement.children[indexCurrent] as HTMLLIElement
-
-      if (selectedElement) {
-        const listHeight = listElement.clientHeight
-        const selectedElementTop = selectedElement.offsetTop
-        const selectedElementHeight = selectedElement.clientHeight
-
-        if (selectedElementTop < listElement.scrollTop) {
-          listElement.scrollTop = selectedElementTop
-        } else if (
-          selectedElementTop + selectedElementHeight >
-          listElement.scrollTop + listHeight
-        ) {
-          listElement.scrollTop = selectedElementTop + selectedElementHeight - listHeight
-        }
-      }
-    }
-  }, [indexCurrent, filteredData])
 
   return (
     <div className={s.container}>
@@ -134,7 +70,7 @@ export const CustomSelect = ({
         )}
         {isClearable && (
           <>
-            <button className={s['close-button']} onClick={clearHandler}>
+            <button className={s['close-button']} onClick={clearHandler} type={'button'}>
               &times;
             </button>
             <div className={s.divider}></div>
@@ -146,6 +82,7 @@ export const CustomSelect = ({
           onClick={() => {
             setIsOpen(!isOpen)
           }}
+          type={'button'}
         >
           <ChevronDown />
         </button>
@@ -156,7 +93,7 @@ export const CustomSelect = ({
                 className={clsx(s.option, index === indexCurrent && s.hovered)}
                 key={index}
                 onClick={() => {
-                  onSelectValueHandler(option)
+                  onSelectValueHandler(option.label)
                   resetFilter()
                 }}
                 onMouseEnter={() => setIndexCurrent(index)}
