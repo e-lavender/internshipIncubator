@@ -24,14 +24,14 @@ const defaultSettingsValues = {
   aboutMe: '',
 }
 
-const useGeneralSettings = () => {
+export const useGeneralSettings = () => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
 
   const GeneralSettingsSchema = z
     .object({
       userName: z
-        .string({ required_error: `${username.validation.required}` })
+        .string()
         .trim()
         .min(6, `${username.validation.length}`)
         .max(30, `${username.validation.maxLength}`)
@@ -43,7 +43,7 @@ const useGeneralSettings = () => {
         .max(30, `${firstName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${firstName.validation.pattern}`),
       lastName: z
-        .string({ required_error: `${lastName.validation.required}` })
+        .string()
         .trim()
         .min(6, `${lastName.validation.length}`)
         .max(30, `${lastName.validation.maxLength}`)
@@ -79,5 +79,3 @@ const useGeneralSettings = () => {
     mode: 'all',
   })
 }
-
-export default useGeneralSettings
