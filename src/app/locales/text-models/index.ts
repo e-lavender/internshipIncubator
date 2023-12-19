@@ -1,7 +1,6 @@
 import Calendar from './calendar.json'
 import { CharacterPageTextModel } from './character-page-text-model'
 import ForgotPasswordModel from './forgot-password-model.json'
-import { GeneralSettingsModel } from './general-settings'
 import LinkConfirmationModel from './link-confirmation-model.json'
 import LinkExpiredModel from './link-expired-model.json'
 import NavigationTextModel from './navigation-text-model.json'
@@ -9,6 +8,7 @@ import NewPasswordConfirmationRedirectionModel from './new-password-confirmation
 import NewPasswordModel from './new-password.model.json'
 import PaginationTextModel from './pagination-text-model.json'
 import PrivacyPolicyTextModel from './privacy-text-model.json'
+import { GeneralSettingsModel, NavigationTabsModel } from './settings'
 import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
@@ -29,4 +29,5 @@ export {
   PaginationTextModel,
   Calendar,
   GeneralSettingsModel,
+  NavigationTabsModel,
 }

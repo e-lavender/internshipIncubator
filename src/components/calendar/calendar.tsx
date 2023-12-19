@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { getMonth, getYear } from 'date-fns'
@@ -77,7 +77,7 @@ export const Calendar = ({
   }
 
   const calendarIcon = (
-    <button className="icon" type={'button'} onClick={onToggle} onBlur={onClose}>
+    <button className="icon" type={'button'} onClick={onToggle}>
       <CalendarIcon color={error ? '#CC1439' : 'currentColor'} />
     </button>
   )

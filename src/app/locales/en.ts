@@ -15,6 +15,7 @@ import {
   PaginationTextModel,
   Calendar,
   GeneralSettingsModel,
+  NavigationTabsModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
@@ -32,6 +33,7 @@ const sidebarMenu = SidebarMenuModel.en
 const pagination = PaginationTextModel.en
 const calendar = Calendar.en
 const generalSettings = GeneralSettingsModel.en
+const navigationTabs = NavigationTabsModel.en
 
 export const en: LocaleType = {
   calendar: {
@@ -73,6 +75,7 @@ export const en: LocaleType = {
   sidebarMenu: sidebarMenu,
   pagination: pagination,
   profileSettings: {
+    navigation: navigationTabs,
     generalSettings,
   },
 }
