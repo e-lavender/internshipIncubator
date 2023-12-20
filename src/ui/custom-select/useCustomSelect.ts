@@ -1,21 +1,32 @@
-import { useState } from 'react'
+import React, { FocusEvent, useEffect, useRef, useState } from 'react'
 
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
+import { useFilterOptions } from '@/ui/custom-select/useFilterOptions'
+import { useFindNext } from '@/ui/custom-select/useFindNext'
 
 export const useCustomSelect = (
-  onSelect?: (value: SelectValue | undefined) => void,
+  options: SelectValue[] | undefined,
+  onSelect?: (value: string | undefined) => void,
   value?: SelectValue
 ) => {
+  const selectRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const optionsListRef = useRef<HTMLUListElement>(null)
+
   const [internalValue, setInternalValue] = useState<string | undefined>(value?.label || '')
   const [hoveredValue, setHoveredValue] = useState<SelectValue | undefined>()
   const [isOpen, setIsOpen] = useState<boolean>(false)
+
   const currentValue = value?.label || internalValue
 
-  const onSelectValueHandler = (selectedValue: SelectValue | undefined) => {
+  const { filteredData, setFilterHandler, resetFilter } = useFilterOptions(options || [])
+  const { findUp, findDown, indexCurrent, setIndexCurrent } = useFindNext(filteredData?.length)
+
+  const onSelectValueHandler = (value: string | undefined) => {
     if (onSelect) {
-      onSelect(selectedValue)
+      onSelect(value)
     }
-    setInternalValue(selectedValue?.label)
+    setInternalValue(value)
     setIsOpen(false)
   }
 
@@ -27,13 +38,75 @@ export const useCustomSelect = (
     setInternalValue(undefined)
   }
 
+  const keyHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    switch (e.code) {
+      case 'Space':
+        setIsOpen(!isOpen)
+        inputRef.current?.focus()
+        break
+      case 'ArrowUp':
+        {
+          findUp()
+          e.preventDefault()
+        }
+        break
+      case 'ArrowDown':
+        {
+          findDown()
+          e.preventDefault()
+        }
+        break
+      case 'Enter' || 'NumpadEnter':
+        onSelectValueHandler(filteredData[indexCurrent].label)
+        break
+      default:
+        break
+    }
+  }
+  const closeSelectOnBlur = (e: FocusEvent<HTMLDivElement>) => {
+    if (!selectRef?.current?.contains(e.relatedTarget)) setIsOpen(false)
+  }
+
+  useEffect(() => {
+    if (optionsListRef.current && indexCurrent !== undefined) {
+      const listElement = optionsListRef.current
+      const selectedElement = listElement.children[indexCurrent] as HTMLLIElement
+
+      if (selectedElement) {
+        const listHeight = listElement.clientHeight
+        const selectedElementTop = selectedElement.offsetTop
+        const selectedElementHeight = selectedElement.clientHeight
+
+        if (selectedElementTop < listElement.scrollTop) {
+          listElement.scrollTop = selectedElementTop
+        } else if (
+          selectedElementTop + selectedElementHeight >
+          listElement.scrollTop + listHeight
+        ) {
+          listElement.scrollTop = selectedElementTop + selectedElementHeight - listHeight
+        }
+      }
+    }
+  }, [indexCurrent, filteredData])
+
   return {
+    keyHandler,
+    closeSelectOnBlur,
     currentValue,
     setInternalValue,
     isOpen,
     setIsOpen,
     onSelectValueHandler,
     onHoverValue,
+    hoveredValue,
     clearHandler,
+    filteredData,
+    setFilterHandler,
+    resetFilter,
+    selectRef,
+    optionsListRef,
+    indexCurrent,
+    setIndexCurrent,
+    inputRef,
   }
 }
