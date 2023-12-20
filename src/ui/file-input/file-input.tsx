@@ -41,6 +41,7 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
         <label className={styles.label} htmlFor={id}>
           {label}
         </label>
+
         <input
           className={s.input}
           type="file"
@@ -51,6 +52,7 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
           onChange={onUpload}
           {...props}
         />
+
         {children}
       </form>
     )

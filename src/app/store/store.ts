@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
+import { settingsSlice } from '@/app'
 import { authReducer } from '@/app/services/auth/auth.slice'
 import { commonApi } from '@/app/services/common/common.api'
 import { locationApi } from '@/app/services/countries/countries.api'
@@ -12,6 +13,7 @@ export const store = configureStore({
     [googleApi.reducerPath]: googleApi.reducer,
     [locationApi.reducerPath]: locationApi.reducer,
     auth: authReducer,
+    settings: settingsSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
@@ -22,5 +24,3 @@ export const store = configureStore({
 })
 
 setupListeners(store.dispatch)
-export type AppDispatch = typeof store.dispatch
-export type RootState = ReturnType<typeof store.getState>

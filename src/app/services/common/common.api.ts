@@ -7,8 +7,8 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 
+import { RootState } from '@/app'
 import { authActions } from '@/app/services/auth/auth.slice'
-import { RootState } from '@/app/store/store'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.freedomindz.site/',

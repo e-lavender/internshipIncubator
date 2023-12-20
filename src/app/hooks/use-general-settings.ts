@@ -2,31 +2,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { isOldEnough, useTranslation } from '@/app'
-
-export type GeneralSettingsType = {
-  userName: string
-  firstName: string
-  lastName: string
-  birthday?: Date
-  country?: string
-  city?: string
-  aboutMe?: string
-}
-
-const defaultSettingsValues = {
-  userName: '',
-  firstName: '',
-  lastName: '',
-  birthday: undefined,
-  country: '',
-  city: '',
-  aboutMe: '',
-}
+import { isOldEnough, useAppSelector, useTranslation } from '@/app'
 
 export const useGeneralSettings = () => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
+
+  const settingsCurrentState = useAppSelector(state => state.settings)
 
   const GeneralSettingsSchema = z
     .object({
@@ -48,7 +30,9 @@ export const useGeneralSettings = () => {
         .min(2, `${lastName.validation.length}`)
         .max(20, `${lastName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${lastName.validation.pattern}`),
-      birthday: z.date().optional(),
+      birthday: z
+        .union([z.string({ invalid_type_error: `${birthday.validation.error}` }), z.date()])
+        .optional(),
       country: z.string().optional(),
       city: z.string().optional(),
       aboutMe: z.string().optional(),
@@ -57,7 +41,7 @@ export const useGeneralSettings = () => {
       data => {
         if (data.birthday) {
           const ageLimit: number = 13
-          const dateOfBirth = new Date(data.birthday)
+          const dateOfBirth: Date = new Date(data.birthday)
 
           return isOldEnough(dateOfBirth, ageLimit)
         }
@@ -75,7 +59,7 @@ export const useGeneralSettings = () => {
   return useForm<GeneralSettingsFormType>({
     resolver: zodResolver(GeneralSettingsSchema),
     defaultValues: {
-      ...defaultSettingsValues,
+      ...settingsCurrentState,
     },
     mode: 'all',
   })
