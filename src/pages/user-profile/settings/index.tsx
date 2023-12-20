@@ -1,10 +1,19 @@
-import { ReactElement, useMemo, useRef } from 'react'
+import { ReactElement, useEffect, useMemo } from 'react'
 
 import { useController } from 'react-hook-form'
 
 import s from './general-information.module.scss'
 
-import { GeneralSettingsType, useGeneralSettings, useTranslation } from '@/app'
+import {
+  GeneralSettingsType,
+  setDateFormat,
+  updateSettings,
+  useAppDispatch,
+  useAppSelector,
+  useGeneralSettings,
+  useTranslation,
+  validateForm,
+} from '@/app'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import { ControlledCalendar } from '@/components'
 import { AccountImagePicker } from '@/modules'
@@ -27,12 +36,38 @@ const GeneralInformation = () => {
     })
   }, [cities])
 
+  const dispatch = useAppDispatch()
+  const settingsCurrentState = useAppSelector(state => state.settings)
+
+  useEffect(() => {
+    setValue('birthday', settingsCurrentState.birthday)
+    validateForm(settingsCurrentState, trigger)
+
+    return () => {
+      const newState: GeneralSettingsType = getValues()
+
+      if (JSON.stringify(newState) === JSON.stringify(settingsCurrentState)) return
+
+      const formattedDate: string = setDateFormat(newState.birthday)
+
+      dispatch(
+        updateSettings({
+          ...newState,
+          birthday: formattedDate,
+        })
+      )
+    }
+  }, [])
+
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
     t.profileSettings.generalSettings
 
   const {
+    trigger,
+    setValue,
     register,
+    getValues,
     control,
     handleSubmit,
     formState: { errors, isValid },
