@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { GeneralSettingsType } from '@/app'
+import { GeneralSettingsType } from '@/app/services/settings/settings.types'
 
 const defaultSettingsState: GeneralSettingsType = {
   userName: '',
