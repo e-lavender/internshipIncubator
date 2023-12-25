@@ -22,13 +22,13 @@ export const useGeneralSettings = () => {
       firstName: z
         .string()
         .trim()
-        .min(2, `${firstName.validation.length}`)
+        .min(1, `${firstName.validation.length}`)
         .max(20, `${firstName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${firstName.validation.pattern}`),
       lastName: z
         .string()
         .trim()
-        .min(2, `${lastName.validation.length}`)
+        .min(1, `${lastName.validation.length}`)
         .max(20, `${lastName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${lastName.validation.pattern}`),
       birthday: z
