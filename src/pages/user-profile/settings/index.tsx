@@ -1,24 +1,15 @@
 import { ReactElement, useEffect, useMemo } from 'react'
 
-import { useController } from 'react-hook-form'
-
 import s from './general-information.module.scss'
 
-import {
-  GeneralSettingsType,
-  setDateFormat,
-  updateSettings,
-  useAppDispatch,
-  useAppSelector,
-  useGeneralSettings,
-  useTranslation,
-  validateForm,
-} from '@/app'
+import { setDateFormat, useGeneralSettings, useTranslation, validateForm } from '@/app'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
+import { GeneralSettingsType, updateSettings } from '@/app/services/settings'
+import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { ControlledCalendar, ControlledSelect } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
-import { Button, CustomSelect, Select, TextArea, TextField } from '@/ui'
+import { Button, TextArea, TextField } from '@/ui'
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
@@ -36,10 +27,10 @@ const GeneralInformation = () => {
     t.profileSettings.generalSettings
 
   const {
-          trigger,
-          setValue,
-          register,
-          getValues,,
+    trigger,
+    setValue,
+    register,
+    getValues,
     control,
     handleSubmit,
     watch,
@@ -51,28 +42,28 @@ const GeneralInformation = () => {
     console.log(data)
   }
 
-    const dispatch = useAppDispatch()
-    const settingsCurrentState = useAppSelector(state => state.settings)
+  const dispatch = useAppDispatch()
+  const settingsCurrentState = useAppSelector(state => state.settings)
 
-    useEffect(() => {
-        setValue('birthday', settingsCurrentState.birthday)
-        validateForm(settingsCurrentState, trigger)
+  useEffect(() => {
+    setValue('birthday', settingsCurrentState.birthday)
+    validateForm(settingsCurrentState, trigger)
 
-        return () => {
-            const newState: GeneralSettingsType = getValues()
+    return () => {
+      const newState: GeneralSettingsType = getValues()
 
-            if (JSON.stringify(newState) === JSON.stringify(settingsCurrentState)) return
+      if (JSON.stringify(newState) === JSON.stringify(settingsCurrentState)) return
 
-            const formattedDate: string = setDateFormat(newState.birthday)
+      const formattedDate: string = setDateFormat(newState.birthday)
 
-            dispatch(
-                updateSettings({
-                    ...newState,
-                    birthday: formattedDate,
-                })
-            )
-        }
-    }, [])
+      dispatch(
+        updateSettings({
+          ...newState,
+          birthday: formattedDate,
+        })
+      )
+    }
+  }, [])
 
   useEffect(() => {
     if (selectedCountry) {
@@ -113,7 +104,6 @@ const GeneralInformation = () => {
             name={'birthday'}
             error={errors?.birthday?.message}
           />
-
           <div className={s.select}>
             <ControlledSelect
               label={country.label}

@@ -2,7 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { isOldEnough, useAppSelector, useTranslation } from '@/app'
+import { isOldEnough, useTranslation } from '@/app'
+import { useAppSelector } from '@/app/store/rtk.types'
 
 export const useGeneralSettings = () => {
   const { t } = useTranslation()
