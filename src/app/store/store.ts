@@ -5,7 +5,7 @@ import { authReducer } from '@/app/services/auth/auth.slice'
 import { commonApi } from '@/app/services/common/common.api'
 import { locationApi } from '@/app/services/countries/countries.api'
 import { googleApi } from '@/app/services/google/google.api'
-import { settingsSlice } from '@/app/services/settings'
+import { profileSlice } from '@/app/services/profile'
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
     [googleApi.reducerPath]: googleApi.reducer,
     [locationApi.reducerPath]: locationApi.reducer,
     auth: authReducer,
-    settings: settingsSlice,
+    profile: profileSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
