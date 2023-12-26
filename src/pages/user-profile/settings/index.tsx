@@ -2,10 +2,10 @@ import { ReactElement, useEffect, useMemo } from 'react'
 
 import s from './general-information.module.scss'
 
-import { setDateFormat, useGeneralSettings, useTranslation, validateForm } from '@/app'
+import { useGeneralSettings, useTranslation } from '@/app'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
-import { GeneralSettingsType, updateSettings } from '@/app/services/settings'
-import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
+import { GeneralSettingsType } from '@/app/services/profile'
+import { useUpdateUserProfileMutation } from '@/app/services/profile/profile.api'
 import { ControlledCalendar, ControlledSelect } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
@@ -15,6 +15,7 @@ import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const GeneralInformation = () => {
   const [getCities, { data: cities }] = useGetCitiesMutation()
+  const [updateProfile, {}] = useUpdateUserProfileMutation()
 
   const mappedCities: SelectValue[] | undefined = useMemo(() => {
     return cities?.data.map(city => {
@@ -23,53 +24,46 @@ const GeneralInformation = () => {
   }, [cities])
 
   const { t } = useTranslation()
-  const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
-    t.profileSettings.generalSettings
+  const {
+    username,
+    firstName: firstname,
+    lastName: lastname,
+    birthday,
+    country,
+    city,
+    aboutMe,
+    submitFormBtn,
+  } = t.profileSettings.generalSettings
 
   const {
-    trigger,
-    setValue,
     register,
-    getValues,
     control,
     handleSubmit,
     watch,
     formState: { errors, isValid },
   } = useGeneralSettings()
+
   const selectedCountry = watch('country')
 
   const onSubmit = (data: GeneralSettingsType) => {
-    console.log(data)
+    const { dateOfBirth } = data
+    const formattedDate = dateOfBirth instanceof Date ? dateOfBirth?.toISOString() : dateOfBirth
+
+    updateProfile({
+      ...data,
+      dateOfBirth: formattedDate,
+    })
   }
 
-  const dispatch = useAppDispatch()
-  const settingsCurrentState = useAppSelector(state => state.settings)
-
-  useEffect(() => {
-    setValue('birthday', settingsCurrentState.birthday)
-    validateForm(settingsCurrentState, trigger)
-
-    return () => {
-      const newState: GeneralSettingsType = getValues()
-
-      if (JSON.stringify(newState) === JSON.stringify(settingsCurrentState)) return
-
-      const formattedDate: string = setDateFormat(newState.birthday)
-
-      dispatch(
-        updateSettings({
-          ...newState,
-          birthday: formattedDate,
-        })
-      )
-    }
-  }, [])
+  const watchAllFields = watch()
+  const { userName, firstName, lastName } = watchAllFields
+  const isDisabled = !userName || !firstName || !lastName
 
   useEffect(() => {
     if (selectedCountry) {
       getCities({ country: selectedCountry })
     }
-  }, [selectedCountry])
+  }, [getCities, selectedCountry])
 
   return (
     <div className={s.container}>
@@ -87,13 +81,13 @@ const GeneralInformation = () => {
           />
           <TextField
             {...register('firstName')}
-            label={firstName.label}
+            label={firstname.label}
             required
             error={errors?.firstName?.message}
           />
           <TextField
             {...register('lastName')}
-            label={lastName.label}
+            label={lastname.label}
             required
             error={errors?.lastName?.message}
           />
@@ -101,9 +95,10 @@ const GeneralInformation = () => {
           <ControlledCalendar
             label={birthday.label}
             control={control}
-            name={'birthday'}
-            error={errors?.birthday?.message}
+            name={'dateOfBirth'}
+            error={errors?.dateOfBirth?.message}
           />
+
           <div className={s.select}>
             <ControlledSelect
               label={country.label}
@@ -121,7 +116,7 @@ const GeneralInformation = () => {
 
           <TextArea
             {...register('aboutMe')}
-            label={aboutMe.label}
+            label={`${aboutMe.label}`}
             placeholder={aboutMe.placeholder}
             maxLength={200}
           />
@@ -130,7 +125,7 @@ const GeneralInformation = () => {
 
       <div className={s.divider}></div>
 
-      <Button className={s.btn} onClick={handleSubmit(onSubmit)} disabled={!isValid}>
+      <Button className={s.btn} onClick={handleSubmit(onSubmit)} disabled={isDisabled}>
         {submitFormBtn.label}
       </Button>
     </div>

@@ -2,14 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { isOldEnough, useTranslation } from '@/app'
+import { isOldEnough, setDateFormat, useTranslation } from '@/app'
 import { useAppSelector } from '@/app/store/rtk.types'
 
 export const useGeneralSettings = () => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
 
-  const settingsCurrentState = useAppSelector(state => state.settings)
+  const profileDefaultSettings = useAppSelector(state => state.profile)
 
   const GeneralSettingsSchema = z
     .object({
@@ -31,18 +31,16 @@ export const useGeneralSettings = () => {
         .min(1, `${lastName.validation.length}`)
         .max(20, `${lastName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${lastName.validation.pattern}`),
-      birthday: z
-        .union([z.string({ invalid_type_error: `${birthday.validation.error}` }), z.date()])
-        .optional(),
+      dateOfBirth: z.union([z.date(), z.string()]).optional(),
       country: z.string().optional(),
       city: z.string().optional(),
       aboutMe: z.string().optional(),
     })
     .refine(
       data => {
-        if (data.birthday) {
+        if (data.dateOfBirth) {
           const ageLimit: number = 13
-          const dateOfBirth: Date = new Date(data.birthday)
+          const dateOfBirth = new Date(data.dateOfBirth)
 
           return isOldEnough(dateOfBirth, ageLimit)
         }
@@ -51,16 +49,21 @@ export const useGeneralSettings = () => {
       },
       {
         message: `${birthday.validation.error}`,
-        path: ['birthday'], // path of error
+        path: ['dateOfBirth'], // path of error
       }
     )
+
+  const formattedDate = profileDefaultSettings.dateOfBirth
+    ? setDateFormat(new Date(profileDefaultSettings.dateOfBirth))
+    : ''
 
   type GeneralSettingsFormType = z.infer<typeof GeneralSettingsSchema>
 
   return useForm<GeneralSettingsFormType>({
     resolver: zodResolver(GeneralSettingsSchema),
     defaultValues: {
-      ...settingsCurrentState,
+      ...profileDefaultSettings,
+      dateOfBirth: formattedDate,
     },
     mode: 'all',
   })
