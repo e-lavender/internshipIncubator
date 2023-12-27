@@ -4,10 +4,10 @@ import { profileApi } from '@/app/services/profile/profile.api'
 import { GeneralSettingsType, UserProfileModel } from '@/app/services/profile/profile.api.types'
 
 const defaultSettingsState: GeneralSettingsType = {
-  userName: '',
+  login: '',
   firstName: '',
   lastName: '',
-  dateOfBirth: '',
+  dateOfBirth: new Date(),
   country: '',
   city: '',
   aboutMe: '',
@@ -18,9 +18,9 @@ const profileSettings = createSlice({
   initialState: defaultSettingsState,
   reducers: {
     updateSettings(state, action: PayloadAction<UserProfileModel>) {
-      const { userName, firstName, lastName, dateOfBirth, aboutMe } = action.payload
+      const { login, firstName, lastName, dateOfBirth, aboutMe } = action.payload
 
-      state.userName = userName
+      state.login = login
       state.firstName = firstName
       state.lastName = lastName
       state.dateOfBirth = dateOfBirth
@@ -29,9 +29,9 @@ const profileSettings = createSlice({
   },
   extraReducers: builder => {
     builder.addMatcher(profileApi.endpoints.getProfile.matchFulfilled, (state, action) => {
-      const { userName, firstName, lastName, dateOfBirth, aboutMe } = action.payload
+      const { login, firstName, lastName, dateOfBirth, aboutMe } = action.payload
 
-      state.userName = userName
+      state.login = login
       state.firstName = firstName
       state.lastName = lastName
       state.dateOfBirth = dateOfBirth

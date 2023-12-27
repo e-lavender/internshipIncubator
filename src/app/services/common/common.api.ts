@@ -7,9 +7,9 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 
-import { authApiUrlsV2, getFromSessionStorage, setToSessionStorage } from '@/app'
+import { authApiUrls, getFromSessionStorage, setToSessionStorage } from '@/app'
 
-const { baseUrl, logout, refreshMe } = authApiUrlsV2
+const { baseUrl, logout, refreshMe } = authApiUrls
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl(),

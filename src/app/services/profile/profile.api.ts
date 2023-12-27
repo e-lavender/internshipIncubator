@@ -1,4 +1,4 @@
-import { authApiUrlsV2 } from '@/app'
+import { authApiUrls } from '@/app'
 import { commonApi } from '@/app/services/common/common.api'
 import {
   UpdateUserProfile,
@@ -6,7 +6,7 @@ import {
   UserProfileModel,
 } from '@/app/services/profile/profile.api.types'
 
-const { getProfile, updateProfile, uploadAvatar, deleteAvatar } = authApiUrlsV2
+const { getProfile, updateProfile, uploadAvatar, deleteAvatar } = authApiUrls
 
 export const profileApi = commonApi.injectEndpoints({
   endpoints: builder => ({

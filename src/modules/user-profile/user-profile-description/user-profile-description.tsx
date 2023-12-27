@@ -14,7 +14,7 @@ export const UserProfileDescription = () => {
   return (
     <div className={s.container}>
       <div className={s.avatar}>
-        <Avatar src={data?.avatars[0]?.url} />
+        <Avatar src={'/assets/avatar/avatar.jpg'} />
       </div>
 
       <div className={s.profile}>

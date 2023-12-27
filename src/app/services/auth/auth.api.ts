@@ -1,4 +1,4 @@
-import { authApiUrlsV2 } from '@/app/constants/routes/auth'
+import { authApiUrls, authApiUrlsV2 } from '@/app/constants/routes/auth'
 import {
   Code,
   GetMe,
@@ -22,7 +22,7 @@ const {
   googleOAuthPage,
   registrationConfirmation,
   resendEmail,
-} = authApiUrlsV2
+} = authApiUrls
 
 export const authAPI = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -54,21 +54,21 @@ export const authAPI = commonApi.injectEndpoints({
         }
       },
     }),
-    confirmAccount: builder.query<void, Code>({
+    emailConfirmation: builder.mutation<void, Code>({
       query: code => {
         return {
-          method: 'GET',
+          method: 'POST',
           url: registrationConfirmation(),
           params: code,
         }
       },
     }),
     passwordRecovery: builder.mutation<void, { email: string }>({
-      query: email => {
+      query: args => {
         return {
           method: 'POST',
           url: passwordRecovery(),
-          body: email,
+          body: args,
         }
       },
     }),
@@ -153,7 +153,7 @@ export const authAPI = commonApi.injectEndpoints({
 })
 
 export const {
-  useConfirmAccountQuery,
+  useEmailConfirmationMutation,
   useRefreshMeMutation,
   usePasswordRecoveryMutation,
   useCreateNewPasswordMutation,

@@ -31,7 +31,7 @@ export const useGeneralSettings = () => {
         .min(1, `${lastName.validation.length}`)
         .max(20, `${lastName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${lastName.validation.pattern}`),
-      dateOfBirth: z.union([z.date(), z.string()]).optional(),
+      dateOfBirth: z.date().optional(),
       country: z.string().optional(),
       city: z.string().optional(),
       aboutMe: z.string().optional(),
@@ -52,10 +52,10 @@ export const useGeneralSettings = () => {
         path: ['dateOfBirth'],
       }
     )
-
-  const formattedDate = profileDefaultSettings.dateOfBirth
-    ? setDateFormat(new Date(profileDefaultSettings.dateOfBirth))
-    : ''
+  //
+  // const formattedDate = profileDefaultSettings.dateOfBirth
+  //   ? setDateFormat(new Date(profileDefaultSettings.dateOfBirth))
+  //   : ''
 
   type GeneralSettingsFormType = z.infer<typeof GeneralSettingsSchema>
 
@@ -63,7 +63,6 @@ export const useGeneralSettings = () => {
     resolver: zodResolver(GeneralSettingsSchema),
     defaultValues: {
       ...profileDefaultSettings,
-      dateOfBirth: formattedDate,
     },
     mode: 'all',
   })

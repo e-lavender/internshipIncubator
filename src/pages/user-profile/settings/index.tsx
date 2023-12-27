@@ -46,13 +46,10 @@ const GeneralInformation = () => {
   const selectedCountry = watch('country')
 
   const onSubmit = (data: GeneralSettingsType) => {
-    const { dateOfBirth } = data
-    const formattedDate = dateOfBirth instanceof Date ? dateOfBirth?.toISOString() : dateOfBirth
+    // const { dateOfBirth } = data
+    // const formattedDate = dateOfBirth instanceof Date ? dateOfBirth?.toISOString() : dateOfBirth
 
-    updateProfile({
-      ...data,
-      dateOfBirth: formattedDate,
-    })
+    updateProfile(data)
   }
 
   const watchAllFields = watch()
