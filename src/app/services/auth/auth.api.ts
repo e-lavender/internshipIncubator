@@ -105,6 +105,7 @@ export const authAPI = commonApi.injectEndpoints({
           //patchResult.undo()
         }
       },
+      invalidatesTags: ['ME'],
     }),
 
     googleAuth: builder.mutation<any, GoogleUser>({
