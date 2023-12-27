@@ -27,26 +27,26 @@ export const profileApi = commonApi.injectEndpoints({
       invalidatesTags: ['Profile'],
     }),
 
-    // uploadAvatar: builder.mutation<UploadAvatarResponse, FormData>({
-    //   query: form => {
-    //     return {
-    //       method: 'POST',
-    //       url: '/api/v1/users/profile/avatar',
-    //       body: form,
-    //       formData: true,
-    //     }
-    //   },
-    //   invalidatesTags: ['Profile'],
-    // }),
-    // deleteAvatar: builder.mutation<void, void>({
-    //   query: () => {
-    //     return {
-    //       method: 'DELETE',
-    //       url: '/api/v1/users/profile/avatar',
-    //     }
-    //   },
-    //   invalidatesTags: ['Profile'],
-    // }),
+    uploadAvatar: builder.mutation<UploadAvatarResponse, FormData>({
+      query: form => {
+        return {
+          method: 'POST',
+          url: '/api/v1/users/profile/avatar',
+          body: form,
+          formData: true,
+        }
+      },
+      invalidatesTags: ['Profile'],
+    }),
+    deleteAvatar: builder.mutation<void, void>({
+      query: () => {
+        return {
+          method: 'DELETE',
+          url: '/api/v1/users/profile/avatar',
+        }
+      },
+      invalidatesTags: ['Profile'],
+    }),
   }),
 })
 
@@ -56,6 +56,6 @@ export const {
   /**
    * Uploads a square image for the profile avatar(.png or .jpg/.jpeg file, max size: 10Mb)
    */
-  // useUploadAvatarMutation,
-  // useDeleteAvatarMutation,
+  useUploadAvatarMutation,
+  useDeleteAvatarMutation,
 } = profileApi

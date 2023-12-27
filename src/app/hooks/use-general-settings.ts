@@ -49,7 +49,7 @@ export const useGeneralSettings = () => {
       },
       {
         message: `${birthday.validation.error}`,
-        path: ['dateOfBirth'], // path of error
+        path: ['dateOfBirth'],
       }
     )
 

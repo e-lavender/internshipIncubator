@@ -6,6 +6,7 @@ import s from './image-picker-modal.module.scss'
 import { useImageValidation } from './useImageValidation'
 
 import { useTranslation } from '@/app'
+import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { Avatar } from '@/components'
 import { Button, FileInput, Modal, Typography } from '@/ui'
 
@@ -17,17 +18,28 @@ type ImagePickerModalType = {
   onClose?: () => void
 }
 
-export const ImagePickerModal = ({ isOpen, onChange }: ImagePickerModalType) => {
-  const { url, step, stepUp, stepBack, errorText, clearError } = useImageValidation()
+export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModalType) => {
+  const { url, step, stepUp, stepBack, errorText, clearError, blob } = useImageValidation()
+  const [uploadFile] = useUploadAvatarMutation()
 
   const { t } = useTranslation()
   const { modal } = t.profileSettings.generalSettings.profileImage
 
   const styles = clsx(!errorText && s.avatar)
 
+  const uploadAvatar = () => {
+    const formData = new FormData()
+
+    formData.append('file', blob as Blob)
+
+    uploadFile(formData)
+    stepBack()
+    onClose && onClose()
+  }
+
   const interfaceVariants = {
     1: <Interface1 url={url} error={errorText} styles={styles} callback={stepUp} />,
-    2: <Interface2 url={url} callback={stepBack} />,
+    2: <Interface2 url={url} callback={uploadAvatar} />,
   }
 
   const CurrentInterface: JSX.Element = interfaceVariants[step]
@@ -79,7 +91,7 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
     <div className={s.content}>
       {ErrorMessage}
 
-      <Avatar src={url} rounded={Boolean(url)} width={222} height={228} className={styles} />
+      <Avatar src={''} rounded={false} width={222} height={228} className={styles} />
       <FileInput
         ref={formRef}
         className={s.input}
