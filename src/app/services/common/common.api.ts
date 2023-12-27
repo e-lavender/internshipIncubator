@@ -7,10 +7,12 @@ import {
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 
-import { getFromSessionStorage, setToSessionStorage } from '@/app'
+import { authApiUrlsV2, getFromSessionStorage, setToSessionStorage } from '@/app'
+
+const { baseUrl, logout, refreshMe } = authApiUrlsV2
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://api.freedomindz.site/',
+  baseUrl: baseUrl(),
   credentials: 'include',
   prepareHeaders: headers => {
     const token = getFromSessionStorage('accessToken', null)
@@ -40,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         const refreshResult = await baseQuery(
           {
             method: 'POST',
-            url: '/api/v1/auth/refresh-token',
+            url: refreshMe(),
           },
           api,
           extraOptions
@@ -51,7 +53,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         } else {
           await baseQuery(
             {
-              url: '/api/v1/auth/logout',
+              url: logout(),
               method: 'POST',
             },
             api,

@@ -1,3 +1,4 @@
+import { authApiUrlsV2 } from '@/app'
 import { commonApi } from '@/app/services/common/common.api'
 import {
   UpdateUserProfile,
@@ -5,13 +6,15 @@ import {
   UserProfileModel,
 } from '@/app/services/profile/profile.api.types'
 
+const { getProfile, updateProfile, uploadAvatar, deleteAvatar } = authApiUrlsV2
+
 export const profileApi = commonApi.injectEndpoints({
   endpoints: builder => ({
     getProfile: builder.query<UserProfileModel, void>({
       query: () => {
         return {
           method: 'GET',
-          url: '/api/v1/profile',
+          url: getProfile(),
         }
       },
       providesTags: ['Profile'],
@@ -20,7 +23,7 @@ export const profileApi = commonApi.injectEndpoints({
       query: args => {
         return {
           method: 'PUT',
-          url: '/api/v1/profile',
+          url: updateProfile(),
           body: args,
         }
       },
@@ -31,7 +34,7 @@ export const profileApi = commonApi.injectEndpoints({
       query: form => {
         return {
           method: 'POST',
-          url: '/api/v1/users/profile/avatar',
+          url: uploadAvatar(),
           body: form,
           formData: true,
         }
@@ -42,7 +45,7 @@ export const profileApi = commonApi.injectEndpoints({
       query: () => {
         return {
           method: 'DELETE',
-          url: '/api/v1/users/profile/avatar',
+          url: deleteAvatar(),
         }
       },
       invalidatesTags: ['Profile'],
