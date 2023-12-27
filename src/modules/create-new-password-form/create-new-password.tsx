@@ -1,15 +1,14 @@
-import { useState } from 'react'
-
 import { useRouter } from 'next/router'
 
 import s from './create-new-password.module.scss'
 
-import { authNavigationUrls, useTranslation } from '@/app'
+import { authNavigationUrls, ErrorWithData, showError, useTranslation } from '@/app'
+import { useCreateNewPasswordMutation } from '@/app/services/auth/auth.api'
 import { useNewPasswordForm } from '@/modules/create-new-password-form/validation-schema'
 import { Button, Card, Loader, TextField, Typography } from '@/ui'
 
-export const NewPasswordForm = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+export const NewPasswordForm = ({ code }: { code?: string }) => {
+  const [sendNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
 
   const { t } = useTranslation()
@@ -26,14 +25,25 @@ export const NewPasswordForm = () => {
   const setNewPassword = handleSubmit((data, e?) => {
     e?.preventDefault()
 
-    setIsLoading(true)
-
-    setTimeout(() => {
-      void router.push(authNavigationUrls.newPasswordConfirmation())
-
-      setIsLoading(false)
-      reset()
-    }, 1500)
+    sendNewPassword({ newPassword: data.password, recoveryCode: code || '' })
+      .unwrap()
+      .then(() => {
+        void router.push(authNavigationUrls.newPasswordConfirmation())
+        reset()
+      })
+      .catch((error: ErrorWithData) => {
+        showError(error)
+        {
+          /*TODO: we need back implementation to case if recovery code expired*/
+        }
+        if (
+          error?.data?.errorsMessages &&
+          error.data.errorsMessages[0].message ===
+            'Confirmation or Recovery code should be exist and actually'
+        ) {
+          void router.push(authNavigationUrls.newPasswordConfirmation())
+        }
+      })
   })
 
   return (

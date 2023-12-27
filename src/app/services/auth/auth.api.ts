@@ -58,12 +58,11 @@ export const authAPI = commonApi.injectEndpoints({
       },
     }),
     createNewPassword: builder.mutation<void, NewPasswordCredentials>({
-      query: ({ newPassword, recoveryCode }) => {
+      query: args => {
         return {
           method: 'POST',
           url: '/api/v1/auth/new-password',
-          body: { newPassword },
-          params: { recoveryCode },
+          body: args,
         }
       },
     }),
