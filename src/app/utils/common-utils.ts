@@ -9,6 +9,9 @@ export const showError = (error: ErrorWithData) => {
   if (Array.isArray(error.data?.message)) {
     return toast.error(error.data.message[0].message)
   }
+  if (Array.isArray(error.data?.errorsMessages)) {
+    return toast.error(error.data.errorsMessages[0].message)
+  }
   if (typeof error.data?.message === 'string') {
     return toast.error(error.data.message)
   }
