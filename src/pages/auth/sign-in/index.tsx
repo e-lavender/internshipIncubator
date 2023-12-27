@@ -12,7 +12,7 @@ const SignInPage = () => {
   const { push } = useRouter()
 
   if (me) {
-    void push('/user-profile/idFromURL')
+    void push('/user-profile/')
   }
 
   return (
