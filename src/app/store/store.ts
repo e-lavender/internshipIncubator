@@ -16,11 +16,9 @@ export const store = configureStore({
     profile: profileSlice,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(
-      commonApi.middleware,
-      googleApi.middleware,
-      locationApi.middleware
-    ),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(commonApi.middleware, googleApi.middleware, locationApi.middleware),
 })
 
 setupListeners(store.dispatch)

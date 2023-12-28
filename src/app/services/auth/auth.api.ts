@@ -1,4 +1,4 @@
-import { authApiUrls } from '@/app/constants/routes/auth'
+import { authApiUrls, authApiUrlsV2 } from '@/app/constants/routes/auth'
 import {
   Code,
   GetMe,
@@ -9,13 +9,28 @@ import {
 import { commonApi } from '@/app/services/common/common.api'
 import { GoogleUser } from '@/app/services/google/google.api.types'
 
+const {
+  signIn,
+  signUp,
+  createNewPassword,
+  passwordRecovery,
+  refreshMe,
+  logout,
+  signWithGoogle,
+  getMe,
+  githubOAuthPage,
+  googleOAuthPage,
+  registrationConfirmation,
+  resendEmail,
+} = authApiUrls
+
 export const authAPI = commonApi.injectEndpoints({
   endpoints: builder => ({
     getMe: builder.query<GetMe, void>({
       query: () => {
         return {
           method: 'GET',
-          url: '/api/v1/auth/me',
+          url: getMe(),
         }
       },
       extraOptions: { maxRetries: 0 },
@@ -25,7 +40,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: args => {
         return {
           method: 'POST',
-          url: '/api/v1/auth/registration',
+          url: signUp(),
           body: args,
         }
       },
@@ -34,26 +49,26 @@ export const authAPI = commonApi.injectEndpoints({
       query: code => {
         return {
           method: 'POST',
-          url: '/api/v1/auth/resend-code',
+          url: resendEmail(),
           body: code,
         }
       },
     }),
-    confirmAccount: builder.query<void, Code>({
+    emailConfirmation: builder.mutation<void, Code>({
       query: code => {
         return {
-          method: 'GET',
-          url: '/api/v1/auth/registration-confirmation',
+          method: 'POST',
+          url: registrationConfirmation(),
           params: code,
         }
       },
     }),
     passwordRecovery: builder.mutation<void, { email: string }>({
-      query: email => {
+      query: args => {
         return {
           method: 'POST',
-          url: '/api/v1/auth/password-recovery',
-          body: email,
+          url: passwordRecovery(),
+          body: args,
         }
       },
     }),
@@ -61,7 +76,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: args => {
         return {
           method: 'POST',
-          url: '/api/v1/auth/new-password',
+          url: createNewPassword(),
           body: args,
         }
       },
@@ -70,7 +85,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: args => {
         return {
           method: 'POST',
-          url: '/api/v1/auth/login',
+          url: signIn(),
           body: args,
         }
       },
@@ -81,14 +96,14 @@ export const authAPI = commonApi.injectEndpoints({
       query: () => {
         return {
           method: 'POST',
-          url: '/api/v1/auth/refresh-token',
+          url: refreshMe(),
         }
       },
     }),
     signOut: builder.mutation<void, void>({
       query: () => ({
         method: 'POST',
-        url: '/api/v1/auth/logout',
+        url: logout(),
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         dispatch(
@@ -111,7 +126,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: user => {
         return {
           method: 'POST',
-          url: authApiUrls.signWithGoogle(),
+          url: signWithGoogle(),
           body: user,
         }
       },
@@ -120,7 +135,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: user => {
         return {
           method: 'GET',
-          url: authApiUrls.googleOAuthPage(),
+          url: googleOAuthPage(),
           body: user,
         }
       },
@@ -130,7 +145,7 @@ export const authAPI = commonApi.injectEndpoints({
       query: () => {
         return {
           method: 'GET',
-          url: authApiUrls.githubOAuthPage(),
+          url: githubOAuthPage(),
         }
       },
     }),
@@ -138,7 +153,7 @@ export const authAPI = commonApi.injectEndpoints({
 })
 
 export const {
-  useConfirmAccountQuery,
+  useEmailConfirmationMutation,
   useRefreshMeMutation,
   usePasswordRecoveryMutation,
   useCreateNewPasswordMutation,
