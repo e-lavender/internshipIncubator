@@ -71,7 +71,7 @@ export const ForgotPasswordForm = () => {
       <Typography as={'h1'} variant={'h1'} className={s.title}>
         {title}
       </Typography>
-      <form onSubmit={sendForm}>
+      <form onSubmit={sendForm} onInput={clearError}>
         {/*{DEVTOOLS}*/}
         <DevTool control={control} />
         {/*{DEVTOOLS}*/}

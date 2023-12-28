@@ -3,11 +3,14 @@ import Link from 'next/link'
 import s from './user-profile-description.module.scss'
 
 import { CheckedIcon, menuNavigation } from '@/app'
+import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { Avatar } from '@/components'
 import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { Button, Typography } from '@/ui'
 
 export const UserProfileDescription = () => {
+  const { data } = useGetProfileQuery()
+
   return (
     <div className={s.container}>
       <div className={s.avatar}>
