@@ -7,7 +7,7 @@ const defaultSettingsState: GeneralSettingsType = {
   userName: '',
   firstName: '',
   lastName: '',
-  dateOfBirth: '',
+  dateOfBirth: new Date(),
   country: '',
   city: '',
   aboutMe: '',
