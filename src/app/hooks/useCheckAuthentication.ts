@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { ErrorWithData, showError } from '@/app'
+import { ErrorWithData } from '@/app'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
+import { showError } from '@/app/utils'
 
 export const useCheckAuthentication = () => {
   const { data: me, error } = useGetMeQuery()

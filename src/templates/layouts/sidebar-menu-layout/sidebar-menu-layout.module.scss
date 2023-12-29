@@ -3,7 +3,10 @@
 
   max-width: 128rem;
   margin: 0 auto;
-  padding-left: var(--side-menu-width);
+
+  &.isAuthed {
+    padding-left: var(--side-menu-width);
+  }
 
   &.mobile {
     padding-left: 0;

@@ -1,4 +1,4 @@
-import { authApiUrls } from '@/app'
+import { authApiUrls } from '@/app/constants'
 import { commonApi } from '@/app/services/common/common.api'
 import {
   UpdateUserProfile,
