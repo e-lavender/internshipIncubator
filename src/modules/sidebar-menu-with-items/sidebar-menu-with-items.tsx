@@ -10,17 +10,16 @@ import {
   MessageMenuIcon,
   ProfileMenuIcon,
   SearchMenuIcon,
-  menuNavigation,
   StatisticsMenuIcon,
   useTranslation,
 } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { useGetMeQuery, useSignOutMutation } from '@/app/services/auth/auth.api'
 import { MenuItem, SidebarMenu } from '@/ui'
 
 export const SidebarMenuWithItems = () => {
   const { pathname } = useRouter()
   const [signOut, { isLoading }] = useSignOutMutation()
-  const { data: me } = useGetMeQuery()
   const { t } = useTranslation()
   const labels = t.sidebarMenu
 
@@ -33,14 +32,14 @@ export const SidebarMenuWithItems = () => {
         label={labels.create}
         isSelected={pathname.startsWith(menuNavigation.create())}
       />
-      {me && (
-        <MenuItem
-          href={menuNavigation.profile()}
-          icon={ProfileMenuIcon}
-          label={labels.profile}
-          isSelected={pathname.startsWith(menuNavigation.profile())}
-        />
-      )}
+
+      <MenuItem
+        href={menuNavigation.profile()}
+        icon={ProfileMenuIcon}
+        label={labels.profile}
+        isSelected={pathname.startsWith(menuNavigation.profile())}
+      />
+
       <MenuItem
         href={menuNavigation.messenger()}
         icon={MessageMenuIcon}
@@ -55,14 +54,13 @@ export const SidebarMenuWithItems = () => {
       />
       <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} disabled />
       <MenuItem href={'#'} icon={FavoritesMenuIcon} label={labels.favorites} disabled />
-      {me && (
-        <MenuItem
-          as={'button'}
-          onClick={() => signOut()}
-          icon={LogOutMenuIcon}
-          label={labels.logout}
-        />
-      )}
+
+      <MenuItem
+        as={'button'}
+        onClick={() => signOut()}
+        icon={LogOutMenuIcon}
+        label={labels.logout}
+      />
     </SidebarMenu>
   )
 }

@@ -6,8 +6,9 @@ import confirmationImg from '../../../public/assets/images/link-confirmation.svg
 
 import s from './link-confirmed.module.scss'
 
-import { useTranslation, authNavigationUrls } from '@/app'
-import { useConfirmAccountQuery, useEmailConfirmationMutation } from '@/app/services/auth/auth.api'
+import { useTranslation } from '@/app'
+import { authNavigationUrls } from '@/app/constants'
+import { useEmailConfirmationMutation } from '@/app/services/auth/auth.api'
 import { Button, Typography } from '@/ui'
 
 export const LinkConfirmed = () => {
@@ -19,7 +20,7 @@ export const LinkConfirmed = () => {
 
   const confirmAccount = () => {
     confirmEmail({
-      confirmationCode: query.code as string,
+      code: query.code as string,
     })
   }
 

@@ -10,7 +10,8 @@ registerLocale('ru', ru)
 registerLocale('en', en)
 import './react-datepicker.scss'
 
-import { authNavigationUrls, CalendarIcon, TagProcessor, useDisclose, useTranslation } from '@/app'
+import { CalendarIcon, TagProcessor, useDisclose, useTranslation } from '@/app'
+import { authNavigationUrls } from '@/app/constants'
 import { CalendarNavigationButton } from '@/components/calendar/calendar-navigation-button/calendar-navigation-button'
 import { Typography } from '@/ui'
 

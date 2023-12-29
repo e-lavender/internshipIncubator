@@ -1,29 +1,25 @@
-import { ReactElement, useEffect, useMemo } from 'react'
+import { ReactElement, useEffect, useRef } from 'react'
+
+import { InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
 
 import s from './general-information.module.scss'
 
 import { useGeneralSettings, useTranslation } from '@/app'
-import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
-import { GeneralSettingsType } from '@/app/services/profile'
+import { useLocation } from '@/app/hooks/useLocation'
 import { useUpdateUserProfileMutation } from '@/app/services/profile/profile.api'
+import { GeneralSettingsType } from '@/app/services/profile/profile.api.types'
 import { ControlledCalendar, ControlledSelect } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
 import { Button, TextArea, TextField } from '@/ui'
-import { SelectValue } from '@/ui/custom-select/custom-select.types'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const GeneralInformation = () => {
-  const [getCities, { data: cities }] = useGetCitiesMutation()
-  const [updateProfile, {}] = useUpdateUserProfileMutation()
-
-  const mappedCities: SelectValue[] | undefined = useMemo(() => {
-    return cities?.data.map(city => {
-      return { value: city.toLowerCase(), label: city }
-    })
-  }, [cities])
-
+  const [updateProfile, { isLoading }] = useUpdateUserProfileMutation()
+  const { getCities, mappedCities } = useLocation()
   const { t } = useTranslation()
+
   const {
     username,
     firstName: firstname,
@@ -40,21 +36,14 @@ const GeneralInformation = () => {
     control,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = useGeneralSettings()
-
+  const isDisabledSubmit = !isDirty || !isValid || isLoading
   const selectedCountry = watch('country')
 
   const onSubmit = (data: GeneralSettingsType) => {
-    // const { dateOfBirth } = data
-    // const formattedDate = dateOfBirth instanceof Date ? dateOfBirth?.toISOString() : dateOfBirth
-
-    updateProfile(data)
+    updateProfile({ ...data, dateOfBirth: data.dateOfBirth?.toString() })
   }
-
-  const watchAllFields = watch()
-  const { userName, firstName, lastName } = watchAllFields
-  const isDisabled = !userName || !firstName || !lastName
 
   useEffect(() => {
     if (selectedCountry) {
@@ -122,7 +111,7 @@ const GeneralInformation = () => {
 
       <div className={s.divider}></div>
 
-      <Button className={s.btn} onClick={handleSubmit(onSubmit)} disabled={isDisabled}>
+      <Button className={s.btn} onClick={handleSubmit(onSubmit)} disabled={isDisabledSubmit}>
         {submitFormBtn.label}
       </Button>
     </div>

@@ -4,7 +4,7 @@ export type UserProfileModel = {
   firstName: string
   lastName: string
   city?: string
-  dateOfBirth?: Date
+  dateOfBirth?: string
   aboutMe?: string
   avatars: UserProfileModelAvatars[]
   createdAt: string
@@ -34,7 +34,7 @@ export type GeneralSettingsType = {
   userName: string
   firstName: string
   lastName: string
-  dateOfBirth?: Date
+  dateOfBirth?: Date | string
   country?: string
   city?: string
   aboutMe?: string

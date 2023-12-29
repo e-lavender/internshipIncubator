@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 
-import { menuNavigation, useTranslation } from '@/app'
+import { useTranslation } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { TabsContainer, TabsItem, TabsList } from '@/ui'
 
 export const SettingsTabs = () => {
