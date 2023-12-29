@@ -5,15 +5,10 @@ import Link from 'next/link'
 
 import s from './sign-up-form.module.scss'
 
-import {
-  authNavigationUrls,
-  ErrorWithData,
-  showError,
-  TagProcessor,
-  useDisclose,
-  useTranslation,
-} from '@/app'
+import { ErrorWithData, TagProcessor, useDisclose, useTranslation } from '@/app'
+import { authNavigationUrls } from '@/app/constants'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
+import { showError } from '@/app/utils'
 import { ControlledCheckbox, ControlledTextField, NotificationModal } from '@/components'
 import { useSignupForm } from '@/modules/sign-up-form/use-sign-up-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'

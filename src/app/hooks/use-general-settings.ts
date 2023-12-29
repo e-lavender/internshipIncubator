@@ -1,15 +1,16 @@
+import { useMemo } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { isOldEnough, setDateFormat, useTranslation } from '@/app'
-import { useAppSelector } from '@/app/store/rtk.types'
+import { isOldEnough, useTranslation } from '@/app'
+import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 
 export const useGeneralSettings = () => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
-
-  const profileDefaultSettings = useAppSelector(state => state.profile)
+  const { data: userProfile } = useGetProfileQuery()
 
   const GeneralSettingsSchema = z
     .object({
@@ -52,17 +53,18 @@ export const useGeneralSettings = () => {
         path: ['dateOfBirth'],
       }
     )
-  //
-  // const formattedDate = profileDefaultSettings.dateOfBirth
-  //   ? setDateFormat(new Date(profileDefaultSettings.dateOfBirth))
-  //   : ''
+
+  const formattedDate = useMemo(() => {
+    return userProfile?.dateOfBirth ? new Date(userProfile?.dateOfBirth) : undefined
+  }, [userProfile?.dateOfBirth])
 
   type GeneralSettingsFormType = z.infer<typeof GeneralSettingsSchema>
 
   return useForm<GeneralSettingsFormType>({
     resolver: zodResolver(GeneralSettingsSchema),
     defaultValues: {
-      ...profileDefaultSettings,
+      ...userProfile,
+      dateOfBirth: formattedDate,
     },
     mode: 'all',
   })

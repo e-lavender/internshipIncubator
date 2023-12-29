@@ -4,10 +4,10 @@ import {
   FavoritesMenuIcon,
   LogOutMenuIcon,
   SettingIcon,
-  menuNavigation,
   StatisticsMenuIcon,
   useTranslation,
 } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { DropdownMenu, MenuItem } from '@/ui'
 
 export const DropdownMenuWithItems = () => {
