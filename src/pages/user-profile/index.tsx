@@ -6,6 +6,7 @@ const UserProfilePage = () => {
   // Simulation of fetch request
 
   const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 500)
   }, [])
