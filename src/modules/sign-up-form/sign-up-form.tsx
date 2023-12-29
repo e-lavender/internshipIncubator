@@ -14,7 +14,6 @@ import { useSignupForm } from '@/modules/sign-up-form/use-sign-up-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignUpForm = () => {
-  //TODO remove progressBar state after refactoring oAuthButtons
   const [progressBar, setProgressBar] = useState<boolean>(false)
   const [register, { isLoading }] = useSignUpMutation()
   const { isOpen, onClose, onOpen } = useDisclose()
@@ -128,7 +127,7 @@ export const SignUpForm = () => {
                 left={true}
                 name={'policy'}
                 control={control}
-                labelTitle={text.policy}
+                labelTitle={<div style={{ fontSize: 'var(--font-size-xs)' }}>{text.policy}</div>}
               />
               {policyLinks}
             </div>
