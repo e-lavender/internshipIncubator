@@ -1,21 +1,25 @@
-import { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect, useRef } from 'react'
+
+import { InferGetServerSidePropsType } from 'next'
+import { useRouter } from 'next/router'
 
 import s from './general-information.module.scss'
 
 import { useGeneralSettings, useTranslation } from '@/app'
+import { useLocation } from '@/app/hooks/useLocation'
 import { useUpdateUserProfileMutation } from '@/app/services/profile/profile.api'
 import { GeneralSettingsType } from '@/app/services/profile/profile.api.types'
 import { ControlledCalendar, ControlledSelect } from '@/components'
 import { AccountImagePicker } from '@/modules'
-import { useLocation } from '@/pages/user-profile/settings/useLocation'
 import { ProfileSettingLayout } from '@/templates'
 import { Button, TextArea, TextField } from '@/ui'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const GeneralInformation = () => {
-  const [updateProfile, {}] = useUpdateUserProfileMutation()
+  const [updateProfile, { isLoading }] = useUpdateUserProfileMutation()
   const { getCities, mappedCities } = useLocation()
   const { t } = useTranslation()
+
   const {
     username,
     firstName: firstname,
@@ -34,8 +38,7 @@ const GeneralInformation = () => {
     watch,
     formState: { errors, isValid, isDirty },
   } = useGeneralSettings()
-
-  const isDisabledSubmit = !isDirty || !isValid
+  const isDisabledSubmit = !isDirty || !isValid || isLoading
   const selectedCountry = watch('country')
 
   const onSubmit = (data: GeneralSettingsType) => {
