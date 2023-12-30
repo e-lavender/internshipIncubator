@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+
   font-family: var(--font-family-primary);
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-regular);
@@ -13,6 +16,11 @@
 
 .label {
   cursor: pointer;
+  color: var(--text-color-secondary);
+}
+
+.limit {
+  align-self: flex-end;
   color: var(--text-color-secondary);
 }
 

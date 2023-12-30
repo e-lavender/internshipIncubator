@@ -18,14 +18,7 @@ export const AccountImage = (props: AccountImageProps) => {
 
   return (
     <div className={s.container}>
-      <Avatar
-        src={''}
-        width={width}
-        height={height}
-        rounded
-        onDelete={deleteAvatar}
-        {...restProps}
-      />
+      <Avatar src={''} width={width} height={height} rounded onDelete={onOpen} {...restProps} />
       <Button variant={'outlined'} onClick={onClick}>
         {profileImage.btn.label}
       </Button>
