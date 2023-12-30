@@ -6,14 +6,14 @@ import { useGeneralSettings, useTranslation } from '@/app'
 import { useLocation } from '@/app/hooks/useLocation'
 import { useUpdateUserProfileMutation } from '@/app/services/profile/profile.api'
 import { GeneralSettingsType } from '@/app/services/profile/profile.api.types'
-import { ControlledCalendar, ControlledSelect } from '@/components'
+import { ControlledCalendar, ControlledSelect, LoaderV2 } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
 import { Button, TextArea, TextField } from '@/ui'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 const GeneralInformation = () => {
-  const [updateProfile, { isLoading }] = useUpdateUserProfileMutation()
+  const [updateProfile, { isLoading: isProfileLoading }] = useUpdateUserProfileMutation()
   const { getCities, mappedCities } = useLocation()
 
   const { t } = useTranslation()
@@ -25,14 +25,14 @@ const GeneralInformation = () => {
     control,
     handleSubmit,
     watch,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid, isDirty, isLoading },
   } = useGeneralSettings()
 
   const isDisabledSubmit = !isDirty || !isValid || isLoading
   const selectedCountry = watch('country')
 
   const onSubmit = (data: GeneralSettingsType) => {
-    updateProfile({ ...data, dateOfBirth: data.dateOfBirth?.toString })
+    updateProfile({ ...data, dateOfBirth: data.dateOfBirth?.toString() })
   }
 
   useEffect(() => {
@@ -104,6 +104,8 @@ const GeneralInformation = () => {
       <Button className={s.btn} onClick={handleSubmit(onSubmit)} disabled={isDisabledSubmit}>
         {submitFormBtn.label}
       </Button>
+
+      <LoaderV2 isLoading={isProfileLoading} />
     </div>
   )
 }

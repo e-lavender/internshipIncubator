@@ -7,7 +7,7 @@ import { useImageValidation } from './useImageValidation'
 
 import { useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
-import { Avatar } from '@/components'
+import { Avatar, LoaderV2 } from '@/components'
 import { Button, FileInput, Modal, Typography } from '@/ui'
 
 type ImagePickerModalType = {
@@ -20,7 +20,8 @@ type ImagePickerModalType = {
 
 export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModalType) => {
   const { url, step, stepUp, stepBack, errorText, clearError, blob } = useImageValidation()
-  const [uploadFile] = useUploadAvatarMutation()
+
+  const [uploadFile, { isLoading: isUploading }] = useUploadAvatarMutation()
 
   const { t } = useTranslation()
   const { modal } = t.profileSettings.generalSettings.profileImage
@@ -49,15 +50,19 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
   }, [isOpen])
 
   return (
-    <Modal open={isOpen} onOpenChange={onChange}>
-      <Modal.Content
-        className={s.container}
-        title={modal.label}
-        onInteractOutside={e => e.preventDefault()}
-      >
-        {CurrentInterface}
-      </Modal.Content>
-    </Modal>
+    <>
+      <Modal open={isOpen} onOpenChange={onChange}>
+        <Modal.Content
+          className={s.container}
+          title={modal.label}
+          onInteractOutside={e => e.preventDefault()}
+        >
+          {CurrentInterface}
+        </Modal.Content>
+      </Modal>
+
+      <LoaderV2 isLoading={isUploading} />
+    </>
   )
 }
 

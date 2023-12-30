@@ -2,7 +2,7 @@ import s from './account-image.module.scss'
 
 import { useDisclose, useTranslation } from '@/app'
 import { useDeleteAvatarMutation, useGetProfileQuery } from '@/app/services/profile/profile.api'
-import { Avatar, AvatarPropsType, ConfirmationModal } from '@/components'
+import { Avatar, AvatarPropsType, ConfirmationModal, LoaderV2 } from '@/components'
 import { Button, ButtonProps } from '@/ui'
 
 type AccountImageProps = ButtonProps & AvatarPropsType
@@ -10,8 +10,8 @@ export const AccountImage = (props: AccountImageProps) => {
   const { isOpen, onOpen, onClose } = useDisclose()
   const { width = 192, height = 192, onClick, ...restProps } = props
 
-  const { data } = useGetProfileQuery()
-  const [deleteAvatar, { isLoading }] = useDeleteAvatarMutation()
+  const { data, isLoading } = useGetProfileQuery()
+  const [deleteAvatar, { isLoading: isDeleteLoading }] = useDeleteAvatarMutation()
 
   const { t } = useTranslation()
   const { profileImage } = t.profileSettings.generalSettings
@@ -30,6 +30,7 @@ export const AccountImage = (props: AccountImageProps) => {
         message={'Are you sure you want to delete photo?'}
         onConfirmation={deleteAvatar}
       />
+      <LoaderV2 isLoading={isLoading || isDeleteLoading} />
     </div>
   )
 }
