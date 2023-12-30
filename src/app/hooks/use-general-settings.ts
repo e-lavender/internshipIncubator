@@ -1,10 +1,10 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { isOldEnough, useTranslation } from '@/app'
+import { isOldEnough, setDateFormat, useTranslation } from '@/app'
 import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 
 export const useGeneralSettings = () => {
@@ -56,7 +56,7 @@ export const useGeneralSettings = () => {
     )
 
   const formattedDate = useMemo(() => {
-    return userProfile?.dateOfBirth ? new Date(userProfile?.dateOfBirth) : undefined
+    return userProfile?.dateOfBirth ? setDateFormat(userProfile?.dateOfBirth) : undefined
   }, [userProfile?.dateOfBirth])
 
   type GeneralSettingsFormType = z.infer<typeof GeneralSettingsSchema>
