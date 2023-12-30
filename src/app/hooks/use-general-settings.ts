@@ -10,6 +10,7 @@ import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 export const useGeneralSettings = () => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
+
   const { data: userProfile } = useGetProfileQuery()
 
   const GeneralSettingsSchema = z

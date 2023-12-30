@@ -1,7 +1,4 @@
-import { ReactElement, useEffect, useRef } from 'react'
-
-import { InferGetServerSidePropsType } from 'next'
-import { useRouter } from 'next/router'
+import { ReactElement, useEffect } from 'react'
 
 import s from './general-information.module.scss'
 
@@ -18,18 +15,10 @@ import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 const GeneralInformation = () => {
   const [updateProfile, { isLoading }] = useUpdateUserProfileMutation()
   const { getCities, mappedCities } = useLocation()
-  const { t } = useTranslation()
 
-  const {
-    username,
-    firstName: firstname,
-    lastName: lastname,
-    birthday,
-    country,
-    city,
-    aboutMe,
-    submitFormBtn,
-  } = t.profileSettings.generalSettings
+  const { t } = useTranslation()
+  const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
+    t.profileSettings.generalSettings
 
   const {
     register,
@@ -38,6 +27,7 @@ const GeneralInformation = () => {
     watch,
     formState: { errors, isValid, isDirty },
   } = useGeneralSettings()
+
   const isDisabledSubmit = !isDirty || !isValid || isLoading
   const selectedCountry = watch('country')
 
@@ -67,13 +57,13 @@ const GeneralInformation = () => {
           />
           <TextField
             {...register('firstName')}
-            label={firstname.label}
+            label={firstName.label}
             required
             error={errors?.firstName?.message}
           />
           <TextField
             {...register('lastName')}
-            label={lastname.label}
+            label={lastName.label}
             required
             error={errors?.lastName?.message}
           />
