@@ -1,0 +1,15 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 37.8rem;
+  min-height: 18rem;
+  padding: 3rem 2.4rem;
+}
+
+.btns {
+  display: flex;
+  gap: 2.4rem;
+  justify-content: flex-end;
+}
