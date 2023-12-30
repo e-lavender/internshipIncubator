@@ -10,6 +10,7 @@ import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 export const useGeneralSettings = () => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
+
   const { data: userProfile } = useGetProfileQuery()
 
   const GeneralSettingsSchema = z
@@ -32,7 +33,7 @@ export const useGeneralSettings = () => {
         .min(1, `${lastName.validation.length}`)
         .max(20, `${lastName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${lastName.validation.pattern}`),
-      dateOfBirth: z.date().optional(),
+      dateOfBirth: z.union([z.date(), z.string()]).optional(),
       country: z.string().optional(),
       city: z.string().optional(),
       aboutMe: z.string().optional(),
