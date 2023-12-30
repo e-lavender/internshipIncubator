@@ -32,7 +32,7 @@ const GeneralInformation = () => {
   const selectedCountry = watch('country')
 
   const onSubmit = (data: GeneralSettingsType) => {
-    updateProfile({ ...data, dateOfBirth: data.dateOfBirth?.toString })
+    updateProfile({ ...data, dateOfBirth: data.dateOfBirth?.toString() })
   }
 
   useEffect(() => {
