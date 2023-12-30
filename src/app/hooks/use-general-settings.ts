@@ -13,10 +13,6 @@ export const useGeneralSettings = () => {
 
   const { data: userProfile } = useGetProfileQuery()
 
-  useEffect(() => {
-    return () => {}
-  }, [userProfile])
-
   const GeneralSettingsSchema = z
     .object({
       userName: z
