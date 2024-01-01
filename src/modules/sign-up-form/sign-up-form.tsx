@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { LinearProgress } from '@mui/joy'
 import Link from 'next/link'
 
 import s from './sign-up-form.module.scss'
@@ -9,8 +8,8 @@ import { ErrorWithData, TagProcessor, useDisclose, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
-import { ControlledCheckbox, ControlledTextField, NotificationModal } from '@/components'
-import { useSignupForm } from '@/modules/sign-up-form/use-sign-up-form'
+import { ControlledCheckbox, ControlledTextField, LoaderV2, NotificationModal } from '@/components'
+import { useSignupForm } from '@/modules'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignUpForm = () => {
@@ -83,9 +82,8 @@ export const SignUpForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        <div className={s.progressBar}>
-          {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}
-        </div>
+        <LoaderV2 isLoading={isLoading || progressBar} label={'Verifying...'} />
+
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography variant={'h1'}>{text.signUp}</Typography>

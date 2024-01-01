@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { DevTool } from '@hookform/devtools'
-import { LinearProgress } from '@mui/joy'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
 
@@ -11,9 +10,8 @@ import { ErrorWithData, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
-import { LoaderV2 } from '@/components'
-import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
-import { useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
+import { LoaderV2, ControlledTextField } from '@/components'
+import { useSignInForm } from '@/modules'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 
 export const SignInForm = () => {
@@ -45,9 +43,6 @@ export const SignInForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        {/*<div className={s.progressBar}>*/}
-        {/*  {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}*/}
-        {/*</div>*/}
         <LoaderV2 isLoading={isLoading || progressBar} label={'Verifying...'} />
 
         <form className={s.form} onSubmit={onSubmitForm}>
