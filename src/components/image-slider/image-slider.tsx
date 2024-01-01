@@ -57,25 +57,29 @@ const ImageSlider = ({ onClick, images, aspectRatio, fitStyle, size = 500 }: Ima
           )
         })}
       </div>
-      <button className={s.buttonSlider} style={{ left: '0' }} onClick={showPrevImage}>
-        <div className={s.icon}>
-          <ChevronLeft />
-        </div>
-      </button>
-      <button className={s.buttonSlider} style={{ right: '0' }} onClick={showNextImage}>
-        <div className={s.icon}>
-          <ChevronRight />
-        </div>
-      </button>
-      <div className={s.dotButtons}>
-        {images.map((_, index) => {
-          return (
-            <button key={index} className={s.dotButton} onClick={() => setImageIndex(index)}>
-              <div className={clsx(s.dot, index === imageIndex && s.isActive)}></div>
-            </button>
-          )
-        })}
-      </div>
+      {images.length > 1 && (
+        <>
+          <button className={s.buttonSlider} style={{ left: '0' }} onClick={showPrevImage}>
+            <div className={s.icon}>
+              <ChevronLeft />
+            </div>
+          </button>
+          <button className={s.buttonSlider} style={{ right: '0' }} onClick={showNextImage}>
+            <div className={s.icon}>
+              <ChevronRight />
+            </div>
+          </button>
+          <div className={s.dotButtons}>
+            {images.map((_, index) => {
+              return (
+                <button key={index} className={s.dotButton} onClick={() => setImageIndex(index)}>
+                  <div className={clsx(s.dot, index === imageIndex && s.isActive)}></div>
+                </button>
+              )
+            })}
+          </div>
+        </>
+      )}
     </div>
   )
 }
