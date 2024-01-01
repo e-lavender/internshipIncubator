@@ -13,6 +13,8 @@ export const AccountImage = (props: AccountImageProps) => {
   const { data, isLoading } = useGetProfileQuery()
   const [deleteAvatar, { isLoading: isDeleteLoading }] = useDeleteAvatarMutation()
 
+  const isLoadingLabel = (isDeleteLoading && 'Saving...') || 'Loading...'
+
   const { t } = useTranslation()
   const { profileImage } = t.profileSettings.generalSettings
 
@@ -30,7 +32,7 @@ export const AccountImage = (props: AccountImageProps) => {
         message={'Are you sure you want to delete photo?'}
         onConfirmation={deleteAvatar}
       />
-      <LoaderV2 isLoading={isLoading || isDeleteLoading} />
+      <LoaderV2 isLoading={isLoading || isDeleteLoading} label={isLoadingLabel} />
     </div>
   )
 }
