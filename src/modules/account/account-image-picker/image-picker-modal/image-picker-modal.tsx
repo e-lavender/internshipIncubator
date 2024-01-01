@@ -61,7 +61,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
         </Modal.Content>
       </Modal>
 
-      <LoaderV2 isLoading={isUploading} />
+      <LoaderV2 isLoading={isUploading} label={'Saving...'} />
     </>
   )
 }

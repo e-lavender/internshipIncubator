@@ -11,6 +11,7 @@ import { ErrorWithData, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
+import { LoaderV2 } from '@/components'
 import { ControlledTextField } from '@/components/text-field-controlled/controlled-text-field'
 import { useSignInForm } from '@/modules/sign-in-form/use-sign-in-form'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
@@ -44,9 +45,11 @@ export const SignInForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        <div className={s.progressBar}>
-          {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}
-        </div>
+        {/*<div className={s.progressBar}>*/}
+        {/*  {(isLoading || progressBar) && <LinearProgress thickness={3} color={'neutral'} />}*/}
+        {/*</div>*/}
+        <LoaderV2 isLoading={isLoading || progressBar} label={'Verifying...'} />
+
         <form className={s.form} onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography className={s.header} variant={'h1'}>
