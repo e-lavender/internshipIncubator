@@ -3,11 +3,10 @@
   --animation-delay: 50ms;
 
   position: relative;
-
   display: inline-block;
-
   height: 6rem;
-  margin-left: 1.2rem;
+
+  //margin-left: 1.2rem;
 
   -webkit-tap-highlight-color: transparent;
 
@@ -23,9 +22,11 @@
     align-items: center;
     justify-content: space-around;
 
-    width: 2.4rem;
+    width: 3.6rem;
     height: 1rem;
-    padding: 3rem 0 2rem;
+    padding: 3rem 0 2rem 1.2rem;
+
+    caret-color: transparent;
 
     & p {
       width: 0.4rem;
@@ -48,7 +49,6 @@
     overflow: hidden;
 
     width: 16.1rem;
-    min-height: 20.4rem;
     padding: 1.8rem 0 1.2rem 1.2rem;
 
     visibility: hidden;
