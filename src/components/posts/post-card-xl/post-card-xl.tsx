@@ -4,16 +4,19 @@ import { useDisclose } from '@/app'
 import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
 import { PostCardModal, CardHeader } from '@/components'
 import ImageSlider from '@/components/image-slider/image-slider'
+import { Button } from '@/ui'
 
 type PostCardXLType = {
-  isOpen: boolean
+  isOpened: boolean
 }
 
-export const PostCardXL = ({ isOpen }: PostCardXLType) => {
-  const { onClose } = useDisclose()
+export const PostCardXL = ({ isOpened }: PostCardXLType) => {
+  const { isOpen, onClose, onOpen } = useDisclose()
 
   return (
-    <div>
+    <>
+      <Button onClick={onOpen}>Show Modal</Button>
+
       <PostCardModal isOpen={isOpen} onChange={onClose} currentInterface={CardInterface} isModified>
         <ImageSlider
           images={IMAGE_SLIDER_DATA.slice(0, 4)}
@@ -21,7 +24,7 @@ export const PostCardXL = ({ isOpen }: PostCardXLType) => {
           fitStyle={'cover'}
         />
       </PostCardModal>
-    </div>
+    </>
   )
 }
 

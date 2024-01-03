@@ -14,7 +14,7 @@ import {
   useDisclose,
   useTranslation,
 } from '@/app'
-import { menuNavigation } from '@/app/constants'
+import { authNavigationUrls, menuNavigation } from '@/app/constants'
 import { useSignOutMutation } from '@/app/services/auth/auth.api'
 import { ConfirmationModal } from '@/components'
 import { MenuItem, SidebarMenu } from '@/ui'
@@ -22,11 +22,16 @@ import { MenuItem, SidebarMenu } from '@/ui'
 export const SidebarMenuWithItems = () => {
   const { isOpen, onOpen, onClose } = useDisclose()
 
-  const { pathname } = useRouter()
+  const { pathname, push } = useRouter()
   const [signOut] = useSignOutMutation()
 
   const { t } = useTranslation()
   const labels = t.sidebarMenu
+
+  const onSignOut = () => {
+    signOut()
+    void push(authNavigationUrls.signIn())
+  }
 
   return (
     <>
@@ -69,7 +74,7 @@ export const SidebarMenuWithItems = () => {
         onClose={onClose}
         title={'Log Out'}
         message={'Are you really want to log out of your account?'}
-        onConfirmation={signOut}
+        onConfirmation={onSignOut}
       />
     </>
   )

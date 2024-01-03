@@ -2,7 +2,8 @@ import { ElementType, PropsWithChildren } from 'react'
 
 import s from './post-card-modal.module.scss'
 
-import { LoaderV2, PostCardModalType } from '@/components'
+import { CloseIcon, useDisclose } from '@/app'
+import { ConfirmationModal, LoaderV2, PostCardModalType } from '@/components'
 import { Modal } from '@/ui'
 
 export const PostCardModal = ({
@@ -14,7 +15,14 @@ export const PostCardModal = ({
   isModified = false,
   children,
 }: PropsWithChildren<PostCardModalType>) => {
+  const { isOpen: isModalOpen, onClose, onOpen } = useDisclose()
+
   const Component: ElementType = currentInterface
+
+  const onConfirm = () => {
+    onClose()
+    onChange()
+  }
 
   return (
     <>
@@ -23,15 +31,29 @@ export const PostCardModal = ({
           className={s.container}
           title={''}
           isModified={isModified}
-          onInteractOutside={e => e.preventDefault()}
+          onInteractOutside={e => {
+            e.preventDefault()
+            onOpen()
+          }}
         >
           {children}
 
           <Component />
+
+          {isModified && <CloseIcon className={s.close} onClick={onOpen} />}
         </Modal.Content>
       </Modal>
 
       <LoaderV2 isLoading={isLoading} label={loaderLabel} />
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={onClose}
+        onConfirmation={onConfirm}
+        title={'Close Post'}
+        message={
+          'Do you really want to finish editing? If you close the changes you have made will not be saved.'
+        }
+      />
     </>
   )
 }
