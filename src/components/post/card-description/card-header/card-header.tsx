@@ -3,7 +3,7 @@ import s from './card-header.module.scss'
 import { Avatar, CardHeaderType, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
 
-export const CardHeader = ({ url, userName, account, published }: CardHeaderType) => {
+export const CardHeader = ({ url, userName, account, createdAt }: CardHeaderType) => {
   return (
     <header className={s.header}>
       <div className={s.user}>
@@ -12,11 +12,11 @@ export const CardHeader = ({ url, userName, account, published }: CardHeaderType
           {userName}
         </Typography>
 
-        {published && (
+        {createdAt && (
           <>
             <div className={s.circle}></div>
             <Typography variant={'small'} className={s.date}>
-              {published}
+              {createdAt}
             </Typography>
           </>
         )}

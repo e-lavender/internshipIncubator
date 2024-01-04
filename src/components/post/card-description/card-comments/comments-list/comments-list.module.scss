@@ -1,0 +1,30 @@
+.container {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+
+  height: 33.6rem;
+  padding: 2rem 2.4rem 1rem;
+
+  border: 1px solid transparent;
+  border-bottom-color: var(--color-dark-100);
+
+  &::-webkit-scrollbar {
+    width: 0.2rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-dark-100);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 15%);
+    border-radius: 0.3rem;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(255 255 255 / 75%);
+  }
+}

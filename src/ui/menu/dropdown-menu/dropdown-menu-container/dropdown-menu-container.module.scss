@@ -3,10 +3,11 @@
   --animation-delay: 50ms;
 
   position: relative;
-  display: inline-block;
-  height: 6rem;
+  z-index: 5;
 
-  //margin-left: 1.2rem;
+  display: inline-block;
+
+  height: 6rem;
 
   -webkit-tap-highlight-color: transparent;
 

@@ -33,7 +33,7 @@ export const SignInForm = () => {
     signIn(data)
       .unwrap()
       .then(() => {
-        toast.success('you are sign in successfully')
+        toast.success('signed in successfully!')
       })
       .catch((error: ErrorWithData) => {
         showError(error)

@@ -5,7 +5,7 @@ const Create = () => {
   return (
     <>
       <h1 style={{ textAlign: 'center', marginTop: '10rem' }}>Create</h1>
-      <PostCardXL isOpen={true} />
+      <PostCardXL isVisible={true} />
     </>
   )
 }

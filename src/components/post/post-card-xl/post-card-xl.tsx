@@ -2,15 +2,11 @@ import s from './post-card-xl.module.scss'
 
 import { useDisclose } from '@/app'
 import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
-import { PostCardModal, CardHeader } from '@/components'
+import { PostCardModal, CardHeader, CommentsList, POST_COMMENTS } from '@/components'
 import ImageSlider from '@/components/image-slider/image-slider'
 import { Button } from '@/ui'
 
-type PostCardXLType = {
-  isOpened: boolean
-}
-
-export const PostCardXL = ({ isOpened }: PostCardXLType) => {
+export const PostCardXL = ({ isVisible }: { isVisible: boolean }) => {
   const { isOpen, onClose, onOpen } = useDisclose()
 
   return (
@@ -35,8 +31,9 @@ const CardInterface = () => {
         url={''}
         userName={'URLProfile'}
         account={'personal'}
-        published={'22 Minutes ago'}
+        createdAt={'22 Minutes ago'}
       />
+      <CommentsList comments={POST_COMMENTS} />
     </div>
   )
 }

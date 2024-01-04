@@ -41,6 +41,12 @@
       margin-bottom: 2.4rem;
 
       color: var(--color-light-900);
+
+      transition: 0.3s color ease-in;
+
+      &:hover {
+        color: var(--text-color-primary);
+      }
     }
 
     .signUpBtn {

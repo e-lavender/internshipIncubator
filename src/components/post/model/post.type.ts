@@ -2,6 +2,18 @@ import { ElementType, SyntheticEvent } from 'react'
 
 import { SVGIconType } from '@/app'
 
+type CommentCommonType = {
+  url: string
+  id: string
+  description: string
+  createdAt: string
+  likes?: number
+}
+
+export type CommentSpecificType = CommentCommonType & {
+  replies?: CommentCommonType[]
+}
+
 export type PostCardModalType = {
   isOpen: boolean
   onChange: () => void
@@ -17,7 +29,7 @@ export type CardHeaderType = {
   url: string
   userName: string
   account: AccountType
-  published?: string
+  createdAt?: string
 }
 
 export type DropdownMenuItemType = {
@@ -30,3 +42,18 @@ export type DropdownMenuItemType = {
 export type DropdownMenuType = {
   [key in AccountType]: Array<DropdownMenuItemType>
 }
+
+export type CommentType = {
+  userName?: string
+  className?: string
+} & CommentSpecificType
+
+export type CommentsListType = {
+  comments: Array<CommentSpecificType>
+}
+
+export type RepliedCommentsListType = {
+  replies: RepliedCommentType[]
+}
+
+export type RepliedCommentType = Omit<CommentType, 'replies'>
