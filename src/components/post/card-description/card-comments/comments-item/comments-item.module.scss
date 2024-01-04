@@ -97,5 +97,16 @@
 }
 
 .wrapper {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.content {
+  transform-origin: top;
+  transform: scaleY(1);
+  height: auto;
+  transition: 0.7s transform ease-in-out;
+
+  &.fade {
+    transform: scaleY(1.02);
+  }
 }

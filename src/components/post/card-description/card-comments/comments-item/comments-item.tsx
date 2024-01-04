@@ -48,7 +48,7 @@ export const CommentsItem = ({
           </div>
 
           {replies && (
-            <div>
+            <div className={clsx(s.content, isOpened && s.fade)}>
               <>
                 <Typography
                   as={'button'}
