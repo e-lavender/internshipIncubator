@@ -1,4 +1,4 @@
-import { ElementType, SyntheticEvent } from 'react'
+import { SyntheticEvent } from 'react'
 
 import { SVGIconType } from '@/app'
 
@@ -25,9 +25,10 @@ export type PostType = {
 }
 
 export type PostCardModalType = {
+  title?: string
+  message?: string
   isOpen: boolean
   onChange: () => void
-  currentInterface: ElementType
   isLoading?: boolean
   loaderLabel?: string
   isModified?: boolean

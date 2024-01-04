@@ -13,6 +13,8 @@ export const PostCardModal = ({
   isLoading = false,
   loaderLabel = 'Loading...',
   isModified = false,
+  title,
+  message,
   children,
 }: PropsWithChildren<PostCardModalType>) => {
   const { isOpen: isModalOpen, onClose, onOpen } = useDisclose()
@@ -38,7 +40,7 @@ export const PostCardModal = ({
         >
           {children}
 
-          <Component />
+          {/*<Component />*/}
 
           {isModified && <CloseIcon className={s.close} onClick={onOpen} />}
         </Modal.Content>

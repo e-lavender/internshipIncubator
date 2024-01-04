@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
-import { LoaderV2, PostCardXL } from '@/components'
+import { LoaderV2, POST_COMMENTS, PostCardXL } from '@/components'
 
 const Home = () => {
   const { data: me, isLoading } = useGetMeQuery()
@@ -20,7 +20,7 @@ const Home = () => {
     me && (
       <>
         <h1 style={{ margin: '5em', textAlign: 'center' }}>Home</h1>
-        <PostCardXL isVisible={true} />
+        <PostCardXL {...POST_COMMENTS} />
       </>
     )
   )
