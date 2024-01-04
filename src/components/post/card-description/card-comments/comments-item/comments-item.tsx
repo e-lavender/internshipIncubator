@@ -11,7 +11,6 @@ import { Typography } from '@/ui'
 export const CommentsItem = ({
   url,
   userName = 'URLProfile',
-  description,
   comment,
   likes,
   replies,
@@ -29,7 +28,7 @@ export const CommentsItem = ({
           <div className={s.comment}>
             <Typography as={'p'} variant={'regular-14'}>
               <Typography variant={'bold-14'}>{`${userName} `}</Typography>
-              {description || comment}
+              {comment}
             </Typography>
 
             <button onClick={() => setIsLiked(prev => !prev)}>

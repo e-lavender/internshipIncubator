@@ -3,10 +3,10 @@ import { ElementType, SyntheticEvent } from 'react'
 import { SVGIconType } from '@/app'
 
 type CommentCommonType = {
+  userName: string
   url: string
   id: string
-  comment: string
-  description?: string
+  comment?: string
   createdAt: string
   likes?: number
 }

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
-import { LoaderV2 } from '@/components'
+import { LoaderV2, PostCardXL } from '@/components'
 
 const Home = () => {
   const { data: me, isLoading } = useGetMeQuery()
@@ -16,7 +16,14 @@ const Home = () => {
     void push(authNavigationUrls.signIn())
   }
 
-  return me && <h1 style={{ margin: '5em', textAlign: 'center' }}>Home</h1>
+  return (
+    me && (
+      <>
+        <h1 style={{ margin: '5em', textAlign: 'center' }}>Home</h1>
+        <PostCardXL isVisible={true} />
+      </>
+    )
+  )
 }
 
 export default Home

@@ -33,16 +33,7 @@ const CardInterface = () => {
         account={'personal'}
         createdAt={'22 Minutes ago'}
       />
-      <CommentsList
-        userName={'URLProfile'}
-        description={
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aut earum eveniet exercitationem perferendis, sequi soluta.'
-        }
-        createdAt={'12 minutes ago'}
-        url={''}
-        postdId={'23'}
-        comments={POST_COMMENTS}
-      />
+      <CommentsList {...POST_COMMENTS} />
     </div>
   )
 }

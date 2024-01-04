@@ -45,6 +45,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaType>(
           disabled={disabled}
           spellCheck={spellCheck}
           onChange={updateTextArea}
+          maxLength={sizeLimit}
           ref={ref}
           {...props}
         />

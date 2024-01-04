@@ -10,9 +10,8 @@ import { Typography } from '@/ui'
 
 export const RepliedCommentsItem = ({
   url,
-  userName = 'Alex',
-  id,
-  description,
+  userName = 'John Doe',
+  comment,
   likes,
   createdAt,
 }: RepliedCommentType) => {
@@ -26,7 +25,7 @@ export const RepliedCommentsItem = ({
         <div className={s.comments}>
           <Typography as={'p'} variant={'regular-14'}>
             <Typography variant={'bold-14'}>{`${userName} `}</Typography>
-            {description}
+            {comment}
           </Typography>
 
           <div className={s.info}>
