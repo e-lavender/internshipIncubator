@@ -1,24 +1,22 @@
-import React from 'react'
-
 import { useRouter } from 'next/router'
 
+import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
-import { SignInForm } from '@/modules'
-import { FlexWrapper } from '@/templates'
+import { LoaderV2 } from '@/components'
 
 const Home = () => {
-  const { data: me } = useGetMeQuery()
+  const { data: me, isLoading } = useGetMeQuery()
   const { push } = useRouter()
 
-  if (me) {
-    void push('/user-profile/')
+  if (isLoading) {
+    return <LoaderV2 isLoading={isLoading} />
   }
 
-  return (
-    <FlexWrapper>
-      <SignInForm />
-    </FlexWrapper>
-  )
+  if (!me) {
+    void push(authNavigationUrls.signIn())
+  }
+
+  return me && <h1 style={{ margin: '5em', textAlign: 'center' }}>Home</h1>
 }
 
 export default Home

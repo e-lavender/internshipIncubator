@@ -5,13 +5,23 @@ import { SVGIconType } from '@/app'
 type CommentCommonType = {
   url: string
   id: string
-  description: string
+  comment: string
+  description?: string
   createdAt: string
   likes?: number
 }
 
 export type CommentSpecificType = CommentCommonType & {
   replies?: CommentCommonType[]
+}
+
+export type PostType = {
+  userName: string
+  postdId: string
+  url: string
+  description?: string
+  createdAt?: string
+  comments: CommentSpecificType[]
 }
 
 export type PostCardModalType = {
