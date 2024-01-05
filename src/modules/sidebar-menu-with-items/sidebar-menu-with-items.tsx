@@ -4,7 +4,7 @@ import s from './sidebar-menu-with-items.module.scss'
 
 import {
   CreateMenuIcon,
-  FavoritesMenuIcon,
+  FavouritesMenuIcon,
   HomeMenuIcon,
   LogOutMenuIcon,
   MessageMenuIcon,
@@ -14,7 +14,7 @@ import {
   useDisclose,
   useTranslation,
 } from '@/app'
-import { menuNavigation } from '@/app/constants'
+import { authNavigationUrls, menuNavigation } from '@/app/constants'
 import { useSignOutMutation } from '@/app/services/auth/auth.api'
 import { ConfirmationModal } from '@/components'
 import { MenuItem, SidebarMenu } from '@/ui'
@@ -22,16 +22,26 @@ import { MenuItem, SidebarMenu } from '@/ui'
 export const SidebarMenuWithItems = () => {
   const { isOpen, onOpen, onClose } = useDisclose()
 
-  const { pathname } = useRouter()
+  const { pathname, push } = useRouter()
   const [signOut] = useSignOutMutation()
 
   const { t } = useTranslation()
   const labels = t.sidebarMenu
 
+  const onSignOut = () => {
+    signOut()
+    void push(authNavigationUrls.signIn())
+  }
+
   return (
     <>
       <SidebarMenu className={s.nav}>
-        <MenuItem href={menuNavigation.home()} icon={HomeMenuIcon} label={labels.home} />
+        <MenuItem
+          href={menuNavigation.home()}
+          icon={HomeMenuIcon}
+          label={labels.home}
+          isSelected={pathname.endsWith(menuNavigation.home())}
+        />
         <MenuItem
           href={menuNavigation.create()}
           icon={CreateMenuIcon}
@@ -59,7 +69,7 @@ export const SidebarMenuWithItems = () => {
           isSelected={pathname.startsWith(menuNavigation.search())}
         />
         <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} disabled />
-        <MenuItem href={'#'} icon={FavoritesMenuIcon} label={labels.favorites} disabled />
+        <MenuItem href={'#'} icon={FavouritesMenuIcon} label={labels.favorites} disabled />
 
         <MenuItem as={'button'} onClick={onOpen} icon={LogOutMenuIcon} label={labels.logout} />
       </SidebarMenu>
@@ -69,7 +79,7 @@ export const SidebarMenuWithItems = () => {
         onClose={onClose}
         title={'Log Out'}
         message={'Are you really want to log out of your account?'}
-        onConfirmation={signOut}
+        onConfirmation={onSignOut}
       />
     </>
   )

@@ -1,10 +1,10 @@
 .container {
-  margin-top: 2.4rem;
+  width: 37.8rem;
+  margin: 2.4rem auto;
   animation: var(--animate);
 
   .wrapper {
     flex-direction: column;
-    width: 37.8rem;
     padding: 2.4rem;
 
     .header {
@@ -41,6 +41,12 @@
       margin-bottom: 2.4rem;
 
       color: var(--color-light-900);
+
+      transition: 0.3s color ease-in;
+
+      &:hover {
+        color: var(--text-color-primary);
+      }
     }
 
     .signUpBtn {

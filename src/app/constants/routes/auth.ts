@@ -1,4 +1,5 @@
 export const authNavigationUrls = {
+  home: () => '/',
   signIn: () => '/auth/sign-in',
   logout: () => '/auth/logout',
   signUp: () => '/auth/sign-up',
