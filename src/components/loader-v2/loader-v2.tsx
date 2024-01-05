@@ -4,7 +4,7 @@ import { Typography } from '@/ui'
 
 type LoaderType = {
   label?: string
-  isLoading?: boolean
+  isLoading: boolean
 }
 
 export const LoaderV2 = ({ label = 'Loading...', isLoading = false }: LoaderType) => {

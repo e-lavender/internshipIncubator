@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 
 import {
-  FavoritesMenuIcon,
+  FavouritesMenuIcon,
   LogOutMenuIcon,
   SettingIcon,
   StatisticsMenuIcon,
@@ -28,7 +28,7 @@ export const DropdownMenuWithItems = () => {
 
       <MenuItem
         href={menuNavigation.favorites()}
-        icon={FavoritesMenuIcon}
+        icon={FavouritesMenuIcon}
         label={labels.favorites}
         isStyled={false}
       />

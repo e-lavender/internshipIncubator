@@ -7,7 +7,7 @@ import AvatarEditor from 'react-avatar-editor'
 import s from './image-picker-modal.module.scss'
 import { useImageValidation } from './useImageValidation'
 
-import { useTranslation } from '@/app'
+import { MIME_TYPES, useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { Avatar, LoaderV2 } from '@/components'
 import { Button, FileInput, Modal, Typography } from '@/ui'
@@ -98,6 +98,8 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
   const { t } = useTranslation()
   const { modal } = t.profileSettings.generalSettings.profileImage
 
+  const { JPG, PNG } = MIME_TYPES
+
   const ErrorMessage = error && (
     <Typography variant={'regular-14'} className={s.error}>
       <b>Error!</b> {error}
@@ -122,6 +124,7 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
         className={s.input}
         label={modal.btn.label}
         onUpload={handleUpload}
+        accept={[JPG, PNG]}
       />
     </div>
   )

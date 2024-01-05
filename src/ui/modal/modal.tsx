@@ -19,6 +19,7 @@ type ModalContentProps = {
   children: ReactNode
   className?: string
   onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
+  isModified?: boolean
 }
 export const Modal = ({ open, onOpenChange, children }: ModalProps) => {
   return (
@@ -28,24 +29,37 @@ export const Modal = ({ open, onOpenChange, children }: ModalProps) => {
   )
 }
 
-const ModalContent = ({ title, children, className, ...props }: ModalContentProps) => {
+const ModalContent = ({
+  title,
+  isModified = false,
+  className,
+  children,
+  ...props
+}: ModalContentProps) => {
   const styles = clsx(s.main, className)
 
   return (
     <Dialog.Portal>
       <Dialog.Overlay className={s.overlay}>
         <Dialog.Content className={s.content} {...props}>
-          <div className={s.header}>
-            <Dialog.Title>
-              <Typography className={s.title} variant="h1">
-                {title}
-              </Typography>
-            </Dialog.Title>
-            <Dialog.Close aria-label="Close" className={s.close}>
-              <CloseIcon />
-            </Dialog.Close>
-          </div>
-          <div className={s.separator}></div>
+          {!isModified && (
+            <>
+              <div className={s.header}>
+                <Dialog.Title>
+                  <Typography className={s.title} variant="h1">
+                    {title}
+                  </Typography>
+                </Dialog.Title>
+
+                <Dialog.Close aria-label="Close" className={s.close}>
+                  <CloseIcon />
+                </Dialog.Close>
+              </div>
+
+              <div className={s.separator}></div>
+            </>
+          )}
+
           <div className={styles}>{children}</div>
         </Dialog.Content>
       </Dialog.Overlay>

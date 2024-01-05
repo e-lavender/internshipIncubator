@@ -15,11 +15,7 @@ const SignInPage = () => {
     void push('/user-profile/')
   }
 
-  return (
-    <FlexWrapper>
-      <SignInForm />
-    </FlexWrapper>
-  )
+  return <SignInForm />
 }
 
 export default SignInPage

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { authNavigationUrls } from '@/app/constants'
 import { useGoogleAuthMutation } from '@/app/services/auth/auth.api'
 import { useGetGoogleMutation } from '@/app/services/google/google.api'
 
@@ -19,6 +20,8 @@ const GooglePage = () => {
     }
     if (data) {
       signUpWithGoogle(data)
+
+      void router.push(`${authNavigationUrls.home()}/user-profile`)
     }
   }, [accessToken, data, getGoogleAuthData, isFirst, signUpWithGoogle])
 

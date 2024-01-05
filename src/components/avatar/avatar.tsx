@@ -12,6 +12,7 @@ import { Button } from '@/ui'
 export type AvatarPropsType = {
   width?: number
   height?: number
+  iconScale?: number
   rounded?: boolean
   delay?: number
   className?: string
@@ -25,6 +26,7 @@ export const Avatar = ({
   delay = 0,
   className,
   onDelete,
+  iconScale,
   ...props
 }: AvatarPropsType) => {
   const { isMobile } = useMatchMedia()
@@ -45,7 +47,7 @@ export const Avatar = ({
 
         <RadixAvatar.Fallback asChild delayMs={delay}>
           <div className={s.image} style={{ width, height }} role={'image'} aria-label={alt}>
-            <AccountIcon />
+            <AccountIcon style={{ transform: `scale(${iconScale})` }} />
           </div>
         </RadixAvatar.Fallback>
       </div>
