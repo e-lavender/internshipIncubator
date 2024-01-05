@@ -16,6 +16,7 @@ import {
   Calendar,
   GeneralSettingsModel,
   NavigationTabsModel,
+  ConfirmationModal,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
@@ -34,6 +35,8 @@ const pagination = PaginationTextModel.en
 const calendar = Calendar.en
 const generalSettings = GeneralSettingsModel.en
 const navigationTabs = NavigationTabsModel.en
+const confirmationModal = ConfirmationModal.en
+
 
 export const en: LocaleType = {
   calendar: {
@@ -78,4 +81,5 @@ export const en: LocaleType = {
     navigation: navigationTabs,
     generalSettings,
   },
+  confirmationModal: confirmationModal
 }

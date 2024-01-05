@@ -1,0 +1,14 @@
+{
+  "en": {
+    "title": "Log Out",
+    "message": "Do you really want to log out of your account?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "ru": {
+    "title": "Выйти",
+    "message": "Вы уверены что хотите выйти из аккаунта?",
+    "yes": "Да",
+    "no": "Нет"
+  }
+}

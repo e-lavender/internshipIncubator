@@ -1,5 +1,19 @@
 {
   "en": {
+    "profile": {
+      "btn": {
+        "label": "Profile Settings"
+      },
+      "following": {
+        "label": "Following"
+      },
+      "followers": {
+        "label": "Followers"
+      },
+      "publications": {
+        "label": "Publications"
+      }
+    },
     "profileImage": {
       "btn": {
         "label": "Add a Profile Photo"
@@ -70,12 +84,26 @@
     }
   },
   "ru": {
+    "profile": {
+      "btn": {
+        "label": "Настройки профиля"
+      },
+      "following": {
+        "label": "Подписки"
+      },
+      "followers": {
+        "label": "Подписчики"
+      },
+      "publications": {
+        "label": "Публикации"
+      }
+    },
     "profileImage": {
       "btn": {
         "label": "Добавить профильное фото"
       },
       "modal": {
-        "label": "Добавить Профильное Фото",
+        "label": "Добавить профильное Фото",
         "btn": {
           "label": "Выбрать с компьютера"
         },

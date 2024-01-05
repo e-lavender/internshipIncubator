@@ -27,6 +27,7 @@ export const SidebarMenuWithItems = () => {
 
   const { t } = useTranslation()
   const labels = t.sidebarMenu
+  const {title, message} =t.confirmationModal
 
   return (
     <>
@@ -67,8 +68,8 @@ export const SidebarMenuWithItems = () => {
       <ConfirmationModal
         isOpen={isOpen}
         onClose={onClose}
-        title={'Log Out'}
-        message={'Are you really want to log out of your account?'}
+        title={title}
+        message={message}
         onConfirmation={signOut}
       />
     </>

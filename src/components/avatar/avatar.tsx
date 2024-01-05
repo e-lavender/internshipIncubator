@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as RadixAvatar from '@radix-ui/react-avatar'
+
 import { clsx } from 'clsx'
 
 import s from './avatar.module.scss'
@@ -55,6 +56,7 @@ export const Avatar = ({
           <CloseIcon bgColor="#CC1439" rounded width={16} height={16} />
         </Button>
       )}
+
     </RadixAvatar.Root>
   )
 }
