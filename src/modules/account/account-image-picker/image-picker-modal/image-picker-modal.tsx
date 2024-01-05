@@ -1,10 +1,12 @@
-import {useEffect, useRef, useState} from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { clsx } from 'clsx'
 import * as Slider from '@radix-ui/react-slider'
+import { clsx } from 'clsx'
+import AvatarEditor from 'react-avatar-editor'
+
 import s from './image-picker-modal.module.scss'
 import { useImageValidation } from './useImageValidation'
-import AvatarEditor from 'react-avatar-editor'
+
 import { useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { Avatar, LoaderV2 } from '@/components'
@@ -53,7 +55,6 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
       stepBack()
       onClose && onClose()
     }
-
   }
 
   const interfaceVariants = {
@@ -142,7 +143,6 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
     setSliderValue(value as number)
   }
 
-
   const handlePositionChange = (position: { x: number; y: number }) => {
     setPosition(position)
   }
@@ -152,29 +152,29 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
       <div className={s.preview}>
         {/*<img src={url} alt="avatar-image"/>*/}
         <AvatarEditor
-            image={url}
-            ref={editorRef}
-            width={282}
-            height={290}
-            color={[23, 23, 23, 0.6]}
-            backgroundColor={'black'}
-            scale={sliderValue / 10}
-            borderRadius={155}
-            position={position}
-            onPositionChange={handlePositionChange}
-            crossOrigin="anonymous"
-            disableBoundaryChecks={false}
+          image={url}
+          ref={editorRef}
+          width={282}
+          height={290}
+          color={[23, 23, 23, 0.6]}
+          backgroundColor={'black'}
+          scale={sliderValue / 10}
+          borderRadius={155}
+          position={position}
+          onPositionChange={handlePositionChange}
+          crossOrigin="anonymous"
+          disableBoundaryChecks={false}
         />
       </div>
       <form>
         <Slider.Root
-            className={s.SliderRoot}
-            defaultValue={[sliderValue]}
-            min={10}
-            max={50}
-            step={2}
-            onValueChange={handleSliderChange}
-            value={[sliderValue]}
+          className={s.SliderRoot}
+          defaultValue={[sliderValue]}
+          min={10}
+          max={50}
+          step={2}
+          onValueChange={handleSliderChange}
+          value={[sliderValue]}
         >
           <Slider.Track className={s.SliderTrack}>
             <Slider.Range className={s.SliderRange} />

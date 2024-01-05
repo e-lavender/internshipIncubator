@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import s from './user-profile-description.module.scss'
 
-import {CheckedIcon, useTranslation} from '@/app'
+import { CheckedIcon, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { Avatar } from '@/components'
@@ -12,7 +12,7 @@ import { Button, Typography } from '@/ui'
 export const UserProfileDescription = () => {
   const { data } = useGetProfileQuery(undefined, { skip: true })
   const { t } = useTranslation()
-  const {profile} = t.profileSettings.generalSettings
+  const { profile } = t.profileSettings.generalSettings
 
   return (
     <div className={s.container}>

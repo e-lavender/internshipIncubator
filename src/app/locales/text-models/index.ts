@@ -1,5 +1,6 @@
 import Calendar from './calendar.json'
 import { CharacterPageTextModel } from './character-page-text-model'
+import ConfirmationModal from './confirmation-modal.json'
 import ForgotPasswordModel from './forgot-password-model.json'
 import LinkConfirmationModel from './link-confirmation-model.json'
 import LinkExpiredModel from './link-expired-model.json'
@@ -13,7 +14,6 @@ import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
 import TermsTextModel from './terms-text-model.json'
-import ConfirmationModal from './confirmation-modal.json';
 export {
   SignUpTextModel,
   PrivacyPolicyTextModel,
@@ -31,5 +31,5 @@ export {
   Calendar,
   GeneralSettingsModel,
   NavigationTabsModel,
-    ConfirmationModal,
+  ConfirmationModal,
 }

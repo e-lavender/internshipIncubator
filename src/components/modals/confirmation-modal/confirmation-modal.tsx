@@ -2,8 +2,8 @@ import { clsx } from 'clsx'
 
 import s from './confirmation-modal.module.scss'
 
+import { useTranslation } from '@/app'
 import { Button, Modal, Typography } from '@/ui'
-import {useTranslation} from "@/app";
 
 type ModalProps = {
   title?: string
@@ -30,7 +30,7 @@ export const ConfirmationModal = ({
     onClose()
   }
   const { t } = useTranslation()
-  const {yes, no} =t.confirmationModal
+  const { yes, no } = t.confirmationModal
 
   return (
     <div>

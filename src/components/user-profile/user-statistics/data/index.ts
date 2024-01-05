@@ -1,4 +1,3 @@
-
 export const MOCKED_DATA_STATISTICS = [
   { category: 'Following', qty: 2218 },
   { category: 'Followers', qty: 2851 },

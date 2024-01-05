@@ -37,7 +37,6 @@ const generalSettings = GeneralSettingsModel.en
 const navigationTabs = NavigationTabsModel.en
 const confirmationModal = ConfirmationModal.en
 
-
 export const en: LocaleType = {
   calendar: {
     month: calendar.month,
@@ -81,5 +80,5 @@ export const en: LocaleType = {
     navigation: navigationTabs,
     generalSettings,
   },
-  confirmationModal: confirmationModal
+  confirmationModal: confirmationModal,
 }

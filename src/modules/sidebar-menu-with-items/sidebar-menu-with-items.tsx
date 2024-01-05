@@ -27,7 +27,7 @@ export const SidebarMenuWithItems = () => {
 
   const { t } = useTranslation()
   const labels = t.sidebarMenu
-  const {title, message} =t.confirmationModal
+  const { title, message } = t.confirmationModal
 
   return (
     <>
