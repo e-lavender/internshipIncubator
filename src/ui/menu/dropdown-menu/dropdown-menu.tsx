@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 
-import { DropdownMenuContainer } from '@/ui'
+import { DropdownMenuContainer, MenuProps } from '@/ui'
 
-export const DropdownMenu = ({ children }: PropsWithChildren) => {
-  return <DropdownMenuContainer>{children}</DropdownMenuContainer>
+export const DropdownMenu = ({ menuStyle, children }: PropsWithChildren<MenuProps>) => {
+  return <DropdownMenuContainer menuStyle={menuStyle}>{children}</DropdownMenuContainer>
 }

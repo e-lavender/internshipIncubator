@@ -5,7 +5,11 @@ import { useRouter } from 'next/router'
 
 import s from './dropdown-menu-container.module.scss'
 
-export const DropdownMenuContainer = ({ children }: PropsWithChildren) => {
+export type MenuProps = {
+  menuStyle?: string
+}
+
+export const DropdownMenuContainer = ({ menuStyle, children }: PropsWithChildren<MenuProps>) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const { pathname } = useRouter()
 
@@ -20,7 +24,7 @@ export const DropdownMenuContainer = ({ children }: PropsWithChildren) => {
   const styles = {
     dot: clsx(s.dot, isOpen && s.active),
     menu: clsx(s.list, isOpen && s.fade),
-    list: clsx(isOpen && s.active),
+    list: clsx(isOpen && s.active, menuStyle),
   }
 
   return (

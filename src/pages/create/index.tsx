@@ -1,3 +1,4 @@
+import { PostCardXL } from '@/components'
 import { TextArea } from '@/ui'
 
 const Create = () => {

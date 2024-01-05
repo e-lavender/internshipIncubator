@@ -29,6 +29,13 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+
+export const WithSizeLimit = {
+  args: {
+    placeholder: 'Leave your message here...',
+    sizeLimit: 50,
+  },
+}
 export const WithError: Story = {
   args: {
     error: 'Please provide text of your message.',
