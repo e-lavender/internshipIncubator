@@ -24,7 +24,7 @@ export const PostCardXL = (props: PostCardXLType) => {
 
   return (
     <>
-      <Button onClick={onOpen}>Show Modal</Button>
+      <Button onClick={onOpen}>Show Post Details</Button>
 
       <PostCardModal isOpen={isOpen} onChange={onClose} isModified>
         <ImageSlider
@@ -47,7 +47,7 @@ const CardInterface = (props: PostCardXLType) => {
       <CardHeader url={url} userName={userName} account={account || 'personal'} />
       <CommentsList {...props} />
       <CardOptions />
-      <CardInformation />
+      <CardInformation createdAt={'5 days ago'} />
       <AddComment />
     </div>
   )

@@ -1,50 +1,62 @@
+import { useState } from 'react'
+
+import { clsx } from 'clsx'
+
 import s from './comments-list.module.scss'
 
-import { Avatar, CommentsItem, PostType } from '@/components'
+import { CardDescription, CommentsItem, POST_COMMENTS, PostType } from '@/components'
 import { Typography } from '@/ui'
 
-export const CommentsList = ({ userName, description, url, createdAt, comments }: PostType) => {
-  return (
-    <div className={s.container}>
-      <div className={s.wrapper}>
-        <PostDescription
-          userName={userName}
-          url={url}
-          description={description}
-          createdAt={createdAt}
-        />
-      </div>
-
-      {comments.length ? (
-        comments?.map(comment => <CommentsItem key={comment.id} {...comment} />)
-      ) : (
-        <Typography as={'h2'} variant={'h2'}>
-          No comments yet
-        </Typography>
-      )}
-    </div>
-  )
-}
-
-const PostDescription = ({
-  url,
+export const CommentsList = ({
   userName,
   description,
+  url,
   createdAt,
-}: Pick<PostType, 'url' | 'userName' | 'description' | 'createdAt'>) => {
+  comments,
+  cardType = 'xl',
+}: PostType) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+
+  const isContentHidden = cardType === 'regular' && !isVisible
+
+  const styles = {
+    root: clsx(cardType === 'regular' && s.containerV2),
+    comments: clsx(s.container, isContentHidden && s.hide, isVisible && s.show),
+  }
+
+  const handleClick = () => {
+    if (!comments.length) return
+
+    setIsVisible(visible => !visible)
+  }
+
   return (
-    <div className={s.description}>
-      <Avatar src={url} width={36} height={36} iconScale={0.6} />
-
-      <div className={s.info}>
-        <Typography as={'p'} variant={'regular-14'}>
-          <Typography variant={'bold-14'}>{`${userName} `}</Typography>
-          {description}
+    <div className={styles.root}>
+      {cardType === 'regular' && (
+        <Typography as={'button'} variant={'bold-14'} className={s.btn} onClick={handleClick}>
+          {comments?.length ? `Show all Comments (${comments?.length})` : 'No Comments'}
         </Typography>
+      )}
 
-        <Typography variant={'small'} className={s.created}>
-          {createdAt}
-        </Typography>
+      <div className={styles.comments}>
+        {cardType === 'xl' && (
+          <div className={s.wrapper}>
+            <CardDescription
+              userName={userName}
+              url={url}
+              description={description}
+              createdAt={createdAt}
+            />
+          </div>
+        )}
+
+        {comments.length ? (
+          comments?.map(comment => <CommentsItem key={comment.id} {...comment} />)
+        ) : (
+          <Typography as={'h2'} variant={'h2'}>
+            No comments yet
+          </Typography>
+        )}
       </div>
     </div>
   )

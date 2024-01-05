@@ -9,7 +9,6 @@ import { Modal } from '@/ui'
 export const PostCardModal = ({
   isOpen = false,
   onChange,
-  currentInterface,
   isLoading = false,
   loaderLabel = 'Loading...',
   isModified = false,
@@ -18,8 +17,6 @@ export const PostCardModal = ({
   children,
 }: PropsWithChildren<PostCardModalType>) => {
   const { isOpen: isModalOpen, onClose, onOpen } = useDisclose()
-
-  const Component: ElementType = currentInterface
 
   const onConfirm = () => {
     onClose()
@@ -39,8 +36,6 @@ export const PostCardModal = ({
           }}
         >
           {children}
-
-          {/*<Component />*/}
 
           {isModified && <CloseIcon className={s.close} onClick={onOpen} />}
         </Modal.Content>

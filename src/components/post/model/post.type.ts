@@ -16,7 +16,9 @@ export type CommentSpecificType = CommentCommonType & {
 }
 
 export type PostType = {
+  cardType?: 'regular' | 'xl'
   userName: string
+  account: AccountType
   postdId: string
   url: string
   description?: string

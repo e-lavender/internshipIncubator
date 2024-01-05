@@ -1,17 +1,21 @@
+import { clsx } from 'clsx'
+
 import s from './card-information.module.scss'
 
 import { Avatar } from '@/components'
 import { Typography } from '@/ui'
 
 export const CardInformation = ({
-  createdAt = '3 hours ago',
+  createdAt,
   likes = 152,
+  cardType = 'xl',
 }: {
   createdAt?: string
   likes?: number
+  cardType?: 'regular' | 'xl'
 }) => {
   return (
-    <div className={s.container}>
+    <div className={clsx(s.container, cardType === 'regular' && s.containerV2)}>
       <div className={s.likes}>
         <div className={s.avatars}>
           <Avatar

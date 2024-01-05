@@ -2,6 +2,26 @@ import { CopyLinkIcon, DeleteIcon, EditIcon, FollowIcon, ReportIcon, UnfollowIco
 import { DropdownMenuType, PostType } from '@/components'
 
 export const MENU_VERSION: DropdownMenuType = {
+  friend: [
+    {
+      icon: ReportIcon,
+      label: 'Report',
+      isStyled: false,
+      onClick: () => console.log(`Report was clicked!!!`),
+    },
+    {
+      icon: UnfollowIcon,
+      label: 'Unfollow',
+      isStyled: false,
+      onClick: () => console.log(`Unfollow was clicked!!!`),
+    },
+    {
+      icon: CopyLinkIcon,
+      label: 'Copy Link',
+      isStyled: false,
+      onClick: () => console.log(`Copy Link was clicked!!!`),
+    },
+  ],
   personal: [
     {
       icon: EditIcon,
@@ -36,32 +56,13 @@ export const MENU_VERSION: DropdownMenuType = {
       onClick: () => console.log(`Copy Link was clicked!!!`),
     },
   ],
-  friend: [
-    {
-      icon: ReportIcon,
-      label: 'Report',
-      isStyled: false,
-      onClick: () => console.log(`Report was clicked!!!`),
-    },
-    {
-      icon: UnfollowIcon,
-      label: 'Unfollow',
-      isStyled: false,
-      onClick: () => console.log(`Unfollow was clicked!!!`),
-    },
-    {
-      icon: CopyLinkIcon,
-      label: 'Copy Link',
-      isStyled: false,
-      onClick: () => console.log(`Copy Link was clicked!!!`),
-    },
-  ],
 }
 
 export const POST_COMMENTS: PostType = {
   userName: 'Alex',
   postdId: '62',
   url: '/assets/avatar/resized/2.jpg',
+  account: 'personal',
   description:
     'Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores.',
   createdAt: '1 day ago',

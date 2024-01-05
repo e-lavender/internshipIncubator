@@ -4,7 +4,7 @@ import s from './sidebar-menu-with-items.module.scss'
 
 import {
   CreateMenuIcon,
-  FavoritesMenuIcon,
+  FavouritesMenuIcon,
   HomeMenuIcon,
   LogOutMenuIcon,
   MessageMenuIcon,
@@ -69,7 +69,7 @@ export const SidebarMenuWithItems = () => {
           isSelected={pathname.startsWith(menuNavigation.search())}
         />
         <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} disabled />
-        <MenuItem href={'#'} icon={FavoritesMenuIcon} label={labels.favorites} disabled />
+        <MenuItem href={'#'} icon={FavouritesMenuIcon} label={labels.favorites} disabled />
 
         <MenuItem as={'button'} onClick={onOpen} icon={LogOutMenuIcon} label={labels.logout} />
       </SidebarMenu>
