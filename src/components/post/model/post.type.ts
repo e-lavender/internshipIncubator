@@ -46,11 +46,20 @@ export type CardHeaderType = {
   createdAt?: string
 }
 
+export const ActionTypes = {
+  report: 'report',
+  follow: 'follow',
+  unfollow: 'unfollow',
+  copy: 'copy',
+  edit: 'edit',
+  delete: 'delete',
+} as const
+
 export type DropdownMenuItemType = {
   icon: SVGIconType
   label: string
   isStyled: boolean
-  onClick: (e?: SyntheticEvent, id?: number) => void
+  action: keyof typeof ActionTypes
 }
 
 export type DropdownMenuType = {

@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
+import { clsx } from 'clsx'
 
 import s from './post-card-modal.module.scss'
 
@@ -54,6 +55,8 @@ export const PostCardModal = ({
     closeCardModal()
   }
 
+  const handleCloseClick = shouldConfirmAction ? openConfirmationModal : closeMainModal
+
   const handleOutsideClick = (e: PointerDownOutsideEvent | FocusOutsideEvent) => {
     e.preventDefault()
 
@@ -72,21 +75,17 @@ export const PostCardModal = ({
 
   return (
     <>
-      <Modal open={isOpen} onOpenChange={closeCardModal}>
+      <Modal open={isOpen} onChange={() => {}}>
         <Modal.Content
-          className={s.container}
-          title={''}
+          className={clsx(s.container, !isModified && s.containerV2)}
+          title={isModified ? '' : 'Edit Post'}
           isModified={isModified}
           onInteractOutside={handleOutsideClick}
+          onClose={handleCloseClick}
         >
           {children}
 
-          {isModified && (
-            <CloseIcon
-              className={s.close}
-              onClick={shouldConfirmAction ? openConfirmationModal : closeMainModal}
-            />
-          )}
+          {isModified && <CloseIcon className={s.close} onClick={handleCloseClick} />}
         </Modal.Content>
       </Modal>
 
@@ -94,12 +93,8 @@ export const PostCardModal = ({
       <ConfirmationModal
         isOpen={shouldConfirmAction}
         onClose={closeConfirmationModal}
+        translation={'closePost'}
         onConfirmation={handleConfirmation}
-        title={title || 'Close Post'}
-        message={
-          message ||
-          'Do you really want to finish editing? If you close the changes you have made will not be saved.'
-        }
       />
     </>
   )
