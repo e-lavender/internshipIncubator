@@ -24,8 +24,8 @@ export const UserStatistics = ({ data = [] }: UserStatisticsProps) => {
   return (
     <div className={styles}>
       <UserStatisticsItem category={following.label} qty={2218} />
-      <UserStatisticsItem category={following.label} qty={2851} />
-      <UserStatisticsItem category={following.label} qty={1742} />
+      <UserStatisticsItem category={followers.label} qty={2851} />
+      <UserStatisticsItem category={publications.label} qty={1742} />
     </div>
   )
 }
