@@ -70,7 +70,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
 
   return (
     <>
-      <Modal open={isOpen} onOpenChange={onChange}>
+      <Modal open={isOpen} onChange={onChange}>
         <Modal.Content
           className={s.container}
           title={modal.label}

@@ -15,7 +15,7 @@
 .edit {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.4rem;
   padding: 2.4rem;
 
   .form {
@@ -27,7 +27,7 @@
     & textarea {
       resize: vertical;
       min-height: 12rem;
-      max-height: 35rem;
+      max-height: 30rem;
     }
   }
 

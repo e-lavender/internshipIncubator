@@ -11,7 +11,8 @@ import { Typography } from '@/ui'
 
 type ModalProps = {
   open?: boolean
-  onOpenChange?: (open: boolean) => void
+  onChange?: (open: boolean) => void
+
   children: ReactNode
 }
 type ModalContentProps = {
@@ -20,10 +21,11 @@ type ModalContentProps = {
   className?: string
   onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
   isModified?: boolean
+  onClose?: () => void
 }
-export const Modal = ({ open, onOpenChange, children }: ModalProps) => {
+export const Modal = ({ open, onChange, children }: ModalProps) => {
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root open={open} onOpenChange={onChange}>
       {children}
     </Dialog.Root>
   )
@@ -32,6 +34,7 @@ export const Modal = ({ open, onOpenChange, children }: ModalProps) => {
 const ModalContent = ({
   title,
   isModified = false,
+  onClose,
   className,
   children,
   ...props
@@ -51,7 +54,7 @@ const ModalContent = ({
                   </Typography>
                 </Dialog.Title>
 
-                <Dialog.Close aria-label="Close" className={s.close}>
+                <Dialog.Close aria-label="Close" className={s.close} onClick={onClose}>
                   <CloseIcon />
                 </Dialog.Close>
               </div>
