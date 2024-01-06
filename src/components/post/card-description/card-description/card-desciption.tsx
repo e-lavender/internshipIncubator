@@ -3,12 +3,11 @@ import s from './card-description.module.scss'
 import { Avatar, PostType } from '@/components'
 import { Typography } from '@/ui'
 
-export const CardDescription = ({
-  url,
-  userName,
-  description,
-  createdAt,
-}: Pick<PostType, 'url' | 'userName' | 'description' | 'createdAt'>) => {
+type CardDescriptionType = {
+  description?: string
+} & Pick<PostType, 'url' | 'userName' | 'createdAt'>
+
+export const CardDescription = ({ url, userName, description, createdAt }: CardDescriptionType) => {
   return (
     <div className={s.description}>
       <Avatar src={url} width={36} height={36} iconScale={0.6} />

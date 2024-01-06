@@ -45,6 +45,7 @@ export const PostCard = (props: PostType) => {
         account={props.account}
         postdId={''}
         url={''}
+        description={''}
         cardType={'regular'}
         comments={props.comments}
       />
