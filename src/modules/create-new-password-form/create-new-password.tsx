@@ -74,7 +74,7 @@ export const NewPasswordForm = ({ code }: { code?: string }) => {
         </Typography>
 
         <Button fullWidth className={s.button} type={'submit'} disabled={!isValid}>
-          {isLoading ? <Loader /> : button.submit}
+          {isLoading ? <Loader isLoading /> : button.submit}
         </Button>
       </form>
     </Card>
