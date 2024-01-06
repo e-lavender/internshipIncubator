@@ -11,14 +11,18 @@ type TextAreaType = {
   error?: string
   disabled?: boolean
   sizeLimit?: number
+  initialSize?: number
 } & ComponentPropsWithoutRef<'textarea'>
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaType>(
-  ({ label, sizeLimit, onChange, error, disabled, spellCheck = false, ...props }, ref) => {
-    const [value, setValue] = useState<string>('')
+  (
+    { label, sizeLimit, initialSize = 0, onChange, error, disabled, spellCheck = false, ...props },
+    ref
+  ) => {
+    const [size, setSize] = useState<number>(initialSize)
 
     const updateTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-      setValue(e.target.value)
+      setSize(e.target.value?.length)
 
       onChange && onChange(e)
     }
@@ -52,7 +56,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaType>(
 
         {sizeLimit && (
           <Typography as={'p'} variant={'regular-14'} className={styles.limit}>
-            {value.length}/{sizeLimit}
+            {size}/{sizeLimit}
           </Typography>
         )}
 

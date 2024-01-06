@@ -1,53 +1,103 @@
-import { ElementType, PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
+
+import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 
 import s from './post-card-modal.module.scss'
 
 import { CloseIcon, useDisclose } from '@/app'
+import { resetDescriptionState, setViewMode } from '@/app/services/post/post.slice'
+import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { ConfirmationModal, LoaderV2, PostCardModalType } from '@/components'
 import { Modal } from '@/ui'
 
 export const PostCardModal = ({
   isOpen = false,
-  onChange,
+  onChange: closeCardModal,
   isLoading = false,
   loaderLabel = 'Loading...',
   isModified = false,
+  askConfirmation = false,
   title,
   message,
   children,
 }: PropsWithChildren<PostCardModalType>) => {
-  const { isOpen: isModalOpen, onClose, onOpen } = useDisclose()
+  const {
+    isOpen: shouldConfirmAction,
+    onClose: closeConfirmationModal,
+    onOpen: openConfirmationModal,
+  } = useDisclose(askConfirmation)
 
-  const onConfirm = () => {
-    onClose()
-    onChange()
+  const mode = useAppSelector(state => state.post.mode)
+  const isEdited = useAppSelector(state => state.post.isEdited)
+
+  const dispatch = useAppDispatch()
+  const reset = () => dispatch(resetDescriptionState())
+  const handleConfirmation = () => {
+    dispatch(setViewMode())
+    reset()
+
+    closeConfirmationModal()
+    closeCardModal()
+  }
+
+  const closeMainModal = () => {
+    if (!isEdited) {
+      dispatch(setViewMode())
+
+      return closeCardModal()
+    }
+
+    if (mode === 'edit') {
+      return openConfirmationModal()
+    }
+
+    closeCardModal()
+  }
+
+  const handleOutsideClick = (e: PointerDownOutsideEvent | FocusOutsideEvent) => {
+    e.preventDefault()
+
+    if (isEdited) {
+      return openConfirmationModal()
+    }
+
+    if (mode === 'edit') {
+      dispatch(setViewMode())
+
+      return closeCardModal()
+    }
+
+    closeCardModal()
   }
 
   return (
     <>
-      <Modal open={isOpen} onOpenChange={onChange}>
+      <Modal open={isOpen} onOpenChange={closeCardModal}>
         <Modal.Content
           className={s.container}
           title={''}
           isModified={isModified}
-          onInteractOutside={e => {
-            e.preventDefault()
-            onOpen()
-          }}
+          onInteractOutside={handleOutsideClick}
         >
           {children}
 
-          {isModified && <CloseIcon className={s.close} onClick={onOpen} />}
+          {isModified && (
+            <CloseIcon
+              className={s.close}
+              onClick={shouldConfirmAction ? openConfirmationModal : closeMainModal}
+            />
+          )}
         </Modal.Content>
       </Modal>
 
       <LoaderV2 isLoading={isLoading} label={loaderLabel} />
       <ConfirmationModal
-        isOpen={isModalOpen}
-        onClose={onClose}
-        onConfirmation={onConfirm}
-        title={'Close Post'}
+        isOpen={shouldConfirmAction}
+        onClose={closeConfirmationModal}
+        onConfirmation={handleConfirmation}
+        title={title || 'Close Post'}
         message={
+          message ||
           'Do you really want to finish editing? If you close the changes you have made will not be saved.'
         }
       />
