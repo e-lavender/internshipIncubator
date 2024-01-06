@@ -11,3 +11,27 @@
   top: -12px;
   right: -1.8rem;
 }
+
+.edit {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2.4rem;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    & textarea {
+      resize: vertical;
+      min-height: 12rem;
+      max-height: 35rem;
+    }
+  }
+
+  .btn {
+    align-self: flex-end;
+  }
+}

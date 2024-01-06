@@ -21,7 +21,7 @@ export type PostType = {
   account: AccountType
   postdId: string
   url: string
-  description?: string
+  description: string
   createdAt?: string
   comments: CommentSpecificType[]
 }
@@ -29,6 +29,7 @@ export type PostType = {
 export type PostCardModalType = {
   title?: string
   message?: string
+  askConfirmation?: boolean
   isOpen: boolean
   onChange: () => void
   isLoading?: boolean

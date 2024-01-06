@@ -1,4 +1,6 @@
 import { CopyLinkIcon, DeleteIcon, EditIcon, FollowIcon, ReportIcon, UnfollowIcon } from '@/app'
+import { setEditMode } from '@/app/services/post/post.slice'
+import { useAppDispatch } from '@/app/store/rtk.types'
 import { DropdownMenuType, PostType } from '@/components'
 
 export const MENU_VERSION: DropdownMenuType = {
@@ -27,7 +29,7 @@ export const MENU_VERSION: DropdownMenuType = {
       icon: EditIcon,
       label: 'Edit Post',
       isStyled: false,
-      onClick: () => console.log(`Edit Post was clicked!!!`),
+      onClick: () => console.log('Edit Post was clicked!!!'),
     },
     {
       icon: DeleteIcon,
