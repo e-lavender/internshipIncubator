@@ -29,8 +29,6 @@ export const ConfirmationModal = ({
     onConfirmation()
     onClose()
   }
-  const { t } = useTranslation()
-  const { yes, no } = t.confirmationModal
 
   return (
     <div>
@@ -45,9 +43,9 @@ export const ConfirmationModal = ({
 
           <div className={clsx(s.btns, btnsStyle)}>
             <Button onClick={onConfirm} variant={'outlined'}>
-              {yes}
+              {confirmBtnLabel}
             </Button>
-            <Button onClick={onClose}>{no} </Button>
+            <Button onClick={onClose}>{declineBtnLabel} </Button>
           </div>
         </Modal.Content>
       </Modal>
