@@ -30,24 +30,22 @@ export const ConfirmationModal = ({
   }
 
   return (
-    <div>
-      <Modal open={isOpen} onOpenChange={onClose}>
-        <Modal.Button asChild />
-        <Modal.Content
-          className={s.content}
-          title={title}
-          onInteractOutside={e => e.preventDefault()}
-        >
-          <Typography variant="regular-16">{message}</Typography>
+    <Modal open={isOpen} onChange={onClose}>
+      <Modal.Button asChild />
+      <Modal.Content
+        className={clsx(s.content, isOpen && s.visible)}
+        title={title}
+        onInteractOutside={e => e.preventDefault()}
+      >
+        <Typography variant="regular-16">{message}</Typography>
 
-          <div className={clsx(s.btns, btnsStyle)}>
-            <Button onClick={onConfirm} variant={'outlined'}>
-              {confirmBtnLabel}
-            </Button>
-            <Button onClick={onClose}>{declineBtnLabel} </Button>
-          </div>
-        </Modal.Content>
-      </Modal>
-    </div>
+        <div className={clsx(s.btns, btnsStyle)}>
+          <Button onClick={onConfirm} variant={'outlined'}>
+            {confirmBtnLabel}
+          </Button>
+          <Button onClick={onClose}>{declineBtnLabel} </Button>
+        </div>
+      </Modal.Content>
+    </Modal>
   )
 }
