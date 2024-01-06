@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import * as Slider from '@radix-ui/react-slider'
 import { clsx } from 'clsx'
+import AvatarEditor from 'react-avatar-editor'
 
 import s from './image-picker-modal.module.scss'
 import { useImageValidation } from './useImageValidation'
@@ -20,6 +22,7 @@ type ImagePickerModalType = {
 
 export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModalType) => {
   const { url, step, stepUp, stepBack, errorText, clearError, blob } = useImageValidation()
+  const editorRef = useRef<AvatarEditor>(null)
 
   const [uploadFile, { isLoading: isUploading }] = useUploadAvatarMutation()
 
@@ -31,16 +34,32 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
   const uploadAvatar = () => {
     const formData = new FormData()
 
-    formData.append('file', blob as Blob)
+    if (editorRef.current) {
+      const canvas = editorRef.current.getImageScaledToCanvas()
 
-    uploadFile(formData)
-    stepBack()
-    onClose && onClose()
+      canvas.toBlob(blob => {
+        if (blob) {
+          const file = new File([blob], 'avatar', { type: blob.type })
+
+          formData.append('file', file)
+
+          uploadFile(formData)
+          stepBack()
+          onClose && onClose()
+        }
+      })
+    } else {
+      formData.append('file', blob as Blob)
+
+      uploadFile(formData)
+      stepBack()
+      onClose && onClose()
+    }
   }
 
   const interfaceVariants = {
     1: <Interface1 url={url} error={errorText} styles={styles} callback={stepUp} />,
-    2: <Interface2 url={url} callback={uploadAvatar} />,
+    2: <Interface2 url={url} callback={uploadAvatar} editorRef={editorRef} />,
   }
 
   const CurrentInterface: JSX.Element = interfaceVariants[step]
@@ -86,6 +105,7 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
       <b>Error!</b> {error}
     </Typography>
   )
+
   const handleUpload = () => {
     if (!formRef.current) return
 
@@ -113,18 +133,58 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
 type InterfaceType2 = {
   url: string
   callback: () => void
+  editorRef: React.RefObject<AvatarEditor>
 }
 
-const Interface2 = ({ callback, url }: InterfaceType2) => {
+const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
   const { t } = useTranslation()
+  const [sliderValue, setSliderValue] = useState<number>(10)
+  const [croppedAvatar, setCroppedAvatar] = useState<string | null>(null)
+  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0.5, y: 0.5 })
   const { modal } = t.profileSettings.generalSettings.profileImage
+  const handleSliderChange = (value: number | number[]) => {
+    setSliderValue(value as number)
+  }
+
+  const handlePositionChange = (position: { x: number; y: number }) => {
+    setPosition(position)
+  }
 
   return (
     <div className={s.wrapper}>
       <div className={s.preview}>
-        <img src={url} alt="avatar-image" />
+        {/*<img src={url} alt="avatar-image"/>*/}
+        <AvatarEditor
+          image={url}
+          ref={editorRef}
+          width={282}
+          height={290}
+          color={[23, 23, 23, 0.6]}
+          backgroundColor={'black'}
+          scale={sliderValue / 10}
+          borderRadius={155}
+          position={position}
+          onPositionChange={handlePositionChange}
+          crossOrigin="anonymous"
+          disableBoundaryChecks={false}
+        />
       </div>
-
+      <form>
+        <Slider.Root
+          className={s.SliderRoot}
+          defaultValue={[sliderValue]}
+          min={10}
+          max={50}
+          step={2}
+          onValueChange={handleSliderChange}
+          value={[sliderValue]}
+        >
+          <Slider.Track className={s.SliderTrack}>
+            <Slider.Range className={s.SliderRange} />
+          </Slider.Track>
+          <Slider.Thumb className={s.SliderThumb} aria-label="Volume" />
+        </Slider.Root>
+      </form>
       <Button className={s.btn} onClick={callback}>
         {modal.submitBtn.label}
       </Button>
