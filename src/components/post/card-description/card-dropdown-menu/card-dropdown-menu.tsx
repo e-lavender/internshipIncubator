@@ -52,8 +52,7 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType 
       </DropdownMenu>
 
       <ConfirmationModal
-        title={'Delete Post'}
-        message={'Are you sure you want to delete this post?'}
+        translation={'deletePost'}
         isOpen={isModalOpened}
         onClose={closeModal}
         onConfirmation={deletePost}

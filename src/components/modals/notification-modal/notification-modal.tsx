@@ -12,7 +12,7 @@ type Props = {
 export const NotificationModal = ({ message, isOpen, onClose }: Props) => {
   return (
     <div>
-      <Modal open={isOpen} onOpenChange={onClose}>
+      <Modal open={isOpen} onChange={onClose}>
         <Modal.Button asChild />
         <Modal.Content
           className={s.content}

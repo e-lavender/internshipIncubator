@@ -93,12 +93,8 @@ export const PostCardModal = ({
       <ConfirmationModal
         isOpen={shouldConfirmAction}
         onClose={closeConfirmationModal}
+        translation={'closePost'}
         onConfirmation={handleConfirmation}
-        title={title || 'Close Post'}
-        message={
-          message ||
-          'Do you really want to finish editing? If you close the changes you have made will not be saved.'
-        }
       />
     </>
   )
