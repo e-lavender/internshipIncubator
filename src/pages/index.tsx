@@ -28,6 +28,7 @@ const Home = () => {
           postdId={'23'}
           userName={'Vikki'}
           account={'public'}
+          description={''}
           comments={POST_COMMENTS?.comments}
         />
 
@@ -37,6 +38,7 @@ const Home = () => {
           url={POST_COMMENTS.url}
           userName={'Darius'}
           account={'friend'}
+          description={''}
           comments={[]}
           postdId={'22'}
         />
