@@ -2,6 +2,7 @@ import { clsx } from 'clsx'
 
 import s from './confirmation-modal.module.scss'
 
+import { useTranslation } from '@/app'
 import { Button, Modal, Typography } from '@/ui'
 
 type ModalProps = {
@@ -19,8 +20,8 @@ export const ConfirmationModal = ({
   message,
   isOpen,
   onClose,
-  confirmBtnLabel = 'Yes',
-  declineBtnLabel = 'No',
+  confirmBtnLabel,
+  declineBtnLabel,
   btnsStyle,
   onConfirmation,
 }: ModalProps) => {

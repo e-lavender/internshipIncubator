@@ -14,7 +14,7 @@ import {
   useDisclose,
   useTranslation,
 } from '@/app'
-import { authNavigationUrls, menuNavigation } from '@/app/constants'
+import { menuNavigation } from '@/app/constants'
 import { useSignOutMutation } from '@/app/services/auth/auth.api'
 import { ConfirmationModal } from '@/components'
 import { MenuItem, SidebarMenu } from '@/ui'
@@ -22,26 +22,18 @@ import { MenuItem, SidebarMenu } from '@/ui'
 export const SidebarMenuWithItems = () => {
   const { isOpen, onOpen, onClose } = useDisclose()
 
-  const { pathname, push } = useRouter()
+  const { pathname } = useRouter()
   const [signOut] = useSignOutMutation()
 
   const { t } = useTranslation()
   const labels = t.sidebarMenu
-
-  const onSignOut = () => {
-    signOut()
-    void push(authNavigationUrls.signIn())
-  }
+  const { title, message } = t.confirmationModal
+  const { yes, no } = t.confirmationModal
 
   return (
     <>
       <SidebarMenu className={s.nav}>
-        <MenuItem
-          href={menuNavigation.home()}
-          icon={HomeMenuIcon}
-          label={labels.home}
-          isSelected={pathname.endsWith(menuNavigation.home())}
-        />
+        <MenuItem href={menuNavigation.home()} icon={HomeMenuIcon} label={labels.home} />
         <MenuItem
           href={menuNavigation.create()}
           icon={CreateMenuIcon}
@@ -77,9 +69,11 @@ export const SidebarMenuWithItems = () => {
       <ConfirmationModal
         isOpen={isOpen}
         onClose={onClose}
-        title={'Log Out'}
-        message={'Are you really want to log out of your account?'}
-        onConfirmation={onSignOut}
+        title={title}
+        message={message}
+        onConfirmation={signOut}
+        confirmBtnLabel={yes}
+        declineBtnLabel={no}
       />
     </>
   )
