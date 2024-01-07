@@ -17,7 +17,6 @@ export const AccountImage = (props: AccountImageProps) => {
 
   const { t } = useTranslation()
   const { profileImage } = t.profileSettings.generalSettings
-  const { title, message } = t.deleteAvatarModel
 
   return (
     <div className={s.container}>
@@ -30,10 +29,6 @@ export const AccountImage = (props: AccountImageProps) => {
         translation={'deleteAvatar'}
         isOpen={isOpen}
         onClose={onClose}
-
-        title={title}
-        message={message}
-
         onConfirmation={deleteAvatar}
       />
       <LoaderV2 isLoading={isLoading || isDeleteLoading} label={isLoadingLabel} />
