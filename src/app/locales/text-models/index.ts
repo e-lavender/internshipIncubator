@@ -1,6 +1,7 @@
 import Calendar from './calendar.json'
 import { CharacterPageTextModel } from './character-page-text-model'
 import ConfirmationModal from './confirmation-modal.json'
+import DeleteAvatarModel from './delete-avatar-model.json'
 import ForgotPasswordModel from './forgot-password-model.json'
 import LinkConfirmationModel from './link-confirmation-model.json'
 import LinkExpiredModel from './link-expired-model.json'
@@ -32,4 +33,5 @@ export {
   GeneralSettingsModel,
   NavigationTabsModel,
   ConfirmationModal,
+  DeleteAvatarModel,
 }
