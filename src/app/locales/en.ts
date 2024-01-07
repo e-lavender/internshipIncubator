@@ -17,7 +17,6 @@ import {
   GeneralSettingsModel,
   NavigationTabsModel,
   ConfirmationModal,
-  DeleteAvatarModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
@@ -37,7 +36,6 @@ const calendar = Calendar.en
 const generalSettings = GeneralSettingsModel.en
 const navigationTabs = NavigationTabsModel.en
 const confirmationModal = ConfirmationModal.en
-const deleteAvatarModel = DeleteAvatarModel.en
 
 export const en: LocaleType = {
   calendar: {
@@ -83,5 +81,4 @@ export const en: LocaleType = {
     generalSettings,
   },
   confirmationModal: confirmationModal,
-  deleteAvatarModel: deleteAvatarModel,
 }

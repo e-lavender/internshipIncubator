@@ -36,7 +36,6 @@ const calendar = Calendar.ru
 const generalSettings = GeneralSettingsModel.ru
 const navigationTabs = NavigationTabsModel.ru
 const confirmationModal = ConfirmationModal.ru
-const deleteAvatarModel = DeleteAvatarModel.ru
 
 export const ru = {
   calendar: {
@@ -82,6 +81,5 @@ export const ru = {
     generalSettings,
   },
   confirmationModal: confirmationModal,
-  deleteAvatarModel: deleteAvatarModel,
 }
 export type LocaleType = typeof ru
