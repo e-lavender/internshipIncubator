@@ -57,29 +57,6 @@
     background-color: inherit;
     box-shadow: none;
 
-    /*&::before {
-      content: 'Loading...';
-      position: absolute;
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-semi-bold);
-    }
-
-    &::after {
-      content: '';
-
-      position: absolute;
-      z-index: 2;
-
-      display: block;
-
-      width: 31.6rem;
-      height: 31.6rem;
-
-      background-color: transparent;
-      border-radius: 50%;
-      box-shadow: 0 0 0 200rem rgb(0 0 0 / 50%);
-    }
-*/
     & img {
       position: absolute;
       z-index: 1;
