@@ -30,7 +30,7 @@ export const PostCardXL = (props: PostCardXLType) => {
 
   const mode = useAppSelector(state => state.post.mode)
 
-  const askConfirmation: boolean = mode === 'edit'
+  const isEditMode: boolean = mode === 'edit'
 
   const interfaces: { [key: string]: JSX.Element } = {
     view: <CardInterface {...props} />,
@@ -52,8 +52,8 @@ export const PostCardXL = (props: PostCardXLType) => {
       <PostCardModal
         isOpen={isModalOpened}
         onChange={closeModal}
-        askConfirmation={askConfirmation}
-        isModified
+        askConfirmation={isEditMode}
+        isModified={!isEditMode}
       >
         <ImageSlider
           images={IMAGE_SLIDER_DATA.slice(0, 4)}

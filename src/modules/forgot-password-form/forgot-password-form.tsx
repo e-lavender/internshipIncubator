@@ -30,7 +30,7 @@ export const ForgotPasswordForm = () => {
   const labels = {
     button: isSubmitted ? submitTextV2 : submitTextV1,
     submission() {
-      return isLoading ? <Loader /> : this.button
+      return isLoading ? <Loader isLoading /> : this.button
     },
   }
 

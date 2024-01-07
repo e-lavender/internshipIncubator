@@ -27,10 +27,13 @@ export const AccountImage = (props: AccountImageProps) => {
       </Button>
 
       <ConfirmationModal
+        translation={'deleteAvatar'}
         isOpen={isOpen}
         onClose={onClose}
+
         title={title}
         message={message}
+
         onConfirmation={deleteAvatar}
       />
       <LoaderV2 isLoading={isLoading || isDeleteLoading} label={isLoadingLabel} />
