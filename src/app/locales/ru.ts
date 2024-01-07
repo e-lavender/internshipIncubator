@@ -16,7 +16,6 @@ import {
   GeneralSettingsModel,
   NavigationTabsModel,
   ConfirmationModal,
-  DeleteAvatarModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
