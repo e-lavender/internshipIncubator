@@ -5,6 +5,7 @@ import { authReducer } from '@/app/services/auth/auth.slice'
 import { commonApi } from '@/app/services/common/common.api'
 import { locationApi } from '@/app/services/countries/countries.api'
 import { googleApi } from '@/app/services/google/google.api'
+import { modalsReducer } from '@/app/services/modals/modals.slice'
 import { postSlice } from '@/app/services/post/post.slice'
 import { profileSlice } from '@/app/services/profile/profile.slice'
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     auth: authReducer,
     profile: profileSlice,
     post: postSlice,
+    modals: modalsReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
