@@ -42,7 +42,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
         if (blob) {
           const file = new File([blob], 'avatar', { type: blob.type })
 
-          formData.append('file', file)
+          formData.append('avatar', file)
 
           uploadFile(formData)
           stepBack()
@@ -50,7 +50,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
         }
       })
     } else {
-      formData.append('file', blob as Blob)
+      formData.append('avatar', blob as Blob)
 
       uploadFile(formData)
       stepBack()
