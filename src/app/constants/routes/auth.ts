@@ -33,7 +33,7 @@ export const authApiUrls = {
   getProfile: () => '/api/v1/profile',
   updateProfile: () => '/api/v1/profile',
   uploadAvatar: () => '/api/v1/avatar/upload',
-  deleteAvatar: () => '/api/v1/users/profile/avatar',
+  deleteAvatar: () => '/api/v1/avatar',
 }
 
 export const authApiUrlsV2 = {

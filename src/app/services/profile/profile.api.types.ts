@@ -9,6 +9,7 @@ export type UserProfileModel = {
   avatars: UserProfileModelAvatars[]
   createdAt: string
   country?: string
+  avatarUrl?: string
 }
 export type UserProfileModelAvatars = {
   url: string
