@@ -24,12 +24,16 @@ export const useInfiniteScroll = (
 
       setIsLoading(true)
 
-      const data = async () => callback()
+      try {
+        const newContent = await callback()
 
-      const newContent = await data()
+        setContent([...content, ...newContent])
+        setIsLoading(false)
+      } catch (e) {
+        setIsLoading(false)
 
-      setContent([...content, ...newContent])
-      setIsLoading(false)
+        throw new Error('Something went wrong. Please refresh the page.')
+      }
     }
 
     observer.current = new IntersectionObserver(request)
