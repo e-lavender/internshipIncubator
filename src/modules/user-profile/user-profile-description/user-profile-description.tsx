@@ -17,14 +17,14 @@ export const UserProfileDescription = () => {
   return (
     <div className={s.container}>
       <div className={s.avatar}>
-        <Avatar src={data?.avatarUrl ? data?.avatarUrl : '/assets/avatar/avatar.jpg'} />
+        <Avatar src={data?.avatarUrl} />
       </div>
 
       <div className={s.profile}>
         <div className={s.header}>
           <div className={s.title}>
             <Typography as={'h1'} variant={'h1'}>
-              {data?.userName ? data?.userName : 'userURL'}
+              {data?.userName || 'userURL'}
             </Typography>
             <CheckedIcon />
           </div>

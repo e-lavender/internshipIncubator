@@ -44,7 +44,7 @@ export const MenuItem = <T extends ElementType = typeof Link>({
   return (
     <Container>
       <Component
-        href={href}
+        href={href || null}
         className={styles.link}
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
