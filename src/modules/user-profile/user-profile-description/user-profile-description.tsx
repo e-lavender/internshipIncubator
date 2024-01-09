@@ -10,21 +10,21 @@ import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { Button, Typography } from '@/ui'
 
 export const UserProfileDescription = () => {
-  const { data } = useGetProfileQuery(undefined, { skip: true })
+  const { data, isLoading: isProfileLoading } = useGetProfileQuery()
   const { t } = useTranslation()
   const { profile } = t.profileSettings.generalSettings
 
   return (
     <div className={s.container}>
       <div className={s.avatar}>
-        <Avatar src={'/assets/avatar/avatar.jpg'} />
+        <Avatar src={data?.avatarUrl ? data?.avatarUrl : '/assets/avatar/avatar.jpg'} />
       </div>
 
       <div className={s.profile}>
         <div className={s.header}>
           <div className={s.title}>
             <Typography as={'h1'} variant={'h1'}>
-              URLProfile
+              {data?.userName ? data?.userName : 'userURL'}
             </Typography>
             <CheckedIcon />
           </div>
