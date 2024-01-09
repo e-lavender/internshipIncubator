@@ -37,7 +37,12 @@ export const SidebarMenuWithItems = () => {
   return (
     <>
       <SidebarMenu className={s.nav}>
-        <MenuItem href={menuNavigation.home()} icon={HomeMenuIcon} label={labels.home} />
+        <MenuItem
+          href={menuNavigation.home()}
+          icon={HomeMenuIcon}
+          label={labels.home}
+          isSelected={pathname.endsWith(menuNavigation.home())}
+        />
         <MenuItem
           href={menuNavigation.create()}
           icon={CreateMenuIcon}

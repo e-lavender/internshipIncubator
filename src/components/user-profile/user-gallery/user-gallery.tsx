@@ -8,7 +8,7 @@ import { useMatchMedia } from '@/app'
 import { GALLERY_DATA } from '@/app/data'
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll'
 import { GalleryItem } from '@/components'
-import { Loader } from '@/ui'
+import { Loader, Skeleton, SkeletonCard } from '@/ui'
 
 export const UserProfileGallery = ({ data = ['test'] }: any) => {
   const { isMobile } = useMatchMedia()
@@ -31,23 +31,27 @@ export const UserProfileGallery = ({ data = ['test'] }: any) => {
   const styles = {
     root: clsx(s.container, isMobile && s.mobile),
     card: clsx(s.card, isMobile && s.mobile),
+    loader: clsx(s.card, isMobile && s.mobile, s.loader),
   }
 
   return (
     <>
       <div className={styles.root}>
-        {data?.length > 0
-          ? content?.map((url, index) => (
-              <div key={index} className={styles.card}>
-                <GalleryItem src={url} alt={`gallery image-${index}`} />
-              </div>
-            ))
-          : null}
+        {data?.length > 0 &&
+          content?.map((url, index) => (
+            <div key={index} className={styles.card}>
+              <GalleryItem src={url} alt={`gallery image-${index}`} />
+            </div>
+          ))}
+
+        {isLoading && (
+          <SkeletonCard count={6}>
+            <div className={styles.card} />
+          </SkeletonCard>
+        )}
       </div>
 
-      <div className={s.loader} ref={trigger}>
-        <Loader width={80} height={80} isLoading={isLoading} />
-      </div>
+      <div className={styles.loader} ref={trigger} />
     </>
   )
 }
