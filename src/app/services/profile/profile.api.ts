@@ -33,7 +33,7 @@ export const profileApi = commonApi.injectEndpoints({
     uploadAvatar: builder.mutation<UploadAvatarResponse, FormData>({
       query: form => {
         return {
-          method: 'POST',
+          method: 'PUT',
           url: uploadAvatar(),
           body: form,
           formData: true,

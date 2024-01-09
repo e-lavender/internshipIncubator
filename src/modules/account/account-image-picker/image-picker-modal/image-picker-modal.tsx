@@ -10,6 +10,7 @@ import { useImageValidation } from './useImageValidation'
 import { MIME_TYPES, useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { Avatar, LoaderV2 } from '@/components'
+import { SliderComponent } from '@/components/slider-for-zoom/slider-component'
 import { Button, FileInput, Modal, Typography } from '@/ui'
 
 type ImagePickerModalType = {
@@ -41,7 +42,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
         if (blob) {
           const file = new File([blob], 'avatar', { type: blob.type })
 
-          formData.append('file', file)
+          formData.append('avatar', file)
 
           uploadFile(formData)
           stepBack()
@@ -49,7 +50,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
         }
       })
     } else {
-      formData.append('file', blob as Blob)
+      formData.append('avatar', blob as Blob)
 
       uploadFile(formData)
       stepBack()
@@ -142,9 +143,6 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
   const [croppedAvatar, setCroppedAvatar] = useState<string | null>(null)
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0.5, y: 0.5 })
   const { modal } = t.profileSettings.generalSettings.profileImage
-  const handleSliderChange = (value: number | number[]) => {
-    setSliderValue(value as number)
-  }
 
   const handlePositionChange = (position: { x: number; y: number }) => {
     setPosition(position)
@@ -153,7 +151,6 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
   return (
     <div className={s.wrapper}>
       <div className={s.preview}>
-        {/*<img src={url} alt="avatar-image"/>*/}
         <AvatarEditor
           image={url}
           ref={editorRef}
@@ -169,22 +166,8 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
           disableBoundaryChecks={false}
         />
       </div>
-      <form>
-        <Slider.Root
-          className={s.SliderRoot}
-          defaultValue={[sliderValue]}
-          min={10}
-          max={50}
-          step={2}
-          onValueChange={handleSliderChange}
-          value={[sliderValue]}
-        >
-          <Slider.Track className={s.SliderTrack}>
-            <Slider.Range className={s.SliderRange} />
-          </Slider.Track>
-          <Slider.Thumb className={s.SliderThumb} aria-label="Volume" />
-        </Slider.Root>
-      </form>
+
+      <SliderComponent sliderValue={sliderValue} setSliderValue={setSliderValue} />
       <Button className={s.btn} onClick={callback}>
         {modal.submitBtn.label}
       </Button>

@@ -16,12 +16,14 @@ import {
 } from '@/app'
 import { authNavigationUrls, menuNavigation } from '@/app/constants'
 import { useSignOutMutation } from '@/app/services/auth/auth.api'
+import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { ConfirmationModal } from '@/components'
+import CreateNewPostModal from '@/components/modals/create-new-post-modal/create-new-post-modal'
 import { MenuItem, SidebarMenu } from '@/ui'
 
 export const SidebarMenuWithItems = () => {
   const { isOpen, onOpen, onClose } = useDisclose()
-
+  const { openCreatePostModal } = useCreatePostModal()
   const { pathname, push } = useRouter()
   const [signOut] = useSignOutMutation()
 
@@ -44,10 +46,10 @@ export const SidebarMenuWithItems = () => {
           isSelected={pathname.endsWith(menuNavigation.home())}
         />
         <MenuItem
-          href={menuNavigation.create()}
+          as={'button'}
           icon={CreateMenuIcon}
           label={labels.create}
-          isSelected={pathname.startsWith(menuNavigation.create())}
+          onClick={openCreatePostModal}
         />
 
         <MenuItem
@@ -74,7 +76,7 @@ export const SidebarMenuWithItems = () => {
 
         <MenuItem as={'button'} onClick={onOpen} icon={LogOutMenuIcon} label={labels.logout} />
       </SidebarMenu>
-
+      <CreateNewPostModal />
       <ConfirmationModal isOpen={isOpen} onClose={onClose} onConfirmation={onSignOut} />
     </>
   )

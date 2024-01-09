@@ -32,8 +32,8 @@ export const authApiUrls = {
   githubOAuthPage: () => '/api/auth/github',
   getProfile: () => '/api/v1/profile',
   updateProfile: () => '/api/v1/profile',
-  uploadAvatar: () => '/api/v1/users/profile/avatar',
-  deleteAvatar: () => '/api/v1/users/profile/avatar',
+  uploadAvatar: () => '/api/v1/avatar/upload',
+  deleteAvatar: () => '/api/v1/avatar',
 }
 
 export const authApiUrlsV2 = {

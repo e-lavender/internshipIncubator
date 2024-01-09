@@ -76,6 +76,7 @@
 
 .dotButtons {
   position: absolute;
+  z-index: 10;
   bottom: 0.5rem;
   left: 50%;
   translate: -50%;
