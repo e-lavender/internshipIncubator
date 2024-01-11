@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 
-import * as Slider from '@radix-ui/react-slider'
 import { clsx } from 'clsx'
 import AvatarEditor from 'react-avatar-editor'
 

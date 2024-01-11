@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import * as Slider from '@radix-ui/react-slider'
 
-import s from '@/modules/account/account-image-picker/image-picker-modal/image-picker-modal.module.scss'
-
+import s from './slider.module.scss'
 type Props = {
   sliderValue: number
   setSliderValue: (sliderValue: number) => void
@@ -19,9 +18,9 @@ export const SliderComponent = ({ sliderValue, setSliderValue }: Props) => {
       <Slider.Root
         className={s.SliderRoot}
         defaultValue={[sliderValue]}
-        min={10}
+        min={1}
         max={50}
-        step={2}
+        step={1}
         onValueChange={handleSliderChange}
         value={[sliderValue]}
       >
