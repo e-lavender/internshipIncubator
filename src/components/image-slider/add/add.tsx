@@ -36,13 +36,7 @@ export const Add = ({ image, addedImages, setAddedImages, croppedImage }: Props)
     setAddedImages(addedImages)
   }, [addedImages])
 
-  const selectFileHandler = () => {
-    console.log('select file handler', inputRef.current)
-    inputRef && inputRef.current?.click()
-  }
-
   const handleImageUpload = (e: any) => {
-    console.log('handle image function', e)
     setAddedImages([
       ...addedImages,
       { url: URL.createObjectURL(e.target.files[0]), alt: '', id: nanoid() },
@@ -60,12 +54,13 @@ export const Add = ({ image, addedImages, setAddedImages, croppedImage }: Props)
         />
       )}
       {addedImages.length < 10 ? (
-        <div
+        <label
+          id="cropper"
           className={addedImages.length === 1 ? s.addTheSecondPhoto : s.addPhotoBtn}
-          onClick={selectFileHandler}
         >
           <PlusCircle />
           <input
+            id="cropper"
             type="file"
             ref={inputRef}
             name="cover"
@@ -73,7 +68,7 @@ export const Add = ({ image, addedImages, setAddedImages, croppedImage }: Props)
             accept="image/png, image/jpeg, image/jpg"
             style={{ display: 'none' }}
           />
-        </div>
+        </label>
       ) : (
         ''
       )}

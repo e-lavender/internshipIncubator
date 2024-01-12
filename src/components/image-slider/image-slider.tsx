@@ -237,7 +237,7 @@ const ImageSlider = ({
               <Zoom zoom={zoom} setZoom={setZoom} />
             </CropMenu>
           </div>
-          <CropMenu icon={'image'}>
+          <CropMenu icon={'image'} isImage={true}>
             <Add addedImages={images} setAddedImages={setAddedImages} />
           </CropMenu>
         </div>

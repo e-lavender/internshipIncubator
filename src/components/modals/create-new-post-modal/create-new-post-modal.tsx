@@ -1,13 +1,15 @@
 import React, { useRef, useState } from 'react'
 
+import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 import { nanoid } from '@reduxjs/toolkit'
 
 import s from './create-new-post-modal.module.scss'
 
-import { AccountIcon, MIME_TYPES } from '@/app'
+import { AccountIcon, MIME_TYPES, useDisclose } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import ImageSlider from '@/components/image-slider/image-slider'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
+import { ConfirmationModal } from '@/components/modals/confirmation-modal/confirmation-modal'
 import { useImageValidation } from '@/modules/account/account-image-picker/image-picker-modal/useImageValidation'
 import { Button, FileInput, Modal, Typography } from '@/ui'
 
@@ -46,13 +48,42 @@ const CreateNewPostModal = () => {
 
   const CurrentInterface: JSX.Element = interfaceVariants[step]
 
+  const {
+    isOpen: isConfimationModalOpen,
+    onOpen: openConfirmationModal,
+    onClose: closeConfirmationModal,
+  } = useDisclose()
+
+  const handleOutsideClick = (e: PointerDownOutsideEvent | FocusOutsideEvent) => {
+    e.preventDefault
+    openConfirmationModal()
+  }
+  const onConfirm = () => {
+    close()
+  }
+
   return (
-    <Modal open={isOpen} onChange={close}>
-      <Modal.Button asChild />
-      <Modal.Content title={'Add Photo'} className={s.content} isCrop={isCrop}>
-        {CurrentInterface}
-      </Modal.Content>
-    </Modal>
+    <>
+      <Modal open={isOpen} onChange={close}>
+        <Modal.Button asChild />
+        <Modal.Content
+          title={'Add Photo'}
+          className={s.content}
+          isCrop={isCrop}
+          onInteractOutside={handleOutsideClick}
+        >
+          {CurrentInterface}
+        </Modal.Content>
+      </Modal>
+
+      <ConfirmationModal
+        isOpen={isConfimationModalOpen}
+        onClose={closeConfirmationModal}
+        title={'Close create post'}
+        message={'Are you sure you want to close ?'}
+        onConfirmation={onConfirm}
+      />
+    </>
   )
 }
 

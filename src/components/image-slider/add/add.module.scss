@@ -5,38 +5,6 @@
   align-items: flex-end;
 }
 
-.addBtn {
-width: 36px;
-  height: 36px;
-  cursor: pointer;
-
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin: 0 11px 11px;
-
-  color: var(--color-light-700);
-
-  opacity: 0.8;
-  background-color: var(--color-dark-500);
-  border-radius: 2px;
-}
-
-.blue {
-  filter: brightness(0) invert(1);
-
-  &:hover {
-    filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
-  }
-}
-
-.blueActive {
-  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
-}
-
 .addContainer {
   cursor: pointer;
 
@@ -44,12 +12,10 @@ width: 36px;
 
   min-width: 162px;
   height: 106px;
-  margin-right: 11px;
 
   color: var(--color-light-700);
 
   opacity: 0.8;
-  background-color: var(--color-dark-500);
   border-radius: 2px;
 }
 
@@ -60,12 +26,14 @@ width: 80px;
 }
 
 .addPhotoBtn {
+  cursor: pointer;
   width: 36px;
   height: 36px;
   margin: 12px;
 }
 
 .addTheSecondPhoto {
+  cursor: pointer;
   width: 36px;
   height: 36px;
 
@@ -77,3 +45,4 @@ width: 80px;
   height: 82px;
   margin: 12px;
 }
+

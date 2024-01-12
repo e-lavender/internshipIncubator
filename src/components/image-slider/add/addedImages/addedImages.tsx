@@ -49,15 +49,9 @@ export const AddedImages = ({ addedImages, setAddedImages, croppedImage, image }
             return (
               <div key={i} className={s.addedPhoto}>
                 <div className={s.closeIcon} onClick={() => onDeleteImage(i)}>
-                  <CloseIcon className={s.close} />
+                  <CloseIcon className={s.close} width={12} height={12} />
                 </div>
-                <ImageToAdd
-                  className={s.image}
-                  src={el.url}
-                  alt={'photos'}
-                  height={82}
-                  width={80}
-                />
+                <ImageToAdd src={el.url} alt={'photo in small add window'} height={82} width={80} />
               </div>
             )
           })}

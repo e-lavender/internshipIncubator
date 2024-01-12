@@ -8,18 +8,19 @@ import { IconType } from '@/components/image-slider/image-slider-types'
 
 type CropMenuProps = PropsWithChildren<{
   icon: IconType
+  isImage?: boolean
 }>
 
-const CropMenu = ({ children, icon }: CropMenuProps) => {
-  const { isOpen, onToggle, onClose } = useDisclose()
-  const color = isOpen ? 'var(--color-accent-500)' : undefined
+const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
+  const { isOpen: isMenuOpened, onOpen: openMenu, onToggle, onClose } = useDisclose()
+  const color = isMenuOpened ? 'var(--color-accent-500)' : undefined
 
   return (
     <div className={s.container} tabIndex={0}>
-      <button onClick={onToggle} onBlur={onClose} className={s.trigger}>
+      <button onClick={onToggle} className={s.trigger}>
         <CropMenuIcon type={icon} color={color} />
-        {isOpen && <div className={s.menu}>{children}</div>}
       </button>
+      {isMenuOpened && <div className={!isImage ? s.menu : s.image}>{children}</div>}
     </div>
   )
 }

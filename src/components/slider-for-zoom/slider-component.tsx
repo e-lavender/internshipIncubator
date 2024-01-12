@@ -6,9 +6,10 @@ import s from './slider.module.scss'
 type Props = {
   sliderValue: number
   setSliderValue: (sliderValue: number) => void
+  isZoom: boolean
 }
 
-export const SliderComponent = ({ sliderValue, setSliderValue }: Props) => {
+export const SliderComponent = ({ sliderValue, setSliderValue, isZoom }: Props) => {
   const handleSliderChange = (value: number | number[]) => {
     setSliderValue(value as number)
   }
@@ -16,7 +17,7 @@ export const SliderComponent = ({ sliderValue, setSliderValue }: Props) => {
   return (
     <form>
       <Slider.Root
-        className={s.SliderRoot}
+        className={!isZoom ? s.SliderRoot : s.SliderRootForZoom}
         defaultValue={[sliderValue]}
         min={1}
         max={50}

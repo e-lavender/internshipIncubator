@@ -61,7 +61,7 @@ const ModalContent = ({
 
                 <Dialog.Close aria-label="Close" className={s.close} onClick={onClose}>
                   {!isCrop ? (
-                    <CloseIcon />
+                    <CloseIcon width={24} height={24} />
                   ) : (
                     <Button variant={'link'} onClick={() => {}}>
                       {'Next'}

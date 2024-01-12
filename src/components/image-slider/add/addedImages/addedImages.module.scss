@@ -23,15 +23,10 @@ width: 12px;
 }
 
 .close {
-  filter: brightness(0) invert(1);
+  background-color: rgba(23, 23, 23, 0.8);
 
   &:hover {
-    filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
-  }
-}
-
-.image {
-  margin-bottom: 12px;
+color: var(--color-accent-500)  }
 }
 
 .oneImage {

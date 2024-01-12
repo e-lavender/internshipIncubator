@@ -12,6 +12,19 @@
   height: 20px;
 }
 
+.SliderRootForZoom {
+  touch-action: none;
+  user-select: none;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100px;
+  height: 20px;
+}
+
 .SliderTrack {
   position: relative;
 

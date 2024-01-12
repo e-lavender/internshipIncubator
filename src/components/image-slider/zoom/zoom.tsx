@@ -8,5 +8,5 @@ type Props = {
 }
 
 export const Zoom = ({ zoom, setZoom }: Props) => {
-  return <SliderComponent sliderValue={zoom} setSliderValue={setZoom} />
+  return <SliderComponent sliderValue={zoom} setSliderValue={setZoom} isZoom={true} />
 }
