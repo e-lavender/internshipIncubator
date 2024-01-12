@@ -110,7 +110,7 @@ export const ForgotPasswordForm = () => {
           className={s.signUpBtn}
           as={Link}
           variant={'link'}
-          href={authNavigationUrls.signUp()}
+          href={authNavigationUrls.signIn()}
         >
           {`${link.description} ${link.text}`}
         </Button>
