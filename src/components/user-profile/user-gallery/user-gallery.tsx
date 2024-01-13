@@ -8,7 +8,7 @@ import { useMatchMedia } from '@/app'
 import { GALLERY_DATA } from '@/app/data'
 import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll'
 import { GalleryItem } from '@/components'
-import { Loader, Skeleton, SkeletonCard } from '@/ui'
+import { SkeletonCard } from '@/ui'
 
 export const UserProfileGallery = ({ data = ['test'] }: any) => {
   const { isMobile } = useMatchMedia()
