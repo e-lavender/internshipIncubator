@@ -203,8 +203,6 @@ const ImageSlider = ({
           <CropMenu icon={'image'} />
         </div>
       )}
-      <Button onClick={onCrop}>Crop</Button>
-      <img src={croppedImages[0].croppedImage} alt={''} />
     </div>
   )
 }

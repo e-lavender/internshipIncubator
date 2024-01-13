@@ -1,17 +1,14 @@
-import { useEffect, useState } from 'react'
-
+import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { UserProfile, UserProfileSkeleton } from '@/modules/user-profile'
 
 const UserProfilePage = () => {
-  // Simulation of fetch request
+  const { data: userProfile, isLoading } = useGetProfileQuery()
 
-  const [isLoaded, setIsLoaded] = useState(false)
+  if (isLoading) {
+    return <UserProfileSkeleton />
+  }
 
-  useEffect(() => {
-    setTimeout(() => setIsLoaded(true), 500)
-  }, [])
-
-  return isLoaded ? <UserProfile /> : <UserProfileSkeleton />
+  return <UserProfile data={userProfile} />
 }
 
 export default UserProfilePage
