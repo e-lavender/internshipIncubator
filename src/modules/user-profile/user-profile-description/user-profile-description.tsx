@@ -2,17 +2,22 @@ import Link from 'next/link'
 
 import s from './user-profile-description.module.scss'
 
-import { CheckedIcon, useTranslation } from '@/app'
+import { CheckedIcon, useMatchMedia, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
-import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { Avatar } from '@/components'
 import { UserStatistics } from '@/components/user-profile/user-statistics'
+import { MobileUserProfileDescription, UserProfileType } from '@/modules'
 import { Button, Typography } from '@/ui'
 
-export const UserProfileDescription = () => {
-  const { data, isLoading: isProfileLoading } = useGetProfileQuery()
+export const UserProfileDescription = ({ data }: UserProfileType) => {
+  const { isMobile } = useMatchMedia()
+
   const { t } = useTranslation()
   const { profile } = t.profileSettings.generalSettings
+
+  if (isMobile) {
+    return <MobileUserProfileDescription />
+  }
 
   return (
     <div className={s.container}>
@@ -28,11 +33,14 @@ export const UserProfileDescription = () => {
             </Typography>
             <CheckedIcon />
           </div>
+
           <Button as={Link} href={menuNavigation.settings()} variant={'secondary'}>
             {profile.btn.label}
           </Button>
         </div>
+
         <UserStatistics />
+
         <Typography as={'p'} variant={'regular-16'}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
