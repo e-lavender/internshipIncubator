@@ -10,27 +10,14 @@ import { ImageModel } from '@/components/image-slider/image-slider-types'
 
 type Props = {
   addedImages: ImageModel[]
-  setAddedImages: (images: ImageModel[]) => void
+  setAddedImages: (addedImages: ImageModel[]) => void
   image?: string
   croppedImage?: string
 }
 
 export const Add = ({ image, addedImages, setAddedImages, croppedImage }: Props) => {
-  const [isAddOpen, setIsAddOpen] = useState(false)
   const addRef = useRef() as MutableRefObject<HTMLDivElement>
   const inputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (addRef.current && !e.composedPath().includes(addRef.current)) {
-        setIsAddOpen(false)
-      }
-    }
-
-    document.body.addEventListener('click', handleClickOutside)
-
-    return () => document.body.removeEventListener('click', handleClickOutside)
-  }, [])
 
   useEffect(() => {
     setAddedImages(addedImages)
@@ -46,12 +33,7 @@ export const Add = ({ image, addedImages, setAddedImages, croppedImage }: Props)
   return (
     <div className={s.addContainer} ref={addRef}>
       {addedImages.length && (
-        <AddedImages
-          croppedImage={croppedImage}
-          addedImages={addedImages}
-          setAddedImages={setAddedImages}
-          image={image}
-        />
+        <AddedImages addedImages={addedImages} setAddedImages={setAddedImages} />
       )}
       {addedImages.length < 10 ? (
         <label

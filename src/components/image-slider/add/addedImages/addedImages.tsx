@@ -10,11 +10,9 @@ import { ImageModel } from '@/components/image-slider/image-slider-types'
 type Props = {
   addedImages: ImageModel[]
   setAddedImages: (addedImages: ImageModel[]) => void
-  image?: string
-  croppedImage?: string
 }
 
-export const AddedImages = ({ addedImages, setAddedImages, croppedImage, image }: Props) => {
+export const AddedImages = ({ addedImages, setAddedImages }: Props) => {
   const imagesToShow = addedImages.slice(-2)
 
   useEffect(() => {
@@ -27,8 +25,6 @@ export const AddedImages = ({ addedImages, setAddedImages, croppedImage, image }
     setAddedImages(addedImages.slice(0, -2).concat(image))
   }
 
-  console.log(addedImages)
-
   return (
     <div className={addedImages.length === 10 ? s.wrapperForImg : s.wrapper}>
       {addedImages.length <= 1
@@ -37,7 +33,7 @@ export const AddedImages = ({ addedImages, setAddedImages, croppedImage, image }
               <div key={idx} className={s.addedPhoto}>
                 <ImageToAdd
                   className={s.oneImage}
-                  src={el.url}
+                  src={el.croppedImage ? el.croppedImage : el.url}
                   alt={'photos'}
                   height={82}
                   width={80}

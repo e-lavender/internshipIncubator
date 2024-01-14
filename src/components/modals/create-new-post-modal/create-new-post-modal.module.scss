@@ -9,6 +9,26 @@
   padding-bottom: 48px;
 }
 
+.crop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 500px;
+  height: 500px;
+}
+
+.filters{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 972px;
+  height: 500px;
+}
+
 .loopBackImg {
   display: flex;
   align-items: center;

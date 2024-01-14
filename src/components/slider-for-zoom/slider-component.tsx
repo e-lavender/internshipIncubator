@@ -6,7 +6,7 @@ import s from './slider.module.scss'
 type Props = {
   sliderValue: number
   setSliderValue: (sliderValue: number) => void
-  isZoom: boolean
+  isZoom?: boolean
 }
 
 export const SliderComponent = ({ sliderValue, setSliderValue, isZoom }: Props) => {

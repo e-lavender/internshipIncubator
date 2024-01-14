@@ -6,8 +6,8 @@ export type ImageModel = {
 }
 export type ImageSliderProps = {
   images: ImageModel[]
-  setAddedImages?: (images: ImageModel[]) => void
-  aspectRatio: any
+  setAddedImages: (images: ImageModel[]) => void
+  aspectRatio?: any
   setAspectRatio?: (aspectRatio: number) => void
   setIsCrop?: (isCrop: boolean) => void
   fitStyle: 'cover' | 'contain'

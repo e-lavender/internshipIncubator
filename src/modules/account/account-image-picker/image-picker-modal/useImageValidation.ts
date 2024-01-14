@@ -34,7 +34,7 @@ export const errorMessage = {
 type ErrorValidationType = { typeLimit?: string | string[]; sizeLimit?: number } // sizeLimit => MB type
 
 export const useImageValidation = () => {
-  const [step, setStep] = useState<1 | 2>(1)
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1)
   const [blob, setBlob] = useState<Blob | null>(null)
   const [url, setUrl] = useState<string>('')
   const [errorText, setErrorText] = useState<string>('')
@@ -50,7 +50,10 @@ export const useImageValidation = () => {
     setBlob(blob)
   }
 
-  const stepBack = () => setStep(1)
+  // @ts-ignore
+  const stepBack = () => setStep(step - 1)
+  // @ts-ignore
+  const stepForward = () => setStep(step + 1)
 
   const clearError = () => setErrorText('')
 
@@ -90,6 +93,7 @@ export const useImageValidation = () => {
   return {
     step,
     stepUp,
+    stepForward,
     stepBack,
     url,
     blob,

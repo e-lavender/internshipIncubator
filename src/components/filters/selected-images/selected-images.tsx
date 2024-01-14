@@ -6,24 +6,13 @@ import { filtersVariant } from './filters-variant'
 import s from './selected-images.module.scss'
 
 import airBalloon from '@/app/assets/image/airBalloonImage.jpg'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
 import { Typography } from '@/ui'
 
 type Props = {
-  addedImages: ImageModel[]
-  activeFilter: string
   setActiveFilter: (activeFilter: string) => void
-  image?: string
-  setAddedImages: (addedImages: ImageModel[]) => void
 }
 
-export const SelectedImages = ({
-  image,
-  addedImages,
-  activeFilter,
-  setActiveFilter,
-  setAddedImages,
-}: Props) => {
+export const SelectedImages = ({ setActiveFilter }: Props) => {
   const onActiveFilter = (filter: string) => {
     switch (filter) {
       case 'No filter':
@@ -64,25 +53,6 @@ export const SelectedImages = ({
 
   return (
     <>
-      <div className={s.imgContainer}>
-        {addedImages.map((el, idx) => {
-          return (
-            <div key={idx} className={s.carousel}>
-              <ImageWithFilter
-                alt={'img'}
-                style={{
-                  filter: activeFilter,
-                  width: '100%',
-                  height: 'auto',
-                }}
-                src={el.url ? el.url : ''}
-                width={490}
-                height={503}
-              />
-            </div>
-          )
-        })}
-      </div>
       <div className={s.filterContainer}>
         {filtersVariant.map((el, idx) => {
           return (

@@ -62,6 +62,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
     2: <Interface2 url={url} callback={uploadAvatar} editorRef={editorRef} />,
   }
 
+  // @ts-ignore
   const CurrentInterface: JSX.Element = interfaceVariants[step]
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
@@ -6,9 +6,8 @@ import { clsx } from 'clsx'
 
 import s from './modal.module.scss'
 
-import { CloseIcon } from '@/app/assets/svg'
-import { SelectedImages } from '@/components/filters/selected-images/selected-images'
-import FiltersModal from '@/components/modals/filters-modal/filters-modal'
+import { BackToPreviousIcon, CloseIcon } from '@/app/assets/svg'
+import { ArrowBackIcon } from '@/app/assets/svg/arrow-back-icon'
 import { Button, Typography } from '@/ui'
 
 type ModalProps = {
@@ -23,9 +22,14 @@ type ModalContentProps = {
   className?: string
   onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
   isModified?: boolean
-  isCrop?: boolean
+  withCropper?: boolean
+  withFilter?: boolean
+  lastModal?: boolean
   onClose?: () => void
+  stepForward?: () => void
+  stepBack?: () => void
 }
+
 export const Modal = ({ open, onChange, children }: ModalProps) => {
   return (
     <Dialog.Root open={open} onOpenChange={onChange}>
@@ -37,14 +41,17 @@ export const Modal = ({ open, onChange, children }: ModalProps) => {
 const ModalContent = ({
   title,
   isModified = false,
-  isCrop,
+  withCropper,
+  withFilter,
+  lastModal,
+  stepForward,
+  stepBack,
   onClose,
   className,
   children,
   ...props
 }: ModalContentProps) => {
   const styles = clsx(s.main, className)
-  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false)
 
   return (
     <Dialog.Portal>
@@ -53,21 +60,33 @@ const ModalContent = ({
           {!isModified && (
             <>
               <div className={s.header}>
+                {withCropper || withFilter || lastModal ? (
+                  <button onClick={stepBack}>
+                    <ArrowBackIcon />
+                  </button>
+                ) : (
+                  ''
+                )}
+
                 <Dialog.Title>
                   <Typography className={s.title} variant="h1">
                     {title}
                   </Typography>
                 </Dialog.Title>
 
-                <Dialog.Close aria-label="Close" className={s.close} onClick={onClose}>
-                  {!isCrop ? (
-                    <CloseIcon width={24} height={24} />
-                  ) : (
-                    <Button variant={'link'} onClick={() => {}}>
-                      {'Next'}
-                    </Button>
-                  )}
-                </Dialog.Close>
+                {withCropper || withFilter ? (
+                  <Button variant={'link'} onClick={stepForward}>
+                    {'Next'}
+                  </Button>
+                ) : (
+                  <Dialog.Close aria-label="Close" className={s.close}>
+                    {!lastModal ? (
+                      <CloseIcon width={24} height={24} onClick={onClose} />
+                    ) : (
+                      <Button variant={'link'}>{'Publish'}</Button>
+                    )}
+                  </Dialog.Close>
+                )}
               </div>
 
               <div className={s.separator}></div>
