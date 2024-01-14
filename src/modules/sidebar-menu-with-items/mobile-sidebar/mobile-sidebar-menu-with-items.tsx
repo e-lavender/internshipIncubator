@@ -16,7 +16,7 @@ export const MobileSidebarMenuWithItems = () => {
   const { pathname } = useRouter()
 
   return (
-    <SidebarMenu className={s.nav}>
+    <SidebarMenu className={s.sidebar}>
       <MenuItem
         href={menuNavigation.home()}
         icon={HomeMenuIcon}

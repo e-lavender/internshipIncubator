@@ -38,7 +38,7 @@ export const SidebarMenuWithItems = () => {
 
   return (
     <>
-      <SidebarMenu className={s.nav}>
+      <SidebarMenu className={s.sidebar}>
         <MenuItem
           href={menuNavigation.home()}
           icon={HomeMenuIcon}
