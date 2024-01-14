@@ -1,17 +1,15 @@
 .container {
   --side-menu-width: 22rem;
 
+  display: flex;
   max-width: 128rem;
   margin: 0 auto;
 
-  &.isAuthed {
-    padding-left: var(--side-menu-width);
+  .wrapper {
+    margin: 0 auto;
   }
 
   &.mobile {
-    padding-left: 0;
-  }
-
-  .wrapper {
+    padding-bottom: 7rem;
   }
 }
