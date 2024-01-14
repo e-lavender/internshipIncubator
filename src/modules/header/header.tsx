@@ -15,8 +15,8 @@ type HeaderProps = {
   isAuthed: boolean
 }
 export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderProps>) {
-  const { isMobile, isTablet } = useMatchMedia()
-  const showAuthButtons = !isAuthed && !isMobile && !isTablet
+  const { isMobile, isDesktop } = useMatchMedia()
+  const showAuthButtons = !isAuthed && isDesktop
 
   return (
     <div className={s.wrapper}>
@@ -26,9 +26,10 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
             Inctagram
           </Typography>
         </Link>
+
         <div className={s.list_wrapper}>
           {children}
-          {isAuthed && <NotificationsBell notifications={notifications} />}
+          {isAuthed && !isMobile && <NotificationsBell notifications={notifications} />}
 
           <LanguageSelect />
 
