@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { IconType } from '../image-slider-types'
+import { IconType } from '../../../image-slider/image-slider-types'
 
 import { Cropping } from '@/app/assets/svg/cropping'
 import { ImageCropper } from '@/app/assets/svg/image-cropper'

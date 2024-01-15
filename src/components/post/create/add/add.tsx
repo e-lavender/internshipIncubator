@@ -5,8 +5,8 @@ import { nanoid } from '@reduxjs/toolkit'
 import s from './add.module.scss'
 
 import { PlusCircle } from '@/app/assets/svg/plus-circle-outline'
-import { AddedImages } from '@/components/image-slider/add/addedImages/addedImages'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
+import { AddedImages } from '@/components/post/create/add/addedImages/addedImages'
 
 type Props = {
   addedImages: ImageModel[]

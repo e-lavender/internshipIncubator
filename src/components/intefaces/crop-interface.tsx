@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import ImageSlider from '@/components/image-slider/image-slider'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
 import Interface1 from '@/components/intefaces/add-interface'
 
-type InterfaceType2 = {
+type CropInterfaceProps = {
   url: string
   callback: (file: File) => void
   addedImages: ImageModel[]
@@ -20,7 +20,7 @@ const CropInterface = ({
   setAddedImages,
   aspectRatio,
   setAspectRatio,
-}: InterfaceType2) => {
+}: CropInterfaceProps) => {
   return (
     <>
       <ImageSlider

@@ -3,8 +3,8 @@ import React, { PropsWithChildren } from 'react'
 import s from './crop-menu.module.scss'
 
 import { useDisclose } from '@/app'
-import CropMenuIcon from '@/components/image-slider/crop-menu/crop-menu-icon'
 import { IconType } from '@/components/image-slider/image-slider-types'
+import CropMenuIcon from '@/components/post/create/crop-menu/crop-menu-icon'
 
 type CropMenuProps = PropsWithChildren<{
   icon: IconType

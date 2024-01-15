@@ -2,16 +2,21 @@ import React from 'react'
 
 import ImageSlider from '@/components/image-slider/image-slider'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
-import Interface3 from '@/components/intefaces/filter-interface'
 import { PostDescription } from '@/components/post-descrition/post-description'
 
-type InterfaceType4 = {
+type DescriptionInterfaceProps = {
   addedImages: ImageModel[]
   setAddedImages: (addedImages: ImageModel[]) => void
   activeFilter: string
+  setValue: (value: string) => void
 }
 
-const DescriptionInterface = ({ activeFilter, addedImages, setAddedImages }: InterfaceType4) => {
+const DescriptionInterface = ({
+  activeFilter,
+  addedImages,
+  setAddedImages,
+  setValue,
+}: DescriptionInterfaceProps) => {
   return (
     <>
       <ImageSlider
@@ -22,7 +27,7 @@ const DescriptionInterface = ({ activeFilter, addedImages, setAddedImages }: Int
         withFilters={true}
         activeFilter={activeFilter}
       />
-      <PostDescription />
+      <PostDescription setValue={setValue} />
     </>
   )
 }

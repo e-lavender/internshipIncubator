@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { SelectedImages } from '@/components/filters/selected-images/selected-images'
 import ImageSlider from '@/components/image-slider/image-slider'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
+import { SelectedImages } from '@/components/post/create/selected-images/selected-images'
 
-type InterfaceType3 = {
+type FilterInterfaceProps = {
   callback: (file: File) => void
   url: string
   addedImages: ImageModel[]
@@ -18,7 +18,7 @@ const FilterInterface = ({
   activeFilter,
   setActiveFilter,
   setAddedImages,
-}: InterfaceType3) => {
+}: FilterInterfaceProps) => {
   return (
     <>
       <ImageSlider

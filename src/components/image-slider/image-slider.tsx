@@ -7,8 +7,8 @@ import Cropper from 'react-easy-crop'
 import s from './image-slider.module.scss'
 
 import { ChevronLeft, ChevronRight } from '@/app'
-import CropperMenu from '@/components/image-slider/crop-menu/cropper-menu'
 import { ImageSliderProps } from '@/components/image-slider/image-slider-types'
+import CropperMenu from '@/components/post/create/crop-menu/cropper-menu'
 
 const ImageSlider = ({
   onClick,
@@ -49,7 +49,9 @@ const ImageSlider = ({
   {
     /*@TODO:make aspectRatio as typed prop like 'landscape' | 'portrait' */
   }
-  console.log(croppedImages)
+  useEffect(() => {
+    setCroppedImages(images)
+  }, [images])
 
   return (
     <div
@@ -126,7 +128,8 @@ const ImageSlider = ({
       )}
       {withCropper && (
         <CropperMenu
-          images={images}
+          imageIndex={imageIndex}
+          images={croppedImages}
           setCroppedImages={setCroppedImages}
           croppedAreaPixels={croppedAreaPixels}
           zoom={zoom}

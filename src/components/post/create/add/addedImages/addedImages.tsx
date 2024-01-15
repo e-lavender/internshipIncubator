@@ -47,7 +47,12 @@ export const AddedImages = ({ addedImages, setAddedImages }: Props) => {
                 <div className={s.closeIcon} onClick={() => onDeleteImage(i)}>
                   <CloseIcon className={s.close} width={12} height={12} />
                 </div>
-                <ImageToAdd src={el.url} alt={'photo in small add window'} height={82} width={80} />
+                <ImageToAdd
+                  src={el.croppedImage ? el.croppedImage : el.url}
+                  alt={'photo in small add window'}
+                  height={82}
+                  width={80}
+                />
               </div>
             )
           })}

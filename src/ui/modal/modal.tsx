@@ -28,6 +28,8 @@ type ModalContentProps = {
   onClose?: () => void
   stepForward?: () => void
   stepBack?: () => void
+  addNewPost: (activeFilter: string) => void
+  activeFilter: string
 }
 
 export const Modal = ({ open, onChange, children }: ModalProps) => {
@@ -46,6 +48,8 @@ const ModalContent = ({
   lastModal,
   stepForward,
   stepBack,
+  addNewPost,
+  activeFilter,
   onClose,
   className,
   children,
@@ -83,7 +87,9 @@ const ModalContent = ({
                     {!lastModal ? (
                       <CloseIcon width={24} height={24} onClick={onClose} />
                     ) : (
-                      <Button variant={'link'}>{'Publish'}</Button>
+                      <Button variant={'link'} onClick={() => addNewPost(activeFilter)}>
+                        {'Publish'}
+                      </Button>
                     )}
                   </Dialog.Close>
                 )}

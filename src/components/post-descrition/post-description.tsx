@@ -6,7 +6,11 @@ import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { Avatar } from '@/components'
 import { TextArea, Typography } from '@/ui'
 
-export const PostDescription = () => {
+type PostDescriptionProps = {
+  setValue: (value: string) => void
+}
+
+export const PostDescription = ({ setValue }: PostDescriptionProps) => {
   const { data } = useGetProfileQuery()
 
   return (
@@ -30,13 +34,7 @@ export const PostDescription = () => {
             </div>
           </div>
 
-          <TextArea label={'Add publication descriptions'} maxLength={500} />
-
-          <div className={s.counter}>
-            <Typography variant={'small'} color="secondary">
-              0/500
-            </Typography>
-          </div>
+          <TextArea label={'Add publication descriptions'} sizeLimit={500} setValue={setValue} />
         </div>
       </div>
     </>

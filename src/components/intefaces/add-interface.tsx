@@ -7,14 +7,14 @@ import { ImageModel } from '@/components/image-slider/image-slider-types'
 import s from '@/components/modals/create-new-post-modal/create-new-post-modal.module.scss'
 import { Button, FileInput, Typography } from '@/ui'
 
-type AddInterface = {
+type AddInterfaceProps = {
   url: string
   error?: string
   callback: (file: File) => void
   addedImages: ImageModel[]
   setAddedImages: (addedImages: ImageModel[]) => void
 }
-const AddInterface = ({ callback, error, setAddedImages, addedImages, url }: InterfaceType1) => {
+const AddInterface = ({ callback, error, setAddedImages, addedImages, url }: AddInterfaceProps) => {
   const formRef = useRef<HTMLFormElement>(null)
   const { JPG, PNG } = MIME_TYPES
 

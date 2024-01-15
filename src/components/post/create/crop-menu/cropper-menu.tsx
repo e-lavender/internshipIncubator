@@ -4,12 +4,12 @@ import { LandscapeCrop } from '@/app/assets/svg/image-cropper/crop-icons/landsca
 import { OriginalCrop } from '@/app/assets/svg/image-cropper/crop-icons/original'
 import { PortraitCrop } from '@/app/assets/svg/image-cropper/crop-icons/portrait'
 import { SquareCrop } from '@/app/assets/svg/image-cropper/crop-icons/square'
-import { Add } from '@/components/image-slider/add/add'
-import CropMenu from '@/components/image-slider/crop-menu/crop-menu'
-import CropMenuItem from '@/components/image-slider/crop-menu/crop-menu-item'
 import useImageCrop from '@/components/image-slider/hooks/useImageCrop'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
-import { Zoom } from '@/components/image-slider/zoom/zoom'
+import { Add } from '@/components/post/create/add/add'
+import CropMenu from '@/components/post/create/crop-menu/crop-menu'
+import CropMenuItem from '@/components/post/create/crop-menu/crop-menu-item'
+import { Zoom } from '@/components/post/create/zoom/zoom'
 import { Button } from '@/ui'
 
 type Props = {
@@ -22,8 +22,10 @@ type Props = {
   setAddedImages: (addedImages: ImageModel[]) => void
   crop: { x: number; y: number }
   aspectRatio: any
+  imageIndex: number
 }
 const CropperMenu = ({
+  imageIndex,
   images,
   setCroppedImages,
   croppedAreaPixels,
@@ -54,9 +56,9 @@ const CropperMenu = ({
   }
   const onCrop = async () => {
     if (croppedAreaPixels) {
-      const croppedImage = await getCroppedImg(images[0].url, croppedAreaPixels)
+      const croppedImage = await getCroppedImg(images[imageIndex].url, croppedAreaPixels)
 
-      setCroppedImageFor(images[0].id, crop, zoom, aspectRatio, croppedImage)
+      setCroppedImageFor(images[imageIndex].id, crop, zoom, aspectRatio, croppedImage)
     }
   }
   const menuData = [
@@ -113,9 +115,9 @@ const CropperMenu = ({
           display: 'flex',
           justifyContent: 'space-between',
           padding: '12px',
-          border: '1px solid green',
           position: 'relative',
           transform: 'translateY(-100%)',
+          marginTop: '54px',
         }}
       >
         <div style={{ display: 'flex', columnGap: '12px' }}>

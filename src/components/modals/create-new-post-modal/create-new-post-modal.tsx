@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 
@@ -6,24 +6,58 @@ import s from './create-new-post-modal.module.scss'
 
 import { useDisclose } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
+import { useAddPostMutation } from '@/app/services/post/post.api'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
 import AddInterface from '@/components/intefaces/add-interface'
 import CropInterface from '@/components/intefaces/crop-interface'
 import DescriptionInterface from '@/components/intefaces/description-interface'
 import FilterInterface from '@/components/intefaces/filter-interface'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal/confirmation-modal'
-import { useImageValidation } from '@/modules/account/account-image-picker/image-picker-modal/useImageValidation'
+import { filteredImg } from '@/components/post/create/filters/Filters'
+import { useCreatePost } from '@/components/post/create/useCreatePost'
 import { Modal } from '@/ui'
 
 const CreateNewPostModal = () => {
   const [addedImages, setAddedImages] = useState<ImageModel[]>([])
   const [aspectRatio, setAspectRatio] = useState(4 / 3)
   const [activeFilter, setActiveFilter] = useState('')
-
+  const [value, setValue] = useState('')
   const { isOpen, closeCreatePostModal: close } = useCreatePostModal()
-  const { url, step, stepUp, stepForward, stepBack } = useImageValidation()
+  const { url, step, stepUp, stepForward, stepBack } = useCreatePost()
+  const [addPost] = useAddPostMutation()
 
-  console.log(addedImages)
+  const formData = new FormData()
+  const addNewPost = async (activeFilter: string) => {
+    const updatedImages = await Promise.all(
+      addedImages.map(async (el, idx) => {
+        const filteredImage = await filteredImg(
+          el.croppedImage ? el.croppedImage : el.url,
+          activeFilter
+        )
+
+        if (!filteredImage) {
+          return null
+        }
+        const file = new File([filteredImage], el.url, {
+          type: 'image/jpeg',
+        })
+
+        formData.append('photoUrl', file)
+
+        return {
+          image: filteredImage,
+        }
+      })
+    )
+
+    formData.append('description', value)
+
+    addPost(formData)
+      .unwrap()
+      .then(() => {
+        setActiveFilter('')
+      })
+  }
 
   const interfaceVariants = {
     1: (
@@ -61,6 +95,7 @@ const CreateNewPostModal = () => {
         addedImages={addedImages}
         setAddedImages={setAddedImages}
         activeFilter={activeFilter}
+        setValue={setValue}
       />
     ),
   }
@@ -102,6 +137,8 @@ const CreateNewPostModal = () => {
           onInteractOutside={handleOutsideClick}
           stepForward={stepForward}
           stepBack={stepBack}
+          addNewPost={addNewPost}
+          activeFilter={activeFilter}
         >
           {CurrentInterface}
         </Modal.Content>
