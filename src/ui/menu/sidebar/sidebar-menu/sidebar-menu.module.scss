@@ -1,13 +1,5 @@
 .container {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-
-  width: 22rem;
-  height: 100vh;
   padding: 7.2rem 0 3.6rem 6rem;
-
   background-color: var(--bg-color-primary);
   border: 1px solid transparent;
   border-right-color: #333;

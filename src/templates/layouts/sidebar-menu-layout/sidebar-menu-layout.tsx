@@ -21,8 +21,7 @@ export const SidebarMenuLayout = ({
   const SidebarVersion = isMobile ? <MobileSidebarMenuWithItems /> : <SidebarMenuWithItems />
 
   const styles = {
-    root: clsx(s.container, isMobile && s.mobile, isAuthed && s.isAuthed),
-    wrapper: clsx(!isMobile && s.wrapper),
+    root: clsx(s.container, isMobile && s.mobile),
   }
 
   return (
@@ -31,7 +30,8 @@ export const SidebarMenuLayout = ({
 
       <div className={styles.root}>
         {isAuthed && SidebarVersion}
-        <div className={styles.wrapper}>{children}</div>
+
+        <div className={s.wrapper}>{children}</div>
       </div>
     </>
   )
