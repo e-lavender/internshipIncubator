@@ -10,7 +10,7 @@ import { AddedImages } from '@/components/post/create/add/addedImages/addedImage
 
 type Props = {
   addedImages: ImageModel[]
-  setAddedImages: (addedImages: ImageModel[]) => void
+  setAddedImages?: (addedImages: ImageModel[]) => void
   image?: string
   croppedImage?: string
 }
@@ -20,14 +20,18 @@ export const Add = ({ image, addedImages, setAddedImages, croppedImage }: Props)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    setAddedImages(addedImages)
+    if (setAddedImages) {
+      setAddedImages(addedImages)
+    }
   }, [addedImages])
 
   const handleImageUpload = (e: any) => {
-    setAddedImages([
-      ...addedImages,
-      { url: URL.createObjectURL(e.target.files[0]), alt: '', id: nanoid() },
-    ])
+    if (setAddedImages) {
+      setAddedImages([
+        ...addedImages,
+        { url: URL.createObjectURL(e.target.files[0]), alt: '', id: nanoid() },
+      ])
+    }
   }
 
   return (

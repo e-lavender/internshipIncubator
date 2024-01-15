@@ -1,12 +1,12 @@
 export type ImageModel = {
-  id: string
+  id: any
   url: any
   alt: string
   croppedImage?: any
 }
 export type ImageSliderProps = {
   images: ImageModel[]
-  setAddedImages: (images: ImageModel[]) => void
+  setAddedImages?: (images: ImageModel[]) => void
   aspectRatio?: any
   setAspectRatio?: (aspectRatio: number) => void
   setIsCrop?: (isCrop: boolean) => void

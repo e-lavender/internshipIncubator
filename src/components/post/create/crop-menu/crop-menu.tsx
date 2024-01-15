@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { MutableRefObject, PropsWithChildren, useEffect, useRef } from 'react'
 
 import s from './crop-menu.module.scss'
 
@@ -13,10 +13,24 @@ type CropMenuProps = PropsWithChildren<{
 
 const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
   const { isOpen: isMenuOpened, onOpen: openMenu, onToggle, onClose } = useDisclose()
+  const ref = useRef() as MutableRefObject<HTMLDivElement>
+
   const color = isMenuOpened ? 'var(--color-accent-500)' : undefined
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !e.composedPath().includes(ref.current)) {
+        onClose()
+      }
+    }
+
+    document.body.addEventListener('click', handleClickOutside)
+
+    return () => document.body.removeEventListener('click', handleClickOutside)
+  }, [])
+
   return (
-    <div className={s.container} tabIndex={0}>
+    <div className={s.container} tabIndex={0} ref={ref}>
       <button onClick={onToggle} className={s.trigger}>
         <CropMenuIcon type={icon} color={color} />
       </button>

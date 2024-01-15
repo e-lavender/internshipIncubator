@@ -9,20 +9,24 @@ import { ImageModel } from '@/components/image-slider/image-slider-types'
 
 type Props = {
   addedImages: ImageModel[]
-  setAddedImages: (addedImages: ImageModel[]) => void
+  setAddedImages?: (addedImages: ImageModel[]) => void
 }
 
 export const AddedImages = ({ addedImages, setAddedImages }: Props) => {
   const imagesToShow = addedImages.slice(-2)
 
   useEffect(() => {
-    setAddedImages(addedImages)
+    if (setAddedImages) {
+      setAddedImages(addedImages)
+    }
   }, [addedImages])
 
   const onDeleteImage = (i: number) => {
     const image = i === 0 ? imagesToShow.slice(1) : imagesToShow.slice(0, -1)
 
-    setAddedImages(addedImages.slice(0, -2).concat(image))
+    if (setAddedImages) {
+      setAddedImages(addedImages.slice(0, -2).concat(image))
+    }
   }
 
   return (

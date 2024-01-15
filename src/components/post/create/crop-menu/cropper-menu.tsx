@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { LandscapeCrop } from '@/app/assets/svg/image-cropper/crop-icons/landscape'
 import { OriginalCrop } from '@/app/assets/svg/image-cropper/crop-icons/original'
@@ -19,7 +19,7 @@ type Props = {
   zoom: number
   setZoom: (zoom: number) => void
   setAspectRatio: ((aspectRatio: number) => void) | undefined
-  setAddedImages: (addedImages: ImageModel[]) => void
+  setAddedImages?: (addedImages: ImageModel[]) => void
   crop: { x: number; y: number }
   aspectRatio: any
   imageIndex: number
@@ -61,6 +61,13 @@ const CropperMenu = ({
       setCroppedImageFor(images[imageIndex].id, crop, zoom, aspectRatio, croppedImage)
     }
   }
+
+  useEffect(() => {
+    if (setAddedImages) {
+      setAddedImages(images)
+    }
+  }, [images])
+
   const menuData = [
     {
       id: '1',
@@ -137,11 +144,12 @@ const CropperMenu = ({
             <Zoom zoom={zoom} setZoom={setZoom} />
           </CropMenu>
         </div>
+        <Button onClick={onCrop}>Crop</Button>
+
         <CropMenu icon={'image'} isImage={true}>
           <Add addedImages={images} setAddedImages={setAddedImages} />
         </CropMenu>
       </div>
-      <Button onClick={onCrop}>Crop</Button>
     </>
   )
 }

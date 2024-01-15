@@ -94,6 +94,7 @@ const ImageSlider = ({
               className={clsx(s.imageSlider, s[fitStyle])}
             >
               <Image
+                objectFit={'contain'}
                 fill={true}
                 src={image.croppedImage ? image.croppedImage : image.url}
                 alt={image.alt}

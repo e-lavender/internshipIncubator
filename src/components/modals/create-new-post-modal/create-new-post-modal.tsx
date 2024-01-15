@@ -42,7 +42,7 @@ const CreateNewPostModal = () => {
           type: 'image/jpeg',
         })
 
-        formData.append('photoUrl', file)
+        formData.append('images', file)
 
         return {
           image: filteredImage,

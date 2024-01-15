@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import ImageSlider from '@/components/image-slider/image-slider'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
@@ -19,12 +19,16 @@ const FilterInterface = ({
   setActiveFilter,
   setAddedImages,
 }: FilterInterfaceProps) => {
+  useEffect(() => {
+    setAddedImages(addedImages)
+  }, [addedImages])
+
   return (
     <>
       <ImageSlider
         images={addedImages}
         aspectRatio={'1/1'}
-        fitStyle={'cover'}
+        fitStyle={'contain'}
         activeFilter={activeFilter}
         setAddedImages={setAddedImages}
       />
