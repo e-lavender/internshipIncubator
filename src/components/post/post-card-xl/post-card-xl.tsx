@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import { ChangeEventHandler, FormEventHandler, ReactElement, useState } from 'react'
 
 import s from './post-card-xl.module.scss'
 
@@ -32,7 +32,7 @@ export const PostCardXL = (props: PostCardXLType) => {
 
   const isEditMode: boolean = mode === 'edit'
 
-  const interfaces: { [key: string]: JSX.Element } = {
+  const interfaces: { [ViewMode in typeof mode]: ReactElement } = {
     view: <CardInterface {...props} />,
     edit: (
       <CardEditInterface

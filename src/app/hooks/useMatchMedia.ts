@@ -4,8 +4,8 @@ import { MatchMedia } from '@/app'
 
 const QUERIES = {
   MOBILE: '(min-width: 320px) and (max-width: 420px)',
-  TABLET: '(min-width: 421px) and (max-width: 1199px)',
-  DESKTOP: '(min-width: 1200px)',
+  TABLET: '(min-width: 421px) and (max-width: 1024px)',
+  DESKTOP: '(min-width: 1025px)',
 }
 
 const THROTTLED_TIME = 500
