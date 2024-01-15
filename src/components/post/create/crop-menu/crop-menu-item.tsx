@@ -12,7 +12,7 @@ const CropMenuItem = ({
   title,
   selected,
 }: {
-  id: number
+  id: string
   icon: ReactNode
   title: string
   onClick: () => void
@@ -25,7 +25,7 @@ const CropMenuItem = ({
       <Typography variant={'h3'} as={'h3'} className={className}>
         {title}
       </Typography>
-      {icon}
+      <div className={className}>{icon}</div>
     </div>
   )
 }

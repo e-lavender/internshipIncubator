@@ -1,0 +1,48 @@
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.addContainer {
+  cursor: pointer;
+
+  display: flex;
+
+  min-width: 162px;
+  height: 106px;
+
+  color: var(--color-light-700);
+
+  opacity: 0.8;
+  border-radius: 2px;
+}
+
+.addedPhoto {
+width: 80px;
+  height: 82px;
+  margin: 12px;
+}
+
+.addPhotoBtn {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  margin: 12px;
+}
+
+.addTheSecondPhoto {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+
+  margin: 12px 12px 12px 5px;
+}
+
+.carouselPhoto {
+  width: 80px;
+  height: 82px;
+  margin: 12px;
+}
+

@@ -6,8 +6,9 @@ import { clsx } from 'clsx'
 
 import s from './modal.module.scss'
 
-import { CloseIcon } from '@/app/assets/svg'
-import { Typography } from '@/ui'
+import { BackToPreviousIcon, CloseIcon } from '@/app/assets/svg'
+import { ArrowBackIcon } from '@/app/assets/svg/arrow-back-icon'
+import { Button, Typography } from '@/ui'
 
 type ModalProps = {
   open?: boolean
@@ -21,8 +22,16 @@ type ModalContentProps = {
   className?: string
   onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
   isModified?: boolean
+  withCropper?: boolean
+  withFilter?: boolean
+  lastModal?: boolean
   onClose?: () => void
+  stepForward?: () => void
+  stepBack?: () => void
+  addNewPost?: (activeFilter: string) => void
+  activeFilter?: string
 }
+
 export const Modal = ({ open, onChange, children }: ModalProps) => {
   return (
     <Dialog.Root open={open} onOpenChange={onChange}>
@@ -34,6 +43,13 @@ export const Modal = ({ open, onChange, children }: ModalProps) => {
 const ModalContent = ({
   title,
   isModified = false,
+  withCropper,
+  withFilter,
+  lastModal,
+  stepForward,
+  stepBack,
+  addNewPost,
+  activeFilter,
   onClose,
   className,
   children,
@@ -48,15 +64,38 @@ const ModalContent = ({
           {!isModified && (
             <>
               <div className={s.header}>
+                {withCropper || withFilter || lastModal ? (
+                  <button onClick={stepBack}>
+                    <ArrowBackIcon />
+                  </button>
+                ) : (
+                  ''
+                )}
+
                 <Dialog.Title>
                   <Typography className={s.title} variant="h1">
                     {title}
                   </Typography>
                 </Dialog.Title>
 
-                <Dialog.Close aria-label="Close" className={s.close} onClick={onClose}>
-                  <CloseIcon />
-                </Dialog.Close>
+                {withCropper || withFilter ? (
+                  <Button variant={'link'} onClick={stepForward}>
+                    {'Next'}
+                  </Button>
+                ) : (
+                  <Dialog.Close aria-label="Close" className={s.close}>
+                    {!lastModal ? (
+                      <CloseIcon width={24} height={24} onClick={onClose} />
+                    ) : (
+                      <Button
+                        variant={'link'}
+                        onClick={() => addNewPost && addNewPost(activeFilter ? activeFilter : '')}
+                      >
+                        {'Publish'}
+                      </Button>
+                    )}
+                  </Dialog.Close>
+                )}
               </div>
 
               <div className={s.separator}></div>

@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import * as Slider from '@radix-ui/react-slider'
 
-import s from '@/modules/account/account-image-picker/image-picker-modal/image-picker-modal.module.scss'
-
+import s from './slider.module.scss'
 type Props = {
   sliderValue: number
   setSliderValue: (sliderValue: number) => void
+  isZoom?: boolean
 }
 
-export const SliderComponent = ({ sliderValue, setSliderValue }: Props) => {
+export const SliderComponent = ({ sliderValue, setSliderValue, isZoom }: Props) => {
   const handleSliderChange = (value: number | number[]) => {
     setSliderValue(value as number)
   }
@@ -17,11 +17,11 @@ export const SliderComponent = ({ sliderValue, setSliderValue }: Props) => {
   return (
     <form>
       <Slider.Root
-        className={s.SliderRoot}
+        className={!isZoom ? s.SliderRoot : s.SliderRootForZoom}
         defaultValue={[sliderValue]}
-        min={10}
+        min={1}
         max={50}
-        step={2}
+        step={1}
         onValueChange={handleSliderChange}
         value={[sliderValue]}
       >

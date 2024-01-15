@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 
-import * as Slider from '@radix-ui/react-slider'
 import { clsx } from 'clsx'
 import AvatarEditor from 'react-avatar-editor'
 
@@ -63,6 +62,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
     2: <Interface2 url={url} callback={uploadAvatar} editorRef={editorRef} />,
   }
 
+  // @ts-ignore
   const CurrentInterface: JSX.Element = interfaceVariants[step]
 
   useEffect(() => {
