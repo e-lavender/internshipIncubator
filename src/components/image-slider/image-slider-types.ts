@@ -1,15 +1,21 @@
 export type ImageModel = {
-  id: number
+  id: any
   url: any
   alt: string
-  croppedImage: any
+  croppedImage?: any
 }
 export type ImageSliderProps = {
   images: ImageModel[]
-  aspectRatio: string
+  setAddedImages?: (images: ImageModel[]) => void
+  aspectRatio?: any
+  setAspectRatio?: (aspectRatio: number) => void
+  setIsCrop?: (isCrop: boolean) => void
   fitStyle: 'cover' | 'contain'
   size?: number
   onClick?: (id: string | number) => void
   withCropper?: boolean
+  withFilters?: boolean
+  activeFilter?: string
+  setActiveFilter?: (activeFilter: string) => void
 }
 export type IconType = 'cropper' | 'zoom' | 'image'

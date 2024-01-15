@@ -19,10 +19,10 @@ const useImageCrop = () => {
   const [rotation, setRotation] = useState(0)
 
   const getCroppedImg = async (
-    imageSrc: any,
+    imageSrc: string,
     pixelCrop: { width: number; height: number; x: number; y: number }
   ): Promise<string> => {
-    const image = await createImage(imageSrc.src)
+    const image = await createImage(imageSrc)
 
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
