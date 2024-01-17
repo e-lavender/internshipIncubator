@@ -1,48 +1,47 @@
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
 .addContainer {
-  cursor: pointer;
-
+  overflow-y: hidden;
   display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-  min-width: 162px;
-  height: 106px;
+  min-width: 16.2rem;
+  max-width: 47rem;
+  height: 10.6rem;
+  padding: 1.2rem;
 
   color: var(--color-light-700);
 
   opacity: 0.8;
-  border-radius: 2px;
+  border-radius: 0.2rem;
+
+  &.scroll {
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      height: 1rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--text-color-disabled);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #fff;
+      border-radius: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgb(255 255 255 / 75%);
+    }
+  }
+
+  & input {
+    display: none;
+  }
+
+  .label,
+  .icon {
+    cursor: pointer;
+  }
 }
-
-.addedPhoto {
-width: 80px;
-  height: 82px;
-  margin: 12px;
-}
-
-.addPhotoBtn {
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  margin: 12px;
-}
-
-.addTheSecondPhoto {
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-
-  margin: 12px 12px 12px 5px;
-}
-
-.carouselPhoto {
-  width: 80px;
-  height: 82px;
-  margin: 12px;
-}
-

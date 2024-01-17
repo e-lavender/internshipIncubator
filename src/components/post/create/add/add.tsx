@@ -1,63 +1,68 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, MutableRefObject, useRef } from 'react'
 
 import { nanoid } from '@reduxjs/toolkit'
+import { clsx } from 'clsx'
 
 import s from './add.module.scss'
 
+import { MIME_TYPES } from '@/app'
 import { PlusCircle } from '@/app/assets/svg/plus-circle-outline'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
+import { addImage, addMultipleImages } from '@/app/services/post/slider.slice'
+import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { AddedImages } from '@/components/post/create/add/addedImages/addedImages'
 
-type Props = {
-  addedImages: ImageModel[]
-  setAddedImages?: (addedImages: ImageModel[]) => void
-  image?: string
-  croppedImage?: string
-}
-
-export const Add = ({ image, addedImages, setAddedImages, croppedImage }: Props) => {
+export const Add = () => {
   const addRef = useRef() as MutableRefObject<HTMLDivElement>
   const inputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    if (setAddedImages) {
-      setAddedImages(addedImages)
-    }
-  }, [addedImages])
+  const { JPG, PNG } = MIME_TYPES
+  const acceptedFormats: string = [JPG, PNG].join(', ')
 
-  const handleImageUpload = (e: any) => {
-    if (setAddedImages) {
-      setAddedImages([
-        ...addedImages,
-        { url: URL.createObjectURL(e.target.files[0]), alt: '', id: nanoid() },
-      ])
+  const sliderImages = useAppSelector(state => state.slider.images)
+  const dispatch = useAppDispatch()
+
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target
+
+    if (!files) return
+
+    if (files.length > 1) {
+      // @ts-ignore
+      const newImages = [...files].map(file => ({
+        url: URL.createObjectURL(file),
+        alt: '',
+        id: nanoid(),
+      }))
+
+      dispatch(addMultipleImages(newImages))
+    } else {
+      const newImage = { url: URL.createObjectURL(files[0]), alt: '', id: nanoid() }
+
+      dispatch(addImage(newImage))
     }
   }
 
   return (
-    <div className={s.addContainer} ref={addRef}>
-      {addedImages.length && (
-        <AddedImages addedImages={addedImages} setAddedImages={setAddedImages} />
-      )}
-      {addedImages.length < 10 ? (
-        <label
-          id="cropper"
-          className={addedImages.length === 1 ? s.addTheSecondPhoto : s.addPhotoBtn}
-        >
-          <PlusCircle />
-          <input
-            id="cropper"
-            type="file"
-            ref={inputRef}
-            name="cover"
-            onChange={handleImageUpload}
-            accept="image/png, image/jpeg, image/jpg"
-            style={{ display: 'none' }}
-          />
-        </label>
-      ) : (
-        ''
-      )}
-    </div>
+    <>
+      <div className={clsx(s.addContainer, sliderImages.length > 4 && s.scroll)} ref={addRef}>
+        {!!sliderImages.length && <AddedImages />}
+
+        {sliderImages.length < 10 && (
+          <label id="cropper" className={s.label}>
+            <PlusCircle />
+
+            <input
+              id="cropper"
+              type="file"
+              ref={inputRef}
+              name="cover"
+              onChange={handleImageUpload}
+              accept={acceptedFormats}
+              multiple={true}
+            />
+          </label>
+        )}
+      </div>
+    </>
   )
 }

@@ -1,33 +1,15 @@
-import React from 'react'
-
-import ImageSlider from '@/components/image-slider/image-slider'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
+import { ImageSlider, ImageModel } from '@/components'
 import { PostDescription } from '@/components/post-descrition/post-description'
 
 type DescriptionInterfaceProps = {
-  addedImages: ImageModel[]
-  setAddedImages: (addedImages: ImageModel[]) => void
-  activeFilter: string
-  setValue: (value: string) => void
+  images?: ImageModel[]
 }
 
-const DescriptionInterface = ({
-  activeFilter,
-  addedImages,
-  setAddedImages,
-  setValue,
-}: DescriptionInterfaceProps) => {
+const DescriptionInterface = ({ images = [] }: DescriptionInterfaceProps) => {
   return (
     <>
-      <ImageSlider
-        images={addedImages}
-        setAddedImages={setAddedImages}
-        aspectRatio={'1/1'}
-        fitStyle={'cover'}
-        withFilters={true}
-        activeFilter={activeFilter}
-      />
-      <PostDescription setValue={setValue} />
+      <ImageSlider images={images} aspectRatio={'1/1'} fitStyle={'contain'} />
+      <PostDescription />
     </>
   )
 }

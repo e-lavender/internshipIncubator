@@ -1,37 +1,22 @@
-import React, { useEffect } from 'react'
+import { useState } from 'react'
 
-import ImageSlider from '@/components/image-slider/image-slider'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
-import Interface1 from '@/components/intefaces/add-interface'
+import { ImageModel } from '@/components'
+import { ImageSliderWithCropper } from '@/components/image-sliderV2/image-slider-with-cropper/image-slider-with-cropper'
 
 type CropInterfaceProps = {
-  url: string
-  callback: (file: File) => void
-  addedImages: ImageModel[]
-  setAddedImages: (addedImages: ImageModel[]) => void
-  aspectRatio: number
-  setAspectRatio: (aspectRatio: number) => void
-  activeFilter: string
-  setActiveFilter: (activeFilter: string) => void
+  images?: ImageModel[]
 }
 
-const CropInterface = ({
-  addedImages,
-  setAddedImages,
-  aspectRatio,
-  setAspectRatio,
-}: CropInterfaceProps) => {
+const CropInterface = ({ images = [] }: CropInterfaceProps) => {
+  const [aspectRatio, setAspectRatio] = useState(4 / 3)
+
   return (
-    <>
-      <ImageSlider
-        images={addedImages}
-        setAddedImages={setAddedImages}
-        fitStyle={'cover'}
-        aspectRatio={aspectRatio}
-        setAspectRatio={setAspectRatio}
-        withCropper={true}
-      />
-    </>
+    <ImageSliderWithCropper
+      images={images}
+      aspectRatio={aspectRatio}
+      setAspectRatio={setAspectRatio}
+      fitStyle={'cover'}
+    />
   )
 }
 

@@ -34,7 +34,7 @@ export const errorMessage = {
 type ErrorValidationType = { typeLimit?: string | string[]; sizeLimit?: number } // sizeLimit => MB type
 
 export const useCreatePost = () => {
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1)
+  const [step, setStep] = useState<number>(1)
   const [blob, setBlob] = useState<Blob | null>(null)
   const [url, setUrl] = useState<string>('')
   const [errorText, setErrorText] = useState<string>('')
@@ -50,10 +50,11 @@ export const useCreatePost = () => {
     setBlob(blob)
   }
 
-  // @ts-ignore
-  const stepBack = () => setStep(step - 1)
-  // @ts-ignore
-  const stepForward = () => setStep(step + 1)
+  const stepBack = () => setStep(step => step - 1)
+
+  const stepForward = () => setStep(step => step + 1)
+
+  const setPreferredStep = (num: number) => setStep(num)
 
   const clearError = () => setErrorText('')
 
@@ -94,6 +95,7 @@ export const useCreatePost = () => {
     step,
     stepUp,
     stepForward,
+    setPreferredStep,
     stepBack,
     url,
     blob,

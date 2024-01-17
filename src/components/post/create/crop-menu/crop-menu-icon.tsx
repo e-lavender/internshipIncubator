@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { IconType } from '../../../image-slider/image-slider-types'
 
 import { Cropping } from '@/app/assets/svg/cropping'
-import { ImageCropper } from '@/app/assets/svg/image-cropper'
+import { ImageCropper } from '@/app/assets/svg/image-cropper/imageCropper'
 import { ZoomCropper } from '@/app/assets/svg/zoom-cropper'
 
 const CropMenuIcon = ({ color, type }: { color?: string; type: IconType }) => {

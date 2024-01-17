@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 import AvatarEditor from 'react-avatar-editor'
@@ -20,7 +20,7 @@ type ImagePickerModalType = {
   onClose?: () => void
 }
 
-export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModalType) => {
+export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
   const { url, step, stepUp, stepBack, errorText, clearError, blob } = useImageValidation()
   const editorRef = useRef<AvatarEditor>(null)
 
@@ -30,6 +30,14 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
   const { modal } = t.profileSettings.generalSettings.profileImage
 
   const styles = clsx(!errorText && s.avatar)
+
+  const onModalClose = () => {
+    if (step === 2) {
+      stepBack()
+    }
+
+    onClose && onClose()
+  }
 
   const uploadAvatar = () => {
     const formData = new FormData()
@@ -71,7 +79,7 @@ export const ImagePickerModal = ({ isOpen, onChange, onClose }: ImagePickerModal
 
   return (
     <>
-      <Modal open={isOpen} onChange={onChange}>
+      <Modal open={isOpen} onChange={onModalClose}>
         <Modal.Content
           className={s.container}
           title={modal.label}
@@ -139,8 +147,7 @@ type InterfaceType2 = {
 
 const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
   const { t } = useTranslation()
-  const [sliderValue, setSliderValue] = useState<number>(10)
-  const [croppedAvatar, setCroppedAvatar] = useState<string | null>(null)
+  const [sliderValue, setSliderValue] = useState<number>(1)
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0.5, y: 0.5 })
   const { modal } = t.profileSettings.generalSettings.profileImage
 
@@ -158,7 +165,7 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
           height={290}
           color={[23, 23, 23, 0.6]}
           backgroundColor={'black'}
-          scale={sliderValue / 10}
+          scale={sliderValue}
           borderRadius={155}
           position={position}
           onPositionChange={handlePositionChange}

@@ -1,65 +1,46 @@
-import React, { useEffect } from 'react'
-
-import ImageToAdd from 'next/image'
+import { clsx } from 'clsx'
+import Image from 'next/image'
 
 import s from './addedImages.module.scss'
 
 import { CloseIcon } from '@/app/assets/svg/close-icon-svg'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
+import { deleteImage, setCurrentImageIndex } from '@/app/services/post/slider.slice'
+import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 
-type Props = {
-  addedImages: ImageModel[]
-  setAddedImages?: (addedImages: ImageModel[]) => void
-}
+export const AddedImages = () => {
+  const chosenImages = useAppSelector(state => state.slider.images)
+  const dispatch = useAppDispatch()
 
-export const AddedImages = ({ addedImages, setAddedImages }: Props) => {
-  const imagesToShow = addedImages.slice(-2)
-
-  useEffect(() => {
-    if (setAddedImages) {
-      setAddedImages(addedImages)
-    }
-  }, [addedImages])
-
-  const onDeleteImage = (i: number) => {
-    const image = i === 0 ? imagesToShow.slice(1) : imagesToShow.slice(0, -1)
-
-    if (setAddedImages) {
-      setAddedImages(addedImages.slice(0, -2).concat(image))
-    }
+  const onDeleteImage = ({ id }: { id: string }) => {
+    dispatch(deleteImage({ id }))
   }
 
+  const chooseImageByClick = (index: number) => {
+    dispatch(setCurrentImageIndex({ index }))
+  }
+
+  const styles = clsx(s.hide, chosenImages.length > 1 && s.close)
+
   return (
-    <div className={addedImages.length === 10 ? s.wrapperForImg : s.wrapper}>
-      {addedImages.length <= 1
-        ? addedImages.map((el, idx) => {
-            return (
-              <div key={idx} className={s.addedPhoto}>
-                <ImageToAdd
-                  className={s.oneImage}
-                  src={el.croppedImage ? el.croppedImage : el.url}
-                  alt={'photos'}
-                  height={82}
-                  width={80}
-                />
-              </div>
-            )
-          })
-        : imagesToShow.map((el, i) => {
-            return (
-              <div key={i} className={s.addedPhoto}>
-                <div className={s.closeIcon} onClick={() => onDeleteImage(i)}>
-                  <CloseIcon className={s.close} width={12} height={12} />
-                </div>
-                <ImageToAdd
-                  src={el.croppedImage ? el.croppedImage : el.url}
-                  alt={'photo in small add window'}
-                  height={82}
-                  width={80}
-                />
-              </div>
-            )
-          })}
-    </div>
+    <>
+      {chosenImages.map((image, index) => (
+        <div key={image.id} className={s.addedPhoto}>
+          <CloseIcon
+            className={styles}
+            width={12}
+            height={12}
+            onClick={() => onDeleteImage({ id: image.id })}
+          />
+
+          <Image
+            src={image.url}
+            alt={image.alt}
+            height={82}
+            width={80}
+            onClick={() => chooseImageByClick(index)}
+          />
+        </div>
+      ))}
+    </>
   )
 }

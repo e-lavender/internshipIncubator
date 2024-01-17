@@ -1,5 +1,3 @@
-
-
 .imgContainer {
   width: 490px;
   height: 457px;
@@ -9,15 +7,34 @@
   position: relative;
   display: flex;
   align-items: center;
-
   height: 467px;
 }
 
 .filterContainer {
+  overflow: hidden;
+  overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
+
   width: 420px;
   height: 457px;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--text-color-disabled);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(255 255 255 / 75%);
+  }
 }
 
 .imgWithFilter {
@@ -33,10 +50,10 @@
 }
 
 .filterName {
-  width: 108px;
-  height: 24px;
   display: flex;
   justify-content: center;
+  width: 108px;
+  height: 24px;
 }
 
 .slick-next {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ImageWithFilter from 'next/image'
+import ImageWithFilter, { StaticImageData } from 'next/image'
 
 import { filtersVariant } from './filters-variant'
 import s from './selected-images.module.scss'
@@ -10,9 +10,10 @@ import { Typography } from '@/ui'
 
 type Props = {
   setActiveFilter: (activeFilter: string) => void
+  url: string | StaticImageData
 }
 
-export const SelectedImages = ({ setActiveFilter }: Props) => {
+export const SelectedImages = ({ setActiveFilter, url }: Props) => {
   const onActiveFilter = (filter: string) => {
     switch (filter) {
       case 'No filter':
@@ -54,21 +55,25 @@ export const SelectedImages = ({ setActiveFilter }: Props) => {
   return (
     <>
       <div className={s.filterContainer}>
-        {filtersVariant.map((el, idx) => {
+        {filtersVariant.map(filterVariant => {
+          const { name, filter } = filterVariant
+
           return (
-            <div key={idx} className={s.imgWithFilter} onClick={() => onActiveFilter(el.name)}>
+            <div key={name} className={s.imgWithFilter} onClick={() => onActiveFilter(name)}>
               <ImageWithFilter
-                src={airBalloon}
+                src={url || airBalloon}
                 alt={'image-with-filter'}
+                objectFit={'contain'}
                 width={108}
                 height={108}
                 style={{
-                  filter: el.filter,
+                  filter: filter,
                 }}
                 className={s.image}
               />
+
               <div className={s.filterName}>
-                <Typography variant={'h3'}>{el.name}</Typography>
+                <Typography variant={'h3'}>{name}</Typography>
               </div>
             </div>
           )

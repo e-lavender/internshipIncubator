@@ -34,7 +34,8 @@ const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
       <button onClick={onToggle} className={s.trigger}>
         <CropMenuIcon type={icon} color={color} />
       </button>
-      {isMenuOpened && <div className={!isImage ? s.menu : s.image}>{children}</div>}
+
+      {isMenuOpened && <div className={isImage ? s.image : s.menu}>{children}</div>}
     </div>
   )
 }
