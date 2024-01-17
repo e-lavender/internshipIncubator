@@ -4,7 +4,7 @@ import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dism
 
 import s from './create-new-post-modal.module.scss'
 
-import { ErrorWithData, useDisclose } from '@/app'
+import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useAddPostMutation } from '@/app/services/post/post.api'
 import { resetImagesToDefaultState } from '@/app/services/post/slider.slice'
@@ -17,12 +17,12 @@ import DescriptionInterface from '@/components/intefaces/description-interface'
 import FilterInterface from '@/components/intefaces/filter-interface'
 import { ConfirmationModal } from '@/components/modals/confirmation-modal/confirmation-modal'
 import { filteredImg } from '@/components/post/create/filters/Filters'
-import { useCreatePost } from '@/components/post/create/useCreatePost'
 
-const CreateNewPostModal = () => {
+export const CreateNewPostModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { url, step, stepUp, stepForward, stepBack, setPreferredStep } = useCreatePost()
+  const { url, step, firstStep, stepForward, stepBackward, setPreferredStep } =
+    useFileCreationWithSteps()
   const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
 
   const chosenImages = useAppSelector(state => state.slider.images)
@@ -69,7 +69,7 @@ const CreateNewPostModal = () => {
   }
 
   const interfaceVariants: { [Key: string]: ReactElement } = {
-    1: <AddInterface url={url} callback={stepUp} />,
+    1: <AddInterface url={url} callback={firstStep} />,
     2: <CropInterface images={chosenImages} />,
     3: <FilterInterface images={chosenImages} />,
     4: <DescriptionInterface images={chosenImages} />,
@@ -118,7 +118,7 @@ const CreateNewPostModal = () => {
           lastModal={step === 4}
           onInteractOutside={handleOutsideClick}
           stepForward={stepForward}
-          stepBack={stepBack}
+          stepBack={stepBackward}
           addNewPost={addNewPost}
         >
           {CurrentInterface}

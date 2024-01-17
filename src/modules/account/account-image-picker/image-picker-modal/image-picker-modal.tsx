@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 import AvatarEditor from 'react-avatar-editor'
 
 import s from './image-picker-modal.module.scss'
-import { useImageValidation } from './useImageValidation'
 
-import { MIME_TYPES, useTranslation } from '@/app'
+import { useFileCreationWithSteps, MIME_TYPES, useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { Avatar, LoaderV2 } from '@/components'
 import { SliderComponent } from '@/components/slider-for-zoom/slider-component'
@@ -17,14 +16,15 @@ type ImagePickerModalType = {
   showModal?: boolean
   onChange?: (open: boolean) => void
   isOpen: boolean
-  onClose?: () => void
+  onClose: () => void
 }
 
 export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
-  const { url, step, stepUp, stepBack, errorText, clearError, blob } = useImageValidation()
+  const { url, step, firstStep, stepBackward, errorText, clearError, blob } =
+    useFileCreationWithSteps()
   const editorRef = useRef<AvatarEditor>(null)
 
-  const [uploadFile, { isLoading: isUploading }] = useUploadAvatarMutation()
+  const [uploadFile, { isLoading: isAvatarUploading }] = useUploadAvatarMutation()
 
   const { t } = useTranslation()
   const { modal } = t.profileSettings.generalSettings.profileImage
@@ -33,10 +33,10 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
 
   const onModalClose = () => {
     if (step === 2) {
-      stepBack()
+      stepBackward()
     }
 
-    onClose && onClose()
+    onClose()
   }
 
   const uploadAvatar = () => {
@@ -52,7 +52,7 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
           formData.append('avatar', file)
 
           uploadFile(formData)
-          stepBack()
+          stepBackward()
           onClose && onClose()
         }
       })
@@ -60,18 +60,18 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
       formData.append('avatar', blob as Blob)
 
       uploadFile(formData)
-      stepBack()
+      stepBackward()
       onClose && onClose()
     }
   }
 
-  const interfaceVariants = {
-    1: <Interface1 url={url} error={errorText} styles={styles} callback={stepUp} />,
+  const interfaceVariants: { [Key: string]: ReactElement } = {
+    1: <Interface1 url={url} error={errorText} styles={styles} callback={firstStep} />,
     2: <Interface2 url={url} callback={uploadAvatar} editorRef={editorRef} />,
   }
 
   // @ts-ignore
-  const CurrentInterface: JSX.Element = interfaceVariants[step]
+  const CurrentInterface: ReactElement = interfaceVariants[step]
 
   useEffect(() => {
     clearError()
@@ -89,7 +89,7 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
         </Modal.Content>
       </Modal>
 
-      <LoaderV2 isLoading={isUploading} label={'Saving...'} />
+      <LoaderV2 isLoading={isAvatarUploading} label={'Saving...'} />
     </>
   )
 }

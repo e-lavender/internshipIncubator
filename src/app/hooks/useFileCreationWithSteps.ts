@@ -33,8 +33,8 @@ export const errorMessage = {
 
 type ErrorValidationType = { typeLimit?: string | string[]; sizeLimit?: number } // sizeLimit => MB type
 
-export const useImageValidation = () => {
-  const [step, setStep] = useState<1 | 2>(1)
+export const useFileCreationWithSteps = (initialStep?: number) => {
+  const [step, setStep] = useState<number>(initialStep || 1)
   const [blob, setBlob] = useState<Blob | null>(null)
   const [url, setUrl] = useState<string>('')
   const [errorText, setErrorText] = useState<string>('')
@@ -44,13 +44,17 @@ export const useImageValidation = () => {
   const { t } = useTranslation()
   const { errors } = t.profileSettings.generalSettings.profileImage
 
-  const stepUp = (file: File) => {
+  const firstStep = (file: File) => {
     const blob: Blob = new Blob([file], { type: file?.type })
 
     setBlob(blob)
   }
 
-  const stepBack = () => setStep(1)
+  const stepBackward = () => setStep(step => step - 1)
+
+  const stepForward = () => setStep(step => step + 1)
+
+  const setPreferredStep = (step: number) => setStep(step)
 
   const clearError = () => setErrorText('')
 
@@ -89,8 +93,10 @@ export const useImageValidation = () => {
 
   return {
     step,
-    stepUp,
-    stepBack,
+    firstStep,
+    stepBackward,
+    stepForward,
+    setPreferredStep,
     url,
     blob,
     errorText,
