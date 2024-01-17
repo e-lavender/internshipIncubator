@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 
 import s from './create-new-post-modal.module.scss'
 
-import { useDisclose } from '@/app'
+import { useDisclose, useTranslation } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useAddPostMutation } from '@/app/services/post/post.api'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
@@ -25,6 +25,8 @@ const CreateNewPostModal = () => {
   const { isOpen, closeCreatePostModal: close } = useCreatePostModal()
   const { url, step, stepUp, stepForward, stepBack } = useCreatePost()
   const [addPost] = useAddPostMutation()
+  const { t } = useTranslation()
+  const { add, cropping, filters, publication } = t.createPost
 
   const formData = new FormData()
   const addNewPost = async (activeFilter: string) => {
@@ -101,10 +103,10 @@ const CreateNewPostModal = () => {
   }
 
   const titleVariants = {
-    1: 'Add photo',
-    2: 'Cropping',
-    3: 'Filters',
-    4: 'Publication',
+    1: add,
+    2: cropping,
+    3: filters,
+    4: publication,
   }
 
   const CurrentInterface: JSX.Element = interfaceVariants[step]

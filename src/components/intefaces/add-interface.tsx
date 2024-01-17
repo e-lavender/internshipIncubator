@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 import { nanoid } from '@reduxjs/toolkit'
 
-import { AccountIcon, MIME_TYPES } from '@/app'
+import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
 import { ImageModel } from '@/components/image-slider/image-slider-types'
 import s from '@/components/modals/create-new-post-modal/create-new-post-modal.module.scss'
 import { Button, FileInput, Typography } from '@/ui'
@@ -17,7 +17,8 @@ type AddInterfaceProps = {
 const AddInterface = ({ callback, error, setAddedImages, addedImages, url }: AddInterfaceProps) => {
   const formRef = useRef<HTMLFormElement>(null)
   const { JPG, PNG } = MIME_TYPES
-
+  const { t } = useTranslation()
+  const { select } = t.createPost
   const ErrorMessage = error && (
     <Typography variant={'regular-14'} className={s.error}>
       <b>Error!</b> {error}
@@ -48,7 +49,7 @@ const AddInterface = ({ callback, error, setAddedImages, addedImages, url }: Add
         <FileInput
           ref={formRef}
           className={s.input}
-          label={'Select from computer'}
+          label={select}
           onUpload={handleUpload}
           accept={[JPG, PNG]}
         />
