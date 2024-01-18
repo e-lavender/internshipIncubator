@@ -13,12 +13,14 @@ export const AddImage = () => {
   const addRef = useRef() as MutableRefObject<HTMLDivElement>
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { JPG, PNG } = MIME_TYPES
+  const { JPG, PNG, PDF } = MIME_TYPES
   const acceptedFormats: string = [JPG, PNG].join(', ')
 
   const sliderImages = useAppSelector(state => state.slider.images)
 
-  const { initialStepWithValidation } = useFileCreationWithSteps(undefined, addImage)
+  const { initialStepWithValidation } = useFileCreationWithSteps(undefined, addImage, {
+    sizeLimit: 5,
+  })
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target

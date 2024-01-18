@@ -1,7 +1,12 @@
-export const filtersVariant = [
+type FiltersVariantsType = {
+  name: string
+  filter: string
+}
+
+export const filtersVariant: FiltersVariantsType[] = [
   {
     name: 'No filter',
-    filter: 'none',
+    filter: '',
   },
   {
     name: 'Kyoto',
@@ -20,10 +25,6 @@ export const filtersVariant = [
     filter: 'contrast(110%) brightness(110%) saturate(130%)',
   },
   {
-    name: 'Clarendon',
-    filter: 'invert(80%)',
-  },
-  {
     name: 'Shabby',
     filter: 'sepia(80%)',
   },
@@ -35,4 +36,8 @@ export const filtersVariant = [
     name: 'Silent Hill',
     filter: 'hue-rotate(150deg)',
   },
-] as const
+  {
+    name: 'Hudson',
+    filter: 'sepia(0.4) saturate(2.5) hue-rotate(-30deg) contrast(0.67)',
+  },
+]

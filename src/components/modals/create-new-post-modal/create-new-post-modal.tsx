@@ -26,7 +26,7 @@ export const CreateNewPostModal = () => {
   const dispatch = useAppDispatch()
 
   const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
-    useFileCreationWithSteps(0, addImage)
+    useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
   const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
 
   const chosenImages = useAppSelector(state => state.slider.images)
@@ -68,8 +68,11 @@ export const CreateNewPostModal = () => {
       })
       .catch((error: ErrorWithData) => {
         showError(error)
+        setPreferredStep(2)
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const interfaceVariants: { [Key: string]: ReactElement } = {

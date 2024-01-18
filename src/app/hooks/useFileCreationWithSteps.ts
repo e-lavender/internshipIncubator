@@ -4,7 +4,6 @@ import { toast } from 'react-toastify'
 
 import { MIME_TYPES, useTranslation } from '@/app'
 import { useAppDispatch } from '@/app/store/rtk.types'
-import { showError } from '@/app/utils'
 
 export const errorMessage = {
   type(limit: string | string[], languageVersion: { text: string; preposition: string }): string {
@@ -23,7 +22,7 @@ export const errorMessage = {
       } else {
         const type: string = limit.match(format)![0].toUpperCase()
 
-        return `${languageVersion} ${type || fallbackText}`
+        return `${languageVersion.text} ${type || fallbackText}`
       }
     }
 
@@ -39,7 +38,8 @@ type ErrorValidationType = { typeLimit?: string | string[]; sizeLimit?: number }
 
 export const useFileCreationWithSteps = (
   initialStep?: number,
-  callback?: ({ url }: { url: string }) => void
+  callback?: ({ url }: { url: string }) => void,
+  validationOptions?: ErrorValidationType
 ) => {
   const [step, setStep] = useState<number>(initialStep || 1)
   const [blob, setBlob] = useState<Blob | null>(null)
@@ -112,7 +112,7 @@ export const useFileCreationWithSteps = (
       })
     }
 
-    imageValidation(blob, {})
+    imageValidation(blob, validationOptions ?? {})
   }, [blob])
 
   return {
