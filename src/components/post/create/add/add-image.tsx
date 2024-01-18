@@ -1,17 +1,16 @@
-import React, { ChangeEvent, MutableRefObject, useRef } from 'react'
+import { ChangeEvent, MutableRefObject, useRef } from 'react'
 
 import { nanoid } from '@reduxjs/toolkit'
 import { clsx } from 'clsx'
 
-import s from './add.module.scss'
+import s from './add-image.module.scss'
 
-import { MIME_TYPES } from '@/app'
-import { PlusCircle } from '@/app/assets/svg/plus-circle-outline'
+import { MIME_TYPES, PlusCircle } from '@/app'
 import { addImage, addMultipleImages } from '@/app/services/post/slider.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
-import { AddedImages } from '@/components/post/create/add/addedImages/addedImages'
+import { AddedImages } from '@/components'
 
-export const Add = () => {
+export const AddImage = () => {
   const addRef = useRef() as MutableRefObject<HTMLDivElement>
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -58,7 +57,7 @@ export const Add = () => {
               name="cover"
               onChange={handleImageUpload}
               accept={acceptedFormats}
-              multiple={true}
+              multiple
             />
           </label>
         )}

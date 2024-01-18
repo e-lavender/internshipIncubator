@@ -6,8 +6,7 @@ import Cropper from 'react-easy-crop'
 import s from '../image-slider.module.scss'
 
 import { useAppSelector } from '@/app/store/rtk.types'
-import { ImageSliderContainer, ImageModel } from '@/components'
-import CropperMenu from '@/components/post/create/crop-menu/cropper-menu'
+import { ImageSliderContainer, ImageModel, CropperMenu } from '@/components'
 
 type ImageSliderType = {
   images?: ImageModel[]

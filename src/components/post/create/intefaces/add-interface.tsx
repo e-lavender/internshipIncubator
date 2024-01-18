@@ -2,18 +2,18 @@ import React, { useRef } from 'react'
 
 import { nanoid } from '@reduxjs/toolkit'
 
+import s from './interfaces.module.scss'
+
 import { AccountIcon, MIME_TYPES } from '@/app'
 import { addImage } from '@/app/services/post/slider.slice'
 import { useAppDispatch } from '@/app/store/rtk.types'
-import s from '@/components/modals/create-new-post-modal/create-new-post-modal.module.scss'
 import { Button, FileInput, Typography } from '@/ui'
 
 type AddInterfaceProps = {
-  url: string
   error?: string
   callback: (file: File) => void
 }
-const AddInterface = ({ callback, error, url }: AddInterfaceProps) => {
+export const AddInterface = ({ callback, error }: AddInterfaceProps) => {
   const formRef = useRef<HTMLFormElement>(null)
   const { JPG, PNG } = MIME_TYPES
 
@@ -61,5 +61,3 @@ const AddInterface = ({ callback, error, url }: AddInterfaceProps) => {
     </>
   )
 }
-
-export default AddInterface

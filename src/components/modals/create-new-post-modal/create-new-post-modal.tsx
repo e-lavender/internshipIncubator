@@ -10,13 +10,16 @@ import { useAddPostMutation } from '@/app/services/post/post.api'
 import { resetImagesToDefaultState } from '@/app/services/post/slider.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { showError } from '@/app/utils'
-import { LoaderV2, Modal } from '@/components'
-import AddInterface from '@/components/intefaces/add-interface'
-import CropInterface from '@/components/intefaces/crop-interface'
-import DescriptionInterface from '@/components/intefaces/description-interface'
-import FilterInterface from '@/components/intefaces/filter-interface'
-import { ConfirmationModal } from '@/components/modals/confirmation-modal/confirmation-modal'
-import { filteredImg } from '@/components/post/create/filters/Filters'
+import {
+  AddInterface,
+  ConfirmationModal,
+  CropInterface,
+  DescriptionInterface,
+  filteredImg,
+  FilterInterface,
+  LoaderV2,
+  Modal,
+} from '@/components'
 
 export const CreateNewPostModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -69,7 +72,7 @@ export const CreateNewPostModal = () => {
   }
 
   const interfaceVariants: { [Key: string]: ReactElement } = {
-    1: <AddInterface url={url} callback={firstStep} />,
+    1: <AddInterface callback={firstStep} />,
     2: <CropInterface images={chosenImages} />,
     3: <FilterInterface images={chosenImages} />,
     4: <DescriptionInterface images={chosenImages} />,

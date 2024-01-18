@@ -1,9 +1,9 @@
 import { clsx } from 'clsx'
 import Image from 'next/image'
 
-import s from './addedImages.module.scss'
+import s from './added-images.module.scss'
 
-import { CloseIcon } from '@/app/assets/svg/close-icon-svg'
+import { CloseIcon } from '@/app'
 import { deleteImage, setCurrentImageIndex } from '@/app/services/post/slider.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 

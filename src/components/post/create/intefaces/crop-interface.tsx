@@ -1,13 +1,12 @@
 import { useState } from 'react'
 
-import { ImageModel } from '@/components'
-import { ImageSliderWithCropper } from '@/components/image-sliderV2/image-slider-with-cropper/image-slider-with-cropper'
+import { ImageModel, ImageSliderWithCropper } from '@/components'
 
 type CropInterfaceProps = {
   images?: ImageModel[]
 }
 
-const CropInterface = ({ images = [] }: CropInterfaceProps) => {
+export const CropInterface = ({ images = [] }: CropInterfaceProps) => {
   const [aspectRatio, setAspectRatio] = useState(4 / 3)
 
   return (
@@ -19,5 +18,3 @@ const CropInterface = ({ images = [] }: CropInterfaceProps) => {
     />
   )
 }
-
-export default CropInterface

@@ -7,8 +7,7 @@ import s from './image-slider-with-filters.module.scss'
 
 import { setActiveImageFilter } from '@/app/services/post/slider.slice'
 import { useAppDispatch } from '@/app/store/rtk.types'
-import { ImageSliderControls, ImageSliderType } from '@/components'
-import { SelectedImages } from '@/components/post/create/selected-images/selected-images'
+import { ImageSliderControls, ImageSliderType, SelectedImages } from '@/components'
 
 export const ImageSliderWithFilters = ({
   images,

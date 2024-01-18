@@ -1,5 +1,3 @@
-import React from 'react'
-
 import ImageWithFilter, { StaticImageData } from 'next/image'
 
 import { filtersVariant } from './filters-variant'
@@ -8,12 +6,12 @@ import s from './selected-images.module.scss'
 import airBalloon from '@/app/assets/image/airBalloonImage.jpg'
 import { Typography } from '@/ui'
 
-type Props = {
+type SelectedImagesProps = {
   setActiveFilter: (activeFilter: string) => void
   url: string | StaticImageData
 }
 
-export const SelectedImages = ({ setActiveFilter, url }: Props) => {
+export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) => {
   const onActiveFilter = (filter: string) => {
     switch (filter) {
       case 'No filter':

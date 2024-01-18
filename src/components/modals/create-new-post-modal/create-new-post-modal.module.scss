@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: space-between;
 
-  width: 500px;
-  height: 500px;
-  padding-bottom: 48px;
+  width: 50rem;
+  height: 50rem;
+  padding-bottom: 4.8rem;
 }
 
 .crop {
@@ -15,18 +15,18 @@
   align-items: center;
   justify-content: space-between;
 
-  width: 500px;
-  height: 500px;
+  width: 50rem;
+  height: 50rem;
 }
 
-.filters{
+.filters {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 
-  width: 972px;
-  height: 500px;
+  width: 97.2rem;
+  height: 50rem;
 }
 
 .loopBackImg {
@@ -34,9 +34,9 @@
   align-items: center;
   justify-content: center;
 
-  width: 222px;
-  height: 222px;
-  margin-top: 72px;
+  width: 22.2rem;
+  height: 22.2rem;
+  margin-top: 7.2rem;
 
   background-color: var(--color-dark-500);
 }
@@ -44,7 +44,7 @@
 .buttons {
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
+  row-gap: 2.4rem;
 
   button {
     width: 100%;
@@ -52,6 +52,6 @@
 }
 
 .input {
-  height: 36px;
+  height: 3.6rem;
   margin-top: 6rem;
 }

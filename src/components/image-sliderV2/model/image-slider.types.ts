@@ -25,3 +25,5 @@ export type SliderControlsType = {
   isModified?: boolean
   inlineStyle?: any
 }
+
+export type IconType = 'cropper' | 'zoom' | 'image'

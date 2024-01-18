@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SliderComponent } from '@/components/slider-for-zoom'
+import { SliderComponent } from '@/components'
 
 type Props = {
   zoom: number
@@ -8,5 +8,5 @@ type Props = {
 }
 
 export const Zoom = ({ zoom, setZoom }: Props) => {
-  return <SliderComponent sliderValue={zoom} setSliderValue={setZoom} isZoom={true} />
+  return <SliderComponent sliderValue={zoom} setSliderValue={setZoom} isZoom />
 }

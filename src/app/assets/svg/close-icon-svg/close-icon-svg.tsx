@@ -6,8 +6,8 @@ type SvgComponentType = {
 } & SVGProps<SVGSVGElement>
 const SvgComponent = (props: SvgComponentType, ref: Ref<SVGSVGElement>) => {
   const {
-    width,
-    height,
+    width = 24,
+    height = 24,
     color = 'currentColor',
     fill = 'none',
     bgColor,

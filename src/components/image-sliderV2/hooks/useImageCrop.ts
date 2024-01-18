@@ -15,7 +15,7 @@ function getRadianAngle(degreeValue: number): number {
   return (degreeValue * Math.PI) / 180
 }
 
-const useImageCrop = () => {
+export const useImageCrop = () => {
   const [rotation, setRotation] = useState(0)
 
   const getCroppedImg = async (

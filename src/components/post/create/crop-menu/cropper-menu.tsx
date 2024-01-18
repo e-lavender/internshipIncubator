@@ -1,26 +1,27 @@
 import s from './crop-menu.module.scss'
 
 import { addCroppedImage } from '@/app/services/post/slider.slice'
-import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
-import useImageCrop from '@/components/image-sliderV2/hooks/useImageCrop'
-import { Add } from '@/components/post/create/add/add'
-import CropMenu from '@/components/post/create/crop-menu/crop-menu'
-import CropMenuItem from '@/components/post/create/crop-menu/crop-menu-item'
-import { useCropperMenu } from '@/components/post/create/crop-menu/useCropperMenu'
-import { Zoom } from '@/components/post/create/zoom/zoom'
+import { useAppDispatch } from '@/app/store/rtk.types'
+import {
+  AddImage,
+  CropMenu,
+  CropMenuItem,
+  ImageModel,
+  useCropperMenu,
+  useImageCrop,
+  Zoom,
+} from '@/components'
 import { Button } from '@/ui'
 
-type Props = {
+type CropperMenuProps = {
   images: ImageModel[]
   imageIndex: number
   croppedAreaPixels: null
   zoom: number
   setZoom: (zoom: number) => void
+  aspectRatio?: number
   setAspectRatio?: (aspectRatio: number) => void
-  setAddedImages?: (addedImages: ImageModel[]) => void
-  crop: { x: number; y: number }
-  aspectRatio: any
+  crop?: { x: number; y: number }
 }
 export const CropperMenu = ({
   images,
@@ -29,7 +30,7 @@ export const CropperMenu = ({
   zoom,
   setZoom,
   setAspectRatio,
-}: Props) => {
+}: CropperMenuProps) => {
   const { getCroppedImg } = useImageCrop()
   const { cropperMenuVersion, cropMenuSelected } = useCropperMenu(setAspectRatio)
 
@@ -51,7 +52,7 @@ export const CropperMenu = ({
   return (
     <>
       <div className={s.wrapper}>
-        <div style={{ display: 'flex', gap: '1.2rem' }}>
+        <div className={s.cropMenu}>
           <CropMenu icon={'cropper'}>
             {cropperMenuVersion.map(item => {
               const MenuIcon = item.icon
@@ -75,12 +76,10 @@ export const CropperMenu = ({
 
         <Button onClick={onCrop}>Crop</Button>
 
-        <CropMenu icon={'image'} isImage={true}>
-          <Add />
+        <CropMenu icon={'image'} isImage>
+          <AddImage />
         </CropMenu>
       </div>
     </>
   )
 }
-
-export default CropperMenu

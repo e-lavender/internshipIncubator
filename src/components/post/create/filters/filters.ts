@@ -1,6 +1,6 @@
 import { Size } from 'react-easy-crop'
 
-const createImage = (url: string): Promise<HTMLImageElement> =>
+export const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const image = new Image()
 

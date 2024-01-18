@@ -1,9 +1,6 @@
-import React from 'react'
-
 import s from './filtered-images.module.scss'
 
-import ImageSlider from '@/components/image-slider/image-slider'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
+import { ImageModel, ImageSlider } from '@/components'
 
 type Props = {
   addedImages: ImageModel[]
@@ -20,7 +17,7 @@ export const FilteredImages = ({ addedImages, activeFilter, setAddedImages }: Pr
           setAddedImages={setAddedImages}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
-          withFilters={true}
+          withFilters
           activeFilter={activeFilter}
         />
       </div>

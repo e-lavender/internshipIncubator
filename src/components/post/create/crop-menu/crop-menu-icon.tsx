@@ -1,13 +1,10 @@
-import React, { useMemo } from 'react'
+import { ReactNode, useMemo } from 'react'
 
-import { IconType } from '../../../image-slider/image-slider-types'
+import { Cropping, ImageCropper, ZoomCropper } from '@/app'
+import { IconType } from '@/components'
 
-import { Cropping } from '@/app/assets/svg/cropping'
-import { ImageCropper } from '@/app/assets/svg/image-cropper/imageCropper'
-import { ZoomCropper } from '@/app/assets/svg/zoom-cropper'
-
-const CropMenuIcon = ({ color, type }: { color?: string; type: IconType }) => {
-  const icons: Record<IconType, React.ReactNode> = useMemo(() => {
+export const CropMenuIcon = ({ color, type }: { color?: string; type: IconType }) => {
+  const icons: Record<IconType, ReactNode> = useMemo(() => {
     return {
       cropper: <Cropping color={color} />,
       zoom: <ZoomCropper color={color} />,
@@ -17,5 +14,3 @@ const CropMenuIcon = ({ color, type }: { color?: string; type: IconType }) => {
 
   return icons[type]
 }
-
-export default CropMenuIcon

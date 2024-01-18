@@ -37,15 +37,15 @@
     align-items: center;
     justify-content: center;
 
-    width: 36px;
-    height: 36px;
+    width: 3.6rem;
+    height: 3.6rem;
 
     background-color: var(--color-dark-300);
     border-radius: 0.2rem;
 
     & > svg {
-      width: 24px;
-      height: 24px;
+      width: 2.4rem;
+      height: 2.4rem;
     }
   }
 }
