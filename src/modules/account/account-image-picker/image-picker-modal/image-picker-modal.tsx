@@ -20,7 +20,7 @@ type ImagePickerModalType = {
 }
 
 export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
-  const { url, step, firstStep, stepBackward, errorText, clearError, blob } =
+  const { url, step, initialStepWithValidation, stepBackward, errorText, clearError, blob } =
     useFileCreationWithSteps()
   const editorRef = useRef<AvatarEditor>(null)
 
@@ -66,11 +66,17 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
   }
 
   const interfaceVariants: { [Key: string]: ReactElement } = {
-    1: <Interface1 url={url} error={errorText} styles={styles} callback={firstStep} />,
+    1: (
+      <Interface1
+        url={url}
+        error={errorText}
+        styles={styles}
+        callback={initialStepWithValidation}
+      />
+    ),
     2: <Interface2 url={url} callback={uploadAvatar} editorRef={editorRef} />,
   }
 
-  // @ts-ignore
   const CurrentInterface: ReactElement = interfaceVariants[step]
 
   useEffect(() => {

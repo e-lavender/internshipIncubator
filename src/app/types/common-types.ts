@@ -4,10 +4,12 @@ export type MessageArrayModel = {
   message: string
   field: string
 }[]
-export type ErrorWithData = FetchBaseQueryError & {
-  data: {
-    message?: MessageArrayModel | string
-    errorsMessages?: MessageArrayModel
-  }
-}
+export type ErrorWithData =
+  | (FetchBaseQueryError & {
+      data: {
+        message?: MessageArrayModel | string
+        errorsMessages?: MessageArrayModel
+      }
+    })
+  | string
 export type Nullable<T> = T | null

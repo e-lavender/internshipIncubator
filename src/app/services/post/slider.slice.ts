@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
 
 import { ImageSlideType } from '@/app/services/post/post.types'
 import { ImageModel } from '@/components'
@@ -13,8 +13,14 @@ const postSlider = createSlice({
   name: 'postSlider',
   initialState: defaultState,
   reducers: {
-    addImage(state, action: PayloadAction<ImageModel>) {
-      state.images = [...state.images, action.payload]
+    addImage(state, action: PayloadAction<{ url: string }>) {
+      const newImage = {
+        url: action.payload.url,
+        alt: 'image',
+        id: nanoid(),
+      }
+
+      state.images = [...state.images, newImage]
     },
     addMultipleImages(state, action: PayloadAction<ImageModel[]>) {
       state.images = [...state.images, ...action.payload]

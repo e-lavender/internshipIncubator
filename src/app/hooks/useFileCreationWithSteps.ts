@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { toast } from 'react-toastify'
+
 import { MIME_TYPES, useTranslation } from '@/app'
+import { useAppDispatch } from '@/app/store/rtk.types'
+import { showError } from '@/app/utils'
 
 export const errorMessage = {
   type(limit: string | string[], languageVersion: { text: string; preposition: string }): string {
@@ -33,18 +37,23 @@ export const errorMessage = {
 
 type ErrorValidationType = { typeLimit?: string | string[]; sizeLimit?: number } // sizeLimit => MB type
 
-export const useFileCreationWithSteps = (initialStep?: number) => {
+export const useFileCreationWithSteps = (
+  initialStep?: number,
+  callback?: ({ url }: { url: string }) => void
+) => {
   const [step, setStep] = useState<number>(initialStep || 1)
   const [blob, setBlob] = useState<Blob | null>(null)
   const [url, setUrl] = useState<string>('')
   const [errorText, setErrorText] = useState<string>('')
+
+  const dispatch = useAppDispatch()
 
   const { JPG, PNG } = MIME_TYPES
 
   const { t } = useTranslation()
   const { errors } = t.profileSettings.generalSettings.profileImage
 
-  const firstStep = (file: File) => {
+  const initialStepWithValidation = (file: File) => {
     const blob: Blob = new Blob([file], { type: file?.type })
 
     setBlob(blob)
@@ -69,23 +78,38 @@ export const useFileCreationWithSteps = (initialStep?: number) => {
 
       if (!typeLimit.includes(type)) {
         setUrl('')
-        setErrorText(errorMessage.type(typeLimit, errors.format))
 
-        return
+        const errorText = errorMessage.type(typeLimit, errors.format)
+
+        return toast.error(errorText, {
+          autoClose: 1500,
+        })
       }
 
       if (sizeMb > sizeLimit) {
         setUrl('')
-        setErrorText(errorMessage.size(sizeLimit, errors.size))
 
-        return
+        const errorText = errorMessage.size(sizeLimit, errors.size)
+
+        return toast.error(errorText, {
+          autoClose: 1500,
+        })
       }
 
       const url = URL.createObjectURL(blob)
 
+      if (callback) {
+        // @ts-ignore
+        dispatch(callback({ url }))
+      }
+
       setUrl(url)
       setErrorText('')
-      setStep(2)
+
+      stepForward()
+      toast.success('Image was successfully added!', {
+        autoClose: 1500,
+      })
     }
 
     imageValidation(blob, {})
@@ -93,7 +117,7 @@ export const useFileCreationWithSteps = (initialStep?: number) => {
 
   return {
     step,
-    firstStep,
+    initialStepWithValidation,
     stepBackward,
     stepForward,
     setPreferredStep,

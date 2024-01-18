@@ -7,7 +7,7 @@ import s from './create-new-post-modal.module.scss'
 import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useAddPostMutation } from '@/app/services/post/post.api'
-import { resetImagesToDefaultState } from '@/app/services/post/slider.slice'
+import { addImage, resetImagesToDefaultState } from '@/app/services/post/slider.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { showError } from '@/app/utils'
 import {
@@ -23,9 +23,10 @@ import {
 
 export const CreateNewPostModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
 
-  const { step, firstStep, stepForward, stepBackward, setPreferredStep } =
-    useFileCreationWithSteps()
+  const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
+    useFileCreationWithSteps(0, addImage)
   const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
 
   const chosenImages = useAppSelector(state => state.slider.images)
@@ -72,7 +73,7 @@ export const CreateNewPostModal = () => {
   }
 
   const interfaceVariants: { [Key: string]: ReactElement } = {
-    1: <AddInterface callback={firstStep} />,
+    1: <AddInterface callback={initialStepWithValidation} />,
     2: <CropInterface images={chosenImages} />,
     3: <FilterInterface images={chosenImages} />,
     4: <DescriptionInterface images={chosenImages} />,
@@ -95,8 +96,6 @@ export const CreateNewPostModal = () => {
     onOpen: openConfirmationModal,
     onClose: closeConfirmationModal,
   } = useDisclose()
-
-  const dispatch = useAppDispatch()
 
   const handleOutsideClick = (e: PointerDownOutsideEvent | FocusOutsideEvent) => {
     e.preventDefault()

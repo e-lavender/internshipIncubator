@@ -1,13 +1,12 @@
 import { ChangeEvent, MutableRefObject, useRef } from 'react'
 
-import { nanoid } from '@reduxjs/toolkit'
 import { clsx } from 'clsx'
 
 import s from './add-image.module.scss'
 
-import { MIME_TYPES, PlusCircle } from '@/app'
-import { addImage, addMultipleImages } from '@/app/services/post/slider.slice'
-import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
+import { MIME_TYPES, PlusCircle, useFileCreationWithSteps } from '@/app'
+import { addImage } from '@/app/services/post/slider.slice'
+import { useAppSelector } from '@/app/store/rtk.types'
 import { AddedImages } from '@/components'
 
 export const AddImage = () => {
@@ -18,27 +17,15 @@ export const AddImage = () => {
   const acceptedFormats: string = [JPG, PNG].join(', ')
 
   const sliderImages = useAppSelector(state => state.slider.images)
-  const dispatch = useAppDispatch()
+
+  const { initialStepWithValidation } = useFileCreationWithSteps(undefined, addImage)
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target
 
     if (!files) return
 
-    if (files.length > 1) {
-      // @ts-ignore
-      const newImages = [...files].map(file => ({
-        url: URL.createObjectURL(file),
-        alt: '',
-        id: nanoid(),
-      }))
-
-      dispatch(addMultipleImages(newImages))
-    } else {
-      const newImage = { url: URL.createObjectURL(files[0]), alt: '', id: nanoid() }
-
-      dispatch(addImage(newImage))
-    }
+    initialStepWithValidation(files[0])
   }
 
   return (
@@ -57,7 +44,6 @@ export const AddImage = () => {
               name="cover"
               onChange={handleImageUpload}
               accept={acceptedFormats}
-              multiple
             />
           </label>
         )}
