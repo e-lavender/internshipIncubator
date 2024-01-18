@@ -1,5 +1,7 @@
 import { Size } from 'react-easy-crop'
 
+import { ImageModel } from '@/components'
+
 export const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
     const image = new Image()
@@ -24,7 +26,7 @@ function rotateSize(width: number, height: number, rotation: number): Size {
 }
 
 export async function filteredImg(
-  imageSrc: string | undefined,
+  imageSrc?: string,
   filter: string = 'none',
   rotation = 0,
   flip = { horizontal: false, vertical: false }
@@ -55,12 +57,16 @@ export async function filteredImg(
   //return canvas.toDataURL('image/jpeg')
   // As a blob
   return new Promise(resolve => {
-    canvas.toBlob(blob => {
-      if (!blob) {
-        return null
-      }
+    canvas.toBlob(
+      blob => {
+        if (!blob) {
+          return null
+        }
 
-      return resolve(blob)
-    })
+        return resolve(blob)
+      },
+      'image/jpeg',
+      1
+    )
   })
 }

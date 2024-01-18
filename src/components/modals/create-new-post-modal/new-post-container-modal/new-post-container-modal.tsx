@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 import { clsx } from 'clsx'
 
-import s from './create-new-post-container-modal.module.scss'
+import s from './new-post-container-modal.module.scss'
 
 import { BackToPreviousIcon, CloseIcon } from '@/app'
 import { ArrowBackIcon } from '@/app/assets/svg/arrow-back-icon'
@@ -32,7 +32,7 @@ type ModalContentProps = {
   activeFilter?: string
 }
 
-export const Modal = ({ open, onChange, children }: ModalProps) => {
+export const NewPostContainerModal = ({ open, onChange, children }: ModalProps) => {
   return (
     <Dialog.Root open={open} onOpenChange={onChange}>
       {children}
@@ -109,6 +109,7 @@ const ModalContent = ({
   )
 }
 
-Modal.Button = Dialog.Trigger
-Modal.Close = Dialog.Close
-Modal.Content = ModalContent
+NewPostContainerModal.Root = Dialog.Root
+NewPostContainerModal.Button = Dialog.Trigger
+NewPostContainerModal.Close = Dialog.Close
+NewPostContainerModal.Content = ModalContent

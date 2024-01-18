@@ -18,13 +18,13 @@ import {
   filteredImg,
   FilterInterface,
   LoaderV2,
-  Modal,
+  NewPostContainerModal,
 } from '@/components'
 
 export const CreateNewPostModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { url, step, firstStep, stepForward, stepBackward, setPreferredStep } =
+  const { step, firstStep, stepForward, stepBackward, setPreferredStep } =
     useFileCreationWithSteps()
   const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
 
@@ -111,9 +111,9 @@ export const CreateNewPostModal = () => {
 
   return (
     <>
-      <Modal open={isCreatePostModalOpen} onChange={closeCreatePostModal}>
-        <Modal.Button asChild />
-        <Modal.Content
+      <NewPostContainerModal open={isCreatePostModalOpen} onChange={closeCreatePostModal}>
+        <NewPostContainerModal.Button asChild />
+        <NewPostContainerModal.Content
           title={CurrentTitle}
           className={step === 1 || step === 2 ? s.content : s.filters}
           withCropper={step === 2}
@@ -125,8 +125,8 @@ export const CreateNewPostModal = () => {
           addNewPost={addNewPost}
         >
           {CurrentInterface}
-        </Modal.Content>
-      </Modal>
+        </NewPostContainerModal.Content>
+      </NewPostContainerModal>
 
       <ConfirmationModal
         isOpen={isConfirmationModalOpen}
