@@ -34,6 +34,8 @@ export const ImageSliderWithCropper = ({
     [images]
   )
 
+  console.log(croppedAreaPixels)
+
   useEffect(() => {
     if (imageIndex > images?.length - 1) {
       setImageIndex(images.length - 1)
