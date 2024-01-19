@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import { CSSProperties, Dispatch, SetStateAction } from 'react'
 
 import { MockedImagesDataType } from '@/app/data/image-slider/image-slider-data'
 
@@ -6,7 +6,6 @@ export type ImageModel = {
   id: string | number
   url: string
   alt: string
-  croppedImage?: any
   filter?: string
 }
 
@@ -15,7 +14,7 @@ export type ImageSliderType = {
   aspectRatio: '1/1' | '4/5' | '4/3' | '16/9'
   fitStyle: 'cover' | 'contain'
   size?: number
-  setActiveFilter?: (activeFilter: string) => void
+  setActiveFilter?: (filter: string) => void
 }
 
 export type SliderControlsType = {
@@ -23,7 +22,7 @@ export type SliderControlsType = {
   imageIndex: number
   setImageIndex: Dispatch<SetStateAction<number>>
   isModified?: boolean
-  inlineStyle?: any
+  inlineStyle?: CSSProperties
 }
 
 export type IconType = 'cropper' | 'zoom' | 'image'

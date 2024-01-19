@@ -19,7 +19,7 @@ export const ImageSliderWithFilters = ({
 
   const dispatch = useAppDispatch()
 
-  const { url, id } = images[imageIndex]
+  const { url, id, filter } = images[imageIndex]
 
   const onFilterChange = (filter: string) => {
     dispatch(setActiveImageFilter({ id, filter }))

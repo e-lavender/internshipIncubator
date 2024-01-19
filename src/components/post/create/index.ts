@@ -1,6 +1,5 @@
 export * from './crop-menu'
 export * from './add'
-export * from './filters'
 export * from './intefaces'
 export * from './selected-images'
-export * from './zoom'
+export * from './utils/canvas'

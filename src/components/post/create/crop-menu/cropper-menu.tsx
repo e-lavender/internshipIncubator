@@ -1,3 +1,5 @@
+import React from 'react'
+
 import s from './crop-menu.module.scss'
 
 import { addCroppedImage } from '@/app/services/post/slider.slice'
@@ -6,17 +8,17 @@ import {
   AddImage,
   CropMenu,
   CropMenuItem,
+  getCroppedAndFilteredImage,
   ImageModel,
+  SliderZoom,
   useCropperMenu,
-  useImageCrop,
-  Zoom,
 } from '@/components'
 import { Button } from '@/ui'
 
 type CropperMenuProps = {
   images: ImageModel[]
   imageIndex: number
-  croppedAreaPixels: null
+  croppedAreaPixels: any
   zoom: number
   setZoom: (zoom: number) => void
   aspectRatio?: number
@@ -31,7 +33,6 @@ export const CropperMenu = ({
   setZoom,
   setAspectRatio,
 }: CropperMenuProps) => {
-  const { getCroppedImg } = useImageCrop()
   const { cropperMenuVersion, cropMenuSelected } = useCropperMenu(setAspectRatio)
 
   const dispatch = useAppDispatch()
@@ -43,7 +44,10 @@ export const CropperMenu = ({
   }
   const onCrop = async () => {
     if (croppedAreaPixels) {
-      const croppedImage = await getCroppedImg(images[imageIndex].url, croppedAreaPixels)
+      const croppedImage = await getCroppedAndFilteredImage(
+        images[imageIndex].url,
+        croppedAreaPixels
+      )
 
       setCroppedImageFor(images[imageIndex].id, croppedImage)
     }
@@ -70,7 +74,7 @@ export const CropperMenu = ({
           </CropMenu>
 
           <CropMenu icon={'zoom'}>
-            <Zoom zoom={zoom} setZoom={setZoom} />
+            <SliderZoom sliderValue={zoom} setSliderValue={setZoom} isZoom />
           </CropMenu>
         </div>
 

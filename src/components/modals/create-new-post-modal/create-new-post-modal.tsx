@@ -15,8 +15,8 @@ import {
   ConfirmationModal,
   CropInterface,
   DescriptionInterface,
-  filteredImg,
   FilterInterface,
+  getCroppedAndFilteredImage,
   LoaderV2,
   NewPostContainerModal,
 } from '@/components'
@@ -26,7 +26,7 @@ export const CreateNewPostModal = () => {
   const dispatch = useAppDispatch()
 
   const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
-    useFileCreationWithSteps(0, addImage)
+    useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
   const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
 
   const chosenImages = useAppSelector(state => state.slider.images)
@@ -38,7 +38,7 @@ export const CreateNewPostModal = () => {
     setIsLoading(true)
 
     const imagePromises = chosenImages.map(async image => {
-      const filteredImage = await filteredImg(image.url, image.filter)
+      const filteredImage = await getCroppedAndFilteredImage(image.url, null, image.filter)
 
       if (!filteredImage) {
         return null
@@ -50,9 +50,7 @@ export const CreateNewPostModal = () => {
 
       formData.append('images', file)
 
-      return {
-        image: filteredImage,
-      }
+      return filteredImage
     })
 
     await Promise.all(imagePromises)
@@ -68,8 +66,11 @@ export const CreateNewPostModal = () => {
       })
       .catch((error: ErrorWithData) => {
         showError(error)
+        setPreferredStep(2)
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const interfaceVariants: { [Key: string]: ReactElement } = {

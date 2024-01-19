@@ -8,7 +8,7 @@ import s from './image-picker-modal.module.scss'
 import { useFileCreationWithSteps, MIME_TYPES, useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { Avatar, LoaderV2 } from '@/components'
-import { SliderComponent } from '@/components/slider-for-zoom/slider-component'
+import { SliderZoom } from '@/components/image-slider/slider-zoom/slider-zoom'
 import { Button, FileInput, Modal, Typography } from '@/ui'
 
 type ImagePickerModalType = {
@@ -180,7 +180,7 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
         />
       </div>
 
-      <SliderComponent sliderValue={sliderValue} setSliderValue={setSliderValue} />
+      <SliderZoom sliderValue={sliderValue} setSliderValue={setSliderValue} isZoom />
       <Button className={s.btn} onClick={callback}>
         {modal.submitBtn.label}
       </Button>

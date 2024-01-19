@@ -7,7 +7,7 @@ import airBalloon from '@/app/assets/image/airBalloonImage.jpg'
 import { Typography } from '@/ui'
 
 type SelectedImagesProps = {
-  setActiveFilter: (activeFilter: string) => void
+  setActiveFilter: (filter: string) => void
   url: string | StaticImageData
 }
 
@@ -15,7 +15,7 @@ export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) =>
   const onActiveFilter = (filter: string) => {
     switch (filter) {
       case 'No filter':
-        setActiveFilter('none')
+        setActiveFilter('')
         break
       case 'Kyoto':
         setActiveFilter('saturate(2)')
@@ -29,9 +29,6 @@ export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) =>
       case 'Happy':
         setActiveFilter('contrast(110%) brightness(110%) saturate(130%)')
         break
-      case 'Clarendon':
-        setActiveFilter('invert(100%)')
-        break
       case 'Shabby':
         setActiveFilter('sepia(100%)')
         break
@@ -40,7 +37,11 @@ export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) =>
         break
       }
       case 'Silent Hill': {
-        setActiveFilter('hue-rotate(180deg)')
+        setActiveFilter('hue-rotate(180deg')
+        break
+      }
+      case 'Hudson': {
+        setActiveFilter('sepia(0.4) saturate(2.5) hue-rotate(-30deg) contrast(0.67)')
         break
       }
       default: {

@@ -6,13 +6,12 @@ import { SliderControlsType, ImageSliderControls, ImageModel } from '@/component
 
 type ImageSliderContainerType = {
   size?: CSSProperties['width']
-  aspectRatio: CSSProperties['aspectRatio']
+  aspectRatio?: CSSProperties['aspectRatio']
   images: ImageModel[]
 } & Pick<SliderControlsType, 'imageIndex' | 'setImageIndex'>
 export const ImageSliderContainer = ({
   images,
   size,
-  aspectRatio,
   imageIndex,
   setImageIndex,
   children,
@@ -22,7 +21,6 @@ export const ImageSliderContainer = ({
       className={s.container}
       style={{
         maxWidth: `${size}px`,
-        aspectRatio: `${aspectRatio}`,
       }}
     >
       <div className={s.images}>{children}</div>
