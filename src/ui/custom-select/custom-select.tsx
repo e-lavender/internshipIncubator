@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent, useCallback, useRef, useState } from 'react'
+import React, { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -38,6 +38,12 @@ export const CustomSelect = ({
     options: clsx(s.options, isOpen && s.show),
     chevron: clsx(s.chevron, isOpen && s.open),
   }
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [inputRef])
+
+  console.log(inputRef.current)
 
   return (
     <div className={s.container}>
