@@ -43,8 +43,6 @@ export const CustomSelect = ({
     inputRef.current?.focus()
   }, [inputRef])
 
-  console.log(inputRef.current)
-
   return (
     <div className={s.container}>
       {label && <label className={s.label}>{label}</label>}
