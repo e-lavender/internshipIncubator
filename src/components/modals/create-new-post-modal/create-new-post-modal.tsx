@@ -15,8 +15,8 @@ import {
   ConfirmationModal,
   CropInterface,
   DescriptionInterface,
-  filteredImg,
   FilterInterface,
+  getCroppedAndFilteredImage,
   LoaderV2,
   NewPostContainerModal,
 } from '@/components'
@@ -38,7 +38,7 @@ export const CreateNewPostModal = () => {
     setIsLoading(true)
 
     const imagePromises = chosenImages.map(async image => {
-      const filteredImage = await filteredImg(image.url, image.filter)
+      const filteredImage = await getCroppedAndFilteredImage(image.url, null, image.filter)
 
       if (!filteredImage) {
         return null
@@ -50,9 +50,7 @@ export const CreateNewPostModal = () => {
 
       formData.append('images', file)
 
-      return {
-        image: filteredImage,
-      }
+      return filteredImage
     })
 
     await Promise.all(imagePromises)

@@ -9,7 +9,7 @@ type Props = {
   isZoom?: boolean
 }
 
-export const SliderComponent = ({ sliderValue, setSliderValue, isZoom }: Props) => {
+export const SliderZoom = ({ sliderValue, setSliderValue, isZoom }: Props) => {
   const handleSliderChange = (value: number | number[]) => {
     setSliderValue(value as number)
   }
@@ -17,7 +17,7 @@ export const SliderComponent = ({ sliderValue, setSliderValue, isZoom }: Props) 
   return (
     <form>
       <Slider.Root
-        className={!isZoom ? s.SliderRoot : s.SliderRootForZoom}
+        className={isZoom ? s.SliderRootForZoom : s.SliderRoot}
         defaultValue={[sliderValue]}
         min={1}
         max={2}

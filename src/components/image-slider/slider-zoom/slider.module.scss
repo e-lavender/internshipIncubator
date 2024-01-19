@@ -32,19 +32,21 @@
   height: 0.3rem;
 
   background-color: rgb(255 255 255 / 25%);
-  border-radius: 50%;
+  border-radius: 5em;
 }
 
 .SliderRange {
   position: absolute;
   height: 100%;
   background-color: #fff;
-  border-radius: 50%;
+  border-radius: 5em;
 }
 
 .SliderThumb {
-  display: block;
   cursor: pointer;
+
+  display: block;
+
   width: 1.2rem;
   height: 1.2rem;
 

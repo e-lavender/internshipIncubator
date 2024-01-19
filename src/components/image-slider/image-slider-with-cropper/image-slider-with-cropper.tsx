@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
 import Cropper from 'react-easy-crop'
@@ -27,14 +27,19 @@ export const ImageSliderWithCropper = ({
 
   const globalImageIndex = useAppSelector(state => state.slider.currentImageIndex)
 
-  const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
-    setCroppedAreaPixels(croppedAreaPixels)
-  }
+  const onCropComplete = useCallback(
+    (croppedArea: any, croppedAreaPixels: any) => {
+      setCroppedAreaPixels(croppedAreaPixels)
+    },
+    [images]
+  )
 
   useEffect(() => {
-    if (imageIndex < images?.length - 1) return
+    if (imageIndex > images?.length - 1) {
+      setImageIndex(images.length - 1)
+    }
 
-    setImageIndex(images.length - 1)
+    setZoom(1)
   }, [images])
 
   useEffect(() => {
@@ -42,21 +47,19 @@ export const ImageSliderWithCropper = ({
   }, [globalImageIndex])
 
   return (
-    <ImageSliderContainer
-      images={images}
-      aspectRatio={aspectRatio}
-      imageIndex={imageIndex}
-      setImageIndex={setImageIndex}
-    >
+    <ImageSliderContainer images={images} imageIndex={imageIndex} setImageIndex={setImageIndex}>
       {images.map(image => (
         <div
           key={image.id}
-          style={{ translate: `${-100 * imageIndex}%` }}
-          className={clsx(s.imageSlider, s[fitStyle])}
+          style={{
+            translate: `${-100 * imageIndex}%`,
+            aspectRatio: `${aspectRatio}`,
+          }}
+          className={clsx(s.imageSlider, s.transition, s[fitStyle])}
         >
           <Cropper
             objectFit={'contain'}
-            image={image.croppedImage ? image.croppedImage : image.url}
+            image={image.url}
             aspect={aspectRatio}
             crop={crop}
             zoom={zoom}

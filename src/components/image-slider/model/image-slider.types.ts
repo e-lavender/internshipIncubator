@@ -6,7 +6,6 @@ export type ImageModel = {
   id: string | number
   url: string
   alt: string
-  croppedImage?: string
   filter?: string
 }
 
