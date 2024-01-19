@@ -16,8 +16,8 @@ import {
   AddComment,
   CardDescription,
   AccountType,
+  ImageSlider,
 } from '@/components'
-import ImageSlider from '@/components/image-slider/image-slider'
 import { Button, TextArea } from '@/ui'
 
 type PostCardXLType = {

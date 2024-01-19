@@ -1,138 +1,66 @@
-import React, { useEffect, useState } from 'react'
+import s from './crop-menu.module.scss'
 
-import { LandscapeCrop } from '@/app/assets/svg/image-cropper/crop-icons/landscape'
-import { OriginalCrop } from '@/app/assets/svg/image-cropper/crop-icons/original'
-import { PortraitCrop } from '@/app/assets/svg/image-cropper/crop-icons/portrait'
-import { SquareCrop } from '@/app/assets/svg/image-cropper/crop-icons/square'
-import useImageCrop from '@/components/image-slider/hooks/useImageCrop'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
-import { Add } from '@/components/post/create/add/add'
-import CropMenu from '@/components/post/create/crop-menu/crop-menu'
-import CropMenuItem from '@/components/post/create/crop-menu/crop-menu-item'
-import { Zoom } from '@/components/post/create/zoom/zoom'
+import { addCroppedImage } from '@/app/services/post/slider.slice'
+import { useAppDispatch } from '@/app/store/rtk.types'
+import {
+  AddImage,
+  CropMenu,
+  CropMenuItem,
+  ImageModel,
+  useCropperMenu,
+  useImageCrop,
+  Zoom,
+} from '@/components'
 import { Button } from '@/ui'
 
-type Props = {
+type CropperMenuProps = {
   images: ImageModel[]
-  setCroppedImages: (croppedImage: ImageModel[]) => void
+  imageIndex: number
   croppedAreaPixels: null
   zoom: number
   setZoom: (zoom: number) => void
-  setAspectRatio: ((aspectRatio: number) => void) | undefined
-  setAddedImages?: (addedImages: ImageModel[]) => void
-  crop: { x: number; y: number }
-  aspectRatio: any
-  imageIndex: number
+  aspectRatio?: number
+  setAspectRatio?: (aspectRatio: number) => void
+  crop?: { x: number; y: number }
 }
-const CropperMenu = ({
-  imageIndex,
+export const CropperMenu = ({
   images,
-  setCroppedImages,
+  imageIndex,
   croppedAreaPixels,
   zoom,
-  crop,
-  aspectRatio,
   setZoom,
   setAspectRatio,
-  setAddedImages,
-}: Props) => {
-  const [cropMenuSelected, setCropMenuSelected] = useState('1')
+}: CropperMenuProps) => {
   const { getCroppedImg } = useImageCrop()
+  const { cropperMenuVersion, cropMenuSelected } = useCropperMenu(setAspectRatio)
 
-  const setCroppedImageFor = (
-    id: string,
-    crop: any,
-    zoom: any,
-    aspect: any,
-    croppedImage: string
-  ) => {
-    const newImageList = [...images]
+  const dispatch = useAppDispatch()
+
+  const setCroppedImageFor = (id: string, croppedImage: string) => {
     const imageIndex = images.findIndex(x => x.id === id)
-    const image = images[imageIndex]
-    const newImage = { ...image, croppedImage, crop, zoom, aspect }
 
-    newImageList[imageIndex] = newImage
-    setCroppedImages(newImageList)
+    dispatch(addCroppedImage({ index: imageIndex, croppedImage }))
   }
   const onCrop = async () => {
     if (croppedAreaPixels) {
       const croppedImage = await getCroppedImg(images[imageIndex].url, croppedAreaPixels)
 
-      setCroppedImageFor(images[imageIndex].id, crop, zoom, aspectRatio, croppedImage)
+      setCroppedImageFor(images[imageIndex].id, croppedImage)
     }
   }
 
-  useEffect(() => {
-    if (setAddedImages) {
-      setAddedImages(images)
-    }
-  }, [images])
-
-  const menuData = [
-    {
-      id: '1',
-      icon: <OriginalCrop />,
-      title: 'Original',
-      onClick: (id: string) => {
-        if (setAspectRatio) {
-          setAspectRatio(4 / 3)
-        }
-        setCropMenuSelected(id)
-      },
-    },
-    {
-      id: '2',
-      icon: <SquareCrop />,
-      title: '1:1',
-      onClick: (id: string) => {
-        if (setAspectRatio) {
-          setAspectRatio(1)
-        }
-        setCropMenuSelected(id)
-      },
-    },
-    {
-      id: '3',
-      icon: <PortraitCrop />,
-      title: '4:5',
-      onClick: (id: string) => {
-        if (setAspectRatio) {
-          setAspectRatio(4 / 5)
-        }
-        setCropMenuSelected(id)
-      },
-    },
-    {
-      id: '4',
-      icon: <LandscapeCrop />,
-      title: '16:9',
-      onClick: (id: string) => {
-        if (setAspectRatio) {
-          setAspectRatio(16 / 9)
-        }
-        setCropMenuSelected(id)
-      },
-    },
-  ]
-
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '12px',
-          position: 'relative',
-          transform: 'translateY(-100%)',
-          marginTop: '54px',
-        }}
-      >
-        <div style={{ display: 'flex', columnGap: '12px' }}>
+      <div className={s.wrapper}>
+        <div className={s.cropMenu}>
           <CropMenu icon={'cropper'}>
-            {menuData.map(item => {
+            {cropperMenuVersion.map(item => {
+              const MenuIcon = item.icon
+
               return (
                 <CropMenuItem
                   {...item}
+                  icon={<MenuIcon />}
                   onClick={() => item.onClick(item.id)}
                   selected={item.id === cropMenuSelected}
                   key={item.id}
@@ -140,18 +68,18 @@ const CropperMenu = ({
               )
             })}
           </CropMenu>
+
           <CropMenu icon={'zoom'}>
             <Zoom zoom={zoom} setZoom={setZoom} />
           </CropMenu>
         </div>
+
         <Button onClick={onCrop}>Crop</Button>
 
-        <CropMenu icon={'image'} isImage={true}>
-          <Add addedImages={images} setAddedImages={setAddedImages} />
+        <CropMenu icon={'image'} isImage>
+          <AddImage />
         </CropMenu>
       </div>
     </>
   )
 }
-
-export default CropperMenu

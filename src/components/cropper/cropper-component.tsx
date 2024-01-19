@@ -4,7 +4,7 @@ import Cropper from 'react-easy-crop'
 
 import { GALLERY_DATA } from '@/app'
 
-const CropperComponent = () => {
+export const CropperComponent = () => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
 
@@ -30,5 +30,3 @@ const CropperComponent = () => {
     </div>
   )
 }
-
-export default CropperComponent

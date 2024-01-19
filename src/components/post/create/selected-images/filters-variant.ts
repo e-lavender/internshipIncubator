@@ -35,4 +35,4 @@ export const filtersVariant = [
     name: 'Silent Hill',
     filter: 'hue-rotate(150deg)',
   },
-]
+] as const

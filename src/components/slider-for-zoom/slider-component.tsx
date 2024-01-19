@@ -20,8 +20,8 @@ export const SliderComponent = ({ sliderValue, setSliderValue, isZoom }: Props) 
         className={!isZoom ? s.SliderRoot : s.SliderRootForZoom}
         defaultValue={[sliderValue]}
         min={1}
-        max={50}
-        step={1}
+        max={2}
+        step={0.1}
         onValueChange={handleSliderChange}
         value={[sliderValue]}
       >

@@ -1,5 +1,3 @@
-import { SyntheticEvent } from 'react'
-
 import { SVGIconType } from '@/app'
 
 type CommentCommonType = {
