@@ -13,8 +13,8 @@ export type ImageSliderType = {
   images: ImageModel[] | MockedImagesDataType
   aspectRatio: '1/1' | '4/5' | '4/3' | '16/9'
   fitStyle: 'cover' | 'contain'
-  size?: number
-  setActiveFilter?: (filter: string) => void
+  width?: CSSProperties['width']
+  height?: CSSProperties['height']
 }
 
 export type SliderControlsType = {
@@ -22,7 +22,7 @@ export type SliderControlsType = {
   imageIndex: number
   setImageIndex: Dispatch<SetStateAction<number>>
   isModified?: boolean
-  inlineStyle?: CSSProperties
+  inlineStyle?: any
 }
 
 export type IconType = 'cropper' | 'zoom' | 'image'

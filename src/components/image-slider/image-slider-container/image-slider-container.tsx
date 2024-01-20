@@ -4,23 +4,30 @@ import s from './image-slider-container.module.scss'
 
 import { SliderControlsType, ImageSliderControls, ImageModel } from '@/components'
 
-type ImageSliderContainerType = {
-  size?: CSSProperties['width']
-  aspectRatio?: CSSProperties['aspectRatio']
-  images: ImageModel[]
-} & Pick<SliderControlsType, 'imageIndex' | 'setImageIndex'>
+type ImageSliderContainerType = PropsWithChildren<
+  {
+    width?: CSSProperties['width']
+    height?: CSSProperties['height']
+    aspectRatio?: CSSProperties['aspectRatio']
+    images: ImageModel[]
+  } & Pick<SliderControlsType, 'imageIndex' | 'setImageIndex'>
+>
 export const ImageSliderContainer = ({
   images,
-  size,
+  width = 500,
+  height,
   imageIndex,
   setImageIndex,
+  aspectRatio,
   children,
-}: PropsWithChildren<ImageSliderContainerType>) => {
+}: ImageSliderContainerType) => {
   return (
     <div
       className={s.container}
       style={{
-        maxWidth: `${size}px`,
+        width,
+        height,
+        aspectRatio,
       }}
     >
       <div className={s.images}>{children}</div>

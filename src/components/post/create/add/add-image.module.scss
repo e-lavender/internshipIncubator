@@ -27,11 +27,12 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #fff;
+      background-color: rgb(255 255 255 / 30%);
       border-radius: 0.5rem;
     }
 
     &::-webkit-scrollbar-thumb:hover {
+      opacity: 1;
       background: rgb(255 255 255 / 75%);
     }
   }

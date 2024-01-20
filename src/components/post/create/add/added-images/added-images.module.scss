@@ -1,8 +1,24 @@
 .addedPhoto {
   position: relative;
+
   flex-shrink: 0;
+
   width: 8rem;
   height: 8.2rem;
+
+  animation: fade-in 0.5s ease-in;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0.3;
+      filter: blur(10px);
+    }
+
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
 
   & img {
     cursor: pointer;

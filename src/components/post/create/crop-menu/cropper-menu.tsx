@@ -16,42 +16,14 @@ import {
 import { Button } from '@/ui'
 
 type CropperMenuProps = {
-  images: ImageModel[]
-  imageIndex: number
-  croppedAreaPixels: any
+  // images: ImageModel[]
   zoom: number
   setZoom: (zoom: number) => void
-  aspectRatio?: number
   setAspectRatio?: (aspectRatio: number) => void
-  crop?: { x: number; y: number }
+  onCrop?: () => Promise<void>
 }
-export const CropperMenu = ({
-  images,
-  imageIndex,
-  croppedAreaPixels,
-  zoom,
-  setZoom,
-  setAspectRatio,
-}: CropperMenuProps) => {
+export const CropperMenu = ({ zoom, setZoom, setAspectRatio, onCrop }: CropperMenuProps) => {
   const { cropperMenuVersion, cropMenuSelected } = useCropperMenu(setAspectRatio)
-
-  const dispatch = useAppDispatch()
-
-  const setCroppedImageFor = (id: string, croppedImage: string) => {
-    const imageIndex = images.findIndex(x => x.id === id)
-
-    dispatch(addCroppedImage({ index: imageIndex, croppedImage }))
-  }
-  const onCrop = async () => {
-    if (croppedAreaPixels) {
-      const croppedImage = await getCroppedAndFilteredImage(
-        images[imageIndex].url,
-        croppedAreaPixels
-      )
-
-      setCroppedImageFor(images[imageIndex].id, croppedImage)
-    }
-  }
 
   return (
     <>

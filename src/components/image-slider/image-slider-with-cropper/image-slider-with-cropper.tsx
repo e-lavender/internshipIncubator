@@ -1,18 +1,24 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
 import Cropper from 'react-easy-crop'
 
 import s from '../image-slider.module.scss'
 
-import { useAppSelector } from '@/app/store/rtk.types'
-import { ImageSliderContainer, ImageModel, CropperMenu } from '@/components'
+import { addCroppedImage } from '@/app/services/post/slider.slice'
+import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
+import {
+  ImageSliderContainer,
+  ImageModel,
+  CropperMenu,
+  getCroppedAndFilteredImage,
+} from '@/components'
 
 type ImageSliderType = {
   images?: ImageModel[]
   aspectRatio: number
   fitStyle: 'cover' | 'contain'
-  setAspectRatio?: (aspectRatio: number) => void
+  setAspectRatio: (aspectRatio: number) => void
 }
 export const ImageSliderWithCropper = ({
   images = [],
@@ -26,40 +32,49 @@ export const ImageSliderWithCropper = ({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
 
   const globalImageIndex = useAppSelector(state => state.slider.currentImageIndex)
+  const dispatch = useAppDispatch()
 
-  const onCropComplete = useCallback(
-    (croppedArea: any, croppedAreaPixels: any) => {
-      setCroppedAreaPixels(croppedAreaPixels)
-    },
-    [images]
-  )
+  const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
+    setCroppedAreaPixels(croppedAreaPixels)
+  }
+
+  const onCrop = async () => {
+    if (croppedAreaPixels) {
+      const croppedImage = (await getCroppedAndFilteredImage(
+        images[imageIndex].url,
+        croppedAreaPixels
+      )) as string
+
+      dispatch(addCroppedImage({ index: imageIndex, croppedImage }))
+    }
+  }
 
   useEffect(() => {
     if (imageIndex > images?.length - 1) {
       setImageIndex(images.length - 1)
     }
 
-    setZoom(1)
-  }, [images])
+    if (zoom > 1) {
+      setZoom(1)
+    }
+  }, [images, imageIndex])
 
   useEffect(() => {
-    setImageIndex(globalImageIndex)
+    if (globalImageIndex !== imageIndex) {
+      setImageIndex(globalImageIndex)
+    }
   }, [globalImageIndex])
 
   return (
-    <ImageSliderContainer images={images} imageIndex={imageIndex} setImageIndex={setImageIndex}>
-      {images.map(image => (
+    <>
+      <ImageSliderContainer images={images} imageIndex={imageIndex} setImageIndex={setImageIndex}>
         <div
-          key={image.id}
-          style={{
-            translate: `${-100 * imageIndex}%`,
-            aspectRatio: `${aspectRatio}`,
-          }}
-          className={clsx(s.imageSlider, s.transition, s[fitStyle])}
+          key={images[imageIndex]?.id}
+          className={clsx(s.imageSlider, s.transition, s[fitStyle], s.container)}
         >
           <Cropper
             objectFit={'contain'}
-            image={image.url}
+            image={images[imageIndex]?.url || ''}
             aspect={aspectRatio}
             crop={crop}
             zoom={zoom}
@@ -70,18 +85,14 @@ export const ImageSliderWithCropper = ({
             showGrid={false}
           />
         </div>
-      ))}
 
-      <CropperMenu
-        images={images}
-        imageIndex={imageIndex}
-        croppedAreaPixels={croppedAreaPixels}
-        zoom={zoom}
-        crop={crop}
-        aspectRatio={aspectRatio}
-        setZoom={setZoom}
-        setAspectRatio={setAspectRatio}
-      />
-    </ImageSliderContainer>
+        <CropperMenu
+          zoom={zoom}
+          onCrop={onCrop}
+          setZoom={setZoom}
+          setAspectRatio={setAspectRatio}
+        />
+      </ImageSliderContainer>
+    </>
   )
 }
