@@ -22,6 +22,7 @@ import { Button, TextArea } from '@/ui'
 
 type PostCardXLType = {
   isVisible?: boolean
+  isLoading?: boolean
   account: AccountType
 } & PostType
 
@@ -39,6 +40,7 @@ export const PostCardXL = (props: PostCardXLType) => {
         url={props.url}
         userName={props.userName}
         description={props.description}
+        isLoading={props.isLoading}
       />
     ),
   }
@@ -85,10 +87,12 @@ const CardEditInterface = ({
   userName,
   url,
   description,
+  isLoading,
 }: {
   userName: string
   url: string
   description: string
+  isLoading?: boolean
 }) => {
   const [text, setText] = useState<string>(description || '')
 
@@ -112,7 +116,7 @@ const CardEditInterface = ({
 
   return (
     <div className={s.edit}>
-      <CardDescription userName={userName} url={url} />
+      <CardDescription userName={userName} url={url} isLoading={isLoading} />
 
       <form className={s.form} onSubmit={saveEditedDescription}>
         <TextArea
