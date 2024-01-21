@@ -4,6 +4,7 @@ import { filtersVariant } from './filters-variant'
 import s from './selected-images.module.scss'
 
 import airBalloon from '@/app/assets/image/airBalloonImage.jpg'
+import { useActiveFilterChange } from '@/components/post/create/selected-images/useActiveFilterChange'
 import { Typography } from '@/ui'
 
 type SelectedImagesProps = {
@@ -12,44 +13,7 @@ type SelectedImagesProps = {
 }
 
 export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) => {
-  const onActiveFilter = (filter: string) => {
-    switch (filter) {
-      case 'No filter':
-        setActiveFilter('')
-        break
-      case 'Kyoto':
-        setActiveFilter('saturate(2)')
-        break
-      case 'Lark':
-        setActiveFilter('grayscale(100%)')
-        break
-      case 'Gingham':
-        setActiveFilter('contrast(160%)')
-        break
-      case 'Happy':
-        setActiveFilter('contrast(110%) brightness(110%) saturate(130%)')
-        break
-      case 'Shabby':
-        setActiveFilter('sepia(100%)')
-        break
-      case 'Old school': {
-        setActiveFilter('opacity(50%)')
-        break
-      }
-      case 'Silent Hill': {
-        setActiveFilter('hue-rotate(180deg')
-        break
-      }
-      case 'Hudson': {
-        setActiveFilter('sepia(0.4) saturate(2.5) hue-rotate(-30deg) contrast(0.67)')
-        break
-      }
-      default: {
-        setActiveFilter('')
-        break
-      }
-    }
-  }
+  const onActiveFilterChange = useActiveFilterChange(setActiveFilter)
 
   return (
     <>
@@ -58,16 +22,14 @@ export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) =>
           const { name, filter } = filterVariant
 
           return (
-            <div key={name} className={s.imgWithFilter} onClick={() => onActiveFilter(name)}>
+            <div key={name} className={s.imgWithFilter} onClick={() => onActiveFilterChange(name)}>
               <ImageWithFilter
                 src={url || airBalloon}
                 alt={'image-with-filter'}
                 objectFit={'contain'}
                 width={108}
                 height={108}
-                style={{
-                  filter: filter,
-                }}
+                style={{ filter }}
                 className={s.image}
               />
 
