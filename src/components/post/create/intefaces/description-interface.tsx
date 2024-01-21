@@ -1,10 +1,10 @@
 import { ImageSlider, ImageModel, PostDescription } from '@/components'
 
 type DescriptionInterfaceProps = {
-  images?: ImageModel[]
+  images: ImageModel[]
 }
 
-export const DescriptionInterface = ({ images = [] }: DescriptionInterfaceProps) => {
+export const DescriptionInterface = ({ images }: DescriptionInterfaceProps) => {
   return (
     <>
       <ImageSlider images={images} aspectRatio={'1/1'} fitStyle={'contain'} />

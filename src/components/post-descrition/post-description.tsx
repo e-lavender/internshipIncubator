@@ -4,17 +4,18 @@ import s from './post-description.module.scss'
 
 import { changeDescription } from '@/app/services/post/slider.slice'
 import { useGetProfileQuery } from '@/app/services/profile/profile.api'
-import { useAppDispatch } from '@/app/store/rtk.types'
+import { useRtkStateHook } from '@/app/services/useRtkState.hook'
 import { Avatar } from '@/components'
 import { TextArea, Typography } from '@/ui'
 
 export const PostDescription = () => {
   const { data } = useGetProfileQuery()
 
-  const dispatch = useAppDispatch()
+  const { _state, _dispatch } = useRtkStateHook()
+  const { description: postDescription } = _state.slider
 
   const onChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(changeDescription({ text: e.target.value }))
+    _dispatch(changeDescription({ text: e.target.value }))
   }
 
   return (
@@ -36,6 +37,8 @@ export const PostDescription = () => {
           <TextArea
             label={'Add publication descriptions'}
             sizeLimit={500}
+            value={postDescription ?? ''}
+            initialSize={postDescription?.length}
             onChange={onChangeDescription}
           />
         </div>

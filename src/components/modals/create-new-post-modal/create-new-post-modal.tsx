@@ -8,7 +8,8 @@ import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useAddPostMutation } from '@/app/services/post/post.api'
 import { addImage, resetImagesToDefaultState } from '@/app/services/post/slider.slice'
-import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
+import { useRtkStateHook } from '@/app/services/useRtkState.hook'
+import { RootState, useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { showError } from '@/app/utils'
 import {
   AddInterface,
@@ -22,22 +23,25 @@ import {
 } from '@/components'
 
 export const CreateNewPostModal = () => {
+  const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
 
   const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
-  const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
 
-  const chosenImages = useAppSelector(state => state.slider.images)
-  const postDescription = useAppSelector(state => state.slider.description)
+  const { _dispatch, _state } = useRtkStateHook()
+  const { images: selectedImages, description: postDescription } = _state.slider
+
+  // const chosenImages = useAppSelector(state => state.slider.images)
+  // const postDescription = useAppSelector(state => state.slider.description)
+  // const dispatch = useAppDispatch()
 
   const addNewPost = async () => {
     const formData = new FormData()
 
     setIsLoading(true)
 
-    const imagePromises = chosenImages.map(async image => {
+    const imagePromises = selectedImages.map(async image => {
       const filteredImage = await getCroppedAndFilteredImage(image.url, null, image.filter)
 
       if (!filteredImage) {
@@ -75,9 +79,9 @@ export const CreateNewPostModal = () => {
 
   const interfaceVariants: { [Key: string]: ReactElement } = {
     1: <AddInterface callback={initialStepWithValidation} />,
-    2: <CropInterface images={chosenImages} />,
-    3: <FilterInterface images={chosenImages} />,
-    4: <DescriptionInterface images={chosenImages} />,
+    2: <CropInterface images={selectedImages} />,
+    3: <FilterInterface images={selectedImages} />,
+    4: <DescriptionInterface images={selectedImages} />,
   }
 
   const titleVariants: { [Key: string]: string } = {
@@ -106,7 +110,7 @@ export const CreateNewPostModal = () => {
     closeCreatePostModal()
     setPreferredStep(1)
 
-    dispatch(resetImagesToDefaultState())
+    _dispatch(resetImagesToDefaultState())
   }
 
   return (

@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import s from './interfaces.module.scss'
 
 import { AccountIcon, MIME_TYPES } from '@/app'
-import { Button, FileInput, Typography } from '@/ui'
+import { Button, FileInput } from '@/ui'
 
 type AddInterfaceProps = {
   callback: (file: File) => void

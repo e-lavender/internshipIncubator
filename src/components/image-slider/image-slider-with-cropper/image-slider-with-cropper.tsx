@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
-import Cropper from 'react-easy-crop'
+import Cropper, { Area } from 'react-easy-crop'
 
 import s from '../image-slider.module.scss'
 
 import { addCroppedImage } from '@/app/services/post/slider.slice'
-import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
+import { useRtkStateHook } from '@/app/services/useRtkState.hook'
 import {
   ImageSliderContainer,
   ImageModel,
@@ -27,14 +27,14 @@ export const ImageSliderWithCropper = ({
   fitStyle,
 }: ImageSliderType) => {
   const [imageIndex, setImageIndex] = useState<number>(0)
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState(1)
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
+  const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState<number>(1)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
 
-  const globalImageIndex = useAppSelector(state => state.slider.currentImageIndex)
-  const dispatch = useAppDispatch()
+  const { _state, _dispatch } = useRtkStateHook()
+  const { currentImageIndex: globalImageIndex } = _state.slider
 
-  const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
+  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }
 
@@ -45,7 +45,7 @@ export const ImageSliderWithCropper = ({
         croppedAreaPixels
       )) as string
 
-      dispatch(addCroppedImage({ index: imageIndex, croppedImage }))
+      _dispatch(addCroppedImage({ index: imageIndex, croppedImage }))
     }
   }
 

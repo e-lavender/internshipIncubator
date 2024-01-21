@@ -5,25 +5,25 @@ import s from './added-images.module.scss'
 
 import { CloseIcon } from '@/app'
 import { deleteImage, setCurrentImageIndex } from '@/app/services/post/slider.slice'
-import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
+import { useRtkStateHook } from '@/app/services/useRtkState.hook'
 
 export const AddedImages = () => {
-  const chosenImages = useAppSelector(state => state.slider.images)
-  const dispatch = useAppDispatch()
+  const { _state, _dispatch } = useRtkStateHook()
+  const { images: selectedImages } = _state.slider
 
   const onDeleteImage = ({ id }: { id: string }) => {
-    dispatch(deleteImage({ id }))
+    _dispatch(deleteImage({ id }))
   }
 
   const chooseImageByClick = (index: number) => {
-    dispatch(setCurrentImageIndex({ index }))
+    _dispatch(setCurrentImageIndex({ index }))
   }
 
-  const styles = clsx(s.hide, chosenImages.length > 1 && s.close)
+  const styles = clsx(s.hide, selectedImages.length > 1 && s.close)
 
   return (
     <>
-      {chosenImages.map((image, index) => (
+      {selectedImages.map((image, index) => (
         <div key={image.id} className={s.addedPhoto} onClick={() => chooseImageByClick(index)}>
           <CloseIcon
             className={styles}
