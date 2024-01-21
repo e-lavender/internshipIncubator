@@ -9,7 +9,6 @@ import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useAddPostMutation } from '@/app/services/post/post.api'
 import { addImage, resetImagesToDefaultState } from '@/app/services/post/slider.slice'
 import { useRtkStateHook } from '@/app/services/useRtkState.hook'
-import { RootState, useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { showError } from '@/app/utils'
 import {
   AddInterface,
@@ -24,6 +23,7 @@ import {
 
 export const CreateNewPostModal = () => {
   const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
+  // added additional indicator in order to inform user that everything is ok and request is processing now
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
@@ -31,10 +31,6 @@ export const CreateNewPostModal = () => {
 
   const { _dispatch, _state } = useRtkStateHook()
   const { images: selectedImages, description: postDescription } = _state.slider
-
-  // const chosenImages = useAppSelector(state => state.slider.images)
-  // const postDescription = useAppSelector(state => state.slider.description)
-  // const dispatch = useAppDispatch()
 
   const addNewPost = async () => {
     const formData = new FormData()

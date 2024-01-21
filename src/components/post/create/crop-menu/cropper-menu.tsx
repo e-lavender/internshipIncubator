@@ -2,25 +2,14 @@ import React from 'react'
 
 import s from './crop-menu.module.scss'
 
-import { addCroppedImage } from '@/app/services/post/slider.slice'
-import { useAppDispatch } from '@/app/store/rtk.types'
-import {
-  AddImage,
-  CropMenu,
-  CropMenuItem,
-  getCroppedAndFilteredImage,
-  ImageModel,
-  SliderZoom,
-  useCropperMenu,
-} from '@/components'
+import { AddImage, CropMenu, CropMenuItem, SliderZoom, useCropperMenu } from '@/components'
 import { Button } from '@/ui'
 
 type CropperMenuProps = {
-  // images: ImageModel[]
   zoom: number
   setZoom: (zoom: number) => void
-  setAspectRatio?: (aspectRatio: number) => void
-  onCrop?: () => Promise<void>
+  setAspectRatio: (aspectRatio: number) => void
+  onCrop: () => Promise<void>
 }
 export const CropperMenu = ({ zoom, setZoom, setAspectRatio, onCrop }: CropperMenuProps) => {
   const { cropperMenuVersion, cropMenuSelected } = useCropperMenu(setAspectRatio)

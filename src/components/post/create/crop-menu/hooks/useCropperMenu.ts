@@ -1,11 +1,18 @@
 import { useState } from 'react'
 
-import { LandscapeCrop, OriginalCrop, PortraitCrop, SquareCrop } from '@/app'
+import { LandscapeCrop, OriginalCrop, PortraitCrop, SquareCrop, SVGIconType } from '@/app'
 
-export const useCropperMenu = (setAspectRatio?: (aspectRatio: number) => void) => {
+type CropperMenuType = {
+  id: string
+  icon: SVGIconType
+  title: string
+  onClick: (id: string) => void
+}
+
+export const useCropperMenu = (setAspectRatio: (aspectRatio: number) => void) => {
   const [cropMenuSelected, setCropMenuSelected] = useState('1')
 
-  const cropperMenuVersion = [
+  const cropperMenuVersion: CropperMenuType[] = [
     {
       id: '1',
       icon: OriginalCrop,
@@ -44,9 +51,8 @@ export const useCropperMenu = (setAspectRatio?: (aspectRatio: number) => void) =
       icon: LandscapeCrop,
       title: '16:9',
       onClick: (id: string) => {
-        if (setAspectRatio) {
-          setAspectRatio(16 / 9)
-        }
+        setAspectRatio(16 / 9)
+
         setCropMenuSelected(id)
       },
     },

@@ -15,31 +15,6 @@ export const CardDescription = ({
   createdAt,
   isLoading,
 }: CardDescriptionType) => {
-  if (isLoading) {
-    return (
-      <div className={s.description}>
-        <SkeletonCard circle>
-          <Avatar src={url} width={36} height={36} />
-        </SkeletonCard>
-
-        <div className={s.info}>
-          <SkeletonCard>
-            <Typography as={'p'} variant={'regular-14'}>
-              <Typography variant={'bold-14'}>{`${userName} `}</Typography>
-              {description}
-            </Typography>
-          </SkeletonCard>
-
-          <SkeletonCard>
-            <Typography variant={'small'} className={s.created}>
-              {createdAt}
-            </Typography>
-          </SkeletonCard>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className={s.description}>
       <Avatar src={url} width={36} height={36} iconScale={0.6} />

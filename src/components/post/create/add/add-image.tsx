@@ -13,7 +13,7 @@ export const AddImage = () => {
   const addRef = useRef() as MutableRefObject<HTMLDivElement>
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { JPG, PNG, PDF } = MIME_TYPES
+  const { JPG, PNG } = MIME_TYPES
   const acceptedFormats: string = [JPG, PNG].join(', ')
 
   const sliderImages = useAppSelector(state => state.slider.images)
