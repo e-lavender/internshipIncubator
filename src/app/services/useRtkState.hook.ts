@@ -1,8 +1,4 @@
-import { useSelector } from 'react-redux'
-
-import { RootState, useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
-
-type CallbackType = (selector: RootState, equalityFn?: Function) => any
+import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 export const useRtkStateHook = () => {
   const _dispatch = useAppDispatch()
   const _state = useAppSelector(state => state)

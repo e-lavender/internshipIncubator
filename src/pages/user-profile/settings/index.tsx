@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo } from 'react'
 import s from './general-information.module.scss'
 
 import { setDateFormat, useGeneralSettings, UserProfileType, useTranslation } from '@/app'
-import { useLocation } from '@/app/hooks/useLocation'
+import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import {
   useGetProfileQuery,
   useUpdateUserProfileMutation,
@@ -18,7 +18,7 @@ import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 const GeneralInformation = () => {
   const { data, isLoading: isProfileLoading } = useGetProfileQuery()
   const [updateProfile, { isLoading: isProfileUpdating }] = useUpdateUserProfileMutation()
-  const { getCities, mappedCities } = useLocation()
+  const [getCities, { data: cities }] = useGetCitiesMutation()
 
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
@@ -104,12 +104,7 @@ const GeneralInformation = () => {
               name={'country'}
               options={COUNTRIES_DATA}
             />
-            <ControlledSelect
-              label={city.label}
-              options={mappedCities}
-              name={'city'}
-              control={control}
-            />
+            <ControlledSelect label={city.label} options={cities} name={'city'} control={control} />
           </div>
 
           <TextArea
