@@ -61,7 +61,7 @@
   button {
     cursor: pointer;
 
-    &:focus-within {
+    &:focus-visible {
       color: #fff;
       outline: 1px solid var(--color-accent-500);
       outline-offset: 2px;

@@ -1,3 +1,5 @@
+import React from 'react'
+
 import ImageWithFilter, { StaticImageData } from 'next/image'
 
 import { filtersVariant } from './filters-variant'
@@ -15,6 +17,12 @@ type SelectedImagesProps = {
 export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) => {
   const onActiveFilterChange = useActiveFilterChange(setActiveFilter)
 
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>, filter: string) => {
+    if (e.code === 'Space' || e.code === 'Enter') {
+      onActiveFilterChange(filter)
+    }
+  }
+
   return (
     <>
       <div className={s.filterContainer}>
@@ -25,6 +33,7 @@ export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) =>
             <div
               key={name}
               className={s.imgWithFilter}
+              onKeyDown={e => handleOnKeyDown(e, name)}
               onClick={() => onActiveFilterChange(name)}
               tabIndex={0}
             >
