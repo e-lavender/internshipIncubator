@@ -5,26 +5,26 @@ export const useActiveFilterChange = (changeFilterFn: (filter: string) => void) 
         changeFilterFn('')
         break
       case 'Kyoto':
-        changeFilterFn('saturate(2)')
+        changeFilterFn('contrast(90%) brightness(120%) saturate(160%) hue-rotate(-10deg)')
         break
       case 'Lark':
-        changeFilterFn('grayscale(100%)')
+        changeFilterFn('contrast(100%) sepia(50%)')
         break
       case 'Gingham':
-        changeFilterFn('contrast(160%)')
+        changeFilterFn('contrast(90%) sepia(20%)')
         break
       case 'Happy':
         changeFilterFn('contrast(110%) brightness(110%) saturate(130%)')
         break
       case 'Shabby':
-        changeFilterFn('sepia(100%)')
+        changeFilterFn('contrast(150%) saturate(110%)')
         break
       case 'Old school': {
-        changeFilterFn('opacity(50%)')
+        changeFilterFn('contrast(75%) brightness(115%) saturate(85%)')
         break
       }
       case 'Silent Hill': {
-        changeFilterFn('hue-rotate(180deg')
+        changeFilterFn('contrast(95%) brightness(125%) saturate(150%) sepia(25%)')
         break
       }
       case 'Hudson': {
