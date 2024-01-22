@@ -14,11 +14,12 @@ export const filtersVariant: FiltersVariantsType[] = [
   },
   {
     name: 'Lark',
-    filter: 'contrast(100%) sepia(50%)',
+    filter: 'grayscale(100%)',
   },
   {
     name: 'Gingham',
-    filter: 'contrast(90%) sepia(20%)',
+    filter:
+      'contrast(90%) brightness(110%) saturate(150%) sepia(30%) grayscale(37%) invert(10%) hue-rotate(20deg)',
   },
   {
     name: 'Happy',
@@ -30,14 +31,15 @@ export const filtersVariant: FiltersVariantsType[] = [
   },
   {
     name: 'Old school',
-    filter: 'contrast(75%) brightness(115%) saturate(85%)',
+    filter:
+      ' contrast(95%) brightness(95%) saturate(150%) sepia(25%) grayscale(2%) hue-rotate(28deg)',
   },
   {
     name: 'Silent Hill',
-    filter: 'contrast(95%) brightness(125%) saturate(150%) sepia(25%)',
+    filter: 'contrast(140%) sepia(50%) grayscale(3%) invert(2%) hue-rotate(15deg)',
   },
   {
     name: 'Hudson',
-    filter: 'sepia(0.4) saturate(2.5) hue-rotate(-30deg) contrast(0.67)',
+    filter: 'saturate(3)',
   },
 ]
