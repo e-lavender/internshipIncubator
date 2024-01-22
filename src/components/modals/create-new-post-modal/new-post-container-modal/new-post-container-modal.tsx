@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
@@ -18,18 +18,13 @@ type ModalProps = {
 }
 type ModalContentProps = {
   title?: string
+  currentStep: number
   children: ReactNode
   className?: string
   onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
-  isModified?: boolean
-  withCropper?: boolean
-  withFilter?: boolean
-  lastModal?: boolean
-  onClose?: () => void
-  stepForward?: () => void
-  stepBack?: () => void
-  addNewPost?: (activeFilter: string) => void
-  activeFilter?: string
+  stepForward: () => void
+  stepBackward: () => void
+  addNewPost: () => void
 }
 
 export const NewPostContainerModal = ({ open, onChange, children }: ModalProps) => {
@@ -42,15 +37,10 @@ export const NewPostContainerModal = ({ open, onChange, children }: ModalProps) 
 
 const ModalContent = ({
   title,
-  isModified = false,
-  withCropper,
-  withFilter,
-  lastModal,
+  currentStep,
   stepForward,
-  stepBack,
+  stepBackward,
   addNewPost,
-  activeFilter,
-  onClose,
   className,
   children,
   ...props
@@ -61,46 +51,39 @@ const ModalContent = ({
     <Dialog.Portal>
       <Dialog.Overlay className={s.overlay}>
         <Dialog.Content className={s.content} {...props}>
-          {!isModified && (
-            <>
-              <div className={s.header}>
-                {withCropper || withFilter || lastModal ? (
-                  <button onClick={stepBack}>
-                    <ArrowBackIcon />
-                  </button>
-                ) : (
-                  ''
-                )}
+          <div className={s.header}>
+            {currentStep > 1 && (
+              <button onClick={stepBackward} tabIndex={0}>
+                <ArrowBackIcon />
+              </button>
+            )}
 
-                <Dialog.Title>
-                  <Typography className={s.title} variant="h1">
-                    {title}
-                  </Typography>
-                </Dialog.Title>
+            <Typography as={'h1'} variant={'h1'} className={s.title}>
+              {title}
+            </Typography>
 
-                {withCropper || withFilter ? (
-                  <Button variant={'link'} onClick={stepForward}>
-                    {'Next'}
-                  </Button>
-                ) : (
-                  <Dialog.Close aria-label="Close" className={s.close}>
-                    {!lastModal ? (
-                      <CloseIcon width={24} height={24} onClick={onClose} />
-                    ) : (
-                      <Button
-                        variant={'link'}
-                        onClick={() => addNewPost && addNewPost(activeFilter ? activeFilter : '')}
-                      >
-                        {'Publish'}
-                      </Button>
-                    )}
-                  </Dialog.Close>
-                )}
-              </div>
+            {currentStep === 1 && (
+              <Dialog.Close aria-label="Close" tabIndex={0}>
+                <CloseIcon />
+              </Dialog.Close>
+            )}
 
-              <div className={s.separator}></div>
-            </>
-          )}
+            {(currentStep === 2 || currentStep === 3) && (
+              <Button variant={'link'} onClick={stepForward} tabIndex={0}>
+                Next
+              </Button>
+            )}
+
+            {currentStep === 4 && (
+              <Dialog.Close onClick={addNewPost} tabIndex={0}>
+                <Typography as={'h3'} variant={'h3'} className={s.publish}>
+                  Publish
+                </Typography>
+              </Dialog.Close>
+            )}
+          </div>
+
+          <div className={s.separator}></div>
 
           <div className={styles}>{children}</div>
         </Dialog.Content>

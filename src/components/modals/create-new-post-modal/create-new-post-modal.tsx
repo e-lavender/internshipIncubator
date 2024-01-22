@@ -73,14 +73,14 @@ export const CreateNewPostModal = () => {
       })
   }
 
-  const interfaceVariants: { [Key: string]: ReactElement } = {
+  const interfaceVariants: { [Step: string]: ReactElement } = {
     1: <AddInterface callback={initialStepWithValidation} />,
     2: <CropInterface images={selectedImages} />,
     3: <FilterInterface images={selectedImages} />,
     4: <DescriptionInterface images={selectedImages} />,
   }
 
-  const titleVariants: { [Key: string]: string } = {
+  const titleVariants: { [Step: string]: string } = {
     1: 'Add photo',
     2: 'Cropping',
     3: 'Filters',
@@ -88,7 +88,7 @@ export const CreateNewPostModal = () => {
   }
 
   const CurrentInterface: ReactElement = interfaceVariants[step]
-  const CurrentTitle: string = titleVariants[step]
+  const currentTitle: string = titleVariants[step]
 
   const { isOpen: isCreatePostModalOpen, closeCreatePostModal: closeCreatePostModal } =
     useCreatePostModal()
@@ -114,14 +114,12 @@ export const CreateNewPostModal = () => {
       <NewPostContainerModal open={isCreatePostModalOpen} onChange={closeCreatePostModal}>
         <NewPostContainerModal.Button asChild />
         <NewPostContainerModal.Content
-          title={CurrentTitle}
-          className={step === 1 || step === 2 ? s.content : s.filters}
-          withCropper={step === 2}
-          withFilter={step === 3}
-          lastModal={step === 4}
+          title={currentTitle}
+          className={step < 3 ? s.content : s.filters}
+          currentStep={step}
           onInteractOutside={handleOutsideClick}
           stepForward={stepForward}
-          stepBack={stepBackward}
+          stepBackward={stepBackward}
           addNewPost={addNewPost}
         >
           {CurrentInterface}

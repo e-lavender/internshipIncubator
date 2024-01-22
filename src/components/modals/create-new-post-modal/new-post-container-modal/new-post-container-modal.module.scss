@@ -58,8 +58,18 @@
     border: 1px solid var(--color-dark-100, #4c4c4c);
   }
 
-  .close {
+  button {
     cursor: pointer;
+
+    &:focus-within {
+      color: #fff;
+      outline: 1px solid var(--color-accent-500);
+      outline-offset: 2px;
+    }
+  }
+
+  .publish {
+    color: var(--color-accent-500);
   }
 }
 

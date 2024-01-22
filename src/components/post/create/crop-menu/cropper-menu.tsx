@@ -39,7 +39,9 @@ export const CropperMenu = ({ zoom, setZoom, setAspectRatio, onCrop }: CropperMe
           </CropMenu>
         </div>
 
-        <Button onClick={onCrop}>Crop</Button>
+        <Button onClick={onCrop} className={s.btn}>
+          Crop
+        </Button>
 
         <CropMenu icon={'image'} isImage>
           <AddImage />

@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, KeyboardEventHandler, useRef } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -29,6 +29,7 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
     }: CustomFileInputType,
     ref
   ) => {
+    const labelRef = useRef<HTMLLabelElement>(null)
     const fileFormat = Array.isArray(accept) ? accept.join(', ') : accept
 
     const styles = {
@@ -36,9 +37,21 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
       form: className,
     }
 
+    const handleOnKeyDown: KeyboardEventHandler<HTMLLabelElement> = e => {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        labelRef?.current?.click()
+      }
+    }
+
     return (
       <form ref={ref} className={styles.form}>
-        <label className={styles.label} htmlFor={id}>
+        <label
+          ref={labelRef}
+          className={styles.label}
+          onKeyDown={handleOnKeyDown}
+          htmlFor={id}
+          tabIndex={0}
+        >
           {label}
         </label>
 

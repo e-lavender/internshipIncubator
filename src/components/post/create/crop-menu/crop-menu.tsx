@@ -19,8 +19,8 @@ export const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
   const color = isOpen ? 'var(--color-accent-500)' : 'currentColor'
 
   return (
-    <div className={s.container} tabIndex={0} ref={containerRef}>
-      <button onClick={onToggle} className={s.trigger}>
+    <div className={s.container} ref={containerRef}>
+      <button onClick={onToggle} className={s.trigger} tabIndex={0}>
         <CropMenuIcon type={icon} color={color} />
       </button>
 

@@ -22,7 +22,12 @@ export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) =>
           const { name, filter } = filterVariant
 
           return (
-            <div key={name} className={s.imgWithFilter} onClick={() => onActiveFilterChange(name)}>
+            <div
+              key={name}
+              className={s.imgWithFilter}
+              onClick={() => onActiveFilterChange(name)}
+              tabIndex={0}
+            >
               <ImageWithFilter
                 src={url || airBalloon}
                 alt={'image-with-filter'}
