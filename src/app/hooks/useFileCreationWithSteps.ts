@@ -107,7 +107,7 @@ export const useFileCreationWithSteps = (
       setErrorText('')
 
       stepForward()
-      toast.success(`IMAGE SUCCESSFULLY ADDED!`, {
+      toast.success(`Image added`, {
         autoClose: 1500,
       })
     }

@@ -11,7 +11,8 @@ import { ImageSliderControls, ImageSliderType, SelectedImages } from '@/componen
 
 export const ImageSliderWithFilters = ({
   images,
-  size,
+  height,
+  width,
   aspectRatio,
   fitStyle,
 }: ImageSliderType) => {
@@ -29,8 +30,9 @@ export const ImageSliderWithFilters = ({
     <div
       className={s.container}
       style={{
-        maxWidth: `${size}px`,
-        aspectRatio: `${aspectRatio}`,
+        height,
+        width,
+        aspectRatio,
       }}
     >
       <div className={s.images}>
