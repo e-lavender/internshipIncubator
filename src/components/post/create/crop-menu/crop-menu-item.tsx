@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -6,18 +6,14 @@ import s from './crop-menu.module.scss'
 
 import { Typography } from '@/ui'
 
-const CropMenuItem = ({
-  icon,
-  onClick,
-  title,
-  selected,
-}: {
-  id: string
+type CropMenuItemType = {
   icon: ReactNode
   title: string
   onClick: () => void
   selected: boolean
-}) => {
+}
+
+export const CropMenuItem = ({ icon, onClick, title, selected }: CropMenuItemType) => {
   const className = clsx(s.menuItem, selected && s.selected)
 
   return (
@@ -29,5 +25,3 @@ const CropMenuItem = ({
     </div>
   )
 }
-
-export default CropMenuItem

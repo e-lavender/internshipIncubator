@@ -1,3 +1,5 @@
+import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
+import { ImageSlider } from '@/components'
 import { NextPageWithLayout } from '@/pages/_app'
 
 const Search: NextPageWithLayout = () => {

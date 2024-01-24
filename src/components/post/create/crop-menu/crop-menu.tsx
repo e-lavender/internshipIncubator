@@ -1,42 +1,30 @@
-import React, { MutableRefObject, PropsWithChildren, useEffect, useRef } from 'react'
+import { PropsWithChildren, useRef } from 'react'
 
 import s from './crop-menu.module.scss'
 
 import { useDisclose } from '@/app'
-import { IconType } from '@/components/image-slider/image-slider-types'
-import CropMenuIcon from '@/components/post/create/crop-menu/crop-menu-icon'
+import { IconType, CropMenuIcon, useOutsideClickHandler } from '@/components'
 
 type CropMenuProps = PropsWithChildren<{
   icon: IconType
   isImage?: boolean
 }>
 
-const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
-  const { isOpen: isMenuOpened, onOpen: openMenu, onToggle, onClose } = useDisclose()
-  const ref = useRef() as MutableRefObject<HTMLDivElement>
+export const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
+  const { isOpen, onToggle, onClose } = useDisclose()
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const color = isMenuOpened ? 'var(--color-accent-500)' : undefined
+  useOutsideClickHandler(containerRef, onClose)
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !e.composedPath().includes(ref.current)) {
-        onClose()
-      }
-    }
-
-    document.body.addEventListener('click', handleClickOutside)
-
-    return () => document.body.removeEventListener('click', handleClickOutside)
-  }, [])
+  const color = isOpen ? 'var(--color-accent-500)' : 'currentColor'
 
   return (
-    <div className={s.container} tabIndex={0} ref={ref}>
-      <button onClick={onToggle} className={s.trigger}>
+    <div className={s.container} ref={containerRef}>
+      <button onClick={onToggle} className={s.trigger} tabIndex={0}>
         <CropMenuIcon type={icon} color={color} />
       </button>
-      {isMenuOpened && <div className={!isImage ? s.menu : s.image}>{children}</div>}
+
+      {isOpen && <div className={isImage ? s.image : s.menu}>{children}</div>}
     </div>
   )
 }
-
-export default CropMenu
