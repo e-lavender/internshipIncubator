@@ -1,0 +1,40 @@
+import { clsx } from 'clsx'
+import Image from 'next/image'
+
+import s from './added-images.module.scss'
+
+import { CloseIcon } from '@/app'
+import { deleteImage, setCurrentImageIndex } from '@/app/services/post/slider.slice'
+import { useRtkStateHook } from '@/app/services/useRtkState.hook'
+
+export const AddedImages = () => {
+  const { _state, _dispatch } = useRtkStateHook()
+  const { images: selectedImages } = _state.slider
+
+  const onDeleteImage = ({ id }: { id: string }) => {
+    _dispatch(deleteImage({ id }))
+  }
+
+  const chooseImageByClick = (index: number) => {
+    _dispatch(setCurrentImageIndex({ index }))
+  }
+
+  const styles = clsx(s.hide, selectedImages.length > 1 && s.close)
+
+  return (
+    <>
+      {selectedImages.map((image, index) => (
+        <div key={image.id} className={s.addedPhoto} onClick={() => chooseImageByClick(index)}>
+          <CloseIcon
+            className={styles}
+            width={12}
+            height={12}
+            onClick={() => onDeleteImage({ id: image.id })}
+          />
+
+          <Image src={image.url} alt={image.alt} height={82} width={80} />
+        </div>
+      ))}
+    </>
+  )
+}

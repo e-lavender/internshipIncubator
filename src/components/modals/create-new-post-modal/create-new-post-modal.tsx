@@ -1,117 +1,97 @@
-import React, { useState } from 'react'
+import { ReactElement, useState } from 'react'
 
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 
 import s from './create-new-post-modal.module.scss'
 
-import { useDisclose, useTranslation } from '@/app'
+import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useAddPostMutation } from '@/app/services/post/post.api'
-import { ImageModel } from '@/components/image-slider/image-slider-types'
-import AddInterface from '@/components/intefaces/add-interface'
-import CropInterface from '@/components/intefaces/crop-interface'
-import DescriptionInterface from '@/components/intefaces/description-interface'
-import FilterInterface from '@/components/intefaces/filter-interface'
-import { ConfirmationModal } from '@/components/modals/confirmation-modal/confirmation-modal'
-import { filteredImg } from '@/components/post/create/filters/Filters'
-import { useCreatePost } from '@/components/post/create/useCreatePost'
-import { Modal } from '@/ui'
+import { addImage, resetImagesToDefaultState } from '@/app/services/post/slider.slice'
+import { useRtkStateHook } from '@/app/services/useRtkState.hook'
+import { showError } from '@/app/utils'
+import {
+  AddInterface,
+  ConfirmationModal,
+  CropInterface,
+  DescriptionInterface,
+  FilterInterface,
+  getCroppedAndFilteredImage,
+  LoaderV2,
+  NewPostContainerModal,
+} from '@/components'
 
-const CreateNewPostModal = () => {
-  const [addedImages, setAddedImages] = useState<ImageModel[]>([])
-  const [aspectRatio, setAspectRatio] = useState(4 / 3)
-  const [activeFilter, setActiveFilter] = useState('')
-  const [value, setValue] = useState('')
-  const { isOpen, closeCreatePostModal: close } = useCreatePostModal()
-  const { url, step, stepUp, stepForward, stepBack } = useCreatePost()
-  const [addPost] = useAddPostMutation()
-  const { t } = useTranslation()
-  const { add, cropping, filters, publication } = t.createPost
+export const CreateNewPostModal = () => {
+  const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
+  // added additional indicator in order to inform user that everything is ok and request is processing now
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const formData = new FormData()
-  const addNewPost = async (activeFilter: string) => {
-    const updatedImages = await Promise.all(
-      addedImages.map(async (el, idx) => {
-        const filteredImage = await filteredImg(
-          el.croppedImage ? el.croppedImage : el.url,
-          activeFilter
-        )
+  const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
+    useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
 
-        if (!filteredImage) {
-          return null
-        }
-        const file = new File([filteredImage], el.url, {
-          type: 'image/jpeg',
-        })
+  const { _dispatch, _state } = useRtkStateHook()
+  const { images: selectedImages, description: postDescription } = _state.slider
 
-        formData.append('images', file)
+  const addNewPost = async () => {
+    const formData = new FormData()
 
-        return {
-          image: filteredImage,
-        }
+    setIsLoading(true)
+
+    const imagePromises = selectedImages.map(async image => {
+      const filteredImage = await getCroppedAndFilteredImage(image.url, null, image.filter)
+
+      if (!filteredImage) {
+        return null
+      }
+
+      const file = new File([filteredImage], image.url, {
+        type: 'image/jpeg',
       })
-    )
 
-    formData.append('description', value)
+      formData.append('images', file)
+
+      return filteredImage
+    })
+
+    await Promise.all(imagePromises)
+
+    formData.append('description', postDescription)
 
     addPost(formData)
       .unwrap()
       .then(() => {
-        setActiveFilter('')
+        /*
+          Todo additional logic if necessary
+        */
+      })
+      .catch((error: ErrorWithData) => {
+        showError(error)
+        setPreferredStep(2)
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }
 
-  const interfaceVariants = {
-    1: (
-      <AddInterface
-        url={url}
-        callback={stepUp}
-        setAddedImages={setAddedImages}
-        addedImages={addedImages}
-      />
-    ),
-    2: (
-      <CropInterface
-        url={url}
-        callback={stepUp}
-        addedImages={addedImages}
-        setAddedImages={setAddedImages}
-        aspectRatio={aspectRatio}
-        setAspectRatio={setAspectRatio}
-        activeFilter={activeFilter}
-        setActiveFilter={setActiveFilter}
-      />
-    ),
-    3: (
-      <FilterInterface
-        url={url}
-        callback={stepUp}
-        addedImages={addedImages}
-        setAddedImages={setAddedImages}
-        activeFilter={activeFilter}
-        setActiveFilter={setActiveFilter}
-      />
-    ),
-    4: (
-      <DescriptionInterface
-        addedImages={addedImages}
-        setAddedImages={setAddedImages}
-        activeFilter={activeFilter}
-        setValue={setValue}
-      />
-    ),
+  const interfaceVariants: { [Step: string]: ReactElement } = {
+    1: <AddInterface callback={initialStepWithValidation} />,
+    2: <CropInterface images={selectedImages} />,
+    3: <FilterInterface images={selectedImages} />,
+    4: <DescriptionInterface images={selectedImages} />,
   }
 
-  const titleVariants = {
-    1: add,
-    2: cropping,
-    3: filters,
-    4: publication,
+  const titleVariants: { [Step: string]: string } = {
+    1: 'Add photo',
+    2: 'Cropping',
+    3: 'Filters',
+    4: 'Publication',
   }
 
-  const CurrentInterface: JSX.Element = interfaceVariants[step]
-  const CurrentTitle = titleVariants[step]
+  const CurrentInterface: ReactElement = interfaceVariants[step]
+  const currentTitle: string = titleVariants[step]
 
+  const { isOpen: isCreatePostModalOpen, closeCreatePostModal: closeCreatePostModal } =
+    useCreatePostModal()
   const {
     isOpen: isConfirmationModalOpen,
     onOpen: openConfirmationModal,
@@ -119,32 +99,32 @@ const CreateNewPostModal = () => {
   } = useDisclose()
 
   const handleOutsideClick = (e: PointerDownOutsideEvent | FocusOutsideEvent) => {
-    e.preventDefault
+    e.preventDefault()
     openConfirmationModal()
   }
   const onConfirm = () => {
-    close()
+    closeCreatePostModal()
+    setPreferredStep(1)
+
+    _dispatch(resetImagesToDefaultState())
   }
 
   return (
     <>
-      <Modal open={isOpen} onChange={close}>
-        <Modal.Button asChild />
-        <Modal.Content
-          title={CurrentTitle}
-          className={step === 1 || step === 2 ? s.content : s.filters}
-          withCropper={step === 2}
-          withFilter={step === 3}
-          lastModal={step === 4}
+      <NewPostContainerModal open={isCreatePostModalOpen} onChange={closeCreatePostModal}>
+        <NewPostContainerModal.Button asChild />
+        <NewPostContainerModal.Content
+          title={currentTitle}
+          className={step < 3 ? s.content : s.filters}
+          currentStep={step}
           onInteractOutside={handleOutsideClick}
           stepForward={stepForward}
-          stepBack={stepBack}
+          stepBackward={stepBackward}
           addNewPost={addNewPost}
-          activeFilter={activeFilter}
         >
           {CurrentInterface}
-        </Modal.Content>
-      </Modal>
+        </NewPostContainerModal.Content>
+      </NewPostContainerModal>
 
       <ConfirmationModal
         isOpen={isConfirmationModalOpen}
@@ -153,6 +133,8 @@ const CreateNewPostModal = () => {
         message={'Are you sure you want to close ?'}
         onConfirmation={onConfirm}
       />
+
+      <LoaderV2 isLoading={isLoading || isPostUploading} label={'Saving...'} />
     </>
   )
 }

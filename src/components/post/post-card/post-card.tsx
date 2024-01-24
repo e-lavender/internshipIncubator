@@ -9,8 +9,8 @@ import {
   CardOptions,
   CommentsList,
   PostType,
+  ImageSlider,
 } from '@/components'
-import ImageSlider from '@/components/image-slider/image-slider'
 import { Card } from '@/ui'
 
 export const PostCard = (props: PostType) => {
