@@ -33,7 +33,7 @@ export const PostCardXL = (props: PostCardXLType) => {
 
   const isEditMode: boolean = mode === 'edit'
 
-  const interfaces: { [key: string]: ReactElement } = {
+  const interfaces: { [ViewMode: string]: ReactElement } = {
     view: <CardInterface {...props} />,
     edit: (
       <CardEditInterface

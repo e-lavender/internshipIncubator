@@ -7,20 +7,24 @@ export const showError = (error: ErrorWithData) => {
     return toast.error(error)
   }
 
-  if (typeof error.status === 'string') {
-    return toast.error(error.status)
+  if (typeof error?.data === 'string') {
+    return toast.error(error.data)
   }
 
   if (Array.isArray(error.data?.message)) {
     return toast.error(error.data.message[0].message)
   }
 
+  if (typeof error.data?.message === 'string') {
+    return toast.error(error.data.message)
+  }
+
   if (Array.isArray(error.data?.errorsMessages)) {
     return toast.error(error.data.errorsMessages[0].message)
   }
 
-  if (typeof error.data?.message === 'string') {
-    return toast.error(error.data.message)
+  if (typeof error.status === 'string') {
+    return toast.error(error.status)
   }
 }
 
