@@ -2,11 +2,13 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 import AvatarEditor from 'react-avatar-editor'
+import { toast } from 'react-toastify'
 
 import s from './image-picker-modal.module.scss'
 
 import { useFileCreationWithSteps, MIME_TYPES, useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
+import { showError } from '@/app/utils'
 import { Avatar, LoaderV2 } from '@/components'
 import { SliderZoom } from '@/components/image-slider/slider-zoom/slider-zoom'
 import { Button, FileInput, Modal, Typography } from '@/ui'
@@ -39,6 +41,13 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
     onClose()
   }
 
+  const uploadForm = (form: FormData) => {
+    uploadFile(form)
+      .unwrap()
+      .then(() => toast.success('Image uploaded'))
+      .catch(showError)
+  }
+
   const uploadAvatar = () => {
     const formData = new FormData()
 
@@ -51,7 +60,8 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
 
           formData.append('avatar', file)
 
-          uploadFile(formData)
+          uploadForm(formData)
+
           stepBackward()
           onClose && onClose()
         }
@@ -59,7 +69,8 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
     } else {
       formData.append('avatar', blob as Blob)
 
-      uploadFile(formData)
+      uploadForm(formData)
+
       stepBackward()
       onClose && onClose()
     }

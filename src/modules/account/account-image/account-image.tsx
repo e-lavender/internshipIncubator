@@ -1,7 +1,10 @@
+import { toast } from 'react-toastify'
+
 import s from './account-image.module.scss'
 
 import { useDisclose, useTranslation } from '@/app'
 import { useDeleteAvatarMutation, useGetProfileQuery } from '@/app/services/profile/profile.api'
+import { showError } from '@/app/utils'
 import { Avatar, AvatarPropsType, ConfirmationModal, LoaderV2 } from '@/components'
 import { Button, ButtonProps } from '@/ui'
 
@@ -17,6 +20,13 @@ export const AccountImage = (props: AccountImageProps) => {
 
   const { t } = useTranslation()
   const { profileImage } = t.profileSettings.generalSettings
+
+  const onDeleteConfirmation = () => {
+    deleteAvatar()
+      .unwrap()
+      .then(() => toast.success('Image deleted'))
+      .catch(e => showError(e))
+  }
 
   return (
     <div className={s.container}>
@@ -36,7 +46,7 @@ export const AccountImage = (props: AccountImageProps) => {
         translation={'deleteAvatar'}
         isOpen={isOpen}
         onClose={onClose}
-        onConfirmation={deleteAvatar}
+        onConfirmation={onDeleteConfirmation}
       />
       <LoaderV2 isLoading={isLoading || isDeleteLoading} label={isLoadingLabel} />
     </div>

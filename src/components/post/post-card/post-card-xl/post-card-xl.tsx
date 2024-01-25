@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import { ChangeEventHandler, FormEventHandler, ReactElement, useState } from 'react'
 
 import s from './post-card-xl.module.scss'
 
@@ -18,7 +18,6 @@ import {
   AccountType,
   ImageSlider,
 } from '@/components'
-import ImageSlider from '@/components/image-slider/image-slider'
 import { Button, TextArea } from '@/ui'
 
 type PostCardXLType = {
@@ -34,7 +33,7 @@ export const PostCardXL = (props: PostCardXLType) => {
 
   const isEditMode: boolean = mode === 'edit'
 
-  const interfaces: { [key: string]: ReactElement } = {
+  const interfaces: { [ViewMode: string]: ReactElement } = {
     view: <CardInterface {...props} />,
     edit: (
       <CardEditInterface
