@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent, useCallback, useRef, useState } from 'react'
+import React, { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -39,6 +39,10 @@ export const CustomSelect = ({
     chevron: clsx(s.chevron, isOpen && s.open),
   }
 
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [inputRef])
+
   return (
     <div className={s.container}>
       {label && <label className={s.label}>{label}</label>}
@@ -55,7 +59,7 @@ export const CustomSelect = ({
         {!isOpen && (value || currentValue) && (
           <div className={s.input}>{value || currentValue}</div>
         )}
-        {(isOpen || !currentValue) && (
+        {isOpen && (
           <input
             tabIndex={-1}
             placeholder={placeholder || 'Select...'}

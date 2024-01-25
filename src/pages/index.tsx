@@ -46,7 +46,7 @@ const Home = () => {
         <h2 style={{ margin: '1em', textAlign: 'center' }}>
           Personal Account (Post Details/Editing)
         </h2>
-        <PostCardXL {...POST_COMMENTS} />
+        <PostCardXL {...POST_COMMENTS} isLoading={isLoading} />
       </>
     )
   )

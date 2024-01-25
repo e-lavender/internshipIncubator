@@ -63,7 +63,7 @@ const optionsPagination = [
 
 export const Simple = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    // eslint-disable-next-line react-utils/rules-of-utils
     const [value, setValue] = useState('')
 
     return (
@@ -80,7 +80,7 @@ export const Simple = {
 
 export const SimpleWithLabel = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    // eslint-disable-next-line react-utils/rules-of-utils
     const [value, setValue] = useState('')
 
     return (
@@ -99,7 +99,7 @@ export const SimpleWithLabel = {
 
 export const Pagination = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    // eslint-disable-next-line react-utils/rules-of-utils
     const [value, setValue] = useState('')
 
     return <Select {...args} value={value} onChange={setValue} />
@@ -115,7 +115,7 @@ export const Pagination = {
 
 export const FullWidth = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    // eslint-disable-next-line react-utils/rules-of-utils
     const [value, setValue] = useState('')
 
     return <Select {...args} value={value} onChange={setValue} />

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { DevTool } from '@hookform/devtools'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
+import { isDirty } from 'zod'
 
 import s from './sign-in-form.module.scss'
 
@@ -21,10 +22,10 @@ export const SignInForm = () => {
 
   const {
     handleSubmit,
-    formState: { isValid, dirtyFields },
+    formState: { isValid, isDirty, isLoading: isFormLoading },
     control,
   } = useSignInForm()
-  const isButtonDisabled = isLoading || (dirtyFields && !isValid)
+  const isButtonDisabled = isFormLoading || !isValid || !isDirty
 
   const { t } = useTranslation()
   const { signInForm: text } = t.authPages.signInPage
@@ -56,29 +57,24 @@ export const SignInForm = () => {
             </div>
             <DevTool control={control} />
             <ControlledTextField
+              control={control}
+              name={'email'}
               className={s.textField}
               label={text.email}
-              name={'email'}
-              control={control}
             />
             <ControlledTextField
-              className={s.textField}
-              label={text.password}
+              control={control}
               name={'password'}
               inputType={'password'}
-              control={control}
+              className={s.textField}
+              label={text.password}
             />
             <Link href={authNavigationUrls.forgotPassword()}>
               <Typography className={s.forgotPassword} variant={'regular-14'}>
                 {text.forgotPassword}
               </Typography>
             </Link>
-            <Button
-              disabled={isButtonDisabled}
-              type={'submit'}
-              className={s.signInBtn}
-              fullWidth={true}
-            >
+            <Button disabled={isButtonDisabled} type={'submit'} className={s.signInBtn} fullWidth>
               {text.signIn}
             </Button>
             <Typography className={s.accountText} variant={'regular-16'}>

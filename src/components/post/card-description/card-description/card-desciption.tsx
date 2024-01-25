@@ -1,13 +1,20 @@
 import s from './card-description.module.scss'
 
 import { Avatar, PostType } from '@/components'
-import { Typography } from '@/ui'
+import { SkeletonCard, Typography } from '@/ui'
 
 type CardDescriptionType = {
   description?: string
+  isLoading?: boolean
 } & Pick<PostType, 'url' | 'userName' | 'createdAt'>
 
-export const CardDescription = ({ url, userName, description, createdAt }: CardDescriptionType) => {
+export const CardDescription = ({
+  url,
+  userName,
+  description,
+  createdAt,
+  isLoading,
+}: CardDescriptionType) => {
   return (
     <div className={s.description}>
       <Avatar src={url} width={36} height={36} iconScale={0.6} />
