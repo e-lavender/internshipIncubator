@@ -1,58 +1,57 @@
-
-
 .wrapper {
-width: 481px;
-  height: 490px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 
-  margin-top: 24px;
+  width: 48.1rem;
+  height: 49rem;
+  margin-top: 2.4rem;
 }
 
 .userInfo {
-  width: 433px;
-  height: 36px;
   display: flex;
   flex-direction: row;
-  margin-bottom: 24px;
-  margin-top: 24px;
+
+  width: 43.3rem;
+  height: 3.6rem;
+  margin-top: 2.4rem;
+  margin-bottom: 2.4rem;
 }
 
 .ava {
-  width: 36px;
-  height: 36px;
-  margin-right: 12px;
+  width: 3.6rem;
+  height: 3.6rem;
+  margin-right: 1.2rem;
   border-radius: 50%;
 }
 
 .userName {
-  width: 90px;
-  height: 24px;
-  margin-top: 6px;
+  width: 9rem;
+  height: 2.4rem;
+  margin-top: 0.6rem;
 }
 
 .textArea {
-  width: 433px;
-  height: 144px;
+  width: 43.3rem;
+  height: 14.4rem;
+
   textarea {
-    height: 120px;
+    height: 12rem;
   }
 }
 
 .counter {
   display: flex;
   justify-content: flex-end;
-  width: 433px;
+  width: 43.3rem;
 }
 
 .btn {
   align-self: flex-end;
-  margin-right: 24px;
-  margin-bottom: 34px;
-
-  heigth: 36px;
+  height: 3.6rem;
+  margin-right: 2.4rem;
+  margin-bottom: 3.4rem;
 }
 
 .description {

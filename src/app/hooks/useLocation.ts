@@ -4,12 +4,15 @@ import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import { SelectValue } from '@/ui/custom-select/custom-select.types'
 
 export const useLocation = () => {
-  const [getCities, { data: cities, isLoading }] = useGetCitiesMutation()
-  const mappedCities: SelectValue[] | undefined = useMemo(() => {
-    return cities?.data.map(city => {
-      return { value: city.toLowerCase(), label: city }
-    })
-  }, [cities])
+  const [getCities, { data: cities }] = useGetCitiesMutation()
 
-  return { getCities, mappedCities, isLoading }
+  //*** Response data was transformed in rtk
+
+  // const mappedCities: SelectValue[] | undefined = useMemo(() => {
+  //   return cities?.data.map(city => {
+  //     return { value: city.toLowerCase(), label: city }
+  //   })
+  // }, [cities])
+
+  return { getCities }
 }

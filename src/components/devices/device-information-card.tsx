@@ -42,17 +42,16 @@ export const DeviceInformationCard = <T extends CardType>({
 
   const SVGIcon: SVGIconType = SESSION_DEVICE_ICON[type][variant]
 
-  const LogoutButton =
-    type === 'SESSION' ? (
-      <MenuItem
-        as={'button'}
-        asListItem={false}
-        onClick={() => console.log('Logged Out!')}
-        icon={LogOutMenuIcon}
-        label={labels.logout}
-        isStyled={!isMobile}
-      />
-    ) : null
+  const LogoutButton = type === 'SESSION' && (
+    <MenuItem
+      as={'button'}
+      asListItem={false}
+      onClick={() => console.log('Logged Out!')}
+      icon={LogOutMenuIcon}
+      label={labels.logout}
+      isStyled={!isMobile}
+    />
+  )
 
   return (
     <Card className={styles}>

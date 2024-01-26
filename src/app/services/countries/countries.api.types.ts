@@ -3,3 +3,5 @@ export type CitiesOfCountry = {
   msg: string
   data: string[]
 }
+
+export type TransformedCitiesData = { value: string; label: string }
