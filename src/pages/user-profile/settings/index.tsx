@@ -18,7 +18,7 @@ import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 const GeneralInformation = () => {
   const { data, isLoading: isProfileLoading } = useGetProfileQuery()
   const [updateProfile, { isLoading: isProfileUpdating }] = useUpdateUserProfileMutation()
-  const { getCities, mappedCities } = useLocation()
+  const { getCities, mappedCities, isLoading: citiesLoading } = useLocation()
 
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
@@ -41,10 +41,11 @@ const GeneralInformation = () => {
     control,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isValid, isDirty, isLoading },
   } = useGeneralSettings(userProfile)
 
-  const isDisabledSubmit = !isDirty || !isValid || isLoading
+  const isDisabledSubmit = !isValid || isLoading
   const selectedCountry = watch('country')
 
   const onSubmit = handleSubmit((data: GeneralSettingsType) => {
@@ -57,6 +58,7 @@ const GeneralInformation = () => {
 
   useEffect(() => {
     if (selectedCountry) {
+      setValue('city', undefined)
       getCities({ country: selectedCountry })
     }
   }, [getCities, selectedCountry])
@@ -105,10 +107,12 @@ const GeneralInformation = () => {
               options={COUNTRIES_DATA}
             />
             <ControlledSelect
+              isLoading={citiesLoading}
               label={city.label}
               options={mappedCities}
               name={'city'}
               control={control}
+              disabled={citiesLoading}
             />
           </div>
 

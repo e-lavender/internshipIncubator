@@ -1,10 +1,12 @@
-import React, { ChangeEvent, FocusEvent, useCallback, useRef, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './custom-select.module.scss'
 
 import { ChevronDown } from '@/app/assets/svg/chevron-down'
+import { DisabledContent } from '@/templates'
+import CustomSelectOptions from '@/ui/custom-select/custom-select-options'
 import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
 import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
 
@@ -15,6 +17,8 @@ export const CustomSelect = ({
   placeholder,
   isClearable = false,
   onChange,
+  isLoading,
+  disabled,
 }: CustomSelectProps) => {
   const {
     isOpen,
@@ -35,76 +39,82 @@ export const CustomSelect = ({
   } = useCustomSelect(options, onChange)
 
   const styles = {
-    options: clsx(s.options, isOpen && s.show),
     chevron: clsx(s.chevron, isOpen && s.open),
+  }
+  const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsOpen(true)
+    setFilterHandler(event)
+  }
+  const valueToShow = !isOpen && (value || currentValue) && (
+    <div className={s.input}>{value || currentValue}</div>
+  )
+  const searchInput = (isOpen || !currentValue) && (
+    <input
+      tabIndex={-1}
+      placeholder={placeholder || 'Select...'}
+      type={'text'}
+      className={s.input}
+      onChange={onChangeValue}
+      ref={inputRef}
+    />
+  )
+  const selectLabel = label && <label className={s.label}>{label}</label>
+
+  const toggleOpen = () => {
+    !isOpen && setIsOpen(true)
+  }
+
+  //setIsClearable does not work properly
+  const setIsClearable = isClearable && (
+    <>
+      <button className={s['close-button']} onClick={clearHandler} type={'button'}>
+        &times;
+      </button>
+      <div className={s.divider}></div>
+    </>
+  )
+
+  const toggleButton = isLoading ? <div className={s.loader} /> : <ChevronDown />
+  const onClickToggleButton = () => {
+    setIsOpen(!isOpen)
   }
 
   return (
-    <div className={s.container}>
-      {label && <label className={s.label}>{label}</label>}
-      <div
-        className={s.select}
-        tabIndex={0}
-        onBlur={closeSelectOnBlur}
-        ref={selectRef}
-        onKeyDown={keyHandler}
-        onClick={() => {
-          !isOpen && setIsOpen(true)
-        }}
-      >
-        {!isOpen && (value || currentValue) && (
-          <div className={s.input}>{value || currentValue}</div>
-        )}
-        {(isOpen || !currentValue) && (
-          <input
-            tabIndex={-1}
-            placeholder={placeholder || 'Select...'}
-            type={'text'}
-            className={s.input}
-            onChange={e => {
-              setIsOpen(true)
-              setFilterHandler(e)
-            }}
-            ref={inputRef}
-          />
-        )}
-        {isClearable && (
-          <>
-            <button className={s['close-button']} onClick={clearHandler} type={'button'}>
-              &times;
-            </button>
-            <div className={s.divider}></div>
-          </>
-        )}
-
-        <button
-          tabIndex={-1}
-          className={styles.chevron}
-          onClick={() => {
-            setIsOpen(!isOpen)
-          }}
-          type={'button'}
+    <DisabledContent disabled={disabled}>
+      <div className={s.container}>
+        {selectLabel}
+        <div
+          className={s.select}
+          tabIndex={0}
+          onBlur={closeSelectOnBlur}
+          ref={selectRef}
+          onKeyDown={keyHandler}
+          onClick={toggleOpen}
         >
-          <ChevronDown />
-        </button>
-        <ul className={styles.options} ref={optionsListRef}>
-          {filteredData?.map((option, index) => {
-            return (
-              <li
-                className={clsx(s.option, index === indexCurrent && s.hovered)}
-                key={index}
-                onClick={() => {
-                  onSelectValueHandler(option.label)
-                  resetFilter()
-                }}
-                onMouseEnter={() => setIndexCurrent(index)}
-              >
-                {option.label}
-              </li>
-            )
-          })}
-        </ul>
+          {valueToShow}
+          {searchInput}
+          {setIsClearable}
+
+          <button
+            disabled={isLoading}
+            tabIndex={-1}
+            className={styles.chevron}
+            onClick={onClickToggleButton}
+            type={'button'}
+          >
+            {toggleButton}
+          </button>
+          <CustomSelectOptions
+            ref={optionsListRef}
+            indexCurrent={indexCurrent}
+            isOpen={isOpen}
+            items={filteredData}
+            onSelectValueHandler={onSelectValueHandler}
+            resetFilter={resetFilter}
+            setIndexCurrent={setIndexCurrent}
+          />
+        </div>
       </div>
-    </div>
+    </DisabledContent>
   )
 }

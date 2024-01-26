@@ -130,3 +130,26 @@
     transition: 0.3s ease-in all;
   }
 }
+
+.loader {
+  --animate: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+
+  aspect-ratio: 1;
+  width: 20px;
+  padding: 2px;
+
+  background: white;
+  border-radius: 50%;
+
+  mask: var(--animate);
+
+  animation: l3 1s infinite linear;
+
+  mask-composite: subtract;
+}
+
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
