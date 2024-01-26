@@ -36,5 +36,9 @@ export const useSignInForm = () => {
   return useForm<LoginFormType>({
     resolver: zodResolver(loginFormSchema),
     mode: 'onBlur',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   })
 }

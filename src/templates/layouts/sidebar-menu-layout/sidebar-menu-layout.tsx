@@ -16,12 +16,13 @@ export const SidebarMenuLayout = ({
   children,
   isAuthed = false,
 }: PropsWithChildren<SidebarMenuLayoutProps>) => {
-  const { isMobile } = useMatchMedia()
+  const { isMobile, isTablet } = useMatchMedia()
 
-  const SidebarVersion = isMobile ? <MobileSidebarMenuWithItems /> : <SidebarMenuWithItems />
+  const SidebarVersion =
+    isTablet || isMobile ? <MobileSidebarMenuWithItems /> : <SidebarMenuWithItems />
 
   const styles = {
-    root: clsx(s.container, isMobile && s.mobile),
+    root: clsx(s.container, (isTablet || isMobile) && s.mobile),
   }
 
   return (

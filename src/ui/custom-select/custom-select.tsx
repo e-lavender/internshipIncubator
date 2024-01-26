@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -41,6 +41,11 @@ export const CustomSelect = ({
   const styles = {
     chevron: clsx(s.chevron, isOpen && s.open),
   }
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [inputRef])
+
   const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     setIsOpen(true)
     setFilterHandler(event)
