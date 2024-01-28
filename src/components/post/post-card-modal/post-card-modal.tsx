@@ -5,9 +5,8 @@ import { clsx } from 'clsx'
 
 import s from './post-card-modal.module.scss'
 
-import { CloseIcon, useDisclose } from '@/app'
+import { CloseIcon, useDisclose, useRtkStateHook } from '@/app'
 import { resetDescriptionState, setViewMode } from '@/app/services/post/post.slice'
-import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { ConfirmationModal, LoaderV2, PostCardModalType } from '@/components'
 import { Modal } from '@/ui'
 
@@ -28,13 +27,11 @@ export const PostCardModal = ({
     onOpen: openConfirmationModal,
   } = useDisclose(askConfirmation)
 
-  const mode = useAppSelector(state => state.post.mode)
-  const isEdited = useAppSelector(state => state.post.isEdited)
-
-  const dispatch = useAppDispatch()
-  const reset = () => dispatch(resetDescriptionState())
+  const { _dispatch, _state } = useRtkStateHook()
+  const { mode, isEdited } = _state.post
+  const reset = () => _dispatch(resetDescriptionState())
   const handleConfirmation = () => {
-    dispatch(setViewMode())
+    _dispatch(setViewMode())
     reset()
 
     closeConfirmationModal()
@@ -43,7 +40,7 @@ export const PostCardModal = ({
 
   const closeMainModal = () => {
     if (!isEdited) {
-      dispatch(setViewMode())
+      _dispatch(setViewMode())
 
       return closeCardModal()
     }
@@ -65,7 +62,7 @@ export const PostCardModal = ({
     }
 
     if (mode === 'edit') {
-      dispatch(setViewMode())
+      _dispatch(setViewMode())
 
       return closeCardModal()
     }
@@ -75,7 +72,7 @@ export const PostCardModal = ({
 
   return (
     <>
-      <Modal open={isOpen} onChange={() => {}}>
+      <Modal open={isOpen}>
         <Modal.Content
           className={clsx(s.container, !isModified && s.containerV2)}
           title={isModified ? '' : 'Edit Post'}
@@ -94,6 +91,8 @@ export const PostCardModal = ({
         isOpen={shouldConfirmAction}
         onClose={closeConfirmationModal}
         translation={'closePost'}
+        title={title}
+        message={message}
         onConfirmation={handleConfirmation}
       />
     </>

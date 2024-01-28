@@ -24,7 +24,14 @@ export const PostDescription = () => {
         <div className={s.description}>
           <div className={s.userInfo}>
             <div>
-              <Avatar src={data?.avatarUrl} width={36} height={36} rounded className={s.ava} />
+              <Avatar
+                src={data?.avatarUrl}
+                width={36}
+                height={36}
+                rounded
+                iconScale={0.6}
+                className={s.ava}
+              />
             </div>
 
             <div className={s.userName}>
