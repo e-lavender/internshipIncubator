@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { MouseEventHandler } from 'react'
 
 import {
   FavouritesMenuIcon,
@@ -8,13 +8,16 @@ import {
   useTranslation,
 } from '@/app'
 import { menuNavigation } from '@/app/constants'
+import { useSignOutMutation } from '@/app/services/auth/auth.api'
 import { DropdownMenu, MenuItem } from '@/ui'
 
 export const DropdownMenuWithItems = () => {
-  const { pathname } = useRouter()
+  const [logOut] = useSignOutMutation()
 
   const { t } = useTranslation()
   const labels = t.sidebarMenu
+
+  const onLogOut: MouseEventHandler<HTMLButtonElement> = e => logOut()
 
   return (
     <DropdownMenu>
@@ -34,7 +37,7 @@ export const DropdownMenuWithItems = () => {
       />
       <MenuItem
         as={'button'}
-        onClick={() => console.log('Logged Out!')}
+        onClick={onLogOut}
         icon={LogOutMenuIcon}
         label={labels.logout}
         isStyled={false}

@@ -1,8 +1,7 @@
 import { toast } from 'react-toastify'
 
-import { useDisclose } from '@/app'
+import { useDisclose, useRtkStateHook } from '@/app'
 import { setEditMode } from '@/app/services/post/post.slice'
-import { useAppDispatch } from '@/app/store/rtk.types'
 import {
   AccountType,
   ActionTypes,
@@ -18,18 +17,19 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType 
 
   const currentMenuVersion: Array<DropdownMenuItemType> = MENU_VERSION[account]
 
-  const dispatch = useAppDispatch()
-  const editPost = () => dispatch(setEditMode())
+  const { _dispatch } = useRtkStateHook()
+
+  const editPost = () => _dispatch(setEditMode())
   const deletePost = () => {
     /*
         Todo DELETE request to delete post
      */
 
-    toast.success('post was successfully deleted!!!')
+    toast.success('post deleted')
     closeDropdownMenu()
   }
 
-  const handlersVariants: { [key in keyof typeof ActionTypes]: () => void } = {
+  const handlersVariants: { [Action in keyof typeof ActionTypes]: () => void } = {
     edit: editPost,
     delete: openModal,
     report: () => {},
@@ -40,7 +40,7 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType 
 
   return (
     <>
-      <DropdownMenu isControlled={isControlled}>
+      <DropdownMenu>
         {currentMenuVersion?.map(item => (
           <MenuItem
             key={`${account}-${item.label}`}

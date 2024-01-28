@@ -1,5 +1,5 @@
 import { CopyLinkIcon, DeleteIcon, EditIcon, FollowIcon, ReportIcon, UnfollowIcon } from '@/app'
-import { DropdownMenuType, PostType } from '@/components'
+import { DropdownMenuType, PostTypes } from '@/components'
 
 export const MENU_VERSION: DropdownMenuType = {
   friend: [
@@ -58,7 +58,7 @@ export const MENU_VERSION: DropdownMenuType = {
   ],
 }
 
-export const POST_COMMENTS: PostType = {
+export const POST_COMMENTS: PostTypes = {
   userName: 'Alex',
   postdId: '62',
   url: '/assets/avatar/resized/2.jpg',

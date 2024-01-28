@@ -4,17 +4,17 @@ import { clsx } from 'clsx'
 
 import s from './comments-list.module.scss'
 
-import { CardDescription, CommentsItem, POST_COMMENTS, PostType } from '@/components'
+import { CardDescription, CommentsItem, PostTypes } from '@/components'
 import { Typography } from '@/ui'
 
 export const CommentsList = ({
-  userName,
-  description,
-  url,
+  userName = '',
+  description = '',
+  url = '',
   createdAt,
   comments,
   cardType = 'xl',
-}: PostType) => {
+}: PostTypes) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   const isContentHidden = cardType === 'regular' && !isVisible
@@ -25,9 +25,9 @@ export const CommentsList = ({
   }
 
   const handleClick = () => {
-    if (!comments.length) return
-
-    setIsVisible(visible => !visible)
+    if (comments.length) {
+      setIsVisible(visible => !visible)
+    }
   }
 
   return (

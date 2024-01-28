@@ -5,10 +5,10 @@ import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dism
 import s from './create-new-post-modal.module.scss'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
+import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useAddPostMutation } from '@/app/services/post/post.api'
 import { addImage, resetImagesToDefaultState } from '@/app/services/post/slider.slice'
-import { useRtkStateHook } from '@/app/services/useRtkState.hook'
 import { showError } from '@/app/utils'
 import {
   AddInterface,
