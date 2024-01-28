@@ -5,8 +5,8 @@ import Cropper, { Area } from 'react-easy-crop'
 
 import s from '../image-slider.module.scss'
 
+import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { addCroppedImage } from '@/app/services/post/slider.slice'
-import { useRtkStateHook } from '@/app/services/useRtkState.hook'
 import {
   ImageSliderContainer,
   ImageModel,

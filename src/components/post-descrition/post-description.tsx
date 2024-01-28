@@ -2,9 +2,9 @@ import React, { ChangeEvent } from 'react'
 
 import s from './post-description.module.scss'
 
+import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { changeDescription } from '@/app/services/post/slider.slice'
 import { useGetProfileQuery } from '@/app/services/profile/profile.api'
-import { useRtkStateHook } from '@/app/services/useRtkState.hook'
 import { Avatar } from '@/components'
 import { TextArea, Typography } from '@/ui'
 
