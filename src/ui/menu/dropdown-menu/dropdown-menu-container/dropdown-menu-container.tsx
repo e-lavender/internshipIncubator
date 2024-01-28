@@ -1,32 +1,22 @@
-import { PropsWithChildren, useEffect } from 'react'
+import { PropsWithChildren, useRef } from 'react'
 
 import { clsx } from 'clsx'
-import { useRouter } from 'next/router'
 
 import s from './dropdown-menu-container.module.scss'
 
-import { useDisclose } from '@/app'
+import { useDisclose, useOnClickOutside } from '@/app'
 
-export type MenuProps = {
+export type MenuProps = PropsWithChildren<{
   menuStyle?: string
-  isControlled?: boolean
-}
+}>
 
-export const DropdownMenuContainer = ({
-  menuStyle,
-  isControlled = true,
-  children,
-}: PropsWithChildren<MenuProps>) => {
-  const { isOpen: isMenuOpen, onClose: closeMenu, onToggle: toggleMenu } = useDisclose()
-  const { pathname } = useRouter()
+export const DropdownMenuContainer = ({ menuStyle, children }: MenuProps) => {
+  const { isOpen: isMenuOpen, onClose: closeMenu, onOpen: openMenu } = useDisclose()
+  const menuRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    return () => closeMenu()
-  }, [pathname, isControlled])
+  useOnClickOutside(menuRef, closeMenu)
 
-  const clickHandler = () => {
-    toggleMenu()
-  }
+  const clickHandler = () => openMenu()
 
   const styles = {
     dot: clsx(s.dot, isMenuOpen && s.active),
@@ -42,7 +32,7 @@ export const DropdownMenuContainer = ({
         <p className={styles.dot}></p>
       </div>
 
-      <div className={styles.menu}>
+      <div ref={menuRef} className={styles.menu}>
         <ul className={styles.list}>{children}</ul>
       </div>
     </nav>

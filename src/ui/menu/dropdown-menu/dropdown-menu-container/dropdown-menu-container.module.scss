@@ -91,6 +91,20 @@
 
         animation: fade-in var(--animation-duration) linear forwards;
 
+        &:hover {
+          span,
+          svg {
+            color: var(--color-accent-100);
+          }
+        }
+
+        &:active {
+          span,
+          svg {
+            color: var(--color-accent-500);
+          }
+        }
+
         &:first-child {
           animation-delay: calc(var(--animation-delay));
         }

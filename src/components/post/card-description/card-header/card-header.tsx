@@ -3,7 +3,12 @@ import s from './card-header.module.scss'
 import { Avatar, CardHeaderType, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
 
-export const CardHeader = ({ url, userName, account, createdAt }: CardHeaderType) => {
+export const CardHeader = ({
+  url = '/assets/avatar/resized/4.jpg',
+  userName = 'Viki',
+  account = 'personal',
+  createdAt = '1 week ago',
+}: CardHeaderType) => {
   return (
     <header className={s.header}>
       <div className={s.user}>

@@ -89,10 +89,3 @@
   display: flex;
   gap: 1.2rem;
 }
-
-.btn {
-  &:focus {
-    color: #000;
-    outline-offset: 1px;
-  }
-}

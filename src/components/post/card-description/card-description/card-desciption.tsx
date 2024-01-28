@@ -1,16 +1,16 @@
 import s from './card-description.module.scss'
 
-import { Avatar, PostType } from '@/components'
-import { SkeletonCard, Typography } from '@/ui'
+import { Avatar, PostTypes } from '@/components'
+import { Typography } from '@/ui'
 
 type CardDescriptionType = {
   description?: string
   isLoading?: boolean
-} & Pick<PostType, 'url' | 'userName' | 'createdAt'>
+} & Pick<PostTypes, 'url' | 'userName' | 'createdAt'>
 
 export const CardDescription = ({
   url,
-  userName,
+  userName = 'Viki',
   description,
   createdAt,
   isLoading,
