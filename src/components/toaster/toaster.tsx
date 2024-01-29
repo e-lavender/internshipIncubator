@@ -9,9 +9,9 @@ export const Toaster = () => {
   return (
     <ToastContainer
       position="bottom-left"
-      autoClose={5000}
-      hideProgressBar={true}
-      newestOnTop={false}
+      autoClose={3500}
+      hideProgressBar
+      newestOnTop
       closeOnClick
       rtl={false}
       pauseOnFocusLoss

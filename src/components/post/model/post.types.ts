@@ -13,7 +13,7 @@ export type CommentSpecificType = CommentCommonType & {
   replies?: CommentCommonType[]
 }
 
-export type PostType = {
+export type PostTypes = {
   cardType?: 'regular' | 'xl'
   userName: string
   account: AccountType
@@ -61,7 +61,7 @@ export type DropdownMenuItemType = {
 }
 
 export type DropdownMenuType = {
-  [key in AccountType]: Array<DropdownMenuItemType>
+  [Account in AccountType]: Array<DropdownMenuItemType>
 }
 
 export type CommentType = {
@@ -78,3 +78,9 @@ export type RepliedCommentsListType = {
 }
 
 export type RepliedCommentType = Omit<CommentType, 'replies'>
+
+export type PostCardXLType = {
+  isVisible?: boolean
+  isLoading?: boolean
+  account: AccountType
+} & PostTypes

@@ -4,8 +4,8 @@ import Image from 'next/image'
 import s from './added-images.module.scss'
 
 import { CloseIcon } from '@/app'
+import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { deleteImage, setCurrentImageIndex } from '@/app/services/post/slider.slice'
-import { useRtkStateHook } from '@/app/services/useRtkState.hook'
 
 export const AddedImages = () => {
   const { _state, _dispatch } = useRtkStateHook()
