@@ -35,16 +35,16 @@ export const NewPasswordForm = ({ code }: { code?: string }) => {
       })
       .catch((error: ErrorWithData) => {
         showError(error)
-        {
-          /*TODO: we need back implementation to case if recovery code expired*/
-        }
-        if (
-          error?.data?.errorsMessages &&
-          error.data.errorsMessages[0].message ===
-            'Confirmation or Recovery code should be exist and actually'
-        ) {
-          void router.push(authNavigationUrls.newPasswordConfirmation())
-        }
+        // {
+        //   /*TODO: we need back implementation to case if recovery code expired*/
+        // }
+        // if (
+        //   error?.data?.errorsMessages &&
+        //   error.data.errorsMessages[0].message ===
+        //     'Confirmation or Recovery code should be exist and actually'
+        // ) {
+        //   void router.push(authNavigationUrls.newPasswordConfirmation())
+        // }
       })
   })
 

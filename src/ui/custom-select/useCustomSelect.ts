@@ -89,6 +89,10 @@ export const useCustomSelect = (
     }
   }, [indexCurrent, filteredData])
 
+  useEffect(() => {
+    clearHandler()
+  }, [options])
+
   return {
     keyHandler,
     closeSelectOnBlur,
