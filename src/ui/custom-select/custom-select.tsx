@@ -1,11 +1,10 @@
-import React, { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './custom-select.module.scss'
 
 import { ChevronDown } from '@/app/assets/svg/chevron-down'
-import { DisabledContent } from '@/templates'
 import CustomSelectOptions from '@/ui/custom-select/custom-select-options'
 import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
 import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
@@ -53,7 +52,7 @@ export const CustomSelect = ({
   const valueToShow = !isOpen && (value || currentValue) && (
     <div className={s.input}>{value || currentValue}</div>
   )
-  const searchInput = (isOpen || !currentValue) && (
+  const searchInput = (!value || !currentValue || isOpen) && (
     <input
       tabIndex={-1}
       placeholder={placeholder || 'Select...'}
@@ -63,6 +62,7 @@ export const CustomSelect = ({
       ref={inputRef}
     />
   )
+
   const selectLabel = label && <label className={s.label}>{label}</label>
 
   const toggleOpen = () => {
