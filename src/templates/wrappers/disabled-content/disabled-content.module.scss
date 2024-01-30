@@ -1,14 +1,3 @@
-.disabled {
-  pointer-events: none;
-  animation: skeleton-loading 1s linear infinite alternate;
-
-  @keyframes skeleton-loading {
-    0% {
-      opacity: 1;
-    }
-
-    100% {
-      opacity: 0.3;
-    }
-  }
+.container {
+  width: 100%;
 }

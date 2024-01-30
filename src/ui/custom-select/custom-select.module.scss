@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
- // min-width: 25.8rem;
+
+  // min-width: 25.8rem;
 }
 
 .label {
@@ -11,6 +12,21 @@
   font-style: normal;
   line-height: 24px;
   color: var(--color-light-900);
+}
+
+.disabled {
+  pointer-events: none;
+  animation: skeleton-loading 1s linear infinite alternate;
+
+  @keyframes skeleton-loading {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0.3;
+    }
+  }
 }
 
 .select {

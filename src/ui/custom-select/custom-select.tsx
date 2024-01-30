@@ -85,41 +85,39 @@ export const CustomSelect = ({
   }
 
   return (
-    <DisabledContent disabled={disabled}>
-      <div className={s.container}>
-        {selectLabel}
-        <div
-          className={s.select}
-          tabIndex={0}
-          onBlur={closeSelectOnBlur}
-          ref={selectRef}
-          onKeyDown={keyHandler}
-          onClick={toggleOpen}
-        >
-          {valueToShow}
-          {searchInput}
-          {setIsClearable}
+    <div className={clsx(s.container, disabled && s.disabled)}>
+      {selectLabel}
+      <div
+        className={s.select}
+        tabIndex={0}
+        onBlur={closeSelectOnBlur}
+        ref={selectRef}
+        onKeyDown={keyHandler}
+        onClick={toggleOpen}
+      >
+        {valueToShow}
+        {searchInput}
+        {setIsClearable}
 
-          <button
-            disabled={isLoading}
-            tabIndex={-1}
-            className={styles.chevron}
-            onClick={onClickToggleButton}
-            type={'button'}
-          >
-            {toggleButton}
-          </button>
-          <CustomSelectOptions
-            ref={optionsListRef}
-            indexCurrent={indexCurrent}
-            isOpen={isOpen}
-            items={filteredData}
-            onSelectValueHandler={onSelectValueHandler}
-            resetFilter={resetFilter}
-            setIndexCurrent={setIndexCurrent}
-          />
-        </div>
+        <button
+          disabled={isLoading}
+          tabIndex={-1}
+          className={styles.chevron}
+          onClick={onClickToggleButton}
+          type={'button'}
+        >
+          {toggleButton}
+        </button>
+        <CustomSelectOptions
+          ref={optionsListRef}
+          indexCurrent={indexCurrent}
+          isOpen={isOpen}
+          items={filteredData}
+          onSelectValueHandler={onSelectValueHandler}
+          resetFilter={resetFilter}
+          setIndexCurrent={setIndexCurrent}
+        />
       </div>
-    </DisabledContent>
+    </div>
   )
 }
