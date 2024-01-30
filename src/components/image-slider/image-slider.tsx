@@ -19,6 +19,7 @@ export const ImageSlider = ({
 
   return (
     <ImageSliderContainer
+      // @ts-ignore
       images={sliderImages}
       width={width}
       height={height}

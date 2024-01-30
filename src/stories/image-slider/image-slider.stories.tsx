@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 
 import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
-import ImageSlider from '@/components/image-slider/image-slider'
+import { ImageSlider } from '@/components'
 
 const meta = {
   title: 'Components/ImageSlider',
@@ -22,8 +22,6 @@ const meta = {
       options: ['contain', 'cover'],
       control: { type: 'radio' },
     },
-    size: { control: 'text' },
-    onClick: { action: 'clicked, id: ' },
   },
 } satisfies Meta<typeof ImageSlider>
 
@@ -31,5 +29,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: { fitStyle: 'contain', aspectRatio: '1 / 1' },
+  args: { fitStyle: 'contain', aspectRatio: '1/1' },
 }

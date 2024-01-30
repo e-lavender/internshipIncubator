@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
- // min-width: 25.8rem;
+
+  // min-width: 25.8rem;
 }
 
 .label {
@@ -11,6 +12,21 @@
   font-style: normal;
   line-height: 24px;
   color: var(--color-light-900);
+}
+
+.disabled {
+  pointer-events: none;
+  animation: skeleton-loading 1s linear infinite alternate;
+
+  @keyframes skeleton-loading {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0.3;
+    }
+  }
 }
 
 .select {
@@ -128,5 +144,28 @@
   &.open {
     transform: rotate(180deg);
     transition: 0.3s ease-in all;
+  }
+}
+
+.loader {
+  --animate: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+
+  aspect-ratio: 1;
+  width: 20px;
+  padding: 2px;
+
+  background: white;
+  border-radius: 50%;
+
+  mask: var(--animate);
+
+  animation: l3 1s infinite linear;
+
+  mask-composite: subtract;
+}
+
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
   }
 }

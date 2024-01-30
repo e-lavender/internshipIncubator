@@ -63,12 +63,9 @@ const optionsPagination = [
 
 export const Simple = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-utils/rules-of-utils
-    const [value, setValue] = useState('')
-
     return (
       <div style={{ display: 'flex', columnGap: '20px' }}>
-        <Select {...args} value={value} onChange={setValue} />
+        <Select {...args} />
       </div>
     )
   },
@@ -80,12 +77,9 @@ export const Simple = {
 
 export const SimpleWithLabel = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-utils/rules-of-utils
-    const [value, setValue] = useState('')
-
     return (
       <div>
-        <Select {...args} value={value} onChange={setValue} />
+        <Select {...args} />
       </div>
     )
   },
@@ -99,10 +93,7 @@ export const SimpleWithLabel = {
 
 export const Pagination = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-utils/rules-of-utils
-    const [value, setValue] = useState('')
-
-    return <Select {...args} value={value} onChange={setValue} />
+    return <Select {...args} />
   },
 
   args: {
@@ -115,10 +106,7 @@ export const Pagination = {
 
 export const FullWidth = {
   render: (args: SelectModel) => {
-    // eslint-disable-next-line react-utils/rules-of-utils
-    const [value, setValue] = useState('')
-
-    return <Select {...args} value={value} onChange={setValue} />
+    return <Select {...args} />
   },
 
   args: {

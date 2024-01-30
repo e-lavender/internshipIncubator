@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 
@@ -14,6 +14,7 @@ export const ControlledSelect = <T extends FieldValues>({
   rules,
   shouldUnregister,
   defaultValue,
+  options,
   ...props
 }: ControlledCustomSelectProps<T>) => {
   const { field } = useController({
@@ -24,5 +25,5 @@ export const ControlledSelect = <T extends FieldValues>({
     defaultValue,
   })
 
-  return <CustomSelect {...field} {...props} />
+  return <CustomSelect options={options} {...field} {...props} />
 }
