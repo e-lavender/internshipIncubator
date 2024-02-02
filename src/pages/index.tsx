@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
@@ -20,7 +22,6 @@ const Home = () => {
     me && (
       <>
         <h1 style={{ margin: '3em', textAlign: 'center' }}>Home</h1>
-
         <h2 style={{ marginBottom: '1em', textAlign: 'center' }}>Public Account</h2>
         <PostCard
           cardType={'regular'}

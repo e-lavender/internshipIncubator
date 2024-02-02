@@ -33,7 +33,7 @@ export const SidebarMenuWithItems = () => {
   const onSignOut = () => {
     signOut()
 
-    void push(authNavigationUrls.signIn())
+    void push(authNavigationUrls.main())
   }
 
   return (
