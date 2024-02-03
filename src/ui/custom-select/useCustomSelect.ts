@@ -64,7 +64,7 @@ export const useCustomSelect = (
     }
   }
   const closeSelectOnBlur = (e: FocusEvent<HTMLDivElement>) => {
-    if (!selectRef?.current?.contains(e.relatedTarget)) setIsOpen(false)
+    //if (!selectRef?.current?.contains(e.relatedTarget)) setIsOpen(false)
   }
 
   useEffect(() => {

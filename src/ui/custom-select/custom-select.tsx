@@ -41,16 +41,18 @@ export const CustomSelect = ({
     chevron: clsx(s.chevron, isOpen && s.open),
   }
 
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [inputRef])
+  // useEffect(() => {
+  //   inputRef.current?.focus()
+  // }, [inputRef])
 
   const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     setIsOpen(true)
     setFilterHandler(event)
   }
   const valueToShow = !isOpen && (value || currentValue) && (
-    <div className={s.input}>{value || currentValue}</div>
+    <div style={{ border: 'none' }} className={s.input}>
+      {value || currentValue}
+    </div>
   )
   const searchInput = (!value || !currentValue || isOpen) && (
     <input
