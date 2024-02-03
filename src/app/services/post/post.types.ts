@@ -12,6 +12,18 @@ export type CreatePostResponse = {
   photoUrl: string
 }
 
+export type GetLastCreatedPostResponse = {
+  usersCount: number
+  lastPosts: [
+    {
+      userName: string
+      imageUrl: string[]
+      description: string
+      comments: string[]
+    },
+  ]
+}
+
 export type ImageSlideType = {
   images: ImageModel[]
   currentImageIndex: number
