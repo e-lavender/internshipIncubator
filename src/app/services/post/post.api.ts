@@ -1,5 +1,5 @@
 import { commonApi } from '@/app/services/common/common.api'
-import { CreatePostResponse, GetLastCreatedPostResponse } from '@/app/services/post/post.types'
+import { CreatePostResponse, GetPublicPostsResponse } from '@/app/services/post/post.types'
 
 export const postApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -11,7 +11,7 @@ export const postApi = commonApi.injectEndpoints({
       }),
       invalidatesTags: [/*'Posts',*/ 'Profile'],
     }),
-    getPublicPosts: builder.query<GetLastCreatedPostResponse, void>({
+    getPublicPosts: builder.query<GetPublicPostsResponse, void>({
       query: () => {
         return {
           method: 'GET',
@@ -22,4 +22,10 @@ export const postApi = commonApi.injectEndpoints({
   }),
 })
 
-export const { useAddPostMutation, useGetPublicPostsQuery } = postApi
+export const {
+  useAddPostMutation,
+  useGetPublicPostsQuery,
+  util: { getRunningQueriesThunk },
+} = postApi
+
+export const { getPublicPosts } = postApi.endpoints

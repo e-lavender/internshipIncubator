@@ -12,7 +12,7 @@ export type CreatePostResponse = {
   photoUrl: string
 }
 
-export type GetLastCreatedPostResponse = {
+export type GetPublicPostsResponse = {
   usersCount: number
   lastPosts: [
     {

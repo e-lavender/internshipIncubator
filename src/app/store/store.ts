@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import { createWrapper } from 'next-redux-wrapper'
 
 import { authReducer } from '@/app/services/auth/auth.slice'
 import { commonApi } from '@/app/services/common/common.api'
@@ -30,3 +31,7 @@ export const store = configureStore({
 })
 
 setupListeners(store.dispatch)
+const makeStore = () => store
+
+export type AppStore = ReturnType<typeof makeStore>
+export const wrapper = createWrapper<AppStore>(store, { debug: true })
