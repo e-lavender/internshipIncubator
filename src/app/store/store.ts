@@ -34,4 +34,4 @@ setupListeners(store.dispatch)
 const makeStore = () => store
 
 export type AppStore = ReturnType<typeof makeStore>
-export const wrapper = createWrapper<AppStore>(store, { debug: true })
+export const wrapper = createWrapper<AppStore>(makeStore, { debug: true })

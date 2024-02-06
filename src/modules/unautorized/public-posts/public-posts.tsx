@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import s from './public-posts.module.scss'
 
 import { useGetPublicPostsQuery } from '@/app/services/post/post.api'
+import { GetPublicPostsResponse } from '@/app/services/post/post.types'
 import { NumberOfUsers } from '@/modules/unautorized/number-of-users/number-of-users'
 import { PostItem } from '@/modules/unautorized/posts-item/post-item'
 
-export const PublicPosts = () => {
+type Props = {
+  data: GetPublicPostsResponse
+}
+
+export const PublicPosts = memo(({} /*data*/ : Props) => {
   const { data } = useGetPublicPostsQuery()
 
   if (!data) {
@@ -24,4 +29,4 @@ export const PublicPosts = () => {
       </div>
     </>
   )
-}
+})

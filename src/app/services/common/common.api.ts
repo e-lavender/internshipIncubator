@@ -16,10 +16,12 @@ const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl(),
   credentials: 'include',
   prepareHeaders: headers => {
-    const token = getFromSessionStorage('accessToken', null)
+    if (typeof window !== 'undefined') {
+      const token = getFromSessionStorage('accessToken', null)
 
-    if (token) {
-      headers.set('authorization', `Bearer ${token}`)
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
     }
 
     return headers
@@ -84,6 +86,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const commonApi = createApi({
   reducerPath: 'commonApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['ME', 'Profile'],
+  tagTypes: ['ME', 'Profile', 'Posts'],
   endpoints: () => ({}),
 })

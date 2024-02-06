@@ -69,7 +69,6 @@ export async function getCroppedAndFilteredImage(
         if (filter) {
           return resolve(file)
         }
-
         resolve(URL.createObjectURL(file))
       },
       'image/jpeg',

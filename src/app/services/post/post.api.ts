@@ -9,7 +9,7 @@ export const postApi = commonApi.injectEndpoints({
         url: `/api/v1/post`,
         body,
       }),
-      invalidatesTags: [/*'Posts',*/ 'Profile'],
+      invalidatesTags: ['Posts', 'Profile'],
     }),
     getPublicPosts: builder.query<GetPublicPostsResponse, void>({
       query: () => {
