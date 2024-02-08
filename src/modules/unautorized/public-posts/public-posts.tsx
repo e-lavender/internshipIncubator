@@ -11,8 +11,8 @@ type Props = {
   data: GetPublicPostsResponse
 }
 
-export const PublicPosts = memo(({} /*data*/ : Props) => {
-  const { data } = useGetPublicPostsQuery()
+export const PublicPosts = memo(({ data }: Props) => {
+  //const { data } = useGetPublicPostsQuery()    I will need it later
 
   if (!data) {
     return null

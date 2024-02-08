@@ -11,22 +11,13 @@ type Props = {
 }
 
 export const NumberOfUsers = memo(({ data }: Props) => {
-  const users = (num: number) => {
-    const data = '000000'
-    const numString = num.toString()
-
-    const zerosToSubtract = Math.min(data.length, numString.length)
-
-    const newData = data.slice(0, -zerosToSubtract)
-
-    return (newData + numString).toString().split('')
-  }
+  const users = String(data.usersCount).padStart(6, '0').split('')
 
   return (
     <div className={s.main}>
       <Typography variant="h2">Registered users:</Typography>
       <div className={s.counter}>
-        {users(data.usersCount).map((el, idx) => (
+        {users.map((el, idx) => (
           <div key={idx} className={s.digit}>
             <Typography variant="h2">{el}</Typography>
           </div>

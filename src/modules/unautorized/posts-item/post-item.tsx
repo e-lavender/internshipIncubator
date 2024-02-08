@@ -11,9 +11,6 @@ export const PostItem = () => {
   const [collapse, setCollapse] = useState(false)
   const text =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing elit. Donec vitae neque euismod, vulputate metus vel, semper erat. Aliquam vestibulum maximus fermentum. Aliquam vestibulum maximus fermentum. Aliquam vestibulum maximus fermentum.'
-  const [ind1, ind2] = [0, 0]
-    .map(_ => Math.floor(Math.random() * IMAGE_SLIDER_DATA.length))
-    .sort((a, b) => a - b)
 
   const collapseHandler = () => {
     setCollapse(!collapse)
@@ -24,7 +21,7 @@ export const PostItem = () => {
     <div className={s.post}>
       <div className={collapse ? s.collapsePhoto : s.photo}>
         <ImageSlider
-          images={IMAGE_SLIDER_DATA.slice(ind1, ind2)}
+          images={IMAGE_SLIDER_DATA.slice(1, 3)}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
           width={234}
@@ -43,17 +40,14 @@ export const PostItem = () => {
         <Typography variant={'regular-14'}>
           {showMore ? text : `${text.substring(0, 90)}`}
         </Typography>
-        <button onClick={collapseHandler}>
-          {showMore ? (
-            <Typography variant={'regular-14'} className={s.button}>
-              Hide
-            </Typography>
-          ) : (
-            <Typography variant={'regular-14'} className={s.button}>
-              Show more
-            </Typography>
-          )}
-        </button>
+        <Typography
+          as={'button'}
+          variant={'regular-14'}
+          className={s.button}
+          onClick={collapseHandler}
+        >
+          {showMore ? 'Hide' : 'Show more'}
+        </Typography>
       </div>
     </div>
   )
