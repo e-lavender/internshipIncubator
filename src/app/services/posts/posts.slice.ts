@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { PostStateType } from '@/app/services/post/post.types'
+import { PostStateType } from '@/app/services/posts/post.types'
 
 const defaultState: PostStateType = {
   mode: 'view',
@@ -30,4 +30,4 @@ const post = createSlice({
 
 export const { setViewMode, setEditMode, compareDescriptionVersions, resetDescriptionState } =
   post.actions
-export const postSlice = post.reducer
+export const postsSlice = post.reducer

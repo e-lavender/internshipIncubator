@@ -10,10 +10,10 @@ import { Mutex } from 'async-mutex'
 import { authApiUrls } from '@/app/constants'
 import { getFromSessionStorage, setToSessionStorage } from '@/app/utils'
 
-const { baseUrl, logout, refreshMe } = authApiUrls
+const { signOut, refreshMe } = authApiUrls
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl(),
+  baseUrl: process.env.BASE_API_URL,
   credentials: 'include',
   prepareHeaders: headers => {
     const token = getFromSessionStorage('accessToken', null)
@@ -54,7 +54,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         } else {
           await baseQuery(
             {
-              url: logout(),
+              url: signOut(),
               method: 'POST',
             },
             api,
@@ -74,7 +74,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   if ((result?.data as { accessToken?: string })?.hasOwnProperty('accessToken')) {
     setToSessionStorage('accessToken', (result.data as { accessToken: string }).accessToken)
   }
-  if (result?.meta?.request.url === 'https://api.freedomindz.site/api/v1/auth/logout') {
+  if (result?.meta?.request.url === process.env.BASE_API_URL + signOut()) {
     sessionStorage.removeItem('accessToken')
   }
 
@@ -84,6 +84,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const commonApi = createApi({
   reducerPath: 'commonApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['ME', 'Profile'],
+  tagTypes: ['ME', 'Profile', 'POSTS_BY_USER'],
   endpoints: () => ({}),
 })

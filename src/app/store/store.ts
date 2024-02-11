@@ -6,8 +6,8 @@ import { commonApi } from '@/app/services/common/common.api'
 import { locationApi } from '@/app/services/countries/countries.api'
 import { googleApi } from '@/app/services/google/google.api'
 import { modalsReducer } from '@/app/services/modals/modals.slice'
-import { postSlice } from '@/app/services/post/post.slice'
-import { postSliderSlice } from '@/app/services/post/slider.slice'
+import { postsSlice } from '@/app/services/posts/posts.slice'
+import { postSliderSlice } from '@/app/services/posts/slider.slice'
 import { profileSlice } from '@/app/services/profile/profile.slice'
 
 export const store = configureStore({
@@ -17,7 +17,7 @@ export const store = configureStore({
     [locationApi.reducerPath]: locationApi.reducer,
     auth: authReducer,
     profile: profileSlice,
-    post: postSlice,
+    post: postsSlice,
     slider: postSliderSlice,
     modals: modalsReducer,
   },
