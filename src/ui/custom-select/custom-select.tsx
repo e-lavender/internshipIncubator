@@ -54,7 +54,7 @@ export const CustomSelect = ({
       {value || currentValue}
     </div>
   )
-  const searchInput = (!value || !currentValue || isOpen) && (
+  const searchInput = isOpen && (value || currentValue) && (
     <input
       tabIndex={-1}
       placeholder={placeholder || 'Select...'}
