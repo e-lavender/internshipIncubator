@@ -16,7 +16,7 @@ import { showError } from '@/app/utils'
 import { NotificationModal } from '@/components'
 import { Button, Typography } from '@/ui'
 
-export const LinkExpired = ({ email }: { email: string }) => {
+export const LinkExpired = ({ email }: { email?: string }) => {
   const { isOpen, onOpen, onClose } = useDisclose()
   const { push } = useRouter()
   const { isMobile } = useMatchMedia()
@@ -28,6 +28,7 @@ export const LinkExpired = ({ email }: { email: string }) => {
 
   const resendLink = () => {
     FRONT_BASE_URL &&
+      email &&
       resendConfirmationLink({ email, baseUrl: FRONT_BASE_URL })
         .unwrap()
         .then(() => {

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { PostStateType } from '@/app/services/posts/post.types'
+import { PostStateType } from '@/app/services/posts/posts.types'
 
 const defaultState: PostStateType = {
   mode: 'view',
