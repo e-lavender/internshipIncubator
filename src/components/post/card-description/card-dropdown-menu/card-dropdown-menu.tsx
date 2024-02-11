@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify'
 
 import { useDisclose, useRtkStateHook } from '@/app'
-import { setEditMode } from '@/app/services/post/post.slice'
+import { setEditMode } from '@/app/services/posts/posts.slice'
 import {
   AccountType,
   ActionTypes,
@@ -22,10 +22,10 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType 
   const editPost = () => _dispatch(setEditMode())
   const deletePost = () => {
     /*
-        Todo DELETE request to delete post
+        Todo DELETE request to delete posts
      */
 
-    toast.success('post deleted')
+    toast.success('posts deleted')
     closeDropdownMenu()
   }
 

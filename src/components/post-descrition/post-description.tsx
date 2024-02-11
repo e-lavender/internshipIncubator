@@ -3,7 +3,7 @@ import React, { ChangeEvent } from 'react'
 import s from './post-description.module.scss'
 
 import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
-import { changeDescription } from '@/app/services/post/slider.slice'
+import { changeDescription } from '@/app/services/posts/slider.slice'
 import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { Avatar } from '@/components'
 import { TextArea, Typography } from '@/ui'
@@ -25,7 +25,7 @@ export const PostDescription = () => {
           <div className={s.userInfo}>
             <div>
               <Avatar
-                src={data?.avatarUrl}
+                src={data?.avatars[0].url}
                 width={36}
                 height={36}
                 rounded
