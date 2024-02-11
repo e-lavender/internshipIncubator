@@ -13,7 +13,7 @@ export const authNavigationUrls = {
   googleCallback: () => `/auth/callback/google`,
 }
 
-export const authApiUrls = {
+export const old_authApiUrls = {
   baseUrl: () => 'https://api.freedomindz.site',
   signIn: () => '/api/v1/auth/login',
   refreshMe: () => '/api/v1/auth/refresh-token',
@@ -36,25 +36,22 @@ export const authApiUrls = {
   deleteAvatar: () => '/api/v1/avatar',
 }
 
-export const authApiUrlsV2 = {
-  baseUrl: () => 'https://inctagram.work',
-  signIn: () => '/api/v1/auth/login',
-  refreshMe: () => '/api/v1/auth/update-tokens',
-  registrationConfirmation: () => '/api/v1/auth/registration-confirmation',
-  signUp: () => '/api/v1/auth/registration',
-  resendEmail: () => '/api/v1/auth/registration-email-resending',
-  logout: () => '/api/v1/auth/logout',
-  getMe: () => '/api/v1/auth/me',
-  passwordRecovery: () => '/api/v1/auth/password-recovery',
-  createNewPassword: () => '/api/v1/auth/new-password',
-  openGoogleOAuth: () => '/api/auth/google',
-  openGithubOAuth: () => '/api/auth/github',
-  signWithGoogle: () => '/api/auth/google/register',
-  signWithGithub: () => '/api/auth/github/register',
-  googleOAuthPage: () => '/api/auth/google',
-  githubOAuthPage: () => '/api/auth/github',
-  getProfile: () => '/api/v1/users/profile',
-  updateProfile: () => '/api/v1/users/profile',
-  uploadAvatar: () => '/api/v1/users/profile/avatar',
-  deleteAvatar: () => '/api/v1/users/profile/avatar',
+export const authApiUrls = {
+  checkRecoveryCode: () => '/api/v1/auth/check-recovery-code' as const,
+  signIn: () => '/api/v1/auth/login' as const,
+  signOut: () => '/api/v1/auth/logout' as const,
+  getMe: () => '/api/v1/auth/me' as const,
+  createNewPassword: () => '/api/v1/auth/new-password' as const,
+  passwordRecovery: () => '/api/v1/auth/password-recovery' as const,
+  signUp: () => '/api/v1/auth/registration' as const,
+  registrationConfirmation: () => '/api/v1/auth/registration-confirmation' as const,
+  resendEmail: () => '/api/v1/auth/registration-email-resending' as const,
+  refreshMe: () => '/api/v1/auth/update-tokens' as const,
+  //----------------------------------------------
+  loginGoogleOAuth: () => '/api/v1/auth/google/login' as const,
+  loginGithubOAuth: () => '/api/v1/auth/github/login' as const,
+  getProfile: () => '/api/v1/users/profile' as const,
+  updateProfile: () => '/api/v1/users/profile' as const,
+  uploadAvatar: () => '/api/v1/users/profile/avatar' as const,
+  deleteAvatar: () => '/api/v1/users/profile/avatar' as const,
 }
