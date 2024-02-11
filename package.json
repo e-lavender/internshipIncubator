@@ -28,6 +28,7 @@
     "@radix-ui/react-slider": "^1.1.2",
     "@radix-ui/react-tabs": "1.0.4",
     "@reduxjs/toolkit": "1.9.5",
+    "@rtk-query/codegen-openapi": "^1.2.0",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-avatar-editor": "^13.0.2",
@@ -77,6 +78,7 @@
     "sass": "1.66.1",
     "storybook": "7.6.6",
     "storybook-dark-mode": "3.0.1",
-    "stylelint": "15.10.3"
+    "stylelint": "15.10.3",
+    "ts-node": "^10.9.2"
   }
 }
