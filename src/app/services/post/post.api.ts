@@ -11,21 +11,7 @@ export const postApi = commonApi.injectEndpoints({
       }),
       invalidatesTags: ['Posts', 'Profile'],
     }),
-    getPublicPosts: builder.query<GetPublicPostsResponse, void>({
-      query: () => {
-        return {
-          method: 'GET',
-          url: `/api/v1/public/posts`,
-        }
-      },
-    }),
   }),
 })
 
-export const {
-  useAddPostMutation,
-  useGetPublicPostsQuery,
-  util: { getRunningQueriesThunk },
-} = postApi
-
-export const { getPublicPosts } = postApi.endpoints
+export const { useAddPostMutation } = postApi
