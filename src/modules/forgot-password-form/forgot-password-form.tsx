@@ -9,6 +9,7 @@ import { useForgotPasswordForm } from './validation-schema'
 
 import { useDisclose, useMatchMedia, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
+import { FRONT_BASE_URL } from '@/app/constants/common'
 import { usePasswordRecoveryMutation } from '@/app/services/auth/auth.api'
 import { NotificationModal } from '@/components'
 import { Button, Card, ControlledReCaptcha, Loader, TextField, Typography } from '@/ui'
@@ -59,7 +60,11 @@ export const ForgotPasswordForm = () => {
 
   const sendForm = handleSubmit((data, e?) => {
     e?.preventDefault()
-    recoverPassword(data)
+    recoverPassword({
+      email: data.email,
+      recaptcha: data.token,
+      baseUrl: FRONT_BASE_URL || '',
+    })
       .unwrap()
       .then(onOpen)
       .catch(() => {

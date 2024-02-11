@@ -6,6 +6,7 @@ import s from './sign-up-form.module.scss'
 
 import { ErrorWithData, TagProcessor, useDisclose, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
+import { FRONT_BASE_URL } from '@/app/constants/common'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
 import { ControlledCheckbox, ControlledTextField, LoaderV2, NotificationModal } from '@/components'
@@ -38,14 +39,17 @@ export const SignUpForm = () => {
   }
 
   const onSubmitForm = handleSubmit(data => {
-    register({ ...data, login: data.userName })
-      .unwrap()
-      .then(() => {
-        onOpen()
-      })
-      .catch((error: ErrorWithData) => {
-        showError(error)
-      })
+    const { email, userName, password } = data
+
+    FRONT_BASE_URL &&
+      register({ userName, email, password, baseUrl: FRONT_BASE_URL })
+        .unwrap()
+        .then(() => {
+          onOpen()
+        })
+        .catch((error: ErrorWithData) => {
+          showError(error)
+        })
   })
 
   const onBlurConfirmPassword = () => {
