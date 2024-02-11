@@ -26,4 +26,19 @@ export type SignInCredentials = {
   password: string
 }
 
-export type GetMe = Nullable<Partial<SignInCredentials & { userId: number }>>
+export type UserModel = Nullable<{
+  userId: number
+  userName: string
+  email: string
+}>
+export type PasswordRecovery = {
+  email: string
+  recaptcha: string
+  baseUrl: string
+}
+export type UserRegistrationParams = {
+  userName: string
+  email: string
+  password: string
+  baseUrl: string
+}

@@ -1,4 +1,4 @@
-import { authApiUrls } from '@/app/constants'
+import { profileApiUrls } from '@/app/constants'
 import { commonApi } from '@/app/services/common/common.api'
 import {
   UpdateUserProfile,
@@ -6,7 +6,7 @@ import {
   UserProfileModel,
 } from '@/app/services/profile/profile.api.types'
 
-const { getProfile, updateProfile, uploadAvatar, deleteAvatar } = authApiUrls
+const { usersProfile, usersAvatar, usersProfileById } = profileApiUrls
 
 export const profileApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -14,38 +14,50 @@ export const profileApi = commonApi.injectEndpoints({
       query: () => {
         return {
           method: 'GET',
-          url: getProfile(),
+          url: usersProfile(),
         }
       },
       providesTags: ['Profile'],
     }),
-    updateUserProfile: builder.mutation<UserProfileModel, UpdateUserProfile>({
+
+    updateUserProfile: builder.mutation<void, UpdateUserProfile>({
       query: args => {
         return {
           method: 'PUT',
-          url: updateProfile(),
+          url: usersProfile(),
           body: args,
         }
       },
       invalidatesTags: ['Profile'],
     }),
 
-    uploadAvatar: builder.mutation<UploadAvatarResponse, FormData>({
-      query: form => {
+    deleteUserProfile: builder.mutation<void, { id?: number }>({
+      query: args => {
         return {
-          method: 'PUT',
-          url: uploadAvatar(),
-          body: form,
-          formData: true,
+          method: 'DELETE',
+          url: usersProfileById(args.id),
+          body: args,
         }
       },
       invalidatesTags: ['Profile'],
     }),
+
+    uploadAvatar: builder.mutation<void, FormData>({
+      query: form => {
+        return {
+          method: 'POST',
+          url: usersAvatar(),
+          body: form,
+        }
+      },
+      invalidatesTags: ['Profile'],
+    }),
+
     deleteAvatar: builder.mutation<void, void>({
       query: () => {
         return {
           method: 'DELETE',
-          url: deleteAvatar(),
+          url: usersAvatar(),
         }
       },
       invalidatesTags: ['Profile'],

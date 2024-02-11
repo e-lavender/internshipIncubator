@@ -27,7 +27,7 @@ export async function getCroppedAndFilteredImage(
   filter: string = '',
   rotation = 0,
   flip = { horizontal: false, vertical: false }
-): Promise<Blob | string | null> {
+): Promise<Uint8Array | null> {
   const image = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -63,13 +63,22 @@ export async function getCroppedAndFilteredImage(
 
   return new Promise((resolve, reject) => {
     canvas.toBlob(
-      file => {
+      async file => {
         if (!file) return null
 
-        if (filter) {
-          return resolve(file)
+        // if (filter) {
+        //   return resolve(file)
+        // }
+        const response = await fetch(URL.createObjectURL(file))
+
+        if (response.ok) {
+          const arrayBuffer = await response.arrayBuffer()
+          const binaryData = new Uint8Array(arrayBuffer)
+
+          resolve(binaryData)
+        } else {
+          reject()
         }
-        resolve(URL.createObjectURL(file))
       },
       'image/jpeg',
       1

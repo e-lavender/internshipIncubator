@@ -22,7 +22,7 @@ export const UserProfileDescription = ({ data }: UserProfileType) => {
   return (
     <div className={s.container}>
       <div className={s.avatar}>
-        <Avatar src={data?.avatarUrl} />
+        <Avatar src={data?.avatars[0].url} />
       </div>
 
       <div className={s.profile}>

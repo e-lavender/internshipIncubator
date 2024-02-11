@@ -5,9 +5,9 @@ import { z } from 'zod'
 import { isOldEnough, useTranslation } from '@/app'
 import { UserProfileModel } from '@/app/services/profile/profile.api.types'
 
-export type UserProfileType = Omit<UserProfileModel, 'avatars' | 'createdAt' | 'id'> | undefined
+export type UserProfileType = Omit<UserProfileModel, 'avatars' | 'createdAt' | 'id'>
 
-export const useGeneralSettings = (userProfile: UserProfileType) => {
+export const useGeneralSettings = (userProfile: UserProfileType | undefined) => {
   const { t } = useTranslation()
   const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
 
