@@ -2,7 +2,7 @@ import React from 'react'
 
 import { InferGetStaticPropsType } from 'next'
 
-import { GetPublicPostsResponse } from '@/app/services/post/post.types'
+import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
 import { PublicPosts } from '@/modules'
 
 export const getStaticProps = async () => {
@@ -12,8 +12,14 @@ export const getStaticProps = async () => {
     sortBy: 'createdAt',
   }
   const queryParams = new URLSearchParams(params).toString()
-  const response = await fetch(`https://api.freedomindz.site/api/v1/public/posts?${queryParams}`)
-  const data: GetPublicPostsResponse = await response.json()
+  const endCursorPostId = 1
+  const response = await fetch(
+    `https://inctagram.work/api/v1/public-posts/all/${endCursorPostId}?${queryParams}`
+  )
+  const data: PublicPostsGetAll = await response.json()
+
+  console.log('data', data)
+  console.log('items', data.items)
 
   return {
     props: { data: data },

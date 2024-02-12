@@ -1,12 +1,13 @@
 import { profileApiUrls } from '@/app/constants'
 import { commonApi } from '@/app/services/common/common.api'
 import {
+  PublicUserModel,
   UpdateUserProfile,
   UploadAvatarResponse,
   UserProfileModel,
 } from '@/app/services/profile/profile.api.types'
 
-const { usersProfile, usersAvatar, usersProfileById } = profileApiUrls
+const { usersProfile, usersAvatar, usersProfileById, publicUserById } = profileApiUrls
 
 export const profileApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -62,6 +63,14 @@ export const profileApi = commonApi.injectEndpoints({
       },
       invalidatesTags: ['Profile'],
     }),
+    getPublicUserProfileById: builder.query<PublicUserModel, { profileId: number }>({
+      query: args => {
+        return {
+          method: 'GET',
+          url: publicUserById(args.profileId),
+        }
+      },
+    }),
   }),
 })
 
@@ -73,4 +82,5 @@ export const {
    */
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
+  useGetPublicUserProfileByIdQuery,
 } = profileApi

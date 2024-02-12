@@ -45,3 +45,16 @@ export type GeneralSettingsType = {
   city?: string
   aboutMe?: string
 }
+
+export type PublicUserModel = {
+  id: number
+  userName: string
+  aboutMe: string
+  avatars: PublicUserModelAvatars[]
+}
+export type PublicUserModelAvatars = {
+  url: string
+  width: number
+  height: number
+  fileSize: number
+}

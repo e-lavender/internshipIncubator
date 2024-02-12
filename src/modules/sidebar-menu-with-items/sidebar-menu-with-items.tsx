@@ -15,7 +15,7 @@ import {
   useTranslation,
 } from '@/app'
 import { authNavigationUrls, menuNavigation } from '@/app/constants'
-import { useSignOutMutation } from '@/app/services/auth/auth.api'
+import { useGetMeQuery, useSignOutMutation } from '@/app/services/auth/auth.api'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { ConfirmationModal } from '@/components'
 import CreateNewPostModal from '@/components/modals/create-new-post-modal/create-new-post-modal'
@@ -26,7 +26,7 @@ export const SidebarMenuWithItems = () => {
   const { openCreatePostModal } = useCreatePostModal()
   const { pathname, push } = useRouter()
   const [signOut] = useSignOutMutation()
-
+  const { data, isLoading } = useGetMeQuery()
   const { t } = useTranslation()
   const labels = t.sidebarMenu
 
@@ -53,10 +53,10 @@ export const SidebarMenuWithItems = () => {
         />
 
         <MenuItem
-          href={menuNavigation.profile()}
+          href={menuNavigation.profile(data?.userId)}
           icon={ProfileMenuIcon}
           label={labels.profile}
-          isSelected={pathname.startsWith(menuNavigation.profile())}
+          isSelected={pathname.startsWith(menuNavigation.profile(data?.userId))}
         />
 
         <MenuItem
