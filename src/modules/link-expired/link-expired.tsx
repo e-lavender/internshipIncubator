@@ -14,9 +14,16 @@ import { useDisclose, useMatchMedia, useTranslation } from '@/app/hooks'
 import { useResendEmailMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
 import { NotificationModal } from '@/components'
+import { LINK_EXPIRED_COMPONENT_MODE } from '@/modules/link-expired/constatnts'
 import { Button, Typography } from '@/ui'
 
-export const LinkExpired = ({ email }: { email?: string }) => {
+export const LinkExpired = ({
+  email,
+  mode,
+}: {
+  email?: string
+  mode?: keyof typeof LINK_EXPIRED_COMPONENT_MODE
+}) => {
   const { isOpen, onOpen, onClose } = useDisclose()
   const { push } = useRouter()
   const { isMobile } = useMatchMedia()

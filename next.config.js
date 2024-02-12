@@ -4,6 +4,7 @@ const nextConfig = {
     BASE_API_URL: 'https://inctagram.work',
     DEVELOPMENT_FRONT_BASE_URL: 'http://localhost:3000',
     PRODUCTION_FRONT_BASE_URL: 'https://freedomindz.site',
+    NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: `6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ`,
   },
   images: {
     remotePatterns: [
