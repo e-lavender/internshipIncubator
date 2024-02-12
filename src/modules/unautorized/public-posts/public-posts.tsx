@@ -2,13 +2,12 @@ import React, { memo } from 'react'
 
 import s from './public-posts.module.scss'
 
-import { useGetPublicPostsQuery } from '@/app/services/post/post.api'
-import { GetPublicPostsResponse } from '@/app/services/post/post.types'
+import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
 import { NumberOfUsers } from '@/modules/unautorized/number-of-users/number-of-users'
 import { PostItem } from '@/modules/unautorized/posts-item/post-item'
 
 type Props = {
-  data: GetPublicPostsResponse
+  data: PublicPostsGetAll
 }
 
 export const PublicPosts = memo(({ data }: Props) => {
