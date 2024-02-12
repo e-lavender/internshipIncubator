@@ -25,7 +25,7 @@ export const PostDescription = () => {
           <div className={s.userInfo}>
             <div>
               <Avatar
-                src={data?.avatars[0].url}
+                src={data?.avatars[0]?.url}
                 width={36}
                 height={36}
                 rounded

@@ -17,3 +17,8 @@ export const publicPostsApiUrls = {
   }) => `/api/v1/public-posts/user/${userId}/${endCursorPostId}` as const,
   getPublicPostById: (postId: number) => `/api/v1/public-posts/${postId}` as const,
 }
+
+export const publicUserApiUrls = {
+  getPublicProfile: (profileId: number) => `/api/v1/public-user/profile/${profileId}` as const,
+  getUsersCount: () => `/api/v1/public-user` as const,
+}
