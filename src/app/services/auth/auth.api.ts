@@ -26,10 +26,11 @@ const {
 export const authAPI = commonApi.injectEndpoints({
   endpoints: builder => ({
     checkRecoveryCode: builder.mutation<{ email: string }, { recoveryCode: string }>({
-      query: () => {
+      query: ({ recoveryCode }) => {
         return {
           method: 'POST',
           url: checkRecoveryCode(),
+          body: { recoveryCode },
         }
       },
     }),
@@ -168,6 +169,7 @@ export const authAPI = commonApi.injectEndpoints({
 })
 
 export const {
+  useCheckRecoveryCodeMutation,
   useEmailConfirmationMutation,
   useRefreshMeMutation,
   usePasswordRecoveryMutation,

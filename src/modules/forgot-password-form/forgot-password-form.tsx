@@ -101,7 +101,7 @@ export const ForgotPasswordForm = () => {
           <ControlledReCaptcha
             control={control}
             name={'token'}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY!}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY!}
             hl={locale}
             theme={'dark'}
             className={s.recaptcha}
@@ -123,7 +123,7 @@ export const ForgotPasswordForm = () => {
           <ControlledReCaptcha
             control={control}
             name={'token'}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY!}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY!}
             hl={locale}
             theme={'dark'}
             className={s.recaptcha}

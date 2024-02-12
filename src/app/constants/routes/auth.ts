@@ -6,12 +6,13 @@ export const authNavigationUrls = {
   signUp: () => '/auth/sign-up',
   forgotPassword: () => '/auth/forgot-password',
   createNewPassword: () => '/auth/create-new-password',
-  passwordRecovery: () => '/auth/password-recovery',
+  passwordRecovery: () => '/auth/recovery',
   linkConfirmation: () => '/auth/registration-confirmation',
   newPasswordConfirmation: () => '/auth/new-password-confirmation',
   privacyPolicy: () => '/auth/privacy-policy',
   termsOfService: () => '/auth/terms-of-service',
   googleCallback: () => `/auth/callback/google`,
+  linkExpired: (email?: string) => `/auth/link-expired?email=${email}`,
 }
 
 export const old_authApiUrls = {
@@ -23,7 +24,7 @@ export const old_authApiUrls = {
   resendEmail: () => '/api/v1/auth/resend-code',
   logout: () => '/api/v1/auth/logout',
   getMe: () => '/api/v1/auth/me',
-  passwordRecovery: () => '/api/v1/auth/password-recovery',
+  passwordRecovery: () => '/api/v1/auth/recovery',
   createNewPassword: () => '/api/v1/auth/new-password',
   openGoogleOAuth: () => '/api/auth/google',
   openGithubOAuth: () => '/api/auth/github',
@@ -43,7 +44,7 @@ export const authApiUrls = {
   signOut: () => '/api/v1/auth/logout' as const,
   getMe: () => '/api/v1/auth/me' as const,
   createNewPassword: () => '/api/v1/auth/new-password' as const,
-  passwordRecovery: () => '/api/v1/auth/password-recovery' as const,
+  passwordRecovery: () => '/api/v1/auth/recovery' as const,
   signUp: () => '/api/v1/auth/registration' as const,
   registrationConfirmation: () => '/api/v1/auth/registration-confirmation' as const,
   resendEmail: () => '/api/v1/auth/registration-email-resending' as const,
