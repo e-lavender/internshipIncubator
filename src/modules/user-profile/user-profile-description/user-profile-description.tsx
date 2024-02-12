@@ -4,6 +4,7 @@ import s from './user-profile-description.module.scss'
 
 import { CheckedIcon, useMatchMedia, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
+import { PublicUserModel } from '@/app/services/profile/profile.api.types'
 import { Avatar } from '@/components'
 import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescription, UserProfileType } from '@/modules'
@@ -42,9 +43,7 @@ export const UserProfileDescription = ({ data }: UserProfileType) => {
         <UserStatistics />
 
         <Typography as={'p'} variant={'regular-16'}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco.{' '}
+          {data?.aboutMe}
           <Typography as={'span'} variant={'regular-link'}>
             <Link href={'#'}>laboris nisi ut aliquip ex ea commodo consequat.</Link>
           </Typography>

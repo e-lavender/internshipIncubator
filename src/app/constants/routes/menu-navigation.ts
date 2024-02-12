@@ -1,7 +1,7 @@
 export const menuNavigation = {
   home: () => '/',
   create: () => '/create',
-  profile: () => '/user-profile',
+  profile: (id?: number) => `/user-profile/${id}`,
   messenger: () => '/messenger',
   search: () => '/search',
   statistics: () => '/statistics',
