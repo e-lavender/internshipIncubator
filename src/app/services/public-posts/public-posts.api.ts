@@ -35,7 +35,7 @@ export const publicPostsApi = commonApi.injectEndpoints({
           sortDirection: queryArg.sortDirection,
         },
       }),
-      providesTags: ['POSTS_BY_USER'],
+      providesTags: ['Posts'],
     }),
     getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
       query: queryArg => ({
