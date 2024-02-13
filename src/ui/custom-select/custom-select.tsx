@@ -1,11 +1,10 @@
-import React, { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './custom-select.module.scss'
 
 import { ChevronDown } from '@/app/assets/svg/chevron-down'
-import { DisabledContent } from '@/templates'
 import CustomSelectOptions from '@/ui/custom-select/custom-select-options'
 import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
 import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
@@ -42,18 +41,20 @@ export const CustomSelect = ({
     chevron: clsx(s.chevron, isOpen && s.open),
   }
 
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [inputRef])
+  // useEffect(() => {
+  //   inputRef.current?.focus()
+  // }, [inputRef])
 
   const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     setIsOpen(true)
     setFilterHandler(event)
   }
   const valueToShow = !isOpen && (value || currentValue) && (
-    <div className={s.input}>{value || currentValue}</div>
+    <div style={{ border: 'none' }} className={s.input}>
+      {value || currentValue}
+    </div>
   )
-  const searchInput = (isOpen || !currentValue) && (
+  const searchInput = isOpen && (value || currentValue) && (
     <input
       tabIndex={-1}
       placeholder={placeholder || 'Select...'}
@@ -63,6 +64,7 @@ export const CustomSelect = ({
       ref={inputRef}
     />
   )
+
   const selectLabel = label && <label className={s.label}>{label}</label>
 
   const toggleOpen = () => {

@@ -19,9 +19,7 @@ export const LinkConfirmed = () => {
   const { title, description, button: label } = t.linkConfirmedPage
 
   const confirmAccount = () => {
-    confirmEmail({
-      code: query.code as string,
-    })
+    confirmEmail({ confirmationCode: query.code as string })
   }
 
   return (

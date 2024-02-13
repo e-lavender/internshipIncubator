@@ -12,16 +12,16 @@ import img8 from '@/../public/assets/user-profile-data/8.jpg'
 import img9 from '@/../public/assets/user-profile-data/9.jpg'
 
 export const IMAGE_SLIDER_DATA = [
-  { id: +nanoid(), url: img1, alt: 'image_1', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img2, alt: 'image_2', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img3, alt: 'image_3', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img4, alt: 'image_4', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img5, alt: 'image_5', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img6, alt: 'image_6', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img7, alt: 'image_7', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img8, alt: 'image_8', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img9, alt: 'image_9', croppedImage: null, filter: '' },
-  { id: +nanoid(), url: img10, alt: 'image_10', croppedImage: null, filter: '' },
+  { id: +nanoid(), url: img1, alt: 'image_1', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img2, alt: 'image_2', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img3, alt: 'image_3', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img4, alt: 'image_4', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img5, alt: 'image_5', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img6, alt: 'image_6', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img7, alt: 'image_7', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img8, alt: 'image_8', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img9, alt: 'image_9', croppedImage: null, filter: 'none' },
+  { id: +nanoid(), url: img10, alt: 'image_10', croppedImage: null, filter: 'none' },
 ]
 
 export type MockedImagesDataType = typeof IMAGE_SLIDER_DATA

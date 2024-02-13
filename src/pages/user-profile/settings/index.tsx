@@ -15,6 +15,13 @@ import { ProfileSettingLayout } from '@/templates'
 import { Button, TextArea, TextField } from '@/ui'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
+type LocationType = {
+  country: string
+  city: string
+}
+
+type UserProfileModel = UserProfileType & { country: string }
+
 const GeneralInformation = () => {
   const { data, isLoading: isProfileLoading } = useGetProfileQuery()
   const [updateProfile, { isLoading: isProfileUpdating }] = useUpdateUserProfileMutation()
@@ -24,12 +31,15 @@ const GeneralInformation = () => {
   const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
     t.profileSettings.generalSettings
 
-  const userProfile: UserProfileType = useMemo(() => {
+  const userProfile: UserProfileModel | undefined = useMemo(() => {
     if (data) {
       const { id, avatars, createdAt, ...rest } = data
+      const location: LocationType = JSON.parse(data.city)
 
       return {
         ...rest,
+        country: location.country,
+        city: location.city,
         dateOfBirth: setDateFormat(data?.dateOfBirth),
       }
     }
@@ -49,7 +59,22 @@ const GeneralInformation = () => {
   const selectedCountry = watch('country')
 
   const onSubmit = handleSubmit((data: GeneralSettingsType) => {
-    updateProfile({ ...data, dateOfBirth: data.dateOfBirth?.toString() })
+    const { userName, firstName, lastName, city, country, dateOfBirth, aboutMe } = data
+    const location: LocationType = {
+      country: country || '',
+      city: city || '',
+    }
+    const serializedCity = JSON.stringify(location)
+    const date = dateOfBirth ? new Date(dateOfBirth).toISOString() : null
+
+    updateProfile({
+      userName,
+      firstName,
+      lastName,
+      city: serializedCity,
+      dateOfBirth: date,
+      aboutMe: aboutMe || null,
+    })
   })
 
   useEffect(() => {

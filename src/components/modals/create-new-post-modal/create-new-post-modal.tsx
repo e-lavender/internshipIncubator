@@ -5,10 +5,11 @@ import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dism
 import s from './create-new-post-modal.module.scss'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
-import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
-import { useAddPostMutation } from '@/app/services/post/post.api'
-import { addImage, resetImagesToDefaultState } from '@/app/services/post/slider.slice'
+import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
+import { CreatePostRequestChildrenMetadata } from '@/app/services/posts/posts.types'
+import { addImage, resetImagesToDefaultState } from '@/app/services/posts/slider.slice'
+import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { showError } from '@/app/utils'
 import {
   AddInterface,
@@ -22,15 +23,20 @@ import {
 } from '@/components'
 
 export const CreateNewPostModal = () => {
-  const [addPost, { isLoading: isPostUploading }] = useAddPostMutation()
+  const [addPost, { isLoading: isPostUploading }] = useCreatePostMutation()
+
+  const [uploadImages] = useUploadImagePostMutation()
   // added additional indicator in order to inform user that everything is ok and request is processing now
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
-
-  const { _dispatch, _state } = useRtkStateHook()
-  const { images: selectedImages, description: postDescription } = _state.slider
+  const {
+    images: selectedImages,
+    description: postDescription,
+    currentImageIndex,
+  } = useAppSelector(state => state.slider)
+  const dispatch = useAppDispatch()
 
   const addNewPost = async () => {
     const formData = new FormData()
@@ -43,26 +49,25 @@ export const CreateNewPostModal = () => {
       if (!filteredImage) {
         return null
       }
+      const blob = new Blob([filteredImage], { type: 'image/jpeg' })
 
-      const file = new File([filteredImage], image.url, {
-        type: 'image/jpeg',
-      })
-
-      formData.append('images', file)
+      formData.append(`file`, blob)
 
       return filteredImage
     })
 
     await Promise.all(imagePromises)
 
-    formData.append('description', postDescription)
-
-    addPost(formData)
+    // @ts-ignore
+    uploadImages(formData)
       .unwrap()
-      .then(() => {
-        /*
-          Todo additional logic if necessary
-        */
+      .then(res => {
+        const imagesMetaData: CreatePostRequestChildrenMetadata[] = []
+
+        res.images.map(image => {
+          imagesMetaData.push({ uploadId: image.uploadId })
+        })
+        addPost({ description: postDescription, childrenMetadata: imagesMetaData })
       })
       .catch((error: ErrorWithData) => {
         showError(error)
@@ -106,7 +111,7 @@ export const CreateNewPostModal = () => {
     closeCreatePostModal()
     setPreferredStep(1)
 
-    _dispatch(resetImagesToDefaultState())
+    dispatch(resetImagesToDefaultState())
   }
 
   return (
@@ -129,7 +134,7 @@ export const CreateNewPostModal = () => {
       <ConfirmationModal
         isOpen={isConfirmationModalOpen}
         onClose={closeConfirmationModal}
-        title={'Close create post'}
+        title={'Close create posts'}
         message={'Are you sure you want to close ?'}
         onConfirmation={onConfirm}
       />

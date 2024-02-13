@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import s from './post-card-modal.module.scss'
 
 import { CloseIcon, useDisclose, useRtkStateHook } from '@/app'
-import { resetDescriptionState, setViewMode } from '@/app/services/post/post.slice'
+import { resetDescriptionState, setViewMode } from '@/app/services/posts/posts.slice'
 import { ConfirmationModal, LoaderV2, PostCardModalType } from '@/components'
 import { Modal } from '@/ui'
 

@@ -13,3 +13,11 @@ export type ErrorWithData =
     })
   | string
 export type Nullable<T> = T | null
+export type ErrorModel = {
+  status: string
+  data: { statusCode: number; messages: ErrorModelMessages[]; error: string }
+}
+export type ErrorModelMessages = {
+  message: string
+  field: string
+}

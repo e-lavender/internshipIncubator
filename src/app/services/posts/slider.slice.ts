@@ -1,6 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
 
-import { ImageSlideType } from '@/app/services/post/post.types'
+import { ImageSlideType } from '@/app/services/posts/posts.types'
 import { ImageModel } from '@/components'
 
 const defaultState: ImageSlideType = {
