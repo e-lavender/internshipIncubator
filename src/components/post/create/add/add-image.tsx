@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import s from './add-image.module.scss'
 
 import { MIME_TYPES, PlusCircle, useFileCreationWithSteps } from '@/app'
-import { addImage } from '@/app/services/post/slider.slice'
+import { addImage } from '@/app/services/posts/slider.slice'
 import { useAppSelector } from '@/app/store/rtk.types'
 import { AddedImages } from '@/components'
 

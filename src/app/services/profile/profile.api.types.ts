@@ -1,26 +1,31 @@
+import { Nullable } from '@/app'
+
 export type UserProfileModel = {
   id: number
   userName: string
   firstName: string
   lastName: string
-  city?: string
-  dateOfBirth?: string
-  aboutMe?: string
+  city: string
+  dateOfBirth: string
+  aboutMe: string
   avatars: UserProfileModelAvatars[]
   createdAt: string
-  country?: string
-  avatarUrl?: string
 }
+
 export type UserProfileModelAvatars = {
   url: string
   width: number
   height: number
   fileSize: number
 }
-export type UpdateUserProfile = Pick<
-  UserProfileModel,
-  'userName' | 'lastName' | 'firstName' | 'city' | 'dateOfBirth' | 'aboutMe' | 'country'
->
+export type UpdateUserProfile = {
+  userName: string
+  firstName: Nullable<string>
+  lastName: Nullable<string>
+  city: Nullable<string>
+  dateOfBirth: Nullable<string>
+  aboutMe: Nullable<string>
+}
 export type UploadAvatarResponse = {
   avatars: AvatarModel[]
 }
@@ -39,4 +44,17 @@ export type GeneralSettingsType = {
   country?: string
   city?: string
   aboutMe?: string
+}
+
+export type PublicUserModel = {
+  id: number
+  userName: string
+  aboutMe: string
+  avatars: PublicUserModelAvatars[]
+}
+export type PublicUserModelAvatars = {
+  url: string
+  width: number
+  height: number
+  fileSize: number
 }

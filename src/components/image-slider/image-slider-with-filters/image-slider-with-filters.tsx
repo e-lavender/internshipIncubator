@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import s from './image-slider-with-filters.module.scss'
 
-import { setActiveImageFilter } from '@/app/services/post/slider.slice'
+import { setActiveImageFilter } from '@/app/services/posts/slider.slice'
 import { useAppDispatch } from '@/app/store/rtk.types'
 import { ImageSliderControls, ImageSliderType, SelectedImages } from '@/components'
 

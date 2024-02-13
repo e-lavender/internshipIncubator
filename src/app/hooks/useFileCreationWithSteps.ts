@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
 import { MIME_TYPES, useTranslation } from '@/app'
@@ -38,7 +39,7 @@ type ErrorValidationType = { typeLimit?: string | string[]; sizeLimit?: number }
 
 export const useFileCreationWithSteps = (
   initialStep?: number,
-  callback?: ({ url }: { url: string }) => void,
+  actionCreator?: ActionCreatorWithPayload<any, any>,
   validationOptions?: ErrorValidationType
 ) => {
   const [step, setStep] = useState<number>(initialStep || 1)
@@ -98,9 +99,8 @@ export const useFileCreationWithSteps = (
 
       const url = URL.createObjectURL(blob)
 
-      if (callback) {
-        // @ts-ignore
-        dispatch(callback({ url }))
+      if (actionCreator) {
+        dispatch(actionCreator({ url }))
       }
 
       setUrl(url)

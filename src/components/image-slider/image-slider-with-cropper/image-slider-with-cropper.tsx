@@ -6,7 +6,7 @@ import Cropper, { Area } from 'react-easy-crop'
 import s from '../image-slider.module.scss'
 
 import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
-import { addCroppedImage } from '@/app/services/post/slider.slice'
+import { addCroppedImage } from '@/app/services/posts/slider.slice'
 import {
   ImageSliderContainer,
   ImageModel,
@@ -37,13 +37,13 @@ export const ImageSliderWithCropper = ({
   const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }
-
+  //TODO as unknown as string was added to fix TS Error
   const onCrop = async () => {
     if (croppedAreaPixels) {
       const croppedImage = (await getCroppedAndFilteredImage(
         images[imageIndex].url,
         croppedAreaPixels
-      )) as string
+      )) as unknown as string
 
       _dispatch(addCroppedImage({ index: imageIndex, croppedImage }))
     }

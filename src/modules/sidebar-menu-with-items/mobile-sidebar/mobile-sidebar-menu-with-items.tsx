@@ -10,10 +10,12 @@ import {
   SearchMenuIcon,
 } from '@/app'
 import { menuNavigation } from '@/app/constants'
+import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { MenuItem, SidebarMenu } from '@/ui'
 
 export const MobileSidebarMenuWithItems = () => {
   const { pathname } = useRouter()
+  const { data, isLoading } = useGetMeQuery()
 
   return (
     <SidebarMenu className={s.sidebar}>
@@ -43,9 +45,9 @@ export const MobileSidebarMenuWithItems = () => {
         isStyled={false}
       />
       <MenuItem
-        href={menuNavigation.profile()}
+        href={menuNavigation.profile(data?.userId)}
         icon={ProfileMenuIcon}
-        isSelected={pathname.startsWith(menuNavigation.profile())}
+        isSelected={pathname.startsWith(menuNavigation.profile(data?.userId))}
         isStyled={false}
       />
     </SidebarMenu>

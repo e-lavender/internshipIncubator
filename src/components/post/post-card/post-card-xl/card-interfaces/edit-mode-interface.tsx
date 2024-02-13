@@ -3,7 +3,7 @@ import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import s from '../post-card-xl.module.scss'
 
 import { useRtkStateHook } from '@/app'
-import { compareDescriptionVersions } from '@/app/services/post/post.slice'
+import { compareDescriptionVersions } from '@/app/services/posts/posts.slice'
 import { CardDescription } from '@/components'
 import { Button, TextArea } from '@/ui'
 
@@ -36,7 +36,7 @@ export const EditModeInterface = ({
     e.preventDefault()
 
     /*
-        Todo PUT request in order to update post description
+        Todo PUT request in order to update posts description
      */
   }
 

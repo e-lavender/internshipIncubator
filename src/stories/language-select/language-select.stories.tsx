@@ -10,4 +10,4 @@ export default {
 } satisfies Meta<typeof LanguageSelect>
 
 type Story = StoryObj<typeof meta>
-export const Default: Story = {}
+export const Default: Story = { args: { email: '' } }
