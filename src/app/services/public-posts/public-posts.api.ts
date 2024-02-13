@@ -1,5 +1,6 @@
 import { publicPostsApiUrls } from '@/app/constants/urls'
 import { commonApi } from '@/app/services/common/common.api'
+import { profileApi } from '@/app/services/profile/profile.api'
 import {
   PublicPostsGetAll,
   PublicPostsGetAllArg,
@@ -9,7 +10,7 @@ import {
   PublicPostsGetPostsByUserArg,
 } from '@/app/services/public-posts/public-posts.types'
 
-const { getPublicPosts, getPublicPostsByUser, getPublicPostById } = publicPostsApiUrls
+const { getPublicPosts, getPublicPostsByUserId, getPublicPostById } = publicPostsApiUrls
 
 export const publicPostsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -25,7 +26,7 @@ export const publicPostsApi = commonApi.injectEndpoints({
     }),
     getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
       query: queryArg => ({
-        url: getPublicPostsByUser({
+        url: getPublicPostsByUserId({
           endCursorPostId: queryArg.endCursorPostId,
           userId: queryArg.userId,
         }),
@@ -35,7 +36,7 @@ export const publicPostsApi = commonApi.injectEndpoints({
           sortDirection: queryArg.sortDirection,
         },
       }),
-      providesTags: ['POSTS_BY_USER'],
+      providesTags: ['Posts'],
     }),
     getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
       query: queryArg => ({
@@ -48,3 +49,5 @@ export const publicPostsApi = commonApi.injectEndpoints({
 
 export const { useGetPublicPostsQuery, useGetPublicPostsByUserQuery, useGetPublicPostByIdQuery } =
   publicPostsApi
+
+export const { getPublicPostsByUser } = publicPostsApi.endpoints
