@@ -5,7 +5,6 @@ import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dism
 import s from './create-new-post-modal.module.scss'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
-import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
 import { CreatePostRequestChildrenMetadata } from '@/app/services/posts/posts.types'

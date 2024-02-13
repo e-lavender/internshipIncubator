@@ -12,7 +12,7 @@ export const postsApi = commonApi.injectEndpoints({
         url: createPost(),
         body,
       }),
-      invalidatesTags: [/*'Posts',*/ 'Profile', 'POSTS_BY_USER'],
+      invalidatesTags: ['Posts', 'Profile'],
     }),
     uploadImagePost: builder.mutation<PostImages, FormData>({
       query: body => ({
