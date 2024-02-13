@@ -12,14 +12,8 @@ export const getStaticProps = async () => {
     sortBy: 'createdAt',
   }
   const queryParams = new URLSearchParams(params).toString()
-  const endCursorPostId = 1
-  const response = await fetch(
-    `https://inctagram.work/api/v1/public-posts/all/${endCursorPostId}?${queryParams}`
-  )
+  const response = await fetch(`https://inctagram.work/api/v1/public-posts/all/?${queryParams}`)
   const data: PublicPostsGetAll = await response.json()
-
-  console.log('data', data)
-  console.log('items', data.items)
 
   return {
     props: { data: data },
