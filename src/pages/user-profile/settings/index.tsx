@@ -38,8 +38,8 @@ const GeneralInformation = () => {
 
       return {
         ...rest,
-        country: location?.country,
-        city: location?.city,
+        country: location.country,
+        city: location.city,
         dateOfBirth: setDateFormat(data?.dateOfBirth),
       }
     }

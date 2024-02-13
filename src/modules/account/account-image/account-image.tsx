@@ -31,7 +31,7 @@ export const AccountImage = (props: AccountImageProps) => {
   return (
     <div className={s.container}>
       <Avatar
-        src={data?.avatars[0]?.url}
+        src={data?.avatars[0].url}
         width={width}
         height={height}
         rounded
