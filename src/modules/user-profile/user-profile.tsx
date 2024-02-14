@@ -34,29 +34,31 @@ export const UserProfile = () => {
 
   useEffect(() => {
     function handleScroll() {
-      // Проверяем, долистал ли пользователь до низа страницы
       if (
         window.innerHeight + document.documentElement.scrollTop !==
         document.documentElement.offsetHeight
       ) {
         return
       }
-      console.log('loading next page') // Вызываем функцию загрузки данных
+      console.log('loading next page')
     }
-
-    // Добавляем обработчик события прокрутки после загрузки контента
 
     window.addEventListener('scroll', handleScroll)
 
-    // Убираем обработчик события прокрутки при размонтировании компонента,
-    // чтобы избежать утечек памяти
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
   return (
-    <main className={s.container}>
+    <main
+      style={{
+        maxWidth: '1050px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      className={s.container}
+    >
       <UserProfileDescription data={currentData} />
       <UserProfileGallery data={posts} />
     </main>

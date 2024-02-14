@@ -1,16 +1,29 @@
-import { useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 
 import { clsx } from 'clsx'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import s from './user-gallery.module.scss'
 
-import { useMatchMedia } from '@/app'
-import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
+import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
+import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
+import {
+  PostViewModel,
+  PublicPostsGetPostsByUser,
+} from '@/app/services/public-posts/public-posts.types'
+import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 
-export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefined }) => {
+export const UserProfileGallery = ({
+  data,
+  isMyProfile,
+}: {
+  data: PublicPostsGetPostsByUser | undefined
+  isMyProfile: boolean
+}) => {
   const { isMobile } = useMatchMedia()
-
+  const [selected, setSelected] = useState<PostViewModel>()
+  const router = useRouter()
   // const trigger = useRef<HTMLDivElement>(null)
   // const { content, isLoading } = useInfiniteScroll(
   //   data?.items || GALLERY_DATA,
@@ -37,13 +50,29 @@ export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefin
     loader: clsx(s.card, isMobile && s.mobile, s.loader),
   }
 
+  const {
+    _state: { post },
+  } = useRtkStateHook()
+
+  const isEditMode: boolean = post.mode === 'edit'
+
+  const { isOpen, onOpen, onClose } = useDisclose()
+
   return (
     <>
       <div className={styles.root}>
         {data?.items &&
           data?.items.length > 0 &&
           data?.items.map((item, index) => (
-            <div key={index} className={styles.card}>
+            <div
+              key={index}
+              className={styles.card}
+              onClick={() => {
+                setSelected(item)
+                onOpen()
+                void router.push(`http://localhost:3000/${item.id}`, undefined, { shallow: true })
+              }}
+            >
               <Image
                 src={item.images[0].url}
                 width={item.images[0].width}
@@ -59,7 +88,34 @@ export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefin
         {/*  </SkeletonCard>*/}
         {/*)}*/}
       </div>
+      <PostCardModal
+        isOpen={isOpen}
+        onChange={() => {
+          onClose()
+          setSelected(undefined)
+        }}
+        askConfirmation={isEditMode}
+        isModified={!isEditMode}
+      >
+        <ImageSlider images={selected?.images ?? []} aspectRatio={'1/1'} fitStyle={'cover'} />
 
+        {isMyProfile ? (
+          <EditModeInterface
+            description={selected?.description || ''}
+            url={selected?.avatarOwner || ''}
+            userName={selected?.userName || ''}
+          />
+        ) : (
+          <ViewModeInterface
+            account={'public'}
+            comments={[]}
+            description={selected?.description || ''}
+            postdId={selected?.id!}
+            url={selected?.avatarOwner || ''}
+            userName={selected?.userName || ''}
+          />
+        )}
+      </PostCardModal>
       {/*<div className={styles.loader} ref={trigger} />*/}
     </>
   )

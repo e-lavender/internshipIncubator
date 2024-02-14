@@ -1,6 +1,7 @@
 import { CSSProperties, Dispatch, SetStateAction } from 'react'
 
 import { MockedImagesDataType } from '@/app/data/image-slider/image-slider-data'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 
 export type ImageModel = {
   id: string | number
@@ -10,7 +11,7 @@ export type ImageModel = {
 }
 
 export type ImageSliderType = {
-  images: ImageModel[] | MockedImagesDataType
+  images: PostImageViewModel[] | MockedImagesDataType
   aspectRatio: '1/1' | '4/5' | '4/3' | '16/9'
   fitStyle: 'cover' | 'contain'
   width?: CSSProperties['width']
