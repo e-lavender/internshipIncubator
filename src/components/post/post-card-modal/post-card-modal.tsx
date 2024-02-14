@@ -67,7 +67,7 @@ export const PostCardModal = ({
       return closeCardModal()
     }
 
-    closeCardModal()
+    // closeCardModal()
   }
 
   return (

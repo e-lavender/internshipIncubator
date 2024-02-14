@@ -50,7 +50,7 @@ export const CommentsList = ({
           </div>
         )}
 
-        {comments.length ? (
+        {comments?.length ? (
           comments?.map(comment => <CommentsItem key={comment.id} {...comment} />)
         ) : (
           <Typography as={'h2'} variant={'h2'}>

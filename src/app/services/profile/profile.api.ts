@@ -83,4 +83,7 @@ export const {
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
   useGetPublicUserProfileByIdQuery,
+  util: { getRunningQueriesThunk },
 } = profileApi
+
+export const { getPublicUserProfileById } = profileApi.endpoints
