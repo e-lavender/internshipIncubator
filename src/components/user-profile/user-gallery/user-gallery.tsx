@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
 import Image from 'next/image'
@@ -7,18 +7,26 @@ import { useRouter } from 'next/router'
 import s from './user-gallery.module.scss'
 
 import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
-import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
-import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
+import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
 import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 
 type InterfaceType = { [ViewMode: string]: ReactElement }
 
-export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefined }) => {
+export const UserProfileGallery = ({
+  data,
+  userId,
+}: {
+  data: PublicPostsGetPostsByUser | undefined
+  userId: string | number | string[]
+}) => {
   const { isMobile } = useMatchMedia()
   const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
   const {
     _state: { post },
   } = useRtkStateHook()
+  const { query } = useRouter()
+  const postIdQuery = query.userId?.[1]
+  const postId = Number(postIdQuery)
 
   const isEditMode: boolean = post.mode === 'edit'
 
@@ -54,7 +62,23 @@ export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefin
     loader: clsx(s.card, isMobile && s.mobile, s.loader),
   }
 
-  console.log(data?.items)
+  const openPostModalHandler = (id: number) => {
+    openModal()
+    window.history.pushState(null, 'post', `/user-profile/${userId}/${id}`)
+  }
+
+  const closePostModalHandler = () => {
+    closeModal()
+    window.history.pushState(null, 'post', `/user-profile/${userId}`)
+  }
+
+  useEffect(() => {
+    if (postId) {
+      openModal()
+    }
+  }, [postId])
+
+  console.log(data)
 
   return (
     <>
@@ -63,7 +87,11 @@ export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefin
           data?.items.length > 0 &&
           data?.items.map((item, index) => (
             <>
-              <div key={index} className={styles.card} onClick={openModal}>
+              <div
+                key={index}
+                className={styles.card}
+                onClick={() => openPostModalHandler(item.id)}
+              >
                 <Image
                   src={item.images[0].url}
                   width={item.images[0].width}
@@ -73,7 +101,7 @@ export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefin
               </div>
               <PostCardModal
                 isOpen={isModalOpened}
-                onChange={closeModal}
+                onChange={() => closePostModalHandler()}
                 askConfirmation={isEditMode}
               >
                 <ImageSlider images={item.images} aspectRatio={'1/1'} fitStyle={'cover'} />

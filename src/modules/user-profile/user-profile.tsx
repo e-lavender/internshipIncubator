@@ -10,7 +10,10 @@ import {
   useGetPublicUserProfileByIdQuery,
 } from '@/app/services/profile/profile.api'
 import { PublicUserModel, UserProfileModel } from '@/app/services/profile/profile.api.types'
-import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
+import {
+  useGetPublicPostByIdQuery,
+  useGetPublicPostsByUserQuery,
+} from '@/app/services/public-posts/public-posts.api'
 import { UserProfileGallery } from '@/components'
 import { UserProfileDescription } from '@/modules'
 
@@ -20,17 +23,21 @@ export type UserProfileType = {
 
 export const UserProfile = () => {
   const { user } = useCheckAuthentication()
-  const router = useRouter()
-  const id = router.query.id || 1
+  const { query } = useRouter()
+  const id = query.id || 1
   const isMyProfile = user?.userId === id
+  const postIdQuery = query.userId?.[1]
+  const postId = Number(postIdQuery)
 
-  const { data: posts } = useGetPublicPostsByUserQuery({ userId: +id, pageSize: 4 })
-  const { data: authedUser } = useGetProfileQuery(undefined, { skip: !isMyProfile })
+  const { data: posts } = useGetPublicPostsByUserQuery({ userId: +id })
+  //const { data: authedUser } = useGetProfileQuery(undefined, { skip: !isMyProfile })
   const { data: publicUser } = useGetPublicUserProfileByIdQuery(
     { profileId: +id },
     { skip: isMyProfile }
   )
-  const currentData = isMyProfile ? authedUser : publicUser
+  const { data: postById } = useGetPublicPostByIdQuery({ postId }, { skip: !postId })
+
+  // const currentData = isMyProfile ? authedUser : publicUser
 
   useEffect(() => {
     function handleScroll() {
@@ -57,8 +64,8 @@ export const UserProfile = () => {
 
   return (
     <main className={s.container}>
-      <UserProfileDescription data={currentData} />
-      <UserProfileGallery data={posts} />
+      <UserProfileDescription data={publicUser} />
+      <UserProfileGallery data={posts} userId={id} />
     </main>
   )
 }
