@@ -26,7 +26,7 @@ export const UserProfile = () => {
   const { query } = useRouter()
   const id = query.id || 1
   const isMyProfile = user?.userId === id
-  const postIdQuery = query.userId?.[1]
+  const postIdQuery = query.id?.[1]
   const postId = Number(postIdQuery)
 
   const { data: posts } = useGetPublicPostsByUserQuery({ userId: +id })
@@ -38,7 +38,6 @@ export const UserProfile = () => {
   const { data: postById } = useGetPublicPostByIdQuery({ postId }, { skip: !postId })
 
   // const currentData = isMyProfile ? authedUser : publicUser
-
   useEffect(() => {
     function handleScroll() {
       // Проверяем, долистал ли пользователь до низа страницы

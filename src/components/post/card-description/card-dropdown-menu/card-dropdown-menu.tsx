@@ -1,6 +1,8 @@
 import { toast } from 'react-toastify'
 
 import { useDisclose, useRtkStateHook } from '@/app'
+import { profileApiUrls } from '@/app/constants'
+import { copyToClipboard } from '@/app/helpers/copyToClipboard'
 import { setEditMode } from '@/app/services/posts/posts.slice'
 import {
   AccountType,
@@ -14,7 +16,7 @@ import { DropdownMenu, MenuItem } from '@/ui'
 export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType }) => {
   const { isOpen: isModalOpened, onOpen: openModal, onClose: closeModal } = useDisclose()
   const { isOpen: isControlled, onToggle: closeDropdownMenu } = useDisclose(true)
-
+  const { usersProfile } = profileApiUrls
   const currentMenuVersion: Array<DropdownMenuItemType> = MENU_VERSION[account]
 
   const { _dispatch } = useRtkStateHook()
@@ -35,7 +37,9 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType 
     report: () => {},
     follow: () => {},
     unfollow: () => {},
-    copy: () => {},
+    copy: () => {
+      copyToClipboard(`${process.env.NEXT_PUBLIC_BASE_URL}${usersProfile}/${ownerId}/${id}`)
+    },
   }
 
   return (

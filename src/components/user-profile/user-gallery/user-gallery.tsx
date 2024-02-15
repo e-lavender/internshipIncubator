@@ -78,8 +78,6 @@ export const UserProfileGallery = ({
     }
   }, [postId])
 
-  console.log(data)
-
   return (
     <>
       <div className={styles.root}>
