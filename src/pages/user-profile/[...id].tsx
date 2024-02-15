@@ -13,7 +13,6 @@ import { UserProfile } from '@/modules/user-profile'
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
   const query = context.query
 
-  console.log('123', query)
   const profileId = Number(query.id?.[0])
   const postId = Number(query.id?.[1])
 

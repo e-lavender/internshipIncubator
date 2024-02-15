@@ -47,14 +47,16 @@ export const PostItem = ({ createdAt, images, description, userName }: Props) =>
         <Typography variant={'regular-14'}>
           {showMore ? description : `${description.substring(0, 90)}`}
         </Typography>
-        <Typography
-          as={'button'}
-          variant={'regular-14'}
-          className={s.button}
-          onClick={collapseHandler}
-        >
-          {showMore ? 'Hide' : 'Show more'}
-        </Typography>
+        {description.length > 90 && (
+          <Typography
+            as={'button'}
+            variant={'regular-14'}
+            className={s.button}
+            onClick={collapseHandler}
+          >
+            {showMore ? 'Hide' : 'Show more'}
+          </Typography>
+        )}
       </div>
     </div>
   )

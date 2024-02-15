@@ -38,7 +38,7 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType 
     follow: () => {},
     unfollow: () => {},
     copy: () => {
-      copyToClipboard(`${process.env.NEXT_PUBLIC_BASE_URL}${usersProfile}/${ownerId}/${id}`)
+      /*copyToClipboard(`${process.env.NEXT_PUBLIC_BASE_URL}${usersProfile}/${ownerId}/${id}`)*/
     },
   }
 
