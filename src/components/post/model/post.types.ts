@@ -16,12 +16,12 @@ export type CommentSpecificType = CommentCommonType & {
 export type PostTypes = {
   cardType?: 'regular' | 'xl'
   userName: string
-  account: AccountType
-  postdId: string
-  url: string
+  account?: AccountType
+  postdId?: string
+  url?: string
   description: string
   createdAt?: string
-  comments: CommentSpecificType[]
+  comments?: CommentSpecificType[]
 }
 
 export type PostCardModalType = {
@@ -38,9 +38,9 @@ export type PostCardModalType = {
 export type AccountType = 'personal' | 'public' | 'friend'
 
 export type CardHeaderType = {
-  url: string
+  url?: string
   userName: string
-  account: AccountType
+  account?: AccountType
   createdAt?: string
 }
 
@@ -82,5 +82,5 @@ export type RepliedCommentType = Omit<CommentType, 'replies'>
 export type PostCardXLType = {
   isVisible?: boolean
   isLoading?: boolean
-  account: AccountType
+  account?: AccountType
 } & PostTypes

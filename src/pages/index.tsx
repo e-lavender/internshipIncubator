@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { all } from 'deepmerge'
 import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'

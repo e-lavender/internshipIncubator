@@ -8,9 +8,13 @@ import s from './user-gallery.module.scss'
 
 import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
 import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
-import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
-
-type InterfaceType = { [ViewMode: string]: ReactElement }
+import {
+  EditModeInterface,
+  GalleryItem,
+  ImageSlider,
+  PostCardModal,
+  ViewModeInterface,
+} from '@/components'
 
 export const UserProfileGallery = ({
   data,
@@ -20,22 +24,7 @@ export const UserProfileGallery = ({
   userId: string | number | string[]
 }) => {
   const { isMobile } = useMatchMedia()
-  const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
-  const {
-    _state: { post },
-  } = useRtkStateHook()
-  const { query } = useRouter()
-  const postIdQuery = query.userId?.[1]
-  const postId = Number(postIdQuery)
 
-  const isEditMode: boolean = post.mode === 'edit'
-
-  const interfaces: InterfaceType = {
-    view: <ViewModeInterface />,
-    edit: <EditModeInterface />,
-  }
-
-  const CurrentInterface: ReactElement = interfaces[post.mode]
   // const trigger = useRef<HTMLDivElement>(null)
   // const { content, isLoading } = useInfiniteScroll(
   //   data?.items || GALLERY_DATA,
@@ -62,21 +51,7 @@ export const UserProfileGallery = ({
     loader: clsx(s.card, isMobile && s.mobile, s.loader),
   }
 
-  const openPostModalHandler = (id: number) => {
-    openModal()
-    window.history.pushState(null, 'post', `/user-profile/${userId}/${id}`)
-  }
-
-  const closePostModalHandler = () => {
-    closeModal()
-    window.history.pushState(null, 'post', `/user-profile/${userId}`)
-  }
-
-  useEffect(() => {
-    if (postId) {
-      openModal()
-    }
-  }, [postId])
+  console.log(data)
 
   return (
     <>
@@ -85,26 +60,17 @@ export const UserProfileGallery = ({
           data?.items.length > 0 &&
           data?.items.map((item, index) => (
             <>
-              <div
-                key={index}
-                className={styles.card}
-                onClick={() => openPostModalHandler(item.id)}
-              >
-                <Image
+              <div key={index} className={styles.card}>
+                <GalleryItem
                   src={item.images[0].url}
                   width={item.images[0].width}
                   height={item.images[0].height}
                   alt={`gallery image-${index}`}
+                  images={item.images}
+                  id={item.id}
+                  ownerId={item.ownerId}
                 />
               </div>
-              <PostCardModal
-                isOpen={isModalOpened}
-                onChange={() => closePostModalHandler()}
-                askConfirmation={isEditMode}
-              >
-                <ImageSlider images={item.images} aspectRatio={'1/1'} fitStyle={'cover'} />
-                {CurrentInterface}
-              </PostCardModal>
             </>
           ))}
 
