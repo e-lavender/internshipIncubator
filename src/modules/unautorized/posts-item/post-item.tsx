@@ -47,11 +47,11 @@ export const PostItem = ({ createdAt, images, description, userName, itemId, own
     <>
       <div className={s.post}>
         <div
-          className={`${s.photoBlock} ${showMore ? s.collapsePhotoBlock : ''}`}
+          className={`${s.photoBlock} ${showMore && s.collapsePhotoBlock}`}
           onClick={() => openPostModalHandler(itemId, ownerId)}
         >
           <Image
-            className={`${s.imageBlock} ${showMore ? s.collapseImageBlock : ''}`}
+            className={`${s.imageBlock} ${showMore && s.collapseImageBlock}`}
             src={images[0].url}
             alt={'image'}
             width={234}
