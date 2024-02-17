@@ -20,6 +20,7 @@ export const PostCardXL = (props: PostCardXLType) => {
     _state: { post },
   } = useRtkStateHook()
 
+  // @ts-ignore
   const isEditMode: boolean = post.mode === 'edit'
 
   const interfaces: InterfaceType = {
@@ -27,6 +28,7 @@ export const PostCardXL = (props: PostCardXLType) => {
     edit: <EditModeInterface {...props} />,
   }
 
+  // @ts-ignore
   const CurrentInterface: ReactElement = interfaces[post.mode]
 
   return (

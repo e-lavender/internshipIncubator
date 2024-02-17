@@ -1,4 +1,3 @@
-import { publicPostsApiUrls } from '@/app/constants/urls'
 import {
   getPublicUserProfileById,
   getRunningQueriesThunk,

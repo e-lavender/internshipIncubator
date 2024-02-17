@@ -18,8 +18,6 @@ export const PublicPosts = memo(({ data }: Props) => {
     return null
   }
 
-  console.log(data)
-
   return (
     <>
       <NumberOfUsers data={data} />

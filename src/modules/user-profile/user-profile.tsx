@@ -1,10 +1,12 @@
-import { useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
 import s from './user-profile.module.scss'
 
+import { useDisclose, useRtkStateHook } from '@/app'
 import { useCheckAuthentication } from '@/app/hooks/useCheckAuthentication'
+import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import {
   useGetProfileQuery,
   useGetPublicUserProfileByIdQuery,
@@ -14,28 +16,54 @@ import {
   useGetPublicPostByIdQuery,
   useGetPublicPostsByUserQuery,
 } from '@/app/services/public-posts/public-posts.api'
-import { UserProfileGallery } from '@/components'
+import {
+  EditModeInterface,
+  ImageSlider,
+  PostCardModal,
+  UserProfileGallery,
+  ViewModeInterface,
+} from '@/components'
 import { UserProfileDescription } from '@/modules'
 
 export type UserProfileType = {
   data?: UserProfileModel | PublicUserModel
 }
+type InterfaceType = { [ViewMode: string]: ReactElement }
 
 export const UserProfile = () => {
-  const { user } = useCheckAuthentication()
+  const { data: user } = useGetMeQuery()
   const { query } = useRouter()
   const id = query.id || 1
   const isMyProfile = user?.userId === id
+  const profileId = Number(query.id?.[0])
   const postIdQuery = query.id?.[1]
   const postId = Number(postIdQuery)
 
-  const { data: posts } = useGetPublicPostsByUserQuery({ userId: +id })
+  const { data: posts } = useGetPublicPostsByUserQuery({
+    userId: profileId,
+    pageSize: 12,
+  })
   //const { data: authedUser } = useGetProfileQuery(undefined, { skip: !isMyProfile })
   const { data: publicUser } = useGetPublicUserProfileByIdQuery(
-    { profileId: +id },
+    { profileId },
     { skip: isMyProfile }
   )
   const { data: postById } = useGetPublicPostByIdQuery({ postId }, { skip: !postId })
+  const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
+
+  const {
+    _state: { post },
+  } = useRtkStateHook()
+  // @ts-ignore
+  const isEditMode: boolean = post.mode === 'edit'
+
+  const interfaces: InterfaceType = {
+    view: <ViewModeInterface />,
+    edit: <EditModeInterface />,
+  }
+
+  // @ts-ignore
+  const CurrentInterface: ReactElement = interfaces[post.mode]
 
   // const currentData = isMyProfile ? authedUser : publicUser
   useEffect(() => {
@@ -61,10 +89,29 @@ export const UserProfile = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (postId) {
+      openModal()
+    }
+  }, [postId])
+
+  const closePostModalHandler = () => {
+    closeModal()
+    window.history.pushState(null, 'post', `/user-profile/${postById?.ownerId}`)
+  }
+
   return (
     <main className={s.container}>
       <UserProfileDescription data={publicUser} />
       <UserProfileGallery data={posts} userId={id} />
+      <PostCardModal
+        isOpen={isModalOpened}
+        onChange={() => closePostModalHandler()}
+        askConfirmation={isEditMode}
+      >
+        <ImageSlider images={postById?.images} aspectRatio={'1/1'} fitStyle={'cover'} />
+        {CurrentInterface}
+      </PostCardModal>
     </main>
   )
 }

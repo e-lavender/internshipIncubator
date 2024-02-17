@@ -51,8 +51,6 @@ export const UserProfileGallery = ({
     loader: clsx(s.card, isMobile && s.mobile, s.loader),
   }
 
-  console.log(data)
-
   return (
     <>
       <div className={styles.root}>

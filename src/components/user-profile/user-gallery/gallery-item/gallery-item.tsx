@@ -26,6 +26,7 @@ export const GalleryItem = ({ src, alt, images, id, ownerId, ...props }: Gallery
   const {
     _state: { post },
   } = useRtkStateHook()
+  // @ts-ignore
   const isEditMode: boolean = post.mode === 'edit'
 
   const interfaces: InterfaceType = {
@@ -33,6 +34,7 @@ export const GalleryItem = ({ src, alt, images, id, ownerId, ...props }: Gallery
     edit: <EditModeInterface />,
   }
 
+  // @ts-ignore
   const CurrentInterface: ReactElement = interfaces[post.mode]
   const openPostModalHandler = (id: number) => {
     openModal()
@@ -43,12 +45,6 @@ export const GalleryItem = ({ src, alt, images, id, ownerId, ...props }: Gallery
     closeModal()
     window.history.pushState(null, 'post', `/user-profile/${ownerId}`)
   }
-
-  useEffect(() => {
-    if (postId) {
-      openModal()
-    }
-  }, [postId])
 
   return (
     <>
