@@ -15,11 +15,11 @@ export type CommentSpecificType = CommentCommonType & {
 
 export type PostTypes = {
   cardType?: 'regular' | 'xl'
-  userName: string
+  userName?: string
   account?: AccountType
   postdId?: string
   url?: string
-  description: string
+  description?: string
   createdAt?: string
   comments?: CommentSpecificType[]
 }
@@ -39,7 +39,7 @@ export type AccountType = 'personal' | 'public' | 'friend'
 
 export type CardHeaderType = {
   url?: string
-  userName: string
+  userName?: string
   account?: AccountType
   createdAt?: string
 }

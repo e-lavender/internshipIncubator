@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import s from './post-item.module.scss'
 
 import { useDisclose } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { Avatar, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 import { Typography } from '@/ui'
@@ -20,21 +22,19 @@ type Props = {
 
 export const PostItem = ({ createdAt, images, description, userName, itemId, ownerId }: Props) => {
   const [showMore, setShowMore] = useState(false)
-  //const [collapse, setCollapse] = useState(false)
   const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
-
+  const { push } = useRouter()
   const collapseHandler = () => {
-    //setCollapse(!collapse)
     setShowMore(!showMore)
   }
 
   const openPostModalHandler = (itemId: number, ownerId: number) => {
     openModal()
-    window.history.pushState(null, 'post', `/user-profile/${ownerId}/${itemId}`)
+    void push(`/user-profile/${ownerId}/${itemId}`)
   }
   const closePostModalHandler = (ownerId: number) => {
     closeModal()
-    window.history.pushState(null, 'post', `/user-profile/${ownerId}`)
+    void push(`/user-profile/${ownerId}`)
   }
 
   const date = new Date(createdAt ? createdAt : '').toLocaleDateString('en-US', {

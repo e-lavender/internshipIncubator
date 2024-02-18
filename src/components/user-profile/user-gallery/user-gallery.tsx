@@ -57,19 +57,17 @@ export const UserProfileGallery = ({
         {data?.items &&
           data?.items.length > 0 &&
           data?.items.map((item, index) => (
-            <>
-              <div key={index} className={styles.card}>
-                <GalleryItem
-                  src={item.images[0].url}
-                  width={item.images[0].width}
-                  height={item.images[0].height}
-                  alt={`gallery image-${index}`}
-                  images={item.images}
-                  id={item.id}
-                  ownerId={item.ownerId}
-                />
-              </div>
-            </>
+            <div key={index} className={styles.card}>
+              <GalleryItem
+                src={item.images[0].url}
+                width={item.images[0].width}
+                height={item.images[0].height}
+                alt={`gallery image-${index}`}
+                images={item.images}
+                id={item.id}
+                ownerId={item.ownerId}
+              />
+            </div>
           ))}
 
         {/*{isLoading && (*/}

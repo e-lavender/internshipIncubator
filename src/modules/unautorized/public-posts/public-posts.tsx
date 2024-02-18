@@ -1,11 +1,8 @@
-import React, { memo, ReactElement } from 'react'
+import React, { memo } from 'react'
 
 import s from './public-posts.module.scss'
 
-import { useDisclose, useRtkStateHook } from '@/app'
-import { useGetPublicPostsQuery } from '@/app/services/public-posts/public-posts.api'
 import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
-import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 import { NumberOfUsers } from '@/modules/unautorized/number-of-users/number-of-users'
 import { PostItem } from '@/modules/unautorized/posts-item/post-item'
 

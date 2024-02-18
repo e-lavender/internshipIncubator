@@ -36,8 +36,7 @@ export const UserProfile = () => {
   const id = query.id || 1
   const isMyProfile = user?.userId === id
   const profileId = Number(query.id?.[0])
-  const postIdQuery = query.id?.[1]
-  const postId = Number(postIdQuery)
+  const postId = Number(query.id?.[1])
 
   const { data: posts } = useGetPublicPostsByUserQuery({
     userId: profileId,
@@ -45,8 +44,8 @@ export const UserProfile = () => {
   })
   //const { data: authedUser } = useGetProfileQuery(undefined, { skip: !isMyProfile })
   const { data: publicUser } = useGetPublicUserProfileByIdQuery(
-    { profileId },
-    { skip: isMyProfile }
+    { profileId }
+    /*{ skip: isMyProfile }*/
   )
   const { data: postById } = useGetPublicPostByIdQuery({ postId }, { skip: !postId })
   const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
@@ -56,14 +55,6 @@ export const UserProfile = () => {
   } = useRtkStateHook()
   // @ts-ignore
   const isEditMode: boolean = post.mode === 'edit'
-
-  const interfaces: InterfaceType = {
-    view: <ViewModeInterface />,
-    edit: <EditModeInterface />,
-  }
-
-  // @ts-ignore
-  const CurrentInterface: ReactElement = interfaces[post.mode]
 
   // const currentData = isMyProfile ? authedUser : publicUser
   useEffect(() => {
@@ -103,14 +94,18 @@ export const UserProfile = () => {
   return (
     <main className={s.container}>
       <UserProfileDescription data={publicUser} />
-      <UserProfileGallery data={posts} userId={id} />
+      <UserProfileGallery data={posts} userId={profileId} />
       <PostCardModal
         isOpen={isModalOpened}
         onChange={() => closePostModalHandler()}
         askConfirmation={isEditMode}
       >
         <ImageSlider images={postById?.images} aspectRatio={'1/1'} fitStyle={'cover'} />
-        {CurrentInterface}
+        <ViewModeInterface
+          description={postById?.description}
+          userName={postById?.userName}
+          createdAt={postById?.createdAt}
+        />
       </PostCardModal>
     </main>
   )

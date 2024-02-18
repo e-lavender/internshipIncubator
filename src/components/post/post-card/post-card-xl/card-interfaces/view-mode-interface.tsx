@@ -16,7 +16,7 @@ export const ViewModeInterface = (props: PostTypes) => {
       <CommentsList {...props} />
       <CardOptions />
       <CardInformation createdAt={'5 days ago'} />
-      {/*<AddComment />*/}
+      <AddComment />
     </div>
   )
 }
