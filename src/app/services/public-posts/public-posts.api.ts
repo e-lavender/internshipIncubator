@@ -24,30 +24,9 @@ export const publicPostsApi = commonApi.injectEndpoints({
       }),
       providesTags: ['Posts'],
     }),
-    getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
-      query: queryArg => ({
-        url: getPublicPostsByUserId({
-          endCursorPostId: queryArg.endCursorPostId,
-          userId: queryArg.userId,
-        }),
-        params: {
-          pageSize: queryArg.pageSize,
-          sortBy: queryArg.sortBy,
-          sortDirection: queryArg.sortDirection,
-        },
-      }),
-      providesTags: ['Posts'],
-    }),
-    getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
-      query: queryArg => ({
-        url: getPublicPostByUserId(queryArg.postId),
-      }),
-    }),
   }),
+
   overrideExisting: false,
 })
 
-export const { useGetPublicPostsQuery, useGetPublicPostsByUserQuery, useGetPublicPostByIdQuery } =
-  publicPostsApi
-
-export const { getPublicPostsByUser, getPublicPostById } = publicPostsApi.endpoints
+export const { useGetPublicPostsQuery } = publicPostsApi

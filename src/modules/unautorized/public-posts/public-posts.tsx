@@ -29,6 +29,7 @@ export const PublicPosts = memo(({ data }: Props) => {
                 description={item.description}
                 userName={item.userName}
                 itemId={item.id}
+                avatarOwner={item.avatarOwner}
                 ownerId={item.ownerId}
               />
             </div>

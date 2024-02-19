@@ -20,7 +20,7 @@ export const PostCard = (props: PostTypes) => {
 
   return (
     <Card className={s.container}>
-      <CardHeader {...props} url={'/assets/avatar/resized/4.jpg'} />
+      <CardHeader {...props} />
       <ImageSlider
         images={IMAGE_SLIDER_DATA.slice(ind1, ind2)}
         aspectRatio={'1/1'}
@@ -29,7 +29,6 @@ export const PostCard = (props: PostTypes) => {
       <CardOptions />
       <CardDescription
         {...props}
-        url={'/assets/avatar/resized/4.jpg'}
         description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, totam!'}
       />
       <CardInformation likes={315} cardType={'regular'} />
