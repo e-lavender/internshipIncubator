@@ -12,16 +12,16 @@ export type CreatePostResponse = {
   photoUrl: string
 }
 export type PostModel = {
-  id: number
-  userName: string
-  description: string
-  location: string
-  images: PostImage[]
-  createdAt: string
-  updatedAt: string
-  ownerId: number
-  avatarOwner: string
-  owner: PostModelOwner
+  id?: number
+  userName?: string
+  description?: string
+  location?: string
+  images?: PostImage[]
+  createdAt?: string
+  updatedAt?: string
+  ownerId?: number
+  avatarOwner?: string
+  owner?: PostModelOwner
 }
 export type PostImage = {
   url: string
@@ -48,4 +48,16 @@ export type CreatePostRequestChildrenMetadata = {
 }
 export type PostImages = {
   images: PostImage[]
+}
+
+export type CommentsType = {
+  id?: number
+  postId?: number
+  from?: {
+    id: number
+    username: string
+    avatars: [{}]
+  }
+  content?: string
+  createdAt?: string
 }

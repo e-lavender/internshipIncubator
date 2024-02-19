@@ -5,7 +5,7 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 
-import { store } from '@/app/store/store'
+import { wrapper, store } from '@/app/store/store'
 import { Toaster } from '@/components'
 import { WithHomePageLayout } from '@/templates'
 
@@ -17,7 +17,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
 
   return (
@@ -27,3 +27,4 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     </Provider>
   )
 }
+export default wrapper.withRedux(App)

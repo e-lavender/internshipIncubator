@@ -7,17 +7,26 @@ import { useDisclose, useRtkStateHook } from '@/app'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 
-type GalleryItemProps = {
+interface GalleryItemProps extends ImageProps {
   src: string
   alt?: string
   images: PostImageViewModel[]
   id: number
   ownerId: number
-} & ImageProps
+  userName: string
+}
 
 type InterfaceType = { [ViewMode: string]: ReactElement }
 
-export const GalleryItem = ({ src, alt, images, id, ownerId, ...props }: GalleryItemProps) => {
+export const GalleryItem = ({
+  src,
+  alt,
+  images,
+  id,
+  ownerId,
+  userName,
+  ...props
+}: GalleryItemProps) => {
   const { query } = useRouter()
   const postIdQuery = query.userId?.[1]
   const postId = Number(postIdQuery)
@@ -30,8 +39,8 @@ export const GalleryItem = ({ src, alt, images, id, ownerId, ...props }: Gallery
   const isEditMode: boolean = post.mode === 'edit'
 
   const interfaces: InterfaceType = {
-    view: <ViewModeInterface />,
-    edit: <EditModeInterface />,
+    view: <ViewModeInterface userName={userName} />,
+    edit: <EditModeInterface userName={userName} />,
   }
 
   // @ts-ignore

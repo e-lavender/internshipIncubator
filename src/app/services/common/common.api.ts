@@ -17,10 +17,12 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.BASE_API_URL,
   credentials: 'include',
   prepareHeaders: headers => {
-    const token = getFromSessionStorage('accessToken', null)
+    if (typeof window !== 'undefined') {
+      const token = getFromSessionStorage('accessToken', null)
 
-    if (token) {
-      headers.set('authorization', `Bearer ${token}`)
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
     }
 
     return headers
@@ -70,13 +72,14 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       result = await baseQuery(args, api, extraOptions)
     }
   }
-
-  // eslint-disable-next-line no-prototype-builtins
-  if ((result?.data as { accessToken?: string })?.hasOwnProperty('accessToken')) {
-    setToSessionStorage('accessToken', (result.data as { accessToken: string }).accessToken)
-  }
-  if (result?.meta?.request.url === process.env.BASE_API_URL + signOut()) {
-    sessionStorage.removeItem('accessToken')
+  if (typeof window !== 'undefined') {
+    // eslint-disable-next-line no-prototype-builtins
+    if ((result?.data as { accessToken?: string })?.hasOwnProperty('accessToken')) {
+      setToSessionStorage('accessToken', (result.data as { accessToken: string }).accessToken)
+    }
+    if (result?.meta?.request.url === process.env.BASE_API_URL + signOut()) {
+      sessionStorage.removeItem('accessToken')
+    }
   }
 
   return result

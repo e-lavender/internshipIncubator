@@ -8,9 +8,9 @@ import { CardDescription } from '@/components'
 import { Button, TextArea } from '@/ui'
 
 type EditModeInterfaceProps = {
-  userName: string
+  userName?: string
   url?: string
-  description: string
+  description?: string
   isLoading?: boolean
 }
 
@@ -42,7 +42,7 @@ export const EditModeInterface = ({
 
   return (
     <div className={s.edit}>
-      <CardDescription userName={userName} url={url} isLoading={isLoading} />
+      <CardDescription userName={userName} />
 
       <form className={s.form} onSubmit={saveEditedDescription}>
         <TextArea

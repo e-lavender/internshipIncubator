@@ -18,9 +18,18 @@ type Props = {
   userName: string
   itemId: number
   ownerId: number
+  avatarOwner?: string
 }
 
-export const PostItem = ({ createdAt, images, description, userName, itemId, ownerId }: Props) => {
+export const PostItem = ({
+  createdAt,
+  images,
+  description,
+  userName,
+  itemId,
+  ownerId,
+  avatarOwner,
+}: Props) => {
   const [showMore, setShowMore] = useState(false)
   const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
   const { push } = useRouter()
@@ -59,7 +68,7 @@ export const PostItem = ({ createdAt, images, description, userName, itemId, own
           />
         </div>
         <div className={s.header}>
-          <Avatar width={36} height={36} />
+          <Avatar width={36} height={36} src={avatarOwner} />
           <div className={s.footerInfo}>
             <Typography variant="h3">{userName}</Typography>
           </div>
@@ -85,7 +94,12 @@ export const PostItem = ({ createdAt, images, description, userName, itemId, own
       </div>
       <PostCardModal isOpen={isModalOpened} onChange={() => closePostModalHandler(ownerId)}>
         <ImageSlider images={images} aspectRatio={'1/1'} fitStyle={'cover'} />
-        <ViewModeInterface description={description} userName={userName} createdAt={createdAt} />
+        <ViewModeInterface
+          description={description}
+          userName={userName}
+          createdAt={createdAt}
+          avatarOwner={avatarOwner}
+        />
       </PostCardModal>
     </>
   )

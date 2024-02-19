@@ -10,7 +10,7 @@ import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescription, UserProfileType } from '@/modules'
 import { Button, Typography } from '@/ui'
 
-export const UserProfileDescription = ({ data }: UserProfileType) => {
+export const UserProfileDescription = ({ data }: UserProfileType, isMyProfile: boolean) => {
   const { isMobile } = useMatchMedia()
 
   const { t } = useTranslation()
@@ -35,9 +35,11 @@ export const UserProfileDescription = ({ data }: UserProfileType) => {
             <CheckedIcon />
           </div>
 
-          <Button as={Link} href={menuNavigation.settings()} variant={'secondary'}>
-            {profile.btn.label}
-          </Button>
+          {isMyProfile && (
+            <Button as={Link} href={menuNavigation.settings()} variant={'secondary'}>
+              {profile.btn.label}
+            </Button>
+          )}
         </div>
 
         <UserStatistics />

@@ -5,30 +5,20 @@ import { useRouter } from 'next/router'
 import s from './user-profile.module.scss'
 
 import { useDisclose, useRtkStateHook } from '@/app'
-import { useCheckAuthentication } from '@/app/hooks/useCheckAuthentication'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import {
   useGetProfileQuery,
+  useGetPublicPostByIdQuery,
+  useGetPublicPostsByUserQuery,
   useGetPublicUserProfileByIdQuery,
 } from '@/app/services/profile/profile.api'
 import { PublicUserModel, UserProfileModel } from '@/app/services/profile/profile.api.types'
-import {
-  useGetPublicPostByIdQuery,
-  useGetPublicPostsByUserQuery,
-} from '@/app/services/public-posts/public-posts.api'
-import {
-  EditModeInterface,
-  ImageSlider,
-  PostCardModal,
-  UserProfileGallery,
-  ViewModeInterface,
-} from '@/components'
+import { ImageSlider, PostCardModal, UserProfileGallery, ViewModeInterface } from '@/components'
 import { UserProfileDescription } from '@/modules'
 
 export type UserProfileType = {
   data?: UserProfileModel | PublicUserModel
 }
-type InterfaceType = { [ViewMode: string]: ReactElement }
 
 export const UserProfile = () => {
   const { data: user } = useGetMeQuery()
@@ -40,13 +30,12 @@ export const UserProfile = () => {
 
   const { data: posts } = useGetPublicPostsByUserQuery({
     userId: profileId,
-    pageSize: 12,
+    pageSize: 4,
   })
-  //const { data: authedUser } = useGetProfileQuery(undefined, { skip: !isMyProfile })
-  const { data: publicUser } = useGetPublicUserProfileByIdQuery(
-    { profileId }
-    /*{ skip: isMyProfile }*/
-  )
+  const { data: authedUser } = useGetProfileQuery(undefined, { skip: !isMyProfile })
+  const { data: publicUser } = useGetPublicUserProfileByIdQuery({ profileId })
+  /*{ skip: isMyProfile }*/
+
   const { data: postById } = useGetPublicPostByIdQuery({ postId }, { skip: !postId })
   const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
 
@@ -93,7 +82,7 @@ export const UserProfile = () => {
 
   return (
     <main className={s.container}>
-      <UserProfileDescription data={publicUser} />
+      <UserProfileDescription data={publicUser} isMyProfile={isMyProfile} />
       <UserProfileGallery data={posts} userId={profileId} />
       <PostCardModal
         isOpen={isModalOpened}

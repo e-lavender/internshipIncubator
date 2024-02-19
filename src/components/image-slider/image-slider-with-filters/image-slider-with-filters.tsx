@@ -20,6 +20,10 @@ export const ImageSliderWithFilters = ({
 
   const dispatch = useAppDispatch()
 
+  if (!images) {
+    return null
+  }
+
   const { url, id, filter } = images[imageIndex]
 
   const onFilterChange = (filter: string) => {
@@ -36,7 +40,7 @@ export const ImageSliderWithFilters = ({
       }}
     >
       <div className={s.images}>
-        {images.map(image => (
+        {images?.map(image => (
           <div
             key={image.id}
             style={{ translate: `${-100 * imageIndex}%`, filter: image.filter }}

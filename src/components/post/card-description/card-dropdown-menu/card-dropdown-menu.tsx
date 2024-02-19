@@ -13,7 +13,7 @@ import {
 } from '@/components'
 import { DropdownMenu, MenuItem } from '@/ui'
 
-export const CardDropdownMenu = ({ account = 'friend' }: { account: AccountType }) => {
+export const CardDropdownMenu = ({ account = 'friend' }: { account?: AccountType }) => {
   const { isOpen: isModalOpened, onOpen: openModal, onClose: closeModal } = useDisclose()
   const { isOpen: isControlled, onToggle: closeDropdownMenu } = useDisclose(true)
   const { usersProfile } = profileApiUrls

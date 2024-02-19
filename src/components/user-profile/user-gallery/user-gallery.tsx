@@ -66,6 +66,7 @@ export const UserProfileGallery = ({
                 images={item.images}
                 id={item.id}
                 ownerId={item.ownerId}
+                userName={item.userName}
               />
             </div>
           ))}
