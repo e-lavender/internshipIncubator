@@ -1,13 +1,12 @@
 import { ReactElement } from 'react'
 
 import { useDisclose, useRtkStateHook } from '@/app'
-import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
 import {
-  PostCardModal,
+  EditModeInterface,
   ImageSlider,
+  PostCardModal,
   PostCardXLType,
   ViewModeInterface,
-  EditModeInterface,
 } from '@/components'
 import { Button } from '@/ui'
 
@@ -20,6 +19,7 @@ export const PostCardXL = (props: PostCardXLType) => {
     _state: { post },
   } = useRtkStateHook()
 
+  // @ts-ignore
   const isEditMode: boolean = post.mode === 'edit'
 
   const interfaces: InterfaceType = {
@@ -27,6 +27,7 @@ export const PostCardXL = (props: PostCardXLType) => {
     edit: <EditModeInterface {...props} />,
   }
 
+  // @ts-ignore
   const CurrentInterface: ReactElement = interfaces[post.mode]
 
   return (
@@ -39,11 +40,7 @@ export const PostCardXL = (props: PostCardXLType) => {
         askConfirmation={isEditMode}
         isModified={!isEditMode}
       >
-        <ImageSlider
-          images={IMAGE_SLIDER_DATA.slice(0, 4)}
-          aspectRatio={'1/1'}
-          fitStyle={'cover'}
-        />
+        <ImageSlider images={[]} aspectRatio={'1/1'} fitStyle={'cover'} />
 
         {CurrentInterface}
       </PostCardModal>

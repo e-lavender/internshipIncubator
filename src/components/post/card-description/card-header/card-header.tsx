@@ -1,18 +1,19 @@
 import s from './card-header.module.scss'
 
-import { Avatar, CardHeaderType, CardDropdownMenu } from '@/components'
+import { PostModel } from '@/app/services/posts/posts.types'
+import { Avatar, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
 
 export const CardHeader = ({
-  url = '/assets/avatar/resized/4.jpg',
-  userName = 'Viki',
-  account = 'personal',
-  createdAt = '1 week ago',
-}: CardHeaderType) => {
+  avatarOwner,
+  userName,
+  //account = 'personal',
+  createdAt,
+}: PostModel) => {
   return (
     <header className={s.header}>
       <div className={s.user}>
-        <Avatar src={url} width={36} height={36} iconScale={0.6} />
+        <Avatar src={avatarOwner} width={36} height={36} iconScale={0.6} />
         <Typography as={'h3'} variant={'h3'}>
           {userName}
         </Typography>
@@ -27,7 +28,7 @@ export const CardHeader = ({
         )}
       </div>
 
-      <CardDropdownMenu account={account} />
+      <CardDropdownMenu />
     </header>
   )
 }

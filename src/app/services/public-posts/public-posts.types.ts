@@ -49,6 +49,9 @@ export type PostViewModel = {
   owner: Owner
 }
 export type PostImageViewModel = {
+  id: number
+  alt: string
+  filter?: string
   url: string
   width: number
   height: number
