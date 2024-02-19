@@ -6,6 +6,7 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
+import { HYDRATE } from 'next-redux-wrapper'
 
 import { authApiUrls } from '@/app/constants'
 import { getFromSessionStorage, setToSessionStorage } from '@/app/utils'
@@ -85,5 +86,10 @@ export const commonApi = createApi({
   reducerPath: 'commonApi',
   baseQuery: baseQueryWithReauth,
   tagTypes: ['ME', 'Profile', 'Posts'],
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath]
+    }
+  },
   endpoints: () => ({}),
 })
