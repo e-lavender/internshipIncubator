@@ -21,11 +21,7 @@ export const PostCard = (props: PostTypes) => {
   return (
     <Card className={s.container}>
       <CardHeader {...props} />
-      <ImageSlider
-        images={IMAGE_SLIDER_DATA.slice(ind1, ind2)}
-        aspectRatio={'1/1'}
-        fitStyle={'cover'}
-      />
+      <ImageSlider images={[]} aspectRatio={'1/1'} fitStyle={'cover'} />
       <CardOptions />
       <CardDescription
         {...props}

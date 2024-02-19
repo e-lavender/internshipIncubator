@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -18,6 +18,7 @@ import { UserProfileDescription } from '@/modules'
 
 export type UserProfileType = {
   data?: UserProfileModel | PublicUserModel
+  isMyProfile: boolean
 }
 
 export const UserProfile = () => {

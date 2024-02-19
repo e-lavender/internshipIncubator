@@ -36,7 +36,7 @@ const Home = () => {
         <PostCard
           cardType={'regular'}
           url={'/assets/avatar/resized/4.jpf'}
-          postdId={23}
+          postdId={'23'}
           userName={'Vikki'}
           account={'public'}
           description={''}
@@ -51,7 +51,7 @@ const Home = () => {
           account={'friend'}
           description={''}
           comments={[]}
-          postdId={22}
+          postdId={'22'}
         />
 
         <h2 style={{ margin: '1em', textAlign: 'center' }}>

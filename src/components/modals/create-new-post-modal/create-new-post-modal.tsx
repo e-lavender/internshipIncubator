@@ -58,12 +58,12 @@ export const CreateNewPostModal = () => {
 
     await Promise.all(imagePromises)
 
-    // @ts-ignore
     uploadImages(formData)
       .unwrap()
       .then(res => {
         const imagesMetaData: CreatePostRequestChildrenMetadata[] = []
 
+        debugger
         res.images.map(image => {
           imagesMetaData.push({ uploadId: image.uploadId })
         })

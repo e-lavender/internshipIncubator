@@ -1,13 +1,12 @@
 import { ReactElement } from 'react'
 
 import { useDisclose, useRtkStateHook } from '@/app'
-import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
 import {
-  PostCardModal,
+  EditModeInterface,
   ImageSlider,
+  PostCardModal,
   PostCardXLType,
   ViewModeInterface,
-  EditModeInterface,
 } from '@/components'
 import { Button } from '@/ui'
 
@@ -41,11 +40,7 @@ export const PostCardXL = (props: PostCardXLType) => {
         askConfirmation={isEditMode}
         isModified={!isEditMode}
       >
-        <ImageSlider
-          images={IMAGE_SLIDER_DATA.slice(0, 4)}
-          aspectRatio={'1/1'}
-          fitStyle={'cover'}
-        />
+        <ImageSlider images={[]} aspectRatio={'1/1'} fitStyle={'cover'} />
 
         {CurrentInterface}
       </PostCardModal>
