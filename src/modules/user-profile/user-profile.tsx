@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import s from './user-profile.module.scss'
 
-import { useCheckAuthentication } from '@/app/hooks/useCheckAuthentication'
+import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import {
   useGetProfileQuery,
   useGetPublicUserProfileByIdQuery,
@@ -19,7 +19,7 @@ export type UserProfileType = {
 }
 
 export const UserProfile = () => {
-  const { user } = useCheckAuthentication()
+  const { data: user } = useGetMeQuery()
   const router = useRouter()
   const id = router.query.id || 1
   const isMyProfile = user?.userId === id
@@ -60,7 +60,7 @@ export const UserProfile = () => {
       className={s.container}
     >
       <UserProfileDescription data={currentData} />
-      <UserProfileGallery data={posts} />
+      <UserProfileGallery data={posts} isMyProfile />
     </main>
   )
 }
