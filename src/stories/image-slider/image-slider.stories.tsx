@@ -1,13 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
 import { ImageSlider } from '@/components'
 
 const meta = {
   title: 'Components/ImageSlider',
   component: ImageSlider,
   tags: ['autodocs'],
-  args: { images: IMAGE_SLIDER_DATA },
+  args: { images: [] },
   parameters: {
     controls: {
       exclude: /(?:\b|')(images)(?:\b|')/g,

@@ -4,13 +4,12 @@ import s from './user-profile-description.module.scss'
 
 import { CheckedIcon, useMatchMedia, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
-import { PublicUserModel } from '@/app/services/profile/profile.api.types'
 import { Avatar } from '@/components'
 import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescription, UserProfileType } from '@/modules'
 import { Button, Typography } from '@/ui'
 
-export const UserProfileDescription = ({ data }: UserProfileType) => {
+export const UserProfileDescription = ({ data, isMyProfile }: UserProfileType) => {
   const { isMobile } = useMatchMedia()
 
   const { t } = useTranslation()
@@ -23,7 +22,7 @@ export const UserProfileDescription = ({ data }: UserProfileType) => {
   return (
     <div className={s.container}>
       <div className={s.avatar}>
-        <Avatar src={data?.avatars[0].url} />
+        <Avatar src={data?.avatars[0]?.url} />
       </div>
 
       <div className={s.profile}>
@@ -35,9 +34,11 @@ export const UserProfileDescription = ({ data }: UserProfileType) => {
             <CheckedIcon />
           </div>
 
-          <Button as={Link} href={menuNavigation.settings()} variant={'secondary'}>
-            {profile.btn.label}
-          </Button>
+          {isMyProfile && (
+            <Button as={Link} href={menuNavigation.settings()} variant={'secondary'}>
+              {profile.btn.label}
+            </Button>
+          )}
         </div>
 
         <UserStatistics />

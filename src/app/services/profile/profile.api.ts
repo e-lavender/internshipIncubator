@@ -1,4 +1,5 @@
 import { profileApiUrls } from '@/app/constants'
+import { publicPostsApiUrls } from '@/app/constants/urls'
 import { commonApi } from '@/app/services/common/common.api'
 import {
   PublicUserModel,
@@ -6,8 +7,15 @@ import {
   UploadAvatarResponse,
   UserProfileModel,
 } from '@/app/services/profile/profile.api.types'
+import {
+  PublicPostsGetPost,
+  PublicPostsGetPostArg,
+  PublicPostsGetPostsByUser,
+  PublicPostsGetPostsByUserArg,
+} from '@/app/services/public-posts/public-posts.types'
 
 const { usersProfile, usersAvatar, usersProfileById, publicUserById } = profileApiUrls
+const { getPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
 
 export const profileApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -71,6 +79,26 @@ export const profileApi = commonApi.injectEndpoints({
         }
       },
     }),
+    getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
+      query: queryArg => ({
+        url: getPublicPostsByUserId({
+          endCursorPostId: queryArg.endCursorPostId,
+          userId: queryArg.userId,
+        }),
+        params: {
+          pageSize: queryArg.pageSize,
+          sortBy: queryArg.sortBy,
+          sortDirection: queryArg.sortDirection,
+        },
+      }),
+      providesTags: ['Posts'],
+    }),
+    getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
+      query: queryArg => ({
+        url: getPublicPostByUserId(queryArg.postId),
+      }),
+      providesTags: ['Posts'],
+    }),
   }),
 })
 
@@ -83,4 +111,10 @@ export const {
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
   useGetPublicUserProfileByIdQuery,
+  useGetPublicPostsByUserQuery,
+  useGetPublicPostByIdQuery,
+  util: { getRunningQueriesThunk },
 } = profileApi
+
+export const { getPublicUserProfileById, getPublicPostsByUser, getPublicPostById } =
+  profileApi.endpoints

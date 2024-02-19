@@ -4,12 +4,22 @@ import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
+import { useGetPublicPostsQuery } from '@/app/services/public-posts/public-posts.api'
+import { PublicPostsGetAllArg } from '@/app/services/public-posts/public-posts.types'
 import { LoaderV2, POST_COMMENTS, PostCard, PostCardXL } from '@/components'
+
+const postDataArg: PublicPostsGetAllArg = {
+  pageSize: 8,
+  sortBy: '',
+  sortDirection: 'desc',
+}
 
 const Home = () => {
   const { data: me, isLoading } = useGetMeQuery()
   const { push } = useRouter()
+  const { data: allUsersPostsData } = useGetPublicPostsQuery(postDataArg)
 
+  console.log(allUsersPostsData)
   if (isLoading) {
     return <LoaderV2 isLoading={isLoading} />
   }

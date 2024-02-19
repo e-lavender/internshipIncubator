@@ -1,14 +1,20 @@
-import { useEffect } from 'react'
+import React from 'react'
 
 import { clsx } from 'clsx'
-import Image from 'next/image'
 
 import s from './user-gallery.module.scss'
 
 import { useMatchMedia } from '@/app'
-import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
+import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
+import { GalleryItem } from '@/components'
 
-export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefined }) => {
+export const UserProfileGallery = ({
+  data,
+  userId,
+}: {
+  data: PublicPostsGetPostsByUser | undefined
+  userId: string | number | string[]
+}) => {
   const { isMobile } = useMatchMedia()
 
   // const trigger = useRef<HTMLDivElement>(null)
@@ -44,11 +50,15 @@ export const UserProfileGallery = ({ data }: { data: PublicPostsGetAll | undefin
           data?.items.length > 0 &&
           data?.items.map((item, index) => (
             <div key={index} className={styles.card}>
-              <Image
+              <GalleryItem
                 src={item.images[0].url}
-                width={item.images[0].width}
-                height={item.images[0].height}
+                width={50}
+                height={50}
                 alt={`gallery image-${index}`}
+                images={item.images}
+                id={item.id}
+                ownerId={item.ownerId}
+                userName={item.userName}
               />
             </div>
           ))}

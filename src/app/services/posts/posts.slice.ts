@@ -17,7 +17,7 @@ const post = createSlice({
     setEditMode(state) {
       state.mode = 'edit'
     },
-    compareDescriptionVersions(state, action: PayloadAction<{ initial: string; final: string }>) {
+    compareDescriptionVersions(state, action: PayloadAction<{ initial?: string; final: string }>) {
       const { initial, final } = action.payload
 
       state.isEdited = initial !== final

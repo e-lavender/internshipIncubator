@@ -9,7 +9,7 @@ import {
   PublicPostsGetPostsByUserArg,
 } from '@/app/services/public-posts/public-posts.types'
 
-const { getPublicPosts, getPublicPostsByUser, getPublicPostById } = publicPostsApiUrls
+const { getPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
 
 export const publicPostsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -22,29 +22,11 @@ export const publicPostsApi = commonApi.injectEndpoints({
           sortDirection: queryArg.sortDirection,
         },
       }),
-    }),
-    getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
-      query: queryArg => ({
-        url: getPublicPostsByUser({
-          endCursorPostId: queryArg.endCursorPostId,
-          userId: queryArg.userId,
-        }),
-        params: {
-          pageSize: queryArg.pageSize,
-          sortBy: queryArg.sortBy,
-          sortDirection: queryArg.sortDirection,
-        },
-      }),
       providesTags: ['Posts'],
     }),
-    getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
-      query: queryArg => ({
-        url: getPublicPostById(queryArg.postId),
-      }),
-    }),
   }),
+
   overrideExisting: false,
 })
 
-export const { useGetPublicPostsQuery, useGetPublicPostsByUserQuery, useGetPublicPostByIdQuery } =
-  publicPostsApi
+export const { useGetPublicPostsQuery } = publicPostsApi

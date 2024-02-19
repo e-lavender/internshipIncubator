@@ -27,16 +27,16 @@ export const ImageSlider = ({
       imageIndex={imageIndex}
       setImageIndex={setImageIndex}
     >
-      {images.map(image => (
+      {images.map((image, index) => (
         <div
-          key={image.id}
+          key={index}
           style={{
             translate: `${-100 * imageIndex}%`,
             filter: image.filter,
           }}
           className={clsx(s.imageSlider, s[fitStyle])}
         >
-          <Image objectFit={fitStyle} fill src={image.url} alt={image.alt} />
+          <Image objectFit={fitStyle} fill src={image.url} alt={'image'} />
         </div>
       ))}
     </ImageSliderContainer>

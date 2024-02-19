@@ -23,7 +23,7 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
       <header className={s.container}>
         <Link href="/">
           <Typography as="span" variant="large">
-            Inctagram
+            Проект на последнем издыхании
           </Typography>
         </Link>
 
