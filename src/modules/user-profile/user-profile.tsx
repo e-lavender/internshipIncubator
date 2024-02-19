@@ -82,7 +82,7 @@ export const UserProfile = () => {
 
   return (
     <main className={s.container}>
-      <UserProfileDescription data={publicUser} isMyProfile={isMyProfile} />
+      <UserProfileDescription data={publicUser} />
       <UserProfileGallery data={posts} userId={profileId} />
       <PostCardModal
         isOpen={isModalOpened}

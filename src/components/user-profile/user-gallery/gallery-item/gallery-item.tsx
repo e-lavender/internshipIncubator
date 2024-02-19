@@ -9,7 +9,7 @@ import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from
 
 interface GalleryItemProps extends ImageProps {
   src: string
-  alt?: string
+  alt: string
   images: PostImageViewModel[]
   id: number
   ownerId: number
