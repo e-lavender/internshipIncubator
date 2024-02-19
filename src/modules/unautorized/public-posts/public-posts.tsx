@@ -11,8 +11,6 @@ type Props = {
 }
 
 export const PublicPosts = memo(({ data }: Props) => {
-  //const { data } = useGetPublicPostsQuery()    I will need it later
-
   if (!data) {
     return null
   }
@@ -21,10 +19,20 @@ export const PublicPosts = memo(({ data }: Props) => {
     <>
       <NumberOfUsers data={data} />
       <div className={s.posts}>
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
+        {data?.items &&
+          data?.items.length > 0 &&
+          data?.items.map((item, index) => (
+            <div key={index}>
+              <PostItem
+                createdAt={item.createdAt}
+                images={item.images}
+                description={item.description}
+                userName={item.userName}
+                itemId={item.id}
+                ownerId={item.ownerId}
+              />
+            </div>
+          ))}
       </div>
     </>
   )

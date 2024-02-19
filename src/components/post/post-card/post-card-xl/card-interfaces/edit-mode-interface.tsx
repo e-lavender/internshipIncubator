@@ -9,7 +9,7 @@ import { Button, TextArea } from '@/ui'
 
 type EditModeInterfaceProps = {
   userName: string
-  url: string
+  url?: string
   description: string
   isLoading?: boolean
 }

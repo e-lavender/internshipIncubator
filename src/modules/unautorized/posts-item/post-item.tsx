@@ -1,54 +1,92 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import s from './post-item.module.scss'
 
-import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
-import { Avatar, ImageSlider } from '@/components'
+import { useDisclose } from '@/app'
+import { menuNavigation } from '@/app/constants'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
+import { Avatar, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 import { Typography } from '@/ui'
 
-export const PostItem = () => {
-  const [showMore, setShowMore] = useState(false)
-  const [collapse, setCollapse] = useState(false)
-  const text =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing elit. Donec vitae neque euismod, vulputate metus vel, semper erat. Aliquam vestibulum maximus fermentum. Aliquam vestibulum maximus fermentum. Aliquam vestibulum maximus fermentum.'
+type Props = {
+  createdAt: string
+  images: PostImageViewModel[]
+  description: string
+  userName: string
+  itemId: number
+  ownerId: number
+}
 
+export const PostItem = ({ createdAt, images, description, userName, itemId, ownerId }: Props) => {
+  const [showMore, setShowMore] = useState(false)
+  const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
+  const { push } = useRouter()
   const collapseHandler = () => {
-    setCollapse(!collapse)
     setShowMore(!showMore)
   }
 
+  const openPostModalHandler = (itemId: number, ownerId: number) => {
+    openModal()
+    void push(`/user-profile/${ownerId}/${itemId}`)
+  }
+  const closePostModalHandler = (ownerId: number) => {
+    closeModal()
+    void push(`/user-profile/${ownerId}`)
+  }
+
+  const date = new Date(createdAt ? createdAt : '').toLocaleDateString('en-US', {
+    year: 'numeric',
+    day: '2-digit',
+    month: 'long',
+  })
+
   return (
-    <div className={s.post}>
-      <div className={collapse ? s.collapsePhoto : s.photo}>
-        <ImageSlider
-          images={IMAGE_SLIDER_DATA.slice(1, 3)}
-          aspectRatio={'1/1'}
-          fitStyle={'cover'}
-          width={234}
-        />
-      </div>
-      <div className={s.header}>
-        <Avatar width={36} height={36} />
-        <div className={s.footerInfo}>
-          <Typography variant="h3">URLProfile</Typography>
+    <>
+      <div className={s.post}>
+        <div
+          className={`${s.photoBlock} ${showMore && s.collapsePhotoBlock}`}
+          onClick={() => openPostModalHandler(itemId, ownerId)}
+        >
+          <Image
+            className={`${s.imageBlock} ${showMore && s.collapseImageBlock}`}
+            src={images[0].url}
+            alt={'image'}
+            width={234}
+            height={240}
+          />
+        </div>
+        <div className={s.header}>
+          <Avatar width={36} height={36} />
+          <div className={s.footerInfo}>
+            <Typography variant="h3">{userName}</Typography>
+          </div>
+        </div>
+        <Typography className={s.status} variant={'small'}>
+          {date}
+        </Typography>
+        <div>
+          <Typography variant={'regular-14'}>
+            {showMore ? description : `${description.substring(0, 90)}`}
+          </Typography>
+          {description.length > 90 && (
+            <Typography
+              as={'button'}
+              variant={'regular-14'}
+              className={s.button}
+              onClick={collapseHandler}
+            >
+              {showMore ? 'Hide' : 'Show more'}
+            </Typography>
+          )}
         </div>
       </div>
-      <Typography className={s.status} variant={'small'}>
-        22 min ago
-      </Typography>
-      <div className={s.desc}>
-        <Typography variant={'regular-14'}>
-          {showMore ? text : `${text.substring(0, 90)}`}
-        </Typography>
-        <Typography
-          as={'button'}
-          variant={'regular-14'}
-          className={s.button}
-          onClick={collapseHandler}
-        >
-          {showMore ? 'Hide' : 'Show more'}
-        </Typography>
-      </div>
-    </div>
+      <PostCardModal isOpen={isModalOpened} onChange={() => closePostModalHandler(ownerId)}>
+        <ImageSlider images={images} aspectRatio={'1/1'} fitStyle={'cover'} />
+        <ViewModeInterface description={description} userName={userName} createdAt={createdAt} />
+      </PostCardModal>
+    </>
   )
 }
