@@ -40,12 +40,14 @@ export const ImageSliderWithCropper = ({
   //TODO as unknown as string was added to fix TS Error
   const onCrop = async () => {
     if (croppedAreaPixels) {
-      const croppedImage = (await getCroppedAndFilteredImage(
-        images[imageIndex].url,
-        croppedAreaPixels
-      )) as unknown as string
+      const croppedImage = await getCroppedAndFilteredImage({
+        imageSrc: images[imageIndex].url,
+        pixelCrop: croppedAreaPixels,
+      })
 
-      _dispatch(addCroppedImage({ index: imageIndex, croppedImage }))
+      if (croppedImage?.objectUrl) {
+        _dispatch(addCroppedImage({ index: imageIndex, croppedImage: croppedImage.objectUrl }))
+      }
     }
   }
 

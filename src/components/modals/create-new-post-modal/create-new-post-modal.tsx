@@ -44,12 +44,15 @@ export const CreateNewPostModal = () => {
     setIsLoading(true)
 
     const imagePromises = selectedImages.map(async image => {
-      const filteredImage = await getCroppedAndFilteredImage(image.url, null, image.filter)
+      const filteredImage = await getCroppedAndFilteredImage({
+        imageSrc: image.url,
+        pixelCrop: null,
+        filter: image.filter,
+      })
 
-      if (!filteredImage) {
-        return null
-      }
-      const blob = new Blob([filteredImage], { type: 'image/jpeg' })
+      if (!filteredImage?.unit8array) return null
+
+      const blob = new Blob([filteredImage.unit8array], { type: 'image/jpeg' })
 
       formData.append(`file`, blob)
 
@@ -67,7 +70,9 @@ export const CreateNewPostModal = () => {
         res.images.map(image => {
           imagesMetaData.push({ uploadId: image.uploadId })
         })
+
         addPost({ description: postDescription, childrenMetadata: imagesMetaData })
+        dispatch(resetImagesToDefaultState())
       })
       .catch((error: ErrorWithData) => {
         showError(error)
