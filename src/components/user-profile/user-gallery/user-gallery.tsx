@@ -52,8 +52,8 @@ export const UserProfileGallery = ({
             <div key={index} className={styles.card}>
               <GalleryItem
                 src={item.images[0].url}
-                width={342}
-                height={228}
+                width={item.images[0].width}
+                height={item.images[0].height}
                 alt={`gallery image-${index}`}
                 images={item.images}
                 id={item.id}

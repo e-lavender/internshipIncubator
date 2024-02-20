@@ -21,13 +21,26 @@ export function rotateSize(width: number, height: number, rotation: number) {
   }
 }
 
-export async function getCroppedAndFilteredImage(
-  imageSrc: string,
-  pixelCrop: any,
-  filter: string = '',
+type ArgsType = {
+  imageSrc: string
+} & Partial<{
+  pixelCrop: any
+  filter: string
+  rotation: number
+  flip: { horizontal: boolean; vertical: boolean }
+}>
+
+export async function getCroppedAndFilteredImage({
+  filter = '',
+  imageSrc,
+  pixelCrop,
+  flip = { horizontal: false, vertical: false },
   rotation = 0,
-  flip = { horizontal: false, vertical: false }
-): Promise<Uint8Array | null> {
+}: ArgsType): Promise<{
+  unit8array?: Uint8Array
+  blob?: Blob
+  objectUrl?: string
+} | null> {
   const image = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
@@ -67,15 +80,17 @@ export async function getCroppedAndFilteredImage(
         if (!file) return null
 
         // if (filter) {
-        //   return resolve(file)
+        //   return resolve({ blob: file })
         // }
+
         const response = await fetch(URL.createObjectURL(file))
+        const objectUrl = URL.createObjectURL(file)
 
         if (response.ok) {
           const arrayBuffer = await response.arrayBuffer()
           const binaryData = new Uint8Array(arrayBuffer)
 
-          resolve(binaryData)
+          resolve({ unit8array: binaryData, blob: file, objectUrl })
         } else {
           reject()
         }
