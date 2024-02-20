@@ -66,6 +66,7 @@ export const CreateNewPostModal = () => {
       .then(res => {
         const imagesMetaData: CreatePostRequestChildrenMetadata[] = []
 
+        debugger
         res.images.map(image => {
           imagesMetaData.push({ uploadId: image.uploadId })
         })
