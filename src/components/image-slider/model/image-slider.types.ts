@@ -11,7 +11,7 @@ export type ImageModel = {
 }
 
 export type ImageSliderType = {
-  images?: ImageModel[] | MockedImagesDataType | PostImageViewModel[]
+  images?: ImageModel[] | PostImageViewModel[]
   aspectRatio: '1/1' | '4/5' | '4/3' | '16/9'
   fitStyle: 'cover' | 'contain'
   width?: CSSProperties['width']

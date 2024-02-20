@@ -1,15 +1,17 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 
-import Image, { ImageProps } from 'next/image'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useDisclose, useRtkStateHook } from '@/app'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 
-interface GalleryItemProps extends ImageProps {
+type GalleryItemProps = {
   src: string
-  alt: string
+  alt?: string
+  width: number
+  height: number
   images: PostImageViewModel[]
   id: number
   ownerId: number
@@ -57,7 +59,7 @@ export const GalleryItem = ({
 
   return (
     <>
-      <Image src={src} alt={alt} {...props} onClick={() => openPostModalHandler(id)} />
+      <Image src={src} alt={alt || ''} {...props} onClick={() => openPostModalHandler(id)} />
       <PostCardModal
         isOpen={isModalOpened}
         onChange={() => closePostModalHandler()}

@@ -1,20 +1,12 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React from 'react'
 
 import { clsx } from 'clsx'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import s from './user-gallery.module.scss'
 
-import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
+import { useMatchMedia } from '@/app'
 import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
-import {
-  EditModeInterface,
-  GalleryItem,
-  ImageSlider,
-  PostCardModal,
-  ViewModeInterface,
-} from '@/components'
+import { GalleryItem } from '@/components'
 
 export const UserProfileGallery = ({
   data,
@@ -60,8 +52,8 @@ export const UserProfileGallery = ({
             <div key={index} className={styles.card}>
               <GalleryItem
                 src={item.images[0].url}
-                width={item.images[0].width}
-                height={item.images[0].height}
+                width={50}
+                height={50}
                 alt={`gallery image-${index}`}
                 images={item.images}
                 id={item.id}

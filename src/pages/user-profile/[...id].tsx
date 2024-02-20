@@ -1,23 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import { useRouter } from 'next/router'
-
-import { useDisclose, useRtkStateHook } from '@/app'
-import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import {
-  getPublicUserProfileById,
-  getRunningQueriesThunk,
-  useGetProfileQuery,
-  useGetPublicUserProfileByIdQuery,
   getPublicPostById,
   getPublicPostsByUser,
-  useGetPublicPostByIdQuery,
-  useGetPublicPostsByUserQuery,
+  getPublicUserProfileById,
+  getRunningQueriesThunk,
 } from '@/app/services/profile/profile.api'
 import { wrapper } from '@/app/store/store'
-import { ImageSlider, PostCardModal, UserProfileGallery, ViewModeInterface } from '@/components'
-import { UserProfile, UserProfileDescription } from '@/modules/user-profile'
-import s from '@/modules/user-profile/user-profile.module.scss'
+import { UserProfile } from '@/modules/user-profile'
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
   const query = context.query
