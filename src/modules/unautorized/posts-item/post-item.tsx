@@ -38,11 +38,9 @@ export const PostItem = ({
   }
 
   const openPostModalHandler = (itemId: number, ownerId: number) => {
-    openModal()
     void push(menuNavigation.post(ownerId, itemId))
   }
   const closePostModalHandler = (ownerId: number) => {
-    closeModal()
     void push(menuNavigation.profile(ownerId))
   }
 
