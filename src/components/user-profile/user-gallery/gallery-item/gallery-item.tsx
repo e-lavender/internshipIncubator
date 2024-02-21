@@ -38,7 +38,7 @@ export const GalleryItem = ({
   const {
     _state: { post },
   } = useRtkStateHook()
-  // @ts-ignore
+
   const isEditMode: boolean = post.mode === 'edit'
 
   const interfaces: InterfaceType = {
@@ -46,7 +46,6 @@ export const GalleryItem = ({
     edit: <EditModeInterface userName={userName} />,
   }
 
-  // @ts-ignore
   const CurrentInterface: ReactElement = interfaces[post.mode]
   const openPostModalHandler = (id: number) => {
     openModal()

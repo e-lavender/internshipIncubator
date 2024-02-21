@@ -4,7 +4,6 @@ import { commonApi } from '@/app/services/common/common.api'
 import {
   PublicUserModel,
   UpdateUserProfile,
-  UploadAvatarResponse,
   UserProfileModel,
 } from '@/app/services/profile/profile.api.types'
 import {
@@ -113,7 +112,7 @@ export const {
   useGetPublicUserProfileByIdQuery,
   useGetPublicPostsByUserQuery,
   useGetPublicPostByIdQuery,
-  util: { getRunningQueriesThunk },
+  // util: { getRunningQueriesThunk },
 } = profileApi
 
 export const { getPublicUserProfileById, getPublicPostsByUser, getPublicPostById } =
