@@ -19,7 +19,6 @@ const Home = () => {
   const { push } = useRouter()
   const { data: allUsersPostsData } = useGetPublicPostsQuery(postDataArg)
 
-  console.log(allUsersPostsData)
   if (isLoading) {
     return <LoaderV2 isLoading={isLoading} />
   }
