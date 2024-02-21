@@ -1,10 +1,10 @@
 import React from 'react'
 
+import { getRunningQueriesThunk } from '@/app/services/common/common.api'
 import {
   getPublicPostById,
   getPublicPostsByUser,
   getPublicUserProfileById,
-  getRunningQueriesThunk,
 } from '@/app/services/profile/profile.api'
 import { wrapper } from '@/app/store/store'
 import { UserProfile } from '@/modules/user-profile'
