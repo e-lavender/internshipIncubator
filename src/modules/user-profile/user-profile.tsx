@@ -24,10 +24,9 @@ export type UserProfileType = {
 export const UserProfile = () => {
   const { data: user } = useGetMeQuery()
   const { query } = useRouter()
-  const id = query.id || 1
-  const isMyProfile = user?.userId === id
   const profileId = Number(query.id?.[0])
   const postId = Number(query.id?.[1])
+  const isMyProfile = user?.userId === profileId
 
   const { data: posts } = useGetPublicPostsByUserQuery({
     userId: profileId,

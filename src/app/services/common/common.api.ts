@@ -96,3 +96,7 @@ export const commonApi = createApi({
   },
   endpoints: () => ({}),
 })
+
+export const {
+  util: { getRunningQueriesThunk },
+} = commonApi
