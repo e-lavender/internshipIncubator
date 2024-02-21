@@ -39,11 +39,11 @@ export const PostItem = ({
 
   const openPostModalHandler = (itemId: number, ownerId: number) => {
     openModal()
-    void push(`/user-profile/${ownerId}/${itemId}`)
+    void push(menuNavigation.post(ownerId, itemId))
   }
   const closePostModalHandler = (ownerId: number) => {
     closeModal()
-    void push(`/user-profile/${ownerId}`)
+    void push(menuNavigation.profile(ownerId))
   }
 
   const date = new Date(createdAt ? createdAt : '').toLocaleDateString('en-US', {
