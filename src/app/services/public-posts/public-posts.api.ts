@@ -3,10 +3,6 @@ import { commonApi } from '@/app/services/common/common.api'
 import {
   PublicPostsGetAll,
   PublicPostsGetAllArg,
-  PublicPostsGetPost,
-  PublicPostsGetPostArg,
-  PublicPostsGetPostsByUser,
-  PublicPostsGetPostsByUserArg,
 } from '@/app/services/public-posts/public-posts.types'
 
 const { getPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
@@ -22,7 +18,12 @@ export const publicPostsApi = commonApi.injectEndpoints({
           sortDirection: queryArg.sortDirection,
         },
       }),
-      providesTags: ['Posts'],
+      // transformResponse(
+      //   baseQueryReturnValue: BaseQueryResult<BaseQuery>,
+      //   meta: BaseQueryMeta<BaseQuery>,
+      //   arg: QueryArg
+      // ): Promise<ResultType> | ResultType {},
+      // providesTags: ['Posts'],
     }),
   }),
 
