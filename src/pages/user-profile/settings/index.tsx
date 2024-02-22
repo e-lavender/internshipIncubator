@@ -16,11 +16,11 @@ import { Button, TextArea, TextField } from '@/ui'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
 
 type LocationType = {
-  country: string
+  country?: string
   city: string
 }
 
-type UserProfileModel = UserProfileType & { country: string }
+type UserProfileModel = UserProfileType & { country?: string }
 
 const GeneralInformation = () => {
   const { data, isLoading: isProfileLoading } = useGetProfileQuery()
@@ -34,7 +34,8 @@ const GeneralInformation = () => {
   const userProfile: UserProfileModel | undefined = useMemo(() => {
     if (data) {
       const { id, avatars, createdAt, ...rest } = data
-      const location: LocationType = JSON.parse(data.city)
+
+      const location = JSON.parse(data.city)
 
       return {
         ...rest,
