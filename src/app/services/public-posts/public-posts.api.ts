@@ -1,11 +1,18 @@
+import { profileApiUrls } from '@/app/constants'
 import { publicPostsApiUrls } from '@/app/constants/urls'
 import { commonApi } from '@/app/services/common/common.api'
+import { PublicUserModel } from '@/app/services/profile/profile.api.types'
 import {
   PublicPostsGetAll,
   PublicPostsGetAllArg,
+  PublicPostsGetPost,
+  PublicPostsGetPostArg,
+  PublicPostsGetPostsByUser,
+  PublicPostsGetPostsByUserArg,
 } from '@/app/services/public-posts/public-posts.types'
 
 const { getPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
+const { publicUserById } = profileApiUrls
 
 export const publicPostsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -18,6 +25,7 @@ export const publicPostsApi = commonApi.injectEndpoints({
           sortDirection: queryArg.sortDirection,
         },
       }),
+
       // transformResponse(
       //   baseQueryReturnValue: BaseQueryResult<BaseQuery>,
       //   meta: BaseQueryMeta<BaseQuery>,
@@ -25,9 +33,44 @@ export const publicPostsApi = commonApi.injectEndpoints({
       // ): Promise<ResultType> | ResultType {},
       // providesTags: ['Posts'],
     }),
+    getPublicUserProfileById: builder.query<PublicUserModel, { profileId: number }>({
+      query: args => {
+        return {
+          method: 'GET',
+          url: publicUserById(args.profileId),
+        }
+      },
+    }),
+    getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
+      query: queryArg => ({
+        url: getPublicPostsByUserId({
+          endCursorPostId: queryArg.endCursorPostId,
+          userId: queryArg.userId,
+        }),
+        params: {
+          pageSize: queryArg.pageSize,
+          sortBy: queryArg.sortBy,
+          sortDirection: queryArg.sortDirection,
+        },
+      }),
+      providesTags: ['Posts'],
+    }),
+    getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
+      query: queryArg => ({
+        url: getPublicPostByUserId(queryArg.postId),
+      }),
+      providesTags: ['Posts'],
+    }),
   }),
 
   overrideExisting: false,
 })
 
-export const { useGetPublicPostsQuery } = publicPostsApi
+export const {
+  useGetPublicPostsQuery,
+  useGetPublicUserProfileByIdQuery,
+  useGetPublicPostsByUserQuery,
+  useGetPublicPostByIdQuery,
+} = publicPostsApi
+export const { getPublicUserProfileById, getPublicPostsByUser, getPublicPostById } =
+  publicPostsApi.endpoints

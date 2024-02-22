@@ -6,13 +6,13 @@ import s from './user-profile.module.scss'
 
 import { useDisclose, useRtkStateHook } from '@/app'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
+import { useGetProfileQuery } from '@/app/services/profile/profile.api'
+import { PublicUserModel, UserProfileModel } from '@/app/services/profile/profile.api.types'
 import {
-  useGetProfileQuery,
   useGetPublicPostByIdQuery,
   useGetPublicPostsByUserQuery,
   useGetPublicUserProfileByIdQuery,
-} from '@/app/services/profile/profile.api'
-import { PublicUserModel, UserProfileModel } from '@/app/services/profile/profile.api.types'
+} from '@/app/services/public-posts/public-posts.api'
 import { ImageSlider, PostCardModal, UserProfileGallery, ViewModeInterface } from '@/components'
 import { UserProfileDescription } from '@/modules'
 
