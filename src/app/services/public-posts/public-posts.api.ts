@@ -33,14 +33,7 @@ export const publicPostsApi = commonApi.injectEndpoints({
       // ): Promise<ResultType> | ResultType {},
       // providesTags: ['Posts'],
     }),
-    getPublicUserProfileById: builder.query<PublicUserModel, { profileId: number }>({
-      query: args => {
-        return {
-          method: 'GET',
-          url: publicUserById(args.profileId),
-        }
-      },
-    }),
+
     getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
       query: queryArg => ({
         url: getPublicPostsByUserId({
@@ -66,11 +59,6 @@ export const publicPostsApi = commonApi.injectEndpoints({
   overrideExisting: false,
 })
 
-export const {
-  useGetPublicPostsQuery,
-  useGetPublicUserProfileByIdQuery,
-  useGetPublicPostsByUserQuery,
-  useGetPublicPostByIdQuery,
-} = publicPostsApi
-export const { getPublicUserProfileById, getPublicPostsByUser, getPublicPostById } =
-  publicPostsApi.endpoints
+export const { useGetPublicPostsQuery, useGetPublicPostsByUserQuery, useGetPublicPostByIdQuery } =
+  publicPostsApi
+export const { getPublicPostsByUser, getPublicPostById } = publicPostsApi.endpoints

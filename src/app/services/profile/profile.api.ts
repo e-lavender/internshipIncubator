@@ -1,8 +1,13 @@
 import { profileApiUrls } from '@/app/constants'
 import { commonApi } from '@/app/services/common/common.api'
-import { UpdateUserProfile, UserProfileModel } from '@/app/services/profile/profile.api.types'
+import {
+  PublicUserModel,
+  UpdateUserProfile,
+  UserProfileModel,
+} from '@/app/services/profile/profile.api.types'
+import { publicPostsApi } from '@/app/services/public-posts/public-posts.api'
 
-const { usersProfile, usersAvatar, usersProfileById } = profileApiUrls
+const { usersProfile, usersAvatar, usersProfileById, publicUserById } = profileApiUrls
 
 export const profileApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -58,6 +63,14 @@ export const profileApi = commonApi.injectEndpoints({
       },
       invalidatesTags: ['Profile'],
     }),
+    getPublicUserProfileById: builder.query<PublicUserModel, { profileId: number }>({
+      query: args => {
+        return {
+          method: 'GET',
+          url: publicUserById(args.profileId),
+        }
+      },
+    }),
   }),
 })
 
@@ -66,4 +79,6 @@ export const {
   useUpdateUserProfileMutation,
   useUploadAvatarMutation,
   useDeleteAvatarMutation,
+  useGetPublicUserProfileByIdQuery,
 } = profileApi
+export const { getPublicUserProfileById } = profileApi.endpoints
