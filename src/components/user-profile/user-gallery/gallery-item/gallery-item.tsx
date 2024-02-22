@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useDisclose, useRtkStateHook } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { EditModeInterface, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 
@@ -48,12 +49,12 @@ export const GalleryItem = ({
   const CurrentInterface: ReactElement = interfaces[post.mode]
   const openPostModalHandler = (id: number) => {
     openModal()
-    window.history.pushState(null, 'post', `/user-profile/${ownerId}/${id}`)
+    window.history.pushState(null, 'post', menuNavigation.post(ownerId, id))
   }
 
   const closePostModalHandler = () => {
     closeModal()
-    window.history.pushState(null, 'post', `/user-profile/${ownerId}`)
+    window.history.pushState(null, 'post', menuNavigation.profile(ownerId))
   }
 
   return (

@@ -38,12 +38,14 @@ export const PostItem = ({
   }
 
   const openPostModalHandler = (itemId: number, ownerId: number) => {
-    openModal()
-    void push(`/user-profile/${ownerId}/${itemId}`)
+    void push(menuNavigation.post(ownerId, itemId))
   }
   const closePostModalHandler = (ownerId: number) => {
-    closeModal()
-    void push(`/user-profile/${ownerId}`)
+    void push(menuNavigation.profile(ownerId))
+  }
+
+  const openUserProfileHandler = (ownerId: number) => {
+    void push(menuNavigation.profile(ownerId))
   }
 
   const date = new Date(createdAt ? createdAt : '').toLocaleDateString('en-US', {
@@ -67,7 +69,7 @@ export const PostItem = ({
             height={240}
           />
         </div>
-        <div className={s.header}>
+        <div className={s.header} onClick={() => openUserProfileHandler(ownerId)}>
           <Avatar width={36} height={36} src={avatarOwner} />
           <div className={s.footerInfo}>
             <Typography variant="h3">{userName}</Typography>
