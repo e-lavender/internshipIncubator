@@ -1,24 +1,38 @@
 import React from 'react'
 
+import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { useGetPublicPostsQuery } from '@/app/services/public-posts/public-posts.api'
-import { PublicPostsGetAllArg } from '@/app/services/public-posts/public-posts.types'
+import {
+  PublicPostsGetAll,
+  PublicPostsGetAllArg,
+} from '@/app/services/public-posts/public-posts.types'
 import { LoaderV2, POST_COMMENTS, PostCard, PostCardXL } from '@/components'
 
-const postDataArg: PublicPostsGetAllArg = {
-  pageSize: 8,
-  sortBy: '',
-  sortDirection: 'desc',
+export const getStaticProps = async () => {
+  const params = {
+    pageSize: '4',
+    sortDirection: 'desc',
+    sortBy: 'createdAt',
+  }
+  const queryParams = new URLSearchParams(params).toString()
+  const response = await fetch(`https://inctagram.work/api/v1/public-posts/all/?${queryParams}`)
+  const posts: PublicPostsGetAll = await response.json()
+
+  return {
+    props: { posts },
+    revalidate: 60,
+  }
 }
 
-const Home = () => {
+const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { data: me, isLoading } = useGetMeQuery()
   const { push } = useRouter()
-  const { data: allUsersPostsData } = useGetPublicPostsQuery(postDataArg)
 
+  console.log(posts)
   if (isLoading) {
     return <LoaderV2 isLoading={isLoading} />
   }
@@ -32,17 +46,22 @@ const Home = () => {
       <>
         <h1 style={{ margin: '3em', textAlign: 'center' }}>Home</h1>
         <h2 style={{ marginBottom: '1em', textAlign: 'center' }}>Public Account</h2>
-        <PostCard
-          cardType={'regular'}
-          url={'/assets/avatar/resized/4.jpf'}
-          postdId={'23'}
-          userName={'Vikki'}
-          account={'public'}
-          description={''}
-          comments={POST_COMMENTS?.comments}
-        />
+        {posts?.items?.map((item, index) => (
+          <div key={index}>
+            <PostCard
+              avatarOwner={item.avatarOwner}
+              images={item.images}
+              userName={item.userName}
+              description={item.description}
+              createdAt={item.createdAt}
+              //comments={POST_COMMENTS?.comments}
+              ownerId={item.ownerId}
+              id={item.id}
+            />
+          </div>
+        ))}
 
-        <h2 style={{ marginBottom: '1em', textAlign: 'center' }}>Friend Account</h2>
+        {/* <h2 style={{ marginBottom: '1em', textAlign: 'center' }}>Friend Account</h2>
         <PostCard
           cardType={'regular'}
           url={POST_COMMENTS.url}
@@ -51,7 +70,7 @@ const Home = () => {
           description={''}
           comments={[]}
           postdId={'22'}
-        />
+        />*/}
 
         <h2 style={{ margin: '1em', textAlign: 'center' }}>
           Personal Account (Post Details/Editing)

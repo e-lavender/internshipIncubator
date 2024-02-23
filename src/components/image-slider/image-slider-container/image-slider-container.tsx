@@ -14,7 +14,7 @@ type ImageSliderContainerType = PropsWithChildren<
 >
 export const ImageSliderContainer = ({
   images,
-  width = 500,
+  width,
   height,
   imageIndex,
   setImageIndex,

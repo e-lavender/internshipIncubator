@@ -1,5 +1,6 @@
 import s from './card-header.module.scss'
 
+import { date, timeAgo } from '@/app/helpers/customizeDate'
 import { PostModel } from '@/app/services/posts/posts.types'
 import { Avatar, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
@@ -9,6 +10,8 @@ export const CardHeader = ({
   userName,
   //account = 'personal',
   createdAt,
+  ownerId,
+  id,
 }: PostModel) => {
   return (
     <header className={s.header}>
@@ -22,13 +25,13 @@ export const CardHeader = ({
           <>
             <div className={s.circle}></div>
             <Typography variant={'small'} className={s.date}>
-              {createdAt}
+              {timeAgo(createdAt)}
             </Typography>
           </>
         )}
       </div>
 
-      <CardDropdownMenu />
+      <CardDropdownMenu ownerId={ownerId} id={id} account={'friend'} />
     </header>
   )
 }
