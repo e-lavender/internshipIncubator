@@ -43,8 +43,6 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     me && (
       <>
-        <h1 style={{ margin: '3em', textAlign: 'center' }}>Home</h1>
-        <h2 style={{ marginBottom: '1em', textAlign: 'center' }}>Public Account</h2>
         {posts?.items?.map((item, index) => (
           <div key={index}>
             <PostCard

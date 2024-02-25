@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import { useRouter } from 'next/router'
 
 import s from './card-description.module.scss'
@@ -8,9 +10,18 @@ import { Avatar, PostTypes } from '@/components'
 import { Typography } from '@/ui'
 
 export const CardDescription = ({ userName, description, avatarOwner, ownerId }: PostModel) => {
+  const [showMore, setShowMore] = useState(false)
+
   const { push } = useRouter()
+  const collapseHandler = () => {
+    setShowMore(!showMore)
+  }
   const openUserProfileHandler = (ownerId: number | undefined) => {
     void push(menuNavigation.profile(ownerId))
+  }
+
+  if (!description) {
+    return null
   }
 
   return (
@@ -20,9 +31,19 @@ export const CardDescription = ({ userName, description, avatarOwner, ownerId }:
         <Typography variant={'bold-14'}>{`${userName} `}</Typography>
       </div>
       <div className={s.info}>
-        <Typography as={'p'} variant={'regular-14'}>
-          {description}
+        <Typography variant={'regular-14'}>
+          {showMore ? description : `${description.substring(0, 90)}`}
         </Typography>
+        {description.length > 90 && (
+          <Typography
+            as={'button'}
+            variant={'regular-14'}
+            className={s.button}
+            onClick={collapseHandler}
+          >
+            {showMore ? 'Hide' : 'Show more'}
+          </Typography>
+        )}
       </div>
     </div>
   )
