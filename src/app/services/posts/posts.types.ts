@@ -22,6 +22,7 @@ export type PostModel = {
   ownerId?: number
   avatarOwner?: string
   owner?: PostModelOwner
+  isMyProfile?: boolean
 }
 export type PostImage = {
   url: string

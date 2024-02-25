@@ -3,7 +3,11 @@ import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import s from '../post-card-xl.module.scss'
 
 import { useRtkStateHook } from '@/app'
+import { COMMON_MODE_STATE } from '@/app/constants/enums'
+import { usePostCardModal } from '@/app/services/modals/modals.hooks'
+import { useUpdatePostByIdMutation } from '@/app/services/posts/posts.api'
 import { compareDescriptionVersions } from '@/app/services/posts/posts.slice'
+import { useGetPublicPostByIdQuery } from '@/app/services/public-posts/public-posts.api'
 import { CardDescription } from '@/components'
 import { Button, TextArea } from '@/ui'
 
@@ -12,16 +16,13 @@ type EditModeInterfaceProps = {
   url?: string
   description?: string
   isLoading?: boolean
+  postId: number
 }
 
-export const EditModeInterface = ({
-  userName,
-  url,
-  description,
-  isLoading,
-}: EditModeInterfaceProps) => {
+export const EditModeInterface = ({ userName, postId, description }: EditModeInterfaceProps) => {
   const [text, setText] = useState<string>(description || '')
-
+  const { changePostCardModalMode, updatePostDescription } = usePostCardModal()
+  const [updatePost] = useUpdatePostByIdMutation()
   const { _dispatch, _state } = useRtkStateHook()
   const { isEdited } = _state.post
 
@@ -34,10 +35,12 @@ export const EditModeInterface = ({
 
   const saveEditedDescription: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-
-    /*
-        Todo PUT request in order to update posts description
-     */
+    updatePost({ postId: postId, description: text })
+      .unwrap()
+      .then(() => {
+        updatePostDescription(text)
+        changePostCardModalMode(COMMON_MODE_STATE.VIEW)
+      })
   }
 
   return (

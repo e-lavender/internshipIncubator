@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 
@@ -31,11 +31,13 @@ export const CreateNewPostModal = () => {
 
   const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
+
   const {
     images: selectedImages,
     description: postDescription,
     currentImageIndex,
   } = useAppSelector(state => state.slider)
+
   const dispatch = useAppDispatch()
 
   const addNewPost = async () => {
@@ -66,7 +68,6 @@ export const CreateNewPostModal = () => {
       .then(res => {
         const imagesMetaData: CreatePostRequestChildrenMetadata[] = []
 
-        debugger
         res.images.map(image => {
           imagesMetaData.push({ uploadId: image.uploadId })
         })
@@ -83,19 +84,23 @@ export const CreateNewPostModal = () => {
       })
   }
 
-  const interfaceVariants: { [Step: string]: ReactElement } = {
-    1: <AddInterface callback={initialStepWithValidation} />,
-    2: <CropInterface images={selectedImages} />,
-    3: <FilterInterface images={selectedImages} />,
-    4: <DescriptionInterface images={selectedImages} />,
-  }
+  const interfaceVariants: { [Step: string]: ReactElement } = useMemo(() => {
+    return {
+      1: <AddInterface callback={initialStepWithValidation} />,
+      2: <CropInterface images={selectedImages} />,
+      3: <FilterInterface images={selectedImages} />,
+      4: <DescriptionInterface images={selectedImages} />,
+    }
+  }, [selectedImages])
 
-  const titleVariants: { [Step: string]: string } = {
-    1: 'Add photo',
-    2: 'Cropping',
-    3: 'Filters',
-    4: 'Publication',
-  }
+  const titleVariants: { [Step: string]: string } = useMemo(() => {
+    return {
+      1: 'Add photo',
+      2: 'Cropping',
+      3: 'Filters',
+      4: 'Publication',
+    }
+  }, [])
 
   const CurrentInterface: ReactElement = interfaceVariants[step]
   const currentTitle: string = titleVariants[step]

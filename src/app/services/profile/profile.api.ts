@@ -5,7 +5,6 @@ import {
   UpdateUserProfile,
   UserProfileModel,
 } from '@/app/services/profile/profile.api.types'
-import { publicPostsApi } from '@/app/services/public-posts/public-posts.api'
 
 const { usersProfile, usersAvatar, usersProfileById, publicUserById } = profileApiUrls
 

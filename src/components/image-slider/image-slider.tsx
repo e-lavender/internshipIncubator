@@ -19,6 +19,7 @@ export const ImageSlider = ({
 
   return (
     <ImageSliderContainer
+      // @ts-ignore
       images={sliderImages}
       width={width}
       height={height}
@@ -31,7 +32,7 @@ export const ImageSlider = ({
           key={index}
           style={{
             translate: `${-100 * imageIndex}%`,
-            filter: image.filter,
+            filter: 'image.filter',
           }}
           className={clsx(s.imageSlider, s[fitStyle])}
         >

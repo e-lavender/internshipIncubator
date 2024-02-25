@@ -1,7 +1,5 @@
-import { profileApiUrls } from '@/app/constants'
 import { publicPostsApiUrls } from '@/app/constants/urls'
 import { commonApi } from '@/app/services/common/common.api'
-import { PublicUserModel } from '@/app/services/profile/profile.api.types'
 import {
   PublicPostsGetAll,
   PublicPostsGetAllArg,
@@ -10,9 +8,9 @@ import {
   PublicPostsGetPostsByUser,
   PublicPostsGetPostsByUserArg,
 } from '@/app/services/public-posts/public-posts.types'
+import { transformImagesData } from '@/app/utils'
 
 const { getPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
-const { publicUserById } = profileApiUrls
 
 export const publicPostsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -25,13 +23,8 @@ export const publicPostsApi = commonApi.injectEndpoints({
           sortDirection: queryArg.sortDirection,
         },
       }),
-
-      // transformResponse(
-      //   baseQueryReturnValue: BaseQueryResult<BaseQuery>,
-      //   meta: BaseQueryMeta<BaseQuery>,
-      //   arg: QueryArg
-      // ): Promise<ResultType> | ResultType {},
-      // providesTags: ['Posts'],
+      transformResponse: transformImagesData,
+      providesTags: ['Posts'],
     }),
 
     getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
@@ -46,12 +39,14 @@ export const publicPostsApi = commonApi.injectEndpoints({
           sortDirection: queryArg.sortDirection,
         },
       }),
+      transformResponse: transformImagesData,
       providesTags: ['Posts'],
     }),
     getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
       query: queryArg => ({
         url: getPublicPostByUserId(queryArg.postId),
       }),
+      transformResponse: transformImagesData,
       providesTags: ['Posts'],
     }),
   }),

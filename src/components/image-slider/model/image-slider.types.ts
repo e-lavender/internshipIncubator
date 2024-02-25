@@ -11,7 +11,7 @@ export type ImageModel = {
 }
 
 export type ImageSliderType = {
-  images?: ImageModel[] | PostImageViewModel[]
+  images?: PostImageViewModel[]
   aspectRatio: '1/1' | '4/5' | '4/3' | '16/9'
   fitStyle: 'cover' | 'contain'
   width?: CSSProperties['width']
@@ -19,7 +19,7 @@ export type ImageSliderType = {
 }
 
 export type SliderControlsType = {
-  images: ImageModel[] | MockedImagesDataType
+  images?: ImageModel[] | PostImageViewModel[]
   imageIndex: number
   setImageIndex: Dispatch<SetStateAction<number>>
   isModified?: boolean

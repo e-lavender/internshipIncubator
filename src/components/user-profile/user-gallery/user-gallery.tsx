@@ -1,22 +1,84 @@
-import React from 'react'
+import React, { ReactElement, useMemo } from 'react'
 
 import { clsx } from 'clsx'
+import { useRouter } from 'next/router'
 
 import s from './user-gallery.module.scss'
 
-import { useMatchMedia } from '@/app'
-import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
-import { GalleryItem } from '@/components'
+import { useDisclose, useMatchMedia } from '@/app'
+import { menuNavigation } from '@/app/constants'
+import { IMAGE_SIZE } from '@/app/constants/enums'
+import { usePostCardModal } from '@/app/services/modals/modals.hooks'
+import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
+import {
+  EditModeInterface,
+  GalleryItem,
+  ImageSlider,
+  PostCardModal,
+  ViewModeInterface,
+} from '@/components'
+
+type InterfaceType = { [ViewMode: string]: ReactElement }
 
 export const UserProfileGallery = ({
-  data,
-  userId,
+  ownerId,
+  isMyProfile,
 }: {
-  data: PublicPostsGetPostsByUser | undefined
-  userId: string | number | string[]
+  ownerId: number
+  isMyProfile: boolean
 }) => {
   const { isMobile } = useMatchMedia()
+  const { data: posts } = useGetPublicPostsByUserQuery({
+    userId: ownerId,
+    pageSize: 4,
+  })
+  const {
+    mode,
+    isOpenPostCardModal,
+    openPostCardModal,
+    closePostCardModal,
+    changePostCardModalMode,
+    setPostCardModalSelectedPost,
+    selectedPost,
+    clearPostCardModal,
+  } = usePostCardModal()
 
+  const interfaces: InterfaceType = useMemo(() => {
+    return {
+      view: (
+        <ViewModeInterface
+          userName={selectedPost?.userName}
+          isMyProfile={isMyProfile}
+          description={selectedPost?.description}
+        />
+      ),
+      edit: (
+        <EditModeInterface
+          userName={selectedPost?.userName}
+          postId={selectedPost?.id!}
+          description={selectedPost?.description}
+        />
+      ),
+    }
+  }, [isMyProfile, selectedPost?.description, selectedPost?.id, selectedPost?.userName])
+
+  const CurrentInterface: ReactElement = interfaces[mode]
+
+  const closePostModalHandler = () => {
+    closePostCardModal()
+    clearPostCardModal()
+    window.history.pushState(null, 'post', menuNavigation.profile(ownerId))
+  }
+
+  const openPostModalHandler = (postId: number) => {
+    const selectedPost = posts?.items.find(post => {
+      return post.id === postId
+    })
+
+    selectedPost && setPostCardModalSelectedPost(selectedPost)
+    openPostCardModal()
+    window.history.pushState(null, 'post', menuNavigation.post(ownerId, postId))
+  }
   // const trigger = useRef<HTMLDivElement>(null)
   // const { content, isLoading } = useInfiniteScroll(
   //   data?.items || GALLERY_DATA,
@@ -46,19 +108,17 @@ export const UserProfileGallery = ({
   return (
     <>
       <div className={styles.root}>
-        {data?.items &&
-          data?.items.length > 0 &&
-          data?.items.map((item, index) => (
+        {posts?.items &&
+          posts?.items.length > 0 &&
+          posts?.items.map((item, index) => (
             <div key={index} className={styles.card}>
               <GalleryItem
                 src={item.images[0].url}
                 width={item.images[0].width}
                 height={item.images[0].height}
                 alt={`gallery image-${index}`}
-                images={item.images}
-                id={item.id}
-                ownerId={item.ownerId}
-                userName={item.userName}
+                postId={item.id}
+                openPostModalHandler={openPostModalHandler}
               />
             </div>
           ))}
@@ -69,7 +129,18 @@ export const UserProfileGallery = ({
         {/*  </SkeletonCard>*/}
         {/*)}*/}
       </div>
-
+      <PostCardModal
+        isOpen={isOpenPostCardModal || false}
+        onChange={closePostModalHandler}
+        // askConfirmation={isEditMode}
+      >
+        <ImageSlider
+          images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
+          aspectRatio={'1/1'}
+          fitStyle={'cover'}
+        />
+        {CurrentInterface}
+      </PostCardModal>
       {/*<div className={styles.loader} ref={trigger} />*/}
     </>
   )

@@ -1,15 +1,12 @@
 import s from './card-header.module.scss'
 
 import { PostModel } from '@/app/services/posts/posts.types'
-import { Avatar, CardDropdownMenu } from '@/components'
+import { AccountType, Avatar, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
 
-export const CardHeader = ({
-  avatarOwner,
-  userName,
-  //account = 'personal',
-  createdAt,
-}: PostModel) => {
+export const CardHeader = ({ avatarOwner, userName, createdAt, isMyProfile }: PostModel) => {
+  const accountType: AccountType = isMyProfile ? 'personal' : 'public'
+
   return (
     <header className={s.header}>
       <div className={s.user}>
@@ -28,7 +25,7 @@ export const CardHeader = ({
         )}
       </div>
 
-      <CardDropdownMenu />
+      <CardDropdownMenu account={accountType} />
     </header>
   )
 }
