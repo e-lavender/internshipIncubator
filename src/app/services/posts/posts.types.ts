@@ -29,6 +29,7 @@ export type PostImage = {
   height: number
   fileSize: number
   uploadId: string
+  filter?: string
 }
 export type PostModelOwner = {
   firstName: string

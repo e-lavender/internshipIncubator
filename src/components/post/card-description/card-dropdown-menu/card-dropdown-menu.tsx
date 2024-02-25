@@ -2,6 +2,7 @@ import { toast } from 'react-toastify'
 
 import { useDisclose, useRtkStateHook } from '@/app'
 import { menuNavigation, profileApiUrls } from '@/app/constants'
+import { FRONT_BASE_URL } from '@/app/constants/common'
 import { copyToClipboard } from '@/app/helpers/copyToClipboard'
 import { setEditMode } from '@/app/services/posts/posts.slice'
 import {
@@ -33,7 +34,7 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
   }
 
   const copyLinkHandler = () =>
-    copyToClipboard(`${process.env.NEXT_PUBLIC_BASE_URL}${menuNavigation.profile(ownerId)}/${id}`)
+    copyToClipboard(`${FRONT_BASE_URL}${menuNavigation.profile(ownerId)}/${id}`)
 
   const handlersVariants: { [Action in keyof typeof ActionTypes]: () => void } = {
     edit: editPost,

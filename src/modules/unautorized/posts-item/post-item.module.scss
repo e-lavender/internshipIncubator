@@ -13,6 +13,9 @@
       height:24rem;
       object-fit: cover;
       cursor: pointer;
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
 

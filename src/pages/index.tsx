@@ -32,7 +32,6 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { data: me, isLoading } = useGetMeQuery()
   const { push } = useRouter()
 
-  console.log(posts)
   if (isLoading) {
     return <LoaderV2 isLoading={isLoading} />
   }
