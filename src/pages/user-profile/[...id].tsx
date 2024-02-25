@@ -5,7 +5,7 @@ import {
   getPublicPostById,
   getPublicPostsByUser,
   getPublicUserProfileById,
-} from '@/app/services/profile/profile.api'
+} from '@/app/services/public-posts/public-posts.api'
 import { wrapper } from '@/app/store/store'
 import { UserProfile } from '@/modules/user-profile'
 
