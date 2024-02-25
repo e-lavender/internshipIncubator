@@ -49,6 +49,8 @@ export type PostImageViewModel = {
   fileSize: number
   uploadId: string
   imageSize: keyof typeof IMAGE_SIZE
+  filter?: string
+  alt?: string
 }
 
 export type Owner = {

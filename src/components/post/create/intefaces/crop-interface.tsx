@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-import { ImageModel, ImageSliderWithCropper } from '@/components'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
+import { ImageSliderWithCropper } from '@/components'
 
 type CropInterfaceProps = {
-  images?: ImageModel[]
+  images?: PostImageViewModel[]
 }
 
 export const CropInterface = ({ images = [] }: CropInterfaceProps) => {

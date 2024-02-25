@@ -1,4 +1,4 @@
-import { ImageModel } from '@/components'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 
 export type PostStateType = {
   mode: 'view' | 'edit'
@@ -36,7 +36,7 @@ export type PostModelOwner = {
   lastName: string
 }
 export type ImageSlideType = {
-  images: ImageModel[]
+  images: PostImageViewModel[]
   currentImageIndex: number
   description: string
 }

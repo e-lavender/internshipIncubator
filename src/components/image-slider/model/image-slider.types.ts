@@ -3,15 +3,8 @@ import { CSSProperties, Dispatch, SetStateAction } from 'react'
 import { MockedImagesDataType } from '@/app/data/image-slider/image-slider-data'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 
-export type ImageModel = {
-  id: string | number
-  url: string
-  alt: string
-  filter?: string
-}
-
 export type ImageSliderType = {
-  images?: PostImageViewModel[]
+  images: PostImageViewModel[]
   aspectRatio: '1/1' | '4/5' | '4/3' | '16/9'
   fitStyle: 'cover' | 'contain'
   width?: CSSProperties['width']
@@ -19,7 +12,7 @@ export type ImageSliderType = {
 }
 
 export type SliderControlsType = {
-  images?: ImageModel[] | PostImageViewModel[]
+  images: PostImageViewModel[]
   imageIndex: number
   setImageIndex: Dispatch<SetStateAction<number>>
   isModified?: boolean
