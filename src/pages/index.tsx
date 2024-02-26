@@ -4,6 +4,7 @@ import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
+import { IMAGE_SIZE } from '@/app/constants/enums'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { getRunningQueriesThunk } from '@/app/services/common/common.api'
 import { getPublicUserProfileById } from '@/app/services/profile/profile.api'
@@ -74,7 +75,7 @@ const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => 
           <div key={index}>
             <PostCard
               avatarOwner={item.avatarOwner}
-              images={item.images}
+              images={item.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
               userName={item.userName}
               description={item.description}
               createdAt={item.createdAt}
