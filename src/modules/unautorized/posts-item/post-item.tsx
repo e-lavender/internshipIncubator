@@ -7,6 +7,7 @@ import s from './post-item.module.scss'
 
 import { useDisclose } from '@/app'
 import { menuNavigation } from '@/app/constants'
+import { date } from '@/app/helpers/customizeDate'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { Avatar, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 import { Typography } from '@/ui'
@@ -48,12 +49,6 @@ export const PostItem = ({
     void push(menuNavigation.profile(ownerId))
   }
 
-  const date = new Date(createdAt ? createdAt : '').toLocaleDateString('en-US', {
-    year: 'numeric',
-    day: '2-digit',
-    month: 'long',
-  })
-
   return (
     <>
       <div className={s.post}>
@@ -76,7 +71,7 @@ export const PostItem = ({
           </div>
         </div>
         <Typography className={s.status} variant={'small'}>
-          {date}
+          {date(createdAt)}
         </Typography>
         <div>
           <Typography variant={'regular-14'}>

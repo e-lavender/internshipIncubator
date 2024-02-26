@@ -17,7 +17,7 @@ export type PostTypes = {
   cardType?: 'regular' | 'xl'
   userName?: string
   account?: AccountType
-  postdId?: string
+  postId?: string
   url?: string
   description?: string
   createdAt?: string
@@ -36,6 +36,12 @@ export type PostCardModalType = {
 }
 
 export type AccountType = 'personal' | 'public' | 'friend'
+
+export type DropDownMenuType = {
+  account: AccountType
+  id?: number
+  ownerId?: number
+}
 
 export type CardHeaderType = {
   url?: string
