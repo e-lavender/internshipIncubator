@@ -3,8 +3,9 @@ import { useMemo } from 'react'
 import { toast } from 'react-toastify'
 
 import { useDisclose, useRtkStateHook } from '@/app'
-import { profileApiUrls } from '@/app/constants'
 import { COMMON_MODE_STATE } from '@/app/constants/enums'
+import { menuNavigation, profileApiUrls } from '@/app/constants'
+import { FRONT_BASE_URL } from '@/app/constants/common'
 import { copyToClipboard } from '@/app/helpers/copyToClipboard'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useDeletePostByIdMutation } from '@/app/services/posts/posts.api'
@@ -14,11 +15,12 @@ import {
   ActionTypes,
   ConfirmationModal,
   DropdownMenuItemType,
+  DropDownMenuType,
   MENU_VERSION,
 } from '@/components'
 import { DropdownMenu, MenuItem } from '@/ui'
 
-export const CardDropdownMenu = ({ account = 'friend' }: { account?: AccountType }) => {
+export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => {
   const { isOpen: isModalOpened, onOpen: openModal, onClose: closeModal } = useDisclose()
   const { isOpen: isControlled, onToggle: closeDropdownMenu } = useDisclose(true)
   const { usersProfile } = profileApiUrls
@@ -42,6 +44,9 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account?: AccountType
       })
   }
 
+  const copyLinkHandler = () =>
+    copyToClipboard(`${FRONT_BASE_URL}${menuNavigation.profile(ownerId)}/${id}`)
+
   const handlersVariants: { [Action in keyof typeof ActionTypes]: () => void } = useMemo(() => {
     return {
       edit: editPost,
@@ -49,11 +54,9 @@ export const CardDropdownMenu = ({ account = 'friend' }: { account?: AccountType
       report: () => {},
       follow: () => {},
       unfollow: () => {},
-      copy: () => {
-        /*copyToClipboard(`${process.env.NEXT_PUBLIC_BASE_URL}${usersProfile}/${ownerId}/${id}`)*/
-      },
+      copy: copyLinkHandler,
     }
-  }, [])
+  }, [editPost, openModal])
 
   return (
     <>

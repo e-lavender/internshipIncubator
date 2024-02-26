@@ -1,6 +1,7 @@
 import { CSSProperties, Dispatch, SetStateAction } from 'react'
 
 import { MockedImagesDataType } from '@/app/data/image-slider/image-slider-data'
+import { PostImage } from '@/app/services/posts/posts.types'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 
 export type ImageSliderType = {

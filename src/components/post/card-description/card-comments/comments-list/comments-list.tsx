@@ -51,9 +51,9 @@ export const CommentsList = ({ content, createdAt, from, id, postId }: CommentsT
         {comments?.length ? (
           comments?.map(comment => <CommentsItem key={comment.id} {...comment} />)
         ) : (*/}
-      <Typography as={'h2'} variant={'h2'}>
+      {/*  <Typography as={'h2'} variant={'h2'}>
         No comments yet
-      </Typography>
+      </Typography>*/}
       {/* )}
       </div>*/}
     </div>
