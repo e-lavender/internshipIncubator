@@ -7,15 +7,11 @@ import s from '../image-slider.module.scss'
 
 import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { addCroppedImage } from '@/app/services/posts/slider.slice'
-import {
-  ImageSliderContainer,
-  ImageModel,
-  CropperMenu,
-  getCroppedAndFilteredImage,
-} from '@/components'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
+import { ImageSliderContainer, CropperMenu, getCroppedAndFilteredImage } from '@/components'
 
 type ImageSliderType = {
-  images?: ImageModel[]
+  images?: PostImageViewModel[]
   aspectRatio: number
   fitStyle: 'cover' | 'contain'
   setAspectRatio: (aspectRatio: number) => void
@@ -71,7 +67,7 @@ export const ImageSliderWithCropper = ({
     <>
       <ImageSliderContainer images={images} imageIndex={imageIndex} setImageIndex={setImageIndex}>
         <div
-          key={images[imageIndex]?.id}
+          key={images[imageIndex]?.uploadId}
           className={clsx(s.imageSlider, s.transition, s[fitStyle], s.container)}
         >
           <Cropper

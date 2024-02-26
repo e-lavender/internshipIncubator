@@ -26,7 +26,11 @@ export const AddedImages = () => {
       {
         // @ts-ignore
         selectedImages.map((image, index) => (
-          <div key={image.id} className={s.addedPhoto} onClick={() => chooseImageByClick(index)}>
+          <div
+            key={image.uploadId}
+            className={s.addedPhoto}
+            onClick={() => chooseImageByClick(index)}
+          >
             <CloseIcon
               className={styles}
               width={12}
@@ -35,7 +39,12 @@ export const AddedImages = () => {
               onClick={() => onDeleteImage({ id: image.id })}
             />
 
-            <Image src={image.url} alt={image.alt} height={82} width={80} />
+            <Image
+              src={image.url}
+              alt={image.alt || `image-${image.uploadId}`}
+              height={82}
+              width={80}
+            />
           </div>
         ))
       }

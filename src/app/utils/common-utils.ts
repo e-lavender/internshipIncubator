@@ -1,6 +1,8 @@
 import { toast } from 'react-toastify'
 
 import { ErrorWithData } from '@/app'
+import { IMAGE_SIZE } from '@/app/constants/enums'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 
 export const showError = (error: ErrorWithData) => {
   if (typeof error === 'string') {
@@ -50,4 +52,23 @@ export const setToLocalStorage = <T>(key: string, value: T) => {
 
 export const setToSessionStorage = <T>(key: string, value: T) => {
   sessionStorage.setItem(key, JSON.stringify(value))
+}
+
+export const transformImagesData = (data: any) => {
+  if (typeof data !== 'object' || data === null) {
+    return data
+  }
+
+  for (const key in data) {
+    if (key === 'images' && Array.isArray(data[key])) {
+      data[key] = data[key].map((image: PostImageViewModel) => ({
+        ...image,
+        imageSize: image.width > 1000 ? IMAGE_SIZE.MEDIUM : IMAGE_SIZE.THUMBNAIL,
+      }))
+    } else {
+      data[key] = transformImagesData(data[key])
+    }
+  }
+
+  return data
 }

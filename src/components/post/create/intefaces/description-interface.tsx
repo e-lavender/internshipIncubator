@@ -1,7 +1,8 @@
-import { ImageSlider, ImageModel, PostDescription } from '@/components'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
+import { ImageSlider, PostDescription } from '@/components'
 
 type DescriptionInterfaceProps = {
-  images: ImageModel[]
+  images: PostImageViewModel[]
 }
 
 export const DescriptionInterface = ({ images }: DescriptionInterfaceProps) => {

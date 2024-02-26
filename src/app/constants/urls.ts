@@ -15,5 +15,5 @@ export const publicPostsApiUrls = {
     userId: number
     endCursorPostId?: number
   }) => `/api/v1/public-posts/user/${userId}/${endCursorPostId}` as const,
-  getPublicPostByUserId: (postId: number) => `/api/v1/public-posts/${postId}` as const,
+  getPublicPostByUserId: (postId?: number) => `/api/v1/public-posts/${postId}` as const,
 }

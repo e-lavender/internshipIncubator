@@ -17,7 +17,7 @@ export type PostTypes = {
   cardType?: 'regular' | 'xl'
   userName?: string
   account?: AccountType
-  postId?: string
+  postId?: number
   url?: string
   description?: string
   createdAt?: string

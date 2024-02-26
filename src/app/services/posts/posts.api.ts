@@ -31,14 +31,16 @@ export const postsApi = commonApi.injectEndpoints({
       query: args => ({
         method: 'PUT',
         url: postById(args.postId),
-        body: args.description,
+        body: { description: args.description },
       }),
+      invalidatesTags: ['Posts'],
     }),
     deletePostById: builder.mutation<void, { postId: number }>({
       query: args => ({
         method: 'DELETE',
         url: postById(args.postId),
       }),
+      invalidatesTags: ['Posts'],
     }),
   }),
 })

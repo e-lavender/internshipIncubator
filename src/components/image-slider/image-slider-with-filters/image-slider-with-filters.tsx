@@ -24,10 +24,10 @@ export const ImageSliderWithFilters = ({
     return null
   }
 
-  const { url, id, filter } = images[imageIndex]
+  const { url, uploadId } = images[imageIndex]
 
   const onFilterChange = (filter: string) => {
-    dispatch(setActiveImageFilter({ id, filter }))
+    dispatch(setActiveImageFilter({ id: uploadId, filter }))
   }
 
   return (
@@ -42,11 +42,16 @@ export const ImageSliderWithFilters = ({
       <div className={s.images}>
         {images?.map(image => (
           <div
-            key={image.id}
+            key={image.uploadId}
             style={{ translate: `${-100 * imageIndex}%`, filter: image.filter }}
             className={clsx(s.imageSlider, s[fitStyle])}
           >
-            <Image objectFit={fitStyle} fill src={image.url} alt={image.alt} />
+            <Image
+              objectFit={fitStyle}
+              fill
+              src={image.url}
+              alt={image.alt || `img-${image.uploadId}`}
+            />
           </div>
         ))}
       </div>

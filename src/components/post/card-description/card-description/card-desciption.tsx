@@ -6,10 +6,15 @@ import s from './card-description.module.scss'
 
 import { menuNavigation } from '@/app/constants'
 import { PostModel } from '@/app/services/posts/posts.types'
-import { Avatar, PostTypes } from '@/components'
+import { Avatar } from '@/components'
 import { Typography } from '@/ui'
 
-export const CardDescription = ({ userName, description, avatarOwner, ownerId }: PostModel) => {
+export const CardDescription = ({
+  userName,
+  description,
+  avatarOwner,
+  ownerId,
+}: Omit<PostModel, 'images'>) => {
   const [showMore, setShowMore] = useState(false)
 
   const { push } = useRouter()
