@@ -4,6 +4,7 @@ import s from './card-header.module.scss'
 
 import { menuNavigation } from '@/app/constants'
 import { date, timeAgo } from '@/app/helpers/customizeDate'
+import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { PostModel } from '@/app/services/posts/posts.types'
 import { AccountType, Avatar, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
@@ -17,10 +18,13 @@ export const CardHeader = ({
   isMyProfile,
 }: Omit<PostModel, 'images'>) => {
   const accountType: AccountType = isMyProfile ? 'personal' : 'public'
-
+  const { selectedPost, closePostCardModal, clearPostCardModal } = usePostCardModal()
   const { push } = useRouter()
   const openUserProfileHandler = () => {
-    void push(menuNavigation.profile(ownerId))
+    push(menuNavigation.profile(ownerId || selectedPost.ownerId)).then(() => {
+      closePostCardModal()
+      clearPostCardModal()
+    })
   }
 
   return (
@@ -28,7 +32,11 @@ export const CardHeader = ({
       <div className={s.user}>
         <div className={s.userInfo} onClick={openUserProfileHandler}>
           <Avatar src={avatarOwner} width={36} height={36} iconScale={0.6} />
-          <Typography as={'h3'} variant={'h3'}>
+          <Typography
+            as={'a'}
+            variant={'h3'}
+            href={menuNavigation.profile(ownerId || selectedPost.ownerId)}
+          >
             {userName}
           </Typography>
         </div>
