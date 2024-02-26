@@ -24,7 +24,7 @@ export const PostCardXL = (props: PostCardXLType) => {
 
   const interfaces: InterfaceType = {
     view: <ViewModeInterface {...props} />,
-    edit: <EditModeInterface {...props} />,
+    edit: <EditModeInterface postId={0} {...props} />,
   }
 
   // @ts-ignore

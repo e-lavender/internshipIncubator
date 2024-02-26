@@ -60,7 +60,7 @@ export const MENU_VERSION: DropdownMenuType = {
 
 export const POST_COMMENTS: PostTypes = {
   userName: 'Alex',
-  postdId: '62',
+  postId: 62,
   url: '/assets/avatar/resized/2.jpg',
   account: 'personal',
   description:

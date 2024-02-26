@@ -1,5 +1,19 @@
-import { selectCreatePostModalIsOpen } from '@/app/services/modals/modals.selectors'
-import { setCreatePostModal } from '@/app/services/modals/modals.slice'
+import {
+  selectCreatePostModalIsOpen,
+  selectPostCardModalIsOpen,
+  selectPostCardModalMode,
+  selectPostCardModalPost,
+} from '@/app/services/modals/modals.selectors'
+import {
+  clearPostCardModalState,
+  setCreatePostModal,
+  setPostCardModalDescription,
+  setPostCardModalIsOpen,
+  setPostCardModalMode,
+  setPostCardModalPost,
+} from '@/app/services/modals/modals.slice'
+import { PostCardViewModelMode } from '@/app/services/modals/modals.types'
+import { PostViewModel } from '@/app/services/public-posts/public-posts.types'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 
 export const useCreatePostModal = () => {
@@ -13,4 +27,44 @@ export const useCreatePostModal = () => {
   }
 
   return { isOpen, openCreatePostModal, closeCreatePostModal }
+}
+
+export const usePostCardModal = () => {
+  const dispatch = useAppDispatch()
+  const isOpenPostCardModal = useAppSelector(selectPostCardModalIsOpen)
+  const selectedPost = useAppSelector(selectPostCardModalPost)
+  const mode = useAppSelector(selectPostCardModalMode)
+
+  const openPostCardModal = () => {
+    dispatch(setPostCardModalIsOpen({ isOpen: true }))
+  }
+  const closePostCardModal = () => {
+    dispatch(setPostCardModalIsOpen({ isOpen: false }))
+  }
+  const changePostCardModalMode = (mode: PostCardViewModelMode) => {
+    dispatch(setPostCardModalMode({ mode }))
+  }
+
+  const setPostCardModalSelectedPost = (post: PostViewModel) => {
+    dispatch(setPostCardModalPost({ post }))
+  }
+  const clearPostCardModal = () => {
+    dispatch(clearPostCardModalState())
+  }
+
+  const updatePostDescription = (description: string) => {
+    dispatch(setPostCardModalDescription({ description }))
+  }
+
+  return {
+    isOpenPostCardModal,
+    selectedPost,
+    mode,
+    setPostCardModalSelectedPost,
+    openPostCardModal,
+    closePostCardModal,
+    changePostCardModalMode,
+    clearPostCardModal,
+    updatePostDescription,
+  }
 }

@@ -1,12 +1,15 @@
+import { useCallback, useMemo } from 'react'
+
 import { toast } from 'react-toastify'
 
-import { useDisclose, useRtkStateHook } from '@/app'
-import { menuNavigation, profileApiUrls } from '@/app/constants'
+import { useDisclose } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
+import { COMMON_MODE_STATE } from '@/app/constants/enums'
 import { copyToClipboard } from '@/app/helpers/copyToClipboard'
-import { setEditMode } from '@/app/services/posts/posts.slice'
+import { usePostCardModal } from '@/app/services/modals/modals.hooks'
+import { useDeletePostByIdMutation } from '@/app/services/posts/posts.api'
 import {
-  AccountType,
   ActionTypes,
   ConfirmationModal,
   DropdownMenuItemType,
@@ -18,32 +21,44 @@ import { DropdownMenu, MenuItem } from '@/ui'
 export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => {
   const { isOpen: isModalOpened, onOpen: openModal, onClose: closeModal } = useDisclose()
   const { isOpen: isControlled, onToggle: closeDropdownMenu } = useDisclose(true)
-  const { usersProfile } = profileApiUrls
+  const [deleteSelectedPost] = useDeletePostByIdMutation()
   const currentMenuVersion: Array<DropdownMenuItemType> = MENU_VERSION[account]
+  const { changePostCardModalMode, selectedPost, closePostCardModal, clearPostCardModal } =
+    usePostCardModal()
 
-  const { _dispatch } = useRtkStateHook()
-
-  const editPost = () => _dispatch(setEditMode())
+  const editPost = useCallback(
+    () => changePostCardModalMode(COMMON_MODE_STATE.EDIT),
+    [changePostCardModalMode]
+  )
   const deletePost = () => {
-    /*
-        Todo DELETE request to delete posts
-     */
-
-    toast.success('posts deleted')
-    closeDropdownMenu()
+    deleteSelectedPost({ postId: selectedPost.id })
+      .unwrap()
+      .then(() => {
+        closePostCardModal()
+        clearPostCardModal()
+        toast.success('posts deleted')
+      })
+      .catch(err => {
+        closeDropdownMenu()
+        toast.error(err)
+      })
   }
 
-  const copyLinkHandler = () =>
-    copyToClipboard(`${FRONT_BASE_URL}${menuNavigation.profile(ownerId)}/${id}`)
+  const copyLinkHandler = useCallback(
+    () => copyToClipboard(`${FRONT_BASE_URL}${menuNavigation.profile(ownerId)}/${id}`),
+    [id, ownerId]
+  )
 
-  const handlersVariants: { [Action in keyof typeof ActionTypes]: () => void } = {
-    edit: editPost,
-    delete: openModal,
-    report: () => {},
-    follow: () => {},
-    unfollow: () => {},
-    copy: copyLinkHandler,
-  }
+  const handlersVariants: { [Action in keyof typeof ActionTypes]: () => void } = useMemo(() => {
+    return {
+      edit: editPost,
+      delete: openModal,
+      report: () => {},
+      follow: () => {},
+      unfollow: () => {},
+      copy: copyLinkHandler,
+    }
+  }, [copyLinkHandler, editPost, openModal])
 
   return (
     <>

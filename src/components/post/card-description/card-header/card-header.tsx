@@ -4,29 +4,39 @@ import s from './card-header.module.scss'
 
 import { menuNavigation } from '@/app/constants'
 import { date, timeAgo } from '@/app/helpers/customizeDate'
+import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { PostModel } from '@/app/services/posts/posts.types'
-import { Avatar, CardDropdownMenu } from '@/components'
+import { AccountType, Avatar, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
 
 export const CardHeader = ({
   avatarOwner,
   userName,
-  //account = 'personal',
   createdAt,
   ownerId,
   id,
-}: PostModel) => {
+  isMyProfile,
+}: Omit<PostModel, 'images'>) => {
+  const accountType: AccountType = isMyProfile ? 'personal' : 'public'
+  const { selectedPost, closePostCardModal, clearPostCardModal } = usePostCardModal()
   const { push } = useRouter()
-  const openUserProfileHandler = (ownerId: number | undefined) => {
-    void push(menuNavigation.profile(ownerId))
+  const openUserProfileHandler = () => {
+    push(menuNavigation.profile(ownerId || selectedPost.ownerId)).then(() => {
+      closePostCardModal()
+      clearPostCardModal()
+    })
   }
 
   return (
     <header className={s.header}>
       <div className={s.user}>
-        <div className={s.userInfo} onClick={() => openUserProfileHandler(ownerId)}>
+        <div className={s.userInfo} onClick={openUserProfileHandler}>
           <Avatar src={avatarOwner} width={36} height={36} iconScale={0.6} />
-          <Typography as={'h3'} variant={'h3'}>
+          <Typography
+            as={'a'}
+            variant={'h3'}
+            href={menuNavigation.profile(ownerId || selectedPost.ownerId)}
+          >
             {userName}
           </Typography>
         </div>
@@ -40,7 +50,7 @@ export const CardHeader = ({
         )}
       </div>
 
-      <CardDropdownMenu ownerId={ownerId} id={id} account={'friend'} />
+      <CardDropdownMenu ownerId={ownerId} id={id} account={accountType} />
     </header>
   )
 }
