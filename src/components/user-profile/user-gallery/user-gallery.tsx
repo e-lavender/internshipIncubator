@@ -10,6 +10,7 @@ import { menuNavigation } from '@/app/constants'
 import { IMAGE_SIZE } from '@/app/constants/enums'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
+import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
 import {
   EditModeInterface,
   GalleryItem,
@@ -23,15 +24,17 @@ type InterfaceType = { [ViewMode: string]: ReactElement }
 export const UserProfileGallery = ({
   ownerId,
   isMyProfile,
+  posts,
 }: {
   ownerId: number
   isMyProfile: boolean
+  posts?: PublicPostsGetPostsByUser
 }) => {
   const { isMobile } = useMatchMedia()
-  const { data: posts } = useGetPublicPostsByUserQuery({
+  /* const { data: posts } = useGetPublicPostsByUserQuery({
     userId: ownerId,
-    pageSize: 4,
-  })
+    pageSize: 8,
+  })*/
   const {
     mode,
     isOpenPostCardModal,

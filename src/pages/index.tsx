@@ -40,7 +40,7 @@ import { LoaderV2, POST_COMMENTS, PostCard, PostCardXL } from '@/components'
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
   store.dispatch(
     getPublicPosts.initiate(
-      { pageSize: 16, sortDirection: 'desc', sortBy: 'createdAt' },
+      { pageSize: 4, sortDirection: 'desc', sortBy: 'createdAt' },
       { forceRefetch: true }
     )
   )
@@ -55,7 +55,7 @@ const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => 
   const { data: me, isLoading } = useGetMeQuery()
   const { push } = useRouter()
   const { data: posts } = useGetPublicPostsQuery({
-    pageSize: 16,
+    pageSize: 4,
     sortDirection: 'desc',
     sortBy: 'createdAt',
   })

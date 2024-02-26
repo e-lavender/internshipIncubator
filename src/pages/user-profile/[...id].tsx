@@ -17,7 +17,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
 
   store.dispatch(getPublicUserProfileById.initiate({ profileId }, { forceRefetch: true }))
   store.dispatch(
-    getPublicPostsByUser.initiate({ userId: profileId, pageSize: 4 }, { forceRefetch: true })
+    getPublicPostsByUser.initiate({ userId: profileId, pageSize: 8 }, { forceRefetch: true })
   )
   store.dispatch(getPublicPostById.initiate({ postId }, { forceRefetch: true }))
 

@@ -8,13 +8,17 @@ import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicUserProfileByIdQuery } from '@/app/services/profile/profile.api'
 import { PublicUserModel, UserProfileModel } from '@/app/services/profile/profile.api.types'
-import { useGetPublicPostByIdQuery } from '@/app/services/public-posts/public-posts.api'
+import {
+  useGetPublicPostByIdQuery,
+  useGetPublicPostsByUserQuery,
+} from '@/app/services/public-posts/public-posts.api'
 import { UserProfileGallery } from '@/components'
 import { UserProfileDescription } from '@/modules'
 
 export type UserProfileType = {
   data?: UserProfileModel | PublicUserModel
   isMyProfile: boolean
+  totalCount?: number
 }
 
 export const UserProfile = () => {
@@ -26,6 +30,10 @@ export const UserProfile = () => {
   const isMyProfile = user?.userId === profileId
   const { data: postById } = useGetPublicPostByIdQuery({ postId }, { skip: !postId })
   const { data: publicUser } = useGetPublicUserProfileByIdQuery({ profileId })
+  const { data: posts } = useGetPublicPostsByUserQuery({
+    userId: profileId,
+    pageSize: 8,
+  })
   const { openPostCardModal, setPostCardModalSelectedPost } = usePostCardModal()
 
   useEffect(() => {
@@ -37,8 +45,12 @@ export const UserProfile = () => {
 
   return (
     <main className={s.container}>
-      <UserProfileDescription data={publicUser} isMyProfile={isMyProfile} />
-      <UserProfileGallery ownerId={profileId} isMyProfile={isMyProfile} />
+      <UserProfileDescription
+        data={publicUser}
+        isMyProfile={isMyProfile}
+        totalCount={posts?.totalCount}
+      />
+      <UserProfileGallery ownerId={profileId} isMyProfile={isMyProfile} posts={posts} />
     </main>
   )
 }
