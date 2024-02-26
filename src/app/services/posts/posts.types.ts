@@ -62,4 +62,7 @@ export type CommentsType = {
   }
   content?: string
   createdAt?: string
+  description?: string
+  userName?: string
+  avatarOwner?: string
 }

@@ -50,6 +50,8 @@ export const UserProfileGallery = ({
           userName={selectedPost?.userName}
           isMyProfile={isMyProfile}
           description={selectedPost?.description}
+          createdAt={selectedPost?.createdAt}
+          avatarOwner={selectedPost?.avatarOwner}
         />
       ),
       edit: (

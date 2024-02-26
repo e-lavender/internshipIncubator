@@ -8,7 +8,7 @@ import { CommentsType } from '@/app/services/posts/posts.types'
 import { CardDescription, CommentsItem, PostTypes } from '@/components'
 import { Typography } from '@/ui'
 
-export const CommentsList = ({ content, createdAt, from, id, postId }: CommentsType) => {
+export const CommentsList = ({ createdAt, userName, description, avatarOwner }: CommentsType) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   /* const isContentHidden = cardType === 'regular' && !isVisible
@@ -29,7 +29,15 @@ export const CommentsList = ({ content, createdAt, from, id, postId }: CommentsT
   }*/
 
   return (
-    <div /*className={styles.root}*/>
+    <div className={s.container}>
+      <div className={s.wrapper}>
+        <CardDescription
+          userName={userName}
+          avatarOwner={avatarOwner}
+          description={description}
+          createdAt={createdAt}
+        />
+      </div>
       {/*{cardType === 'regular' && (
         <Typography as={'button'} variant={'bold-14'} className={s.btn} onClick={handleClick}>
           {comments?.length ? `Show all Comments (${comments?.length})` : 'No Comments'}
