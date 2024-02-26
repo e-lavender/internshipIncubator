@@ -2,6 +2,7 @@ import { CSSProperties, PropsWithChildren } from 'react'
 
 import s from './image-slider-container.module.scss'
 
+import { PostImage } from '@/app/services/posts/posts.types'
 import { SliderControlsType, ImageSliderControls, ImageModel } from '@/components'
 
 type ImageSliderContainerType = PropsWithChildren<
@@ -9,12 +10,12 @@ type ImageSliderContainerType = PropsWithChildren<
     width?: CSSProperties['width']
     height?: CSSProperties['height']
     aspectRatio?: CSSProperties['aspectRatio']
-    images: ImageModel[]
+    images: ImageModel[] | PostImage[]
   } & Pick<SliderControlsType, 'imageIndex' | 'setImageIndex'>
 >
 export const ImageSliderContainer = ({
   images,
-  width = 500,
+  width,
   height,
   imageIndex,
   setImageIndex,
