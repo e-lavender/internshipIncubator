@@ -14,13 +14,11 @@ export const ImageSlider = ({
   fitStyle,
   aspectRatio,
 }: ImageSliderType) => {
-  const [sliderImages, setSliderImages] = useState(images)
   const [imageIndex, setImageIndex] = useState<number>(0)
 
   return (
     <ImageSliderContainer
-      // @ts-ignore
-      images={sliderImages}
+      images={images}
       width={width}
       height={height}
       aspectRatio={aspectRatio}
@@ -29,7 +27,7 @@ export const ImageSlider = ({
     >
       {images.map((image, index) => (
         <div
-          key={index}
+          key={image.url}
           style={{
             translate: `${-100 * imageIndex}%`,
             filter: 'image.filter',
