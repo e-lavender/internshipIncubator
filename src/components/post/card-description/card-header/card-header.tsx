@@ -8,26 +8,25 @@ import { PostModel } from '@/app/services/posts/posts.types'
 import { AccountType, Avatar, CardDropdownMenu } from '@/components'
 import { Typography } from '@/ui'
 
-export const CardHeader = ({ avatarOwner, userName, createdAt, isMyProfile }: PostModel) => {
-  const accountType: AccountType = isMyProfile ? 'personal' : 'public'
-
 export const CardHeader = ({
   avatarOwner,
   userName,
-  //account = 'personal',
   createdAt,
   ownerId,
   id,
-}: PostModel) => {
+  isMyProfile,
+}: Omit<PostModel, 'images'>) => {
+  const accountType: AccountType = isMyProfile ? 'personal' : 'public'
+
   const { push } = useRouter()
-  const openUserProfileHandler = (ownerId: number | undefined) => {
+  const openUserProfileHandler = () => {
     void push(menuNavigation.profile(ownerId))
   }
 
   return (
     <header className={s.header}>
       <div className={s.user}>
-        <div className={s.userInfo} onClick={() => openUserProfileHandler(ownerId)}>
+        <div className={s.userInfo} onClick={openUserProfileHandler}>
           <Avatar src={avatarOwner} width={36} height={36} iconScale={0.6} />
           <Typography as={'h3'} variant={'h3'}>
             {userName}
@@ -43,8 +42,7 @@ export const CardHeader = ({
         )}
       </div>
 
-      <CardDropdownMenu ownerId={ownerId} id={id} account={'friend'} />
-      <CardDropdownMenu account={accountType} />
+      <CardDropdownMenu ownerId={ownerId} id={id} account={accountType} />
     </header>
   )
 }

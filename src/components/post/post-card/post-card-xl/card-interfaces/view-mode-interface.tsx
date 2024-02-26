@@ -1,4 +1,3 @@
-import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { PostModel } from '@/app/services/posts/posts.types'
 import { AddComment, CardHeader, CardInformation, CardOptions, CommentsList } from '@/components'
 import s from '@/components/post/post-card/post-card-xl/post-card-xl.module.scss'
@@ -9,7 +8,9 @@ export const ViewModeInterface = ({
   createdAt,
   avatarOwner,
   isMyProfile,
-}: PostModel) => {
+  id,
+  ownerId,
+}: Omit<PostModel, 'images'>) => {
   return (
     <div className={s.card}>
       <CardHeader
@@ -18,6 +19,8 @@ export const ViewModeInterface = ({
         createdAt={createdAt}
         avatarOwner={avatarOwner}
         description={description}
+        ownerId={ownerId}
+        id={id}
       />
       <CommentsList createdAt={createdAt} />
       <CardOptions />

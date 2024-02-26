@@ -17,7 +17,7 @@ type Props = {
   images: PostImageViewModel[]
   description: string
   userName: string
-  itemId: number
+  id: number
   ownerId: number
   avatarOwner?: string
 }
@@ -27,7 +27,7 @@ export const PostItem = ({
   images,
   description,
   userName,
-  itemId,
+  id,
   ownerId,
   avatarOwner,
 }: Props) => {
@@ -38,14 +38,14 @@ export const PostItem = ({
     setShowMore(!showMore)
   }
 
-  const openPostModalHandler = (itemId: number, ownerId: number) => {
-    void push(menuNavigation.post(ownerId, itemId))
+  const openPostModalHandler = () => {
+    void push(menuNavigation.post(ownerId, id))
   }
-  const closePostModalHandler = (ownerId: number) => {
+  const closePostModalHandler = () => {
     void push(menuNavigation.profile(ownerId))
   }
 
-  const openUserProfileHandler = (ownerId: number) => {
+  const openUserProfileHandler = () => {
     void push(menuNavigation.profile(ownerId))
   }
 
@@ -54,7 +54,7 @@ export const PostItem = ({
       <div className={s.post}>
         <div
           className={`${s.photoBlock} ${showMore && s.collapsePhotoBlock}`}
-          onClick={() => openPostModalHandler(itemId, ownerId)}
+          onClick={openPostModalHandler}
         >
           <Image
             className={`${s.imageBlock} ${showMore && s.collapseImageBlock}`}
@@ -64,7 +64,7 @@ export const PostItem = ({
             height={240}
           />
         </div>
-        <div className={s.header} onClick={() => openUserProfileHandler(ownerId)}>
+        <div className={s.header} onClick={openUserProfileHandler}>
           <Avatar width={36} height={36} src={avatarOwner} />
           <div className={s.footerInfo}>
             <Typography variant="h3">{userName}</Typography>
@@ -89,13 +89,15 @@ export const PostItem = ({
           )}
         </div>
       </div>
-      <PostCardModal isOpen={isModalOpened} onChange={() => closePostModalHandler(ownerId)}>
+      <PostCardModal isOpen={isModalOpened} onChange={closePostModalHandler}>
         <ImageSlider images={images} aspectRatio={'1/1'} fitStyle={'cover'} />
         <ViewModeInterface
           description={description}
           userName={userName}
           createdAt={createdAt}
           avatarOwner={avatarOwner}
+          ownerId={ownerId}
+          id={id}
         />
       </PostCardModal>
     </>

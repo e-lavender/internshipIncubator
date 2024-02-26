@@ -1,17 +1,15 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { toast } from 'react-toastify'
 
-import { useDisclose, useRtkStateHook } from '@/app'
-import { COMMON_MODE_STATE } from '@/app/constants/enums'
-import { menuNavigation, profileApiUrls } from '@/app/constants'
+import { useDisclose } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
+import { COMMON_MODE_STATE } from '@/app/constants/enums'
 import { copyToClipboard } from '@/app/helpers/copyToClipboard'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useDeletePostByIdMutation } from '@/app/services/posts/posts.api'
-import { setEditMode } from '@/app/services/posts/posts.slice'
 import {
-  AccountType,
   ActionTypes,
   ConfirmationModal,
   DropdownMenuItemType,
@@ -23,13 +21,15 @@ import { DropdownMenu, MenuItem } from '@/ui'
 export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => {
   const { isOpen: isModalOpened, onOpen: openModal, onClose: closeModal } = useDisclose()
   const { isOpen: isControlled, onToggle: closeDropdownMenu } = useDisclose(true)
-  const { usersProfile } = profileApiUrls
   const [deleteSelectedPost] = useDeletePostByIdMutation()
   const currentMenuVersion: Array<DropdownMenuItemType> = MENU_VERSION[account]
   const { changePostCardModalMode, selectedPost, closePostCardModal, clearPostCardModal } =
     usePostCardModal()
 
-  const editPost = () => changePostCardModalMode(COMMON_MODE_STATE.EDIT)
+  const editPost = useCallback(
+    () => changePostCardModalMode(COMMON_MODE_STATE.EDIT),
+    [changePostCardModalMode]
+  )
   const deletePost = () => {
     deleteSelectedPost({ postId: selectedPost.id })
       .unwrap()
@@ -44,8 +44,10 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
       })
   }
 
-  const copyLinkHandler = () =>
-    copyToClipboard(`${FRONT_BASE_URL}${menuNavigation.profile(ownerId)}/${id}`)
+  const copyLinkHandler = useCallback(
+    () => copyToClipboard(`${FRONT_BASE_URL}${menuNavigation.profile(ownerId)}/${id}`),
+    [id, ownerId]
+  )
 
   const handlersVariants: { [Action in keyof typeof ActionTypes]: () => void } = useMemo(() => {
     return {
@@ -56,7 +58,7 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
       unfollow: () => {},
       copy: copyLinkHandler,
     }
-  }, [editPost, openModal])
+  }, [copyLinkHandler, editPost, openModal])
 
   return (
     <>

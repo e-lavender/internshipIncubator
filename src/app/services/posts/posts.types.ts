@@ -16,7 +16,7 @@ export type PostModel = {
   userName?: string
   description?: string
   location?: string
-  images?: PostImage[]
+  images: PostImageViewModel[]
   createdAt?: string
   updatedAt?: string
   ownerId?: number
