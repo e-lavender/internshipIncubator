@@ -26,6 +26,7 @@ export const postsApi = commonApi.injectEndpoints({
         method: 'DELETE',
         url: postImageById(args.uploadId),
       }),
+      invalidatesTags: ['Images'],
     }),
     updatePostById: builder.mutation<void, { postId: number; description: string }>({
       query: args => ({

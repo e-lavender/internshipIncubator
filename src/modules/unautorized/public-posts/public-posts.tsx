@@ -17,23 +17,25 @@ export const PublicPosts = memo(({ data }: Props) => {
 
   return (
     <>
-      <NumberOfUsers data={data} />
-      <div className={s.posts}>
-        {data?.items &&
-          data?.items.length > 0 &&
-          data?.items.map((item, index) => (
-            <div key={index}>
-              <PostItem
-                createdAt={item.createdAt}
-                images={item.images}
-                description={item.description}
-                userName={item.userName}
-                id={item.id}
-                avatarOwner={item.avatarOwner}
-                ownerId={item.ownerId}
-              />
-            </div>
-          ))}
+      <div className={s.main}>
+        <NumberOfUsers data={data} />
+        <div className={s.posts}>
+          {data?.items &&
+            data?.items.length > 0 &&
+            data?.items.map((item, index) => (
+              <div key={index}>
+                <PostItem
+                  createdAt={item.createdAt}
+                  images={item.images}
+                  description={item.description}
+                  userName={item.userName}
+                  id={item.id}
+                  avatarOwner={item.avatarOwner}
+                  ownerId={item.ownerId}
+                />
+              </div>
+            ))}
+        </div>
       </div>
     </>
   )

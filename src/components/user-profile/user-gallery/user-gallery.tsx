@@ -8,6 +8,7 @@ import s from './user-gallery.module.scss'
 import { useDisclose, useMatchMedia } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { IMAGE_SIZE } from '@/app/constants/enums'
+import { UserModel } from '@/app/services/auth/auth.api.types'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
 import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
@@ -25,12 +26,15 @@ export const UserProfileGallery = ({
   ownerId,
   isMyProfile,
   posts,
+  user,
 }: {
+  user: UserModel | undefined
   ownerId: number
   isMyProfile: boolean
   posts?: PublicPostsGetPostsByUser
 }) => {
   const { isMobile } = useMatchMedia()
+  const isEditMode = true
   /* const { data: posts } = useGetPublicPostsByUserQuery({
     userId: ownerId,
     pageSize: 8,
@@ -134,15 +138,14 @@ export const UserProfileGallery = ({
         {/*  </SkeletonCard>*/}
         {/*)}*/}
       </div>
-      <PostCardModal
-        isOpen={isOpenPostCardModal || false}
-        onChange={closePostModalHandler}
-        // askConfirmation={isEditMode}
-      >
+      <PostCardModal isOpen={isOpenPostCardModal || false} onChange={closePostModalHandler}>
         <ImageSlider
           images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
+          isEditMode={isEditMode}
+          isMyProfile={isMyProfile}
+          user={user}
         />
         {CurrentInterface}
       </PostCardModal>

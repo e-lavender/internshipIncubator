@@ -50,7 +50,7 @@ export const UserProfile = () => {
         isMyProfile={isMyProfile}
         totalCount={posts?.totalCount}
       />
-      <UserProfileGallery ownerId={profileId} isMyProfile={isMyProfile} posts={posts} />
+      <UserProfileGallery ownerId={profileId} posts={posts} isMyProfile={isMyProfile} user={user} />
     </main>
   )
 }
