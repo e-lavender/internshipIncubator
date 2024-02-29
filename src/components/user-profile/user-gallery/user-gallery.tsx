@@ -1,11 +1,11 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 
 import s from './user-gallery.module.scss'
 
-import { useDisclose, useMatchMedia } from '@/app'
+import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { IMAGE_SIZE } from '@/app/constants/enums'
 import { UserModel } from '@/app/services/auth/auth.api.types'
@@ -34,7 +34,8 @@ export const UserProfileGallery = ({
   posts?: PublicPostsGetPostsByUser
 }) => {
   const { isMobile } = useMatchMedia()
-  const isEditMode = true
+  const [isEditMode, setIsEditMode] = useState(false)
+
   /* const { data: posts } = useGetPublicPostsByUserQuery({
     userId: ownerId,
     pageSize: 8,
@@ -59,6 +60,7 @@ export const UserProfileGallery = ({
           description={selectedPost?.description}
           createdAt={selectedPost?.createdAt}
           avatarOwner={selectedPost?.avatarOwner}
+          setIsEditMode={setIsEditMode}
         />
       ),
       edit: (
@@ -66,6 +68,7 @@ export const UserProfileGallery = ({
           userName={selectedPost?.userName}
           postId={selectedPost?.id!}
           description={selectedPost?.description}
+          setIsEditMode={setIsEditMode}
         />
       ),
     }
