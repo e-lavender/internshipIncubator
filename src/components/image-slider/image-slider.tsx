@@ -45,7 +45,7 @@ export const ImageSlider = ({
           key={image.url}
           style={{
             translate: `${-100 * imageIndex}%`,
-            filter: 'image.filter',
+            filter: image.filter,
           }}
           className={clsx(s.imageSlider, s[fitStyle])}
         >
