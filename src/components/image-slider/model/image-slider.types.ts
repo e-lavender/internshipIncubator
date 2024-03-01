@@ -13,7 +13,7 @@ export type ImageSliderType = {
   height?: CSSProperties['height']
   isEditMode?: boolean
   isMyProfile?: boolean
-  user: UserModel | undefined
+  user?: UserModel | undefined
 }
 
 export type SliderControlsType = {

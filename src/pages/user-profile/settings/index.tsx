@@ -1,8 +1,11 @@
 import { ReactElement, useEffect, useMemo } from 'react'
 
+import { useRouter } from 'next/router'
+
 import s from './general-information.module.scss'
 
 import { setDateFormat, useGeneralSettings, UserProfileType, useTranslation } from '@/app'
+import { menuNavigation } from '@/app/constants'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import {
   useGetProfileQuery,
@@ -28,6 +31,7 @@ const GeneralInformation = () => {
   const [getCities, { data: cities, isLoading: citiesLoading }] = useGetCitiesMutation()
 
   const { t } = useTranslation()
+  const { push } = useRouter()
   const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
     t.profileSettings.generalSettings
 
@@ -59,8 +63,9 @@ const GeneralInformation = () => {
   const isDisabledSubmit = !isValid || isLoading
   const selectedCountry = watch('country')
 
-  const onSubmit = handleSubmit((data: GeneralSettingsType) => {
-    const { userName, firstName, lastName, city, country, dateOfBirth, aboutMe } = data
+  const onSubmit = handleSubmit((settingsData: GeneralSettingsType) => {
+    const { userName, firstName, lastName, city, country, dateOfBirth, aboutMe } = settingsData
+    //const { id } = data
     const location: LocationType = {
       country: country || '',
       city: city || '',
@@ -75,7 +80,7 @@ const GeneralInformation = () => {
       city: serializedCity,
       dateOfBirth: date,
       aboutMe: aboutMe || null,
-    })
+    }).then(void push(menuNavigation.profile(data?.id)))
   })
 
   useEffect(() => {
