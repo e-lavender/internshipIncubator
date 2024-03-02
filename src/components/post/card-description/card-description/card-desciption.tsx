@@ -21,7 +21,7 @@ export const CardDescription = ({
   const collapseHandler = () => {
     setShowMore(!showMore)
   }
-  const openUserProfileHandler = (ownerId: number | undefined) => {
+  const openUserProfileHandler = () => {
     void push(menuNavigation.profile(ownerId))
   }
 
@@ -31,22 +31,23 @@ export const CardDescription = ({
 
   return (
     <div className={s.description}>
-      <div className={s.user} onClick={() => openUserProfileHandler(ownerId)}>
+      <div className={s.user} onClick={openUserProfileHandler}>
         <Avatar src={avatarOwner} width={36} height={36} iconScale={0.6} />
-        <Typography variant={'bold-14'}>{`${userName} `}</Typography>
       </div>
-      <div className={s.info}>
-        <Typography variant={'regular-14'}>
+      <div className={s.info} style={{ display: 'inline-block' }}>
+        <Typography variant={'bold-14'} style={{ display: 'inline' }}>{`${userName} `}</Typography>
+
+        <Typography variant={'regular-14'} style={{ display: 'inline' }}>
           {showMore ? description : `${description.substring(0, 90)}`}
         </Typography>
         {description.length > 90 && (
           <Typography
             as={'button'}
-            variant={'regular-14'}
+            variant={'bold-14'}
             className={s.button}
             onClick={collapseHandler}
           >
-            {showMore ? 'Hide' : 'Show more'}
+            {showMore ? 'Hide' : '. . .'}
           </Typography>
         )}
       </div>

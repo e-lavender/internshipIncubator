@@ -1,15 +1,17 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 
 import s from './user-gallery.module.scss'
 
-import { useDisclose, useMatchMedia } from '@/app'
+import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { IMAGE_SIZE } from '@/app/constants/enums'
+import { UserModel } from '@/app/services/auth/auth.api.types'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
+import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
 import {
   EditModeInterface,
   GalleryItem,
@@ -23,15 +25,21 @@ type InterfaceType = { [ViewMode: string]: ReactElement }
 export const UserProfileGallery = ({
   ownerId,
   isMyProfile,
+  posts,
+  user,
 }: {
+  user: UserModel | undefined
   ownerId: number
   isMyProfile: boolean
+  posts?: PublicPostsGetPostsByUser
 }) => {
   const { isMobile } = useMatchMedia()
-  const { data: posts } = useGetPublicPostsByUserQuery({
+  const [isEditMode, setIsEditMode] = useState(false)
+
+  /* const { data: posts } = useGetPublicPostsByUserQuery({
     userId: ownerId,
-    pageSize: 4,
-  })
+    pageSize: 8,
+  })*/
   const {
     mode,
     isOpenPostCardModal,
@@ -50,6 +58,9 @@ export const UserProfileGallery = ({
           userName={selectedPost?.userName}
           isMyProfile={isMyProfile}
           description={selectedPost?.description}
+          createdAt={selectedPost?.createdAt}
+          avatarOwner={selectedPost?.avatarOwner}
+          setIsEditMode={setIsEditMode}
         />
       ),
       edit: (
@@ -57,6 +68,7 @@ export const UserProfileGallery = ({
           userName={selectedPost?.userName}
           postId={selectedPost?.id!}
           description={selectedPost?.description}
+          setIsEditMode={setIsEditMode}
         />
       ),
     }
@@ -129,15 +141,14 @@ export const UserProfileGallery = ({
         {/*  </SkeletonCard>*/}
         {/*)}*/}
       </div>
-      <PostCardModal
-        isOpen={isOpenPostCardModal || false}
-        onChange={closePostModalHandler}
-        // askConfirmation={isEditMode}
-      >
+      <PostCardModal isOpen={isOpenPostCardModal || false} onChange={closePostModalHandler}>
         <ImageSlider
           images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
+          isEditMode={isEditMode}
+          isMyProfile={isMyProfile}
+          user={user}
         />
         {CurrentInterface}
       </PostCardModal>

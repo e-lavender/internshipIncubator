@@ -13,9 +13,10 @@ type FetchedData = {
 
 type UserStatisticsProps = {
   data?: Array<FetchedData>
+  totalCount?: number
 }
 
-export const UserStatistics = ({ data = [] }: UserStatisticsProps) => {
+export const UserStatistics = ({ data = [], totalCount }: UserStatisticsProps) => {
   const { isMobile } = useMatchMedia()
   const { t } = useTranslation()
   const { following, followers, publications } = t.profileSettings.generalSettings.profile
@@ -25,7 +26,7 @@ export const UserStatistics = ({ data = [] }: UserStatisticsProps) => {
     <div className={styles}>
       <UserStatisticsItem category={following.label} qty={2218} />
       <UserStatisticsItem category={followers.label} qty={2851} />
-      <UserStatisticsItem category={publications.label} qty={1742} />
+      <UserStatisticsItem category={publications.label} qty={totalCount} />
     </div>
   )
 }

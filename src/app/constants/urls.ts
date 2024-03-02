@@ -6,7 +6,7 @@ export const postsApiUrls = {
 }
 
 export const publicPostsApiUrls = {
-  getPublicPosts: (endCursorPostId?: number) =>
+  getAllPublicPosts: (endCursorPostId?: number) =>
     `/api/v1/public-posts/all/${endCursorPostId}` as const,
   getPublicPostsByUserId: ({
     userId,

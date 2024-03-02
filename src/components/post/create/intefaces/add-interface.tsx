@@ -2,13 +2,15 @@ import { useRef } from 'react'
 
 import s from './interfaces.module.scss'
 
-import { AccountIcon, MIME_TYPES } from '@/app'
+import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
 import { Button, FileInput } from '@/ui'
 
 type AddInterfaceProps = {
   callback: (file: File) => void
 }
 export const AddInterface = ({ callback }: AddInterfaceProps) => {
+  const { t } = useTranslation()
+  const { select } = t.createPost
   const formRef = useRef<HTMLFormElement>(null)
   const { JPG, PNG } = MIME_TYPES
 
@@ -29,7 +31,7 @@ export const AddInterface = ({ callback }: AddInterfaceProps) => {
         <FileInput
           ref={formRef}
           className={s.input}
-          label={'Select from computer'}
+          label={select}
           onUpload={handleUpload}
           accept={[JPG, PNG]}
         />
