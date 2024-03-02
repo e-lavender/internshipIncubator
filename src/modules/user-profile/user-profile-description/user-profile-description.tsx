@@ -9,7 +9,7 @@ import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescription, UserProfileType } from '@/modules'
 import { Button, Typography } from '@/ui'
 
-export const UserProfileDescription = ({ data, isMyProfile }: UserProfileType) => {
+export const UserProfileDescription = ({ data, isMyProfile, totalCount }: UserProfileType) => {
   const { isMobile } = useMatchMedia()
 
   const { t } = useTranslation()
@@ -41,7 +41,7 @@ export const UserProfileDescription = ({ data, isMyProfile }: UserProfileType) =
           )}
         </div>
 
-        <UserStatistics />
+        <UserStatistics totalCount={totalCount} />
 
         <Typography as={'p'} variant={'regular-16'}>
           {data?.aboutMe}

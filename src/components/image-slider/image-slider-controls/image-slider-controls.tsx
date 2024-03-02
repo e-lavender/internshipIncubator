@@ -5,6 +5,7 @@ export const ImageSliderControls = ({
   imageIndex,
   setImageIndex,
   isModified,
+  isEditMode,
 }: SliderControlsType) => {
   const showControlButtons = images.length > 1
 
@@ -17,13 +18,19 @@ export const ImageSliderControls = ({
     <>
       {showControlButtons && (
         <>
-          <SliderButton position={'left'} images={images} setImageIndex={setImageIndex} />
+          <SliderButton
+            position={'left'}
+            images={images}
+            setImageIndex={setImageIndex}
+            isEditMode={isEditMode}
+          />
 
           <SliderButton
             position={'right'}
             images={images}
             setImageIndex={setImageIndex}
             inlineStyle={styles.button}
+            isEditMode={isEditMode}
           />
 
           <SliderDots

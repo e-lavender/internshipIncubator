@@ -2,6 +2,7 @@ import { clsx } from 'clsx'
 
 import s from './card-information.module.scss'
 
+import { date } from '@/app/helpers/customizeDate'
 import { Avatar } from '@/components'
 import { Typography } from '@/ui'
 
@@ -14,6 +15,10 @@ export const CardInformation = ({
   likes?: number
   cardType?: 'regular' | 'xl'
 }) => {
+  if (!createdAt) {
+    return null
+  }
+
   return (
     <div className={clsx(s.container, cardType === 'regular' && s.containerV2)}>
       <div className={s.likes}>
@@ -45,7 +50,7 @@ export const CardInformation = ({
       </div>
 
       <Typography variant={'small'} className={s.created}>
-        {createdAt}
+        {date(createdAt)}
       </Typography>
     </div>
   )

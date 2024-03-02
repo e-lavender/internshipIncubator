@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import s from './card-header.module.scss'
 
 import { menuNavigation } from '@/app/constants'
-import { date, timeAgo } from '@/app/helpers/customizeDate'
+import { timeAgo } from '@/app/helpers/customizeDate'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { PostModel } from '@/app/services/posts/posts.types'
 import { AccountType, Avatar, CardDropdownMenu } from '@/components'

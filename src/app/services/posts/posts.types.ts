@@ -23,6 +23,7 @@ export type PostModel = {
   avatarOwner?: string
   owner?: PostModelOwner
   isMyProfile?: boolean
+  setIsEditMode?: (isEditMode: boolean) => void
 }
 export type PostImage = {
   url: string
@@ -62,4 +63,7 @@ export type CommentsType = {
   }
   content?: string
   createdAt?: string
+  description?: string
+  userName?: string
+  avatarOwner?: string
 }

@@ -10,13 +10,13 @@ import {
 } from '@/app/services/public-posts/public-posts.types'
 import { transformImagesData } from '@/app/utils'
 
-const { getPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
+const { getAllPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
 
 export const publicPostsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
     getPublicPosts: builder.query<PublicPostsGetAll, PublicPostsGetAllArg>({
       query: queryArg => ({
-        url: getPublicPosts(queryArg.endCursorPostId),
+        url: getAllPublicPosts(queryArg.endCursorPostId),
         params: {
           pageSize: queryArg.pageSize,
           sortBy: queryArg.sortBy,
@@ -56,4 +56,4 @@ export const publicPostsApi = commonApi.injectEndpoints({
 
 export const { useGetPublicPostsQuery, useGetPublicPostsByUserQuery, useGetPublicPostByIdQuery } =
   publicPostsApi
-export const { getPublicPostsByUser, getPublicPostById } = publicPostsApi.endpoints
+export const { getPublicPostsByUser, getPublicPostById, getPublicPosts } = publicPostsApi.endpoints
