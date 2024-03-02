@@ -4,7 +4,7 @@ import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dism
 
 import s from './create-new-post-modal.module.scss'
 
-import { ErrorWithData, useDisclose, useFileCreationWithSteps } from '@/app'
+import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
 import { CreatePostRequestChildrenMetadata } from '@/app/services/posts/posts.types'
@@ -28,7 +28,8 @@ export const CreateNewPostModal = () => {
   const [uploadImages] = useUploadImagePostMutation()
   // added additional indicator in order to inform user that everything is ok and request is processing now
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
+  const { t } = useTranslation()
+  const { add, cropping, filters, publication } = t.createPost
   const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
 
@@ -95,10 +96,10 @@ export const CreateNewPostModal = () => {
 
   const titleVariants: { [Step: string]: string } = useMemo(() => {
     return {
-      1: 'Add photo',
-      2: 'Cropping',
-      3: 'Filters',
-      4: 'Publication',
+      1: add,
+      2: cropping,
+      3: filters,
+      4: publication,
     }
   }, [])
 
