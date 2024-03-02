@@ -74,8 +74,6 @@ const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => 
         {posts?.items?.map((item, index) => {
           const filteredImages = item.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)
 
-          // console.log(`${item.userName}`, filteredImages)
-
           return (
             <div key={item.id}>
               <PostCard
