@@ -8,7 +8,10 @@ import { FRONT_BASE_URL } from '@/app/constants/common'
 import { COMMON_MODE_STATE } from '@/app/constants/enums'
 import { copyToClipboard } from '@/app/helpers/copyToClipboard'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
-import { useDeletePostByIdMutation } from '@/app/services/posts/posts.api'
+import {
+  useDeleteImagePostMutation,
+  useDeletePostByIdMutation,
+} from '@/app/services/posts/posts.api'
 import {
   ActionTypes,
   ConfirmationModal,
@@ -22,6 +25,7 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
   const { isOpen: isModalOpened, onOpen: openModal, onClose: closeModal } = useDisclose()
   const { isOpen: isControlled, onToggle: closeDropdownMenu } = useDisclose(true)
   const [deleteSelectedPost] = useDeletePostByIdMutation()
+  const [deletePostImages] = useDeleteImagePostMutation()
   const currentMenuVersion: Array<DropdownMenuItemType> = MENU_VERSION[account]
   const { changePostCardModalMode, selectedPost, closePostCardModal, clearPostCardModal } =
     usePostCardModal()
@@ -31,9 +35,14 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
     [changePostCardModalMode]
   )
   const deletePost = () => {
+    const postImagesUploadIds = selectedPost.images.map(image => image.uploadId)
+
     deleteSelectedPost({ postId: selectedPost.id })
       .unwrap()
       .then(() => {
+        postImagesUploadIds.forEach(uploadId => {
+          deletePostImages({ uploadId })
+        })
         closePostCardModal()
         clearPostCardModal()
         toast.success('posts deleted')

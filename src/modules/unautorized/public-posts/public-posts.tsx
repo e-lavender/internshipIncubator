@@ -21,8 +21,8 @@ export const PublicPosts = memo(({ data }: Props) => {
       <div className={s.posts}>
         {data?.items &&
           data?.items.length > 0 &&
-          data?.items.map((item, index) => (
-            <div key={index}>
+          data?.items.map(item => (
+            <div key={item.id}>
               <PostItem
                 createdAt={item.createdAt}
                 images={item.images}

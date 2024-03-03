@@ -1,15 +1,19 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 
+import { nanoid } from '@reduxjs/toolkit'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/router'
 
 import s from './user-gallery.module.scss'
 
-import { useDisclose, useMatchMedia } from '@/app'
+import { useMatchMedia } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { IMAGE_SIZE } from '@/app/constants/enums'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
+import {
+  PostViewModel,
+  PublicPostsGetPostsByUser,
+} from '@/app/services/public-posts/public-posts.types'
 import {
   EditModeInterface,
   GalleryItem,
@@ -17,6 +21,7 @@ import {
   PostCardModal,
   ViewModeInterface,
 } from '@/components'
+import { Loader } from '@/ui'
 
 type InterfaceType = { [ViewMode: string]: ReactElement }
 
@@ -28,10 +33,16 @@ export const UserProfileGallery = ({
   isMyProfile: boolean
 }) => {
   const { isMobile } = useMatchMedia()
-  const { data: posts } = useGetPublicPostsByUserQuery({
+
+  const [endCursorPostId, setEndCursorPostId] = useState<number | undefined>()
+  const { data, isLoading, isFetching } = useGetPublicPostsByUserQuery({
     userId: ownerId,
-    pageSize: 4,
+    pageSize: 3,
+    endCursorPostId,
   })
+
+  const [posts, setPosts] = useState<PublicPostsGetPostsByUser | undefined>()
+
   const {
     mode,
     isOpenPostCardModal,
@@ -62,7 +73,14 @@ export const UserProfileGallery = ({
         />
       ),
     }
-  }, [isMyProfile, selectedPost?.description, selectedPost?.id, selectedPost?.userName])
+  }, [
+    isMyProfile,
+    selectedPost?.avatarOwner,
+    selectedPost?.createdAt,
+    selectedPost?.description,
+    selectedPost?.id,
+    selectedPost?.userName,
+  ])
 
   const CurrentInterface: ReactElement = interfaces[mode]
 
@@ -81,25 +99,6 @@ export const UserProfileGallery = ({
     openPostCardModal()
     window.history.pushState(null, 'post', menuNavigation.post(ownerId, postId))
   }
-  // const trigger = useRef<HTMLDivElement>(null)
-  // const { content, isLoading } = useInfiniteScroll(
-  //   data?.items || GALLERY_DATA,
-  //   trigger,
-  //   scrollHandler,
-  //   100
-  // )
-  //
-  // function scrollHandler(): Promise<any[]> {
-  //   return new Promise((res, rej) => {
-  //     setTimeout(() => {
-  //       const [index1, index2] = [0, 0]
-  //         .map(() => Math.floor(Math.random() * GALLERY_DATA.length))
-  //         .sort((a, b) => a - b)
-  //
-  //       res(GALLERY_DATA.slice(index1, index2))
-  //     }, 1500)
-  //   })
-  // }
 
   const styles = {
     root: clsx(s.container, isMobile && s.mobile),
@@ -107,13 +106,51 @@ export const UserProfileGallery = ({
     loader: clsx(s.card, isMobile && s.mobile, s.loader),
   }
 
+  useEffect(() => {
+    if (data) {
+      const allItems: PostViewModel[] = posts?.items
+        ? // eslint-disable-next-line no-unsafe-optional-chaining
+          [...posts?.items, ...data.items]
+        : [...data.items]
+      const allPosts: PublicPostsGetPostsByUser = { ...posts, ...data, items: allItems }
+
+      setPosts(allPosts)
+    }
+  }, [data])
+
+  useEffect(() => {
+    const hasScroll = document.body.scrollHeight !== window.innerHeight
+    const stopRequest = posts?.items.length === posts?.totalCount
+    const addMorePosts = () => {
+      posts?.items[posts.items.length - 1]?.id &&
+        setEndCursorPostId(posts.items[posts.items.length - 1].id)
+    }
+
+    if (!hasScroll && !isFetching) {
+      addMorePosts()
+    }
+    const onScroll = () => {
+      const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight
+
+      if (!stopRequest && scrolledToBottom && !isFetching) {
+        addMorePosts()
+      }
+    }
+
+    document.addEventListener('scroll', onScroll)
+
+    return function () {
+      document.removeEventListener('scroll', onScroll)
+    }
+  }, [isFetching, posts])
+
   return (
     <>
       <div className={styles.root}>
         {posts?.items &&
           posts?.items.length > 0 &&
           posts?.items.map((item, index) => (
-            <div key={index} className={styles.card}>
+            <div key={nanoid()} className={styles.card}>
               <GalleryItem
                 src={item.images[0].url}
                 width={item.images[0].width}
@@ -124,13 +161,8 @@ export const UserProfileGallery = ({
               />
             </div>
           ))}
-
-        {/*{isLoading && (*/}
-        {/*  <SkeletonCard count={6}>*/}
-        {/*    <div className={styles.card} />*/}
-        {/*  </SkeletonCard>*/}
-        {/*)}*/}
       </div>
+      <Loader isLoading={isLoading || isFetching} />
       <PostCardModal
         isOpen={isOpenPostCardModal || false}
         onChange={closePostModalHandler}
@@ -143,7 +175,6 @@ export const UserProfileGallery = ({
         />
         {CurrentInterface}
       </PostCardModal>
-      {/*<div className={styles.loader} ref={trigger} />*/}
     </>
   )
 }

@@ -15,15 +15,18 @@ const { getAllPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = pub
 export const publicPostsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
     getPublicPosts: builder.query<PublicPostsGetAll, PublicPostsGetAllArg>({
-      query: queryArg => ({
-        url: getAllPublicPosts(queryArg.endCursorPostId),
-        params: {
-          pageSize: queryArg.pageSize,
-          sortBy: queryArg.sortBy,
-          sortDirection: queryArg.sortDirection,
-        },
-      }),
+      query: queryArg => {
+        return {
+          url: getAllPublicPosts(queryArg.endCursorPostId),
+          params: {
+            pageSize: queryArg.pageSize,
+            sortBy: queryArg.sortBy,
+            sortDirection: queryArg.sortDirection,
+          },
+        }
+      },
       transformResponse: transformImagesData,
+
       providesTags: ['Posts'],
     }),
 
@@ -40,6 +43,19 @@ export const publicPostsApi = commonApi.injectEndpoints({
         },
       }),
       transformResponse: transformImagesData,
+      // serializeQueryArgs: ({ endpointName }) => {
+      //   console.log('endpointName', endpointName)
+      //
+      //   return endpointName
+      // },
+      // // Always merge incoming data to the cache entry
+      // merge: (currentCache, newItems) => {
+      //   currentCache.items.push(...newItems.items)
+      // },
+      // // Refetch when the page arg changes
+      // forceRefetch({ currentArg, previousArg }) {
+      //   return currentArg !== previousArg
+      // },
       providesTags: ['Posts'],
     }),
     getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
@@ -51,7 +67,7 @@ export const publicPostsApi = commonApi.injectEndpoints({
     }),
   }),
 
-  overrideExisting: false,
+  overrideExisting: true,
 })
 
 export const { useGetPublicPostsQuery, useGetPublicPostsByUserQuery, useGetPublicPostByIdQuery } =
