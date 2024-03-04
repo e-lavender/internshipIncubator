@@ -6,6 +6,7 @@ import Image from 'next/image'
 import s from './image-slider.module.scss'
 
 import { CloseIcon } from '@/app'
+import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useDeleteImagePostMutation } from '@/app/services/posts/posts.api'
 import { ImageSliderContainer, ImageSliderType } from '@/components'
 
@@ -21,13 +22,21 @@ export const ImageSlider = ({
 }: ImageSliderType) => {
   const [imageIndex, setImageIndex] = useState<number>(0)
   const [deletePostImage] = useDeleteImagePostMutation()
+  const { updatePostImages } = usePostCardModal()
+  const handleDeletePostImage = (uploadId: string) => {
+    deletePostImage({ uploadId })
+      .unwrap()
+      .then(() => {
+        const updatedImages = images.filter(image => {
+          return image.uploadId !== uploadId
+        })
 
-  const handleDeletePostImage = async (uploadId: string) => {
-    try {
-      await deletePostImage({ uploadId }).unwrap()
-    } catch (error: unknown) {
-      console.error(`${error}`)
-    }
+        updatePostImages(updatedImages)
+      })
+      .catch(error => {
+        console.error(`${error}`)
+      })
+      .finally()
   }
 
   return (
