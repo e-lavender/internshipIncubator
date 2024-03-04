@@ -23,8 +23,6 @@ export const RadioContainer = ({
 }: PropsWithChildren<RadioContainerProps>) => {
   const styles = clsx(s.root, disabled && s.disabled)
 
-  console.log(defaultValue)
-
   return (
     <form>
       <RadioSelect.Root
