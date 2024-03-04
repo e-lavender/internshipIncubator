@@ -29,6 +29,7 @@ export const EditModeInterface = ({
   const [text, setText] = useState<string>(description || '')
   const { changePostCardModalMode, updatePostDescription } = usePostCardModal()
   const [updatePost] = useUpdatePostByIdMutation()
+  const { data } = useGetPublicPostByIdQuery({ postId })
   const { _dispatch, _state } = useRtkStateHook()
   const { isEdited } = _state.post
 
