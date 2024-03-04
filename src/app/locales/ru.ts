@@ -17,6 +17,7 @@ import {
   NavigationTabsModel,
   ConfirmationModal,
   CreatePost,
+  AccountModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
@@ -37,6 +38,7 @@ const generalSettings = GeneralSettingsModel.ru
 const navigationTabs = NavigationTabsModel.ru
 const confirmationModal = ConfirmationModal.ru
 const createPost = CreatePost.ru
+const account = AccountModel.ru
 
 export const ru = {
   calendar: {
@@ -83,5 +85,6 @@ export const ru = {
   },
   confirmationModal: confirmationModal,
   createPost: createPost,
+  account: account,
 }
 export type LocaleType = typeof ru

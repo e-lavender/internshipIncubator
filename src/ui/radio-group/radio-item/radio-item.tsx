@@ -5,16 +5,19 @@ import { clsx } from 'clsx'
 
 import s from './radio-item.module.scss'
 
+import { Nullable } from '@/app'
+import { SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { Label } from '@/ui'
 
 type RadioItemProps = {
   value: string
   disabled?: boolean
   label?: string
+  id?: any
 }
 
-export const RadioItem = ({ value, label, disabled }: RadioItemProps) => {
-  const id = useId()
+export const RadioItem = ({ value, disabled, id }: RadioItemProps) => {
+  //const id = useId()
 
   const styles = {
     root: clsx(s.wrapper, disabled && s.disabled),
@@ -24,10 +27,10 @@ export const RadioItem = ({ value, label, disabled }: RadioItemProps) => {
 
   return (
     <div className={styles.root}>
-      <RadioSelect.Item className={styles.item} value={value} id={id} disabled={disabled}>
+      <RadioSelect.Item className={styles.item} value={id} id={id} disabled={disabled}>
         <RadioSelect.Indicator className={styles.indicator} />
       </RadioSelect.Item>
-      {label && <Label title={label} id={id} />}
+      {value && <Label title={value} id={id} />}
     </div>
   )
 }

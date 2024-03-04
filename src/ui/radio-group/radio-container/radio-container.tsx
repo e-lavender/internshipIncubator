@@ -6,9 +6,9 @@ import { clsx } from 'clsx'
 import s from './radio-container.module.scss'
 
 type RadioContainerProps = {
-  defaultValue: string
+  defaultValue: any
   value?: string
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: any) => void
   name?: string
   disabled?: boolean
   required?: boolean
@@ -22,6 +22,8 @@ export const RadioContainer = ({
   ...props
 }: PropsWithChildren<RadioContainerProps>) => {
   const styles = clsx(s.root, disabled && s.disabled)
+
+  console.log(defaultValue)
 
   return (
     <form>

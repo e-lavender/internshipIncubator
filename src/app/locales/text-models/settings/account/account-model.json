@@ -1,0 +1,24 @@
+{
+  "en": {
+    "accountType": "Account type",
+    "yourSubscriptionCosts": "Your subscription costs",
+    "per": "per",
+    "oneDay": "1 Day",
+    "sevenDays": "7 Days",
+    "month": "month",
+    "or": "Or",
+    "personal": "Personal",
+    "business": "Business"
+  },
+  "ru": {
+    "accountType": "Тип аккаунта",
+    "yourSubscriptionCosts": "Стоимость вашей подписки",
+    "per": "за",
+    "oneDay": "1 день",
+    "sevenDays": "7 дней",
+    "month": "месяц",
+    "or": "или",
+    "personal": "Личный",
+    "business": "Коммерческий"
+  }
+}

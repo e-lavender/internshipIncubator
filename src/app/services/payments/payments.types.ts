@@ -17,6 +17,7 @@ export type SubscriptionOptions = {
   value: string
   amount: number
   typeSubscription: 'MONTHLY' | 'DAY' | 'WEEKLY'
+  disabled?: boolean
 }
 
 export type SubscriptionDuration = 'MONTHLY' | 'DAY' | 'WEEKLY'
