@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 
 import { nanoid } from '@reduxjs/toolkit'
 import { clsx } from 'clsx'
@@ -7,7 +7,8 @@ import s from './user-gallery.module.scss'
 
 import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
 import { menuNavigation } from '@/app/constants'
-import { IMAGE_SIZE } from '@/app/constants/enums'
+import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
+import { COMMON_MODE_STATE, IMAGE_SIZE } from '@/app/constants/enums'
 import { UserModel } from '@/app/services/auth/auth.api.types'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
@@ -29,21 +30,25 @@ type InterfaceType = { [ViewMode: string]: ReactElement }
 export const UserProfileGallery = ({
   ownerId,
   isMyProfile,
-  posts,
   user,
 }: {
   user: UserModel | undefined
   ownerId: number
   isMyProfile: boolean
-  posts?: PublicPostsGetPostsByUser
 }) => {
   const { isMobile } = useMatchMedia()
-
+  const styles = {
+    root: clsx(s.container, isMobile && s.mobile),
+    card: clsx(s.card, isMobile && s.mobile),
+    loader: clsx(s.card, isMobile && s.mobile, s.loader),
+  }
   const [endCursorPostId, setEndCursorPostId] = useState<number | undefined>()
   const { data, isLoading, isFetching } = useGetPublicPostsByUserQuery({
     userId: ownerId,
-    pageSize: 3,
+    pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
     endCursorPostId,
+    sortDirection: 'desc',
+    sortBy: 'createdAt',
   })
 
   const [posts, setPosts] = useState<PublicPostsGetPostsByUser | undefined>()
@@ -53,7 +58,6 @@ export const UserProfileGallery = ({
     isOpenPostCardModal,
     openPostCardModal,
     closePostCardModal,
-    changePostCardModalMode,
     setPostCardModalSelectedPost,
     selectedPost,
     clearPostCardModal,
@@ -103,12 +107,6 @@ export const UserProfileGallery = ({
     selectedPost && setPostCardModalSelectedPost(selectedPost)
     openPostCardModal()
     window.history.pushState(null, 'post', menuNavigation.post(ownerId, postId))
-  }
-
-  const styles = {
-    root: clsx(s.container, isMobile && s.mobile),
-    card: clsx(s.card, isMobile && s.mobile),
-    loader: clsx(s.card, isMobile && s.mobile, s.loader),
   }
 
   useEffect(() => {
@@ -166,24 +164,18 @@ export const UserProfileGallery = ({
               />
             </div>
           ))}
-
-        {/*{isLoading && (*/}
-        {/*  <SkeletonCard count={6}>*/}
-        {/*    <div className={styles.card} />*/}
-        {/*  </SkeletonCard>*/}
-        {/*)}*/}
       </div>
       <Loader isLoading={isLoading || isFetching} />
       <PostCardModal
         isOpen={isOpenPostCardModal || false}
         onChange={closePostModalHandler}
-        // askConfirmation={isEditMode}
+        askConfirmation={mode === COMMON_MODE_STATE.EDIT}
       >
         <ImageSlider
           images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
-          isEditMode={isEditMode}
+          isEditMode={mode === COMMON_MODE_STATE.EDIT}
           isMyProfile={isMyProfile}
           user={user}
         />
