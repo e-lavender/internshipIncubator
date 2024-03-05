@@ -1,12 +1,8 @@
-import { useId } from 'react'
-
 import * as RadioSelect from '@radix-ui/react-radio-group'
 import { clsx } from 'clsx'
 
 import s from './radio-item.module.scss'
 
-import { Nullable } from '@/app'
-import { SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { Label } from '@/ui'
 
 type RadioItemProps = {
@@ -17,8 +13,6 @@ type RadioItemProps = {
 }
 
 export const RadioItem = ({ value, disabled, id }: RadioItemProps) => {
-  //const id = useId()
-
   const styles = {
     root: clsx(s.wrapper, disabled && s.disabled),
     item: clsx(s.item),
