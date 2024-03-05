@@ -13,6 +13,7 @@ export const SliderButton = ({
   images,
   inlineStyle,
   setImageIndex,
+  isEditMode,
 }: ControlsButtonType) => {
   const showNextImage = () => {
     setImageIndex(index => {
@@ -31,7 +32,7 @@ export const SliderButton = ({
   }
 
   const buttonVariant = {
-    style: clsx(s.buttonSlider, s[position]),
+    style: clsx(isEditMode ? s.editModeSlider : s.buttonSlider, s[position]),
     onClickAction: position === 'left' ? showPrevImage : showNextImage,
     icon: position === 'left' ? <ChevronLeft /> : <ChevronRight />,
   }

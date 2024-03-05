@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import { ChangeEventHandler, FormEventHandler, useEffect, useState } from 'react'
 
 import s from '../post-card-xl.module.scss'
 
@@ -17,14 +17,27 @@ type EditModeInterfaceProps = {
   description?: string
   isLoading?: boolean
   postId: number
+  setIsEditMode?: (isEditMode: boolean) => void
 }
 
-export const EditModeInterface = ({ userName, postId, description }: EditModeInterfaceProps) => {
+export const EditModeInterface = ({
+  userName,
+  postId,
+  description,
+  setIsEditMode,
+}: EditModeInterfaceProps) => {
   const [text, setText] = useState<string>(description || '')
   const { changePostCardModalMode, updatePostDescription } = usePostCardModal()
   const [updatePost] = useUpdatePostByIdMutation()
+  const { data } = useGetPublicPostByIdQuery({ postId })
   const { _dispatch, _state } = useRtkStateHook()
   const { isEdited } = _state.post
+
+  useEffect(() => {
+    if (setIsEditMode) {
+      setIsEditMode(true)
+    }
+  }, [])
 
   const handleDescriptionChange: ChangeEventHandler<HTMLTextAreaElement> = e => {
     const text = e.target.value

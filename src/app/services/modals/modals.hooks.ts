@@ -11,9 +11,10 @@ import {
   setPostCardModalIsOpen,
   setPostCardModalMode,
   setPostCardModalPost,
+  setPostImages,
 } from '@/app/services/modals/modals.slice'
 import { PostCardViewModelMode } from '@/app/services/modals/modals.types'
-import { PostViewModel } from '@/app/services/public-posts/public-posts.types'
+import { PostImageViewModel, PostViewModel } from '@/app/services/public-posts/public-posts.types'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 
 export const useCreatePostModal = () => {
@@ -56,6 +57,10 @@ export const usePostCardModal = () => {
     dispatch(setPostCardModalDescription({ description }))
   }
 
+  const updatePostImages = (images: PostImageViewModel[]) => {
+    dispatch(setPostImages({ images }))
+  }
+
   return {
     isOpenPostCardModal,
     selectedPost,
@@ -66,5 +71,6 @@ export const usePostCardModal = () => {
     changePostCardModalMode,
     clearPostCardModal,
     updatePostDescription,
+    updatePostImages,
   }
 }

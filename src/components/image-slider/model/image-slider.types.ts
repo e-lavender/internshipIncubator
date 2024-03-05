@@ -1,6 +1,7 @@
 import { CSSProperties, Dispatch, SetStateAction } from 'react'
 
 import { MockedImagesDataType } from '@/app/data/image-slider/image-slider-data'
+import { UserModel } from '@/app/services/auth/auth.api.types'
 import { PostImage } from '@/app/services/posts/posts.types'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 
@@ -10,6 +11,9 @@ export type ImageSliderType = {
   fitStyle: 'cover' | 'contain'
   width?: CSSProperties['width']
   height?: CSSProperties['height']
+  isEditMode?: boolean
+  isMyProfile?: boolean
+  user?: UserModel | undefined
 }
 
 export type SliderControlsType = {
@@ -18,6 +22,7 @@ export type SliderControlsType = {
   setImageIndex: Dispatch<SetStateAction<number>>
   isModified?: boolean
   inlineStyle?: any
+  isEditMode?: boolean
 }
 
 export type IconType = 'cropper' | 'zoom' | 'image'

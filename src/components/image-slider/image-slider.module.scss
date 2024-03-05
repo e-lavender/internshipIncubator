@@ -29,6 +29,14 @@
   & [data-testid='cropper'] {
     transition: 0.8s all ease-in-out;
   }
+
+  .delete {
+    z-index:1;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
 }
 
 .cover {

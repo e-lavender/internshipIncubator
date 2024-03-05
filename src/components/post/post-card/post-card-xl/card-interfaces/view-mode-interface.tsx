@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { createActionProxy } from 'next/dist/build/webpack/loaders/next-flight-loader/action-proxy'
 
 import { PostModel } from '@/app/services/posts/posts.types'
@@ -12,7 +14,14 @@ export const ViewModeInterface = ({
   isMyProfile,
   id,
   ownerId,
+  setIsEditMode,
 }: Omit<PostModel, 'images'>) => {
+  useEffect(() => {
+    if (setIsEditMode) {
+      setIsEditMode(false)
+    }
+  }, [])
+
   return (
     <div className={s.card}>
       <CardHeader

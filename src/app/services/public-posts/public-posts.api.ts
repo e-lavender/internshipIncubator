@@ -63,7 +63,7 @@ export const publicPostsApi = commonApi.injectEndpoints({
         url: getPublicPostByUserId(queryArg.postId),
       }),
       transformResponse: transformImagesData,
-      providesTags: ['Posts'],
+      providesTags: ['Posts', 'Images'],
     }),
   }),
 

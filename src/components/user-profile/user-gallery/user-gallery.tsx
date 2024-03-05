@@ -1,13 +1,14 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 
 import { nanoid } from '@reduxjs/toolkit'
 import { clsx } from 'clsx'
 
 import s from './user-gallery.module.scss'
 
-import { useMatchMedia } from '@/app'
+import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { IMAGE_SIZE } from '@/app/constants/enums'
+import { UserModel } from '@/app/services/auth/auth.api.types'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
 import {
@@ -28,9 +29,13 @@ type InterfaceType = { [ViewMode: string]: ReactElement }
 export const UserProfileGallery = ({
   ownerId,
   isMyProfile,
+  posts,
+  user,
 }: {
+  user: UserModel | undefined
   ownerId: number
   isMyProfile: boolean
+  posts?: PublicPostsGetPostsByUser
 }) => {
   const { isMobile } = useMatchMedia()
 
@@ -161,6 +166,12 @@ export const UserProfileGallery = ({
               />
             </div>
           ))}
+
+        {/*{isLoading && (*/}
+        {/*  <SkeletonCard count={6}>*/}
+        {/*    <div className={styles.card} />*/}
+        {/*  </SkeletonCard>*/}
+        {/*)}*/}
       </div>
       <Loader isLoading={isLoading || isFetching} />
       <PostCardModal
@@ -172,9 +183,13 @@ export const UserProfileGallery = ({
           images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
+          isEditMode={isEditMode}
+          isMyProfile={isMyProfile}
+          user={user}
         />
         {CurrentInterface}
       </PostCardModal>
+      {/*<div className={styles.loader} ref={trigger} />*/}
     </>
   )
 }

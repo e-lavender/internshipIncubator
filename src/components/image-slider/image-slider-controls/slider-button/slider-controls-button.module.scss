@@ -49,3 +49,10 @@
     }
   }
 }
+
+.editModeSlider {
+  @extend .buttonSlider;
+bottom: 20rem;
+  top: 24rem;
+}
+

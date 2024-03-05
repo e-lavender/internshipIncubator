@@ -11,7 +11,7 @@ type ImageSliderContainerType = PropsWithChildren<
     height?: CSSProperties['height']
     aspectRatio?: CSSProperties['aspectRatio']
     images: PostImageViewModel[]
-  } & Pick<SliderControlsType, 'imageIndex' | 'setImageIndex'>
+  } & Pick<SliderControlsType, 'imageIndex' | 'setImageIndex' | 'isEditMode'>
 >
 export const ImageSliderContainer = ({
   images,
@@ -21,6 +21,7 @@ export const ImageSliderContainer = ({
   setImageIndex,
   aspectRatio,
   children,
+  isEditMode,
 }: ImageSliderContainerType) => {
   return (
     <div
@@ -33,7 +34,12 @@ export const ImageSliderContainer = ({
     >
       <div className={s.images}>{children}</div>
 
-      <ImageSliderControls images={images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
+      <ImageSliderControls
+        images={images}
+        imageIndex={imageIndex}
+        isEditMode={isEditMode}
+        setImageIndex={setImageIndex}
+      />
     </div>
   )
 }

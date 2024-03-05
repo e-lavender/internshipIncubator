@@ -41,6 +41,9 @@ const post = createSlice({
     setPostCardModalDescription: (state, action: PayloadAction<{ description: string }>) => {
       state.postCardModal.post.description = action.payload.description
     },
+    setPostImages: (state, action: PayloadAction<{ images: PostImageViewModel[] }>) => {
+      state.postCardModal.post.images = action.payload.images
+    },
   },
 })
 
@@ -51,5 +54,6 @@ export const {
   setPostCardModalMode,
   clearPostCardModalState,
   setPostCardModalDescription,
+  setPostImages,
 } = post.actions
 export const modalsReducer = post.reducer

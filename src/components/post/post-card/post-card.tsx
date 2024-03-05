@@ -20,7 +20,7 @@ export const PostCard = (props: PostModel) => {
       <CardHeader {...props} />
       <ImageSlider {...props} aspectRatio={'1/1'} fitStyle={'cover'} />
       <CardOptions />
-      <CardDescription {...props} />
+      {/*<CardDescription {...props} />*/}
       <CardInformation likes={315} cardType={'regular'} />
       <CommentsList {...props} />
       <AddComment />

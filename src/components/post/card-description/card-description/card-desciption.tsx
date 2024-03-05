@@ -43,11 +43,11 @@ export const CardDescription = ({
         {description.length > 90 && (
           <Typography
             as={'button'}
-            variant={'regular-14'}
+            variant={'bold-14'}
             className={s.button}
             onClick={collapseHandler}
           >
-            {showMore ? 'Hide' : 'Show more'}
+            {showMore ? 'Hide' : '. . .'}
           </Typography>
         )}
       </div>
