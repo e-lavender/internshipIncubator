@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import s from './user-profile.module.scss'
 
+import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicUserProfileByIdQuery } from '@/app/services/profile/profile.api'
@@ -32,8 +33,11 @@ export const UserProfile = () => {
   const { data: publicUser } = useGetPublicUserProfileByIdQuery({ profileId })
   const { data: posts } = useGetPublicPostsByUserQuery({
     userId: profileId,
-    pageSize: 8,
+    pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
+    sortDirection: 'desc',
+    sortBy: 'createdAt',
   })
+
   const { openPostCardModal, setPostCardModalSelectedPost } = usePostCardModal()
 
   useEffect(() => {
@@ -50,7 +54,7 @@ export const UserProfile = () => {
         isMyProfile={isMyProfile}
         totalCount={posts?.totalCount}
       />
-      <UserProfileGallery ownerId={profileId} posts={posts} isMyProfile={isMyProfile} user={user} />
+      <UserProfileGallery ownerId={profileId} isMyProfile={isMyProfile} user={user} />
     </main>
   )
 }
