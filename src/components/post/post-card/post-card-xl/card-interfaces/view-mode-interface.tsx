@@ -14,14 +14,7 @@ export const ViewModeInterface = ({
   isMyProfile,
   id,
   ownerId,
-  setIsEditMode,
 }: Omit<PostModel, 'images'>) => {
-  useEffect(() => {
-    if (setIsEditMode) {
-      setIsEditMode(false)
-    }
-  }, [])
-
   return (
     <div className={s.card}>
       <CardHeader

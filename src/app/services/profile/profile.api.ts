@@ -71,6 +71,7 @@ export const profileApi = commonApi.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {

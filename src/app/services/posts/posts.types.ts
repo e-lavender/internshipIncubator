@@ -23,7 +23,6 @@ export type PostModel = {
   avatarOwner?: string
   owner?: PostModelOwner
   isMyProfile?: boolean
-  setIsEditMode?: (isEditMode: boolean) => void
 }
 export type PostImage = {
   url: string
