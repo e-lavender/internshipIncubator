@@ -11,6 +11,7 @@ import {
 } from '@/app/services/payments/payments.api'
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { Card, RadioContainer, RadioItem, Typography } from '@/ui'
+import { useRouter } from 'next/router'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
@@ -21,6 +22,7 @@ export const AccountSettings = () => {
   const [createSubscriptions] = useCreateSubscriptionsMutation()
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { t } = useTranslation()
+  const { query } = useRouter()
   const {
     accountType,
     yourSubscriptionCosts,
@@ -33,8 +35,8 @@ export const AccountSettings = () => {
     business,
   } = t.account
   const PROFILE_TYPE = [
-    { label: 'personal', value: `${personal}`, id: -1 },
-    { label: 'business', value: `${business}`, id: -2 },
+    { label: 'personal', value: `${personal}`, id: 1 },
+    { label: 'business', value: `${business}`, id: 2 },
   ]
   const [accountTypeId, setAccountTypeId] = useState<number>(PROFILE_TYPE[0].id)
 
