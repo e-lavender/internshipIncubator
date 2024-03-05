@@ -105,13 +105,9 @@ export const AccountSettings = () => {
           </Card>
 
           <div className={s.payment}>
-            <div onClick={() => paymentsHandler('PAYPAL')}>
-              <PaypalIcon />
-            </div>
+            <PaypalIcon onClick={() => paymentsHandler('PAYPAL')} />
             <Typography>{or}</Typography>
-            <div onClick={() => paymentsHandler('STRIPE')}>
-              <StripeIcon />
-            </div>
+            <StripeIcon onClick={() => paymentsHandler('STRIPE')} />
           </div>
         </div>
       )}
