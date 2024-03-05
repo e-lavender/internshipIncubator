@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { getRunningQueriesThunk } from '@/app/services/common/common.api'
 import { getPublicUserProfileById } from '@/app/services/profile/profile.api'
 import {
@@ -17,7 +18,15 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
 
   store.dispatch(getPublicUserProfileById.initiate({ profileId }, { forceRefetch: true }))
   store.dispatch(
-    getPublicPostsByUser.initiate({ userId: profileId, pageSize: 8 }, { forceRefetch: true })
+    getPublicPostsByUser.initiate(
+      {
+        userId: profileId,
+        pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
+        sortDirection: 'desc',
+        sortBy: 'createdAt',
+      },
+      { forceRefetch: true }
+    )
   )
   store.dispatch(getPublicPostById.initiate({ postId }, { forceRefetch: true }))
 

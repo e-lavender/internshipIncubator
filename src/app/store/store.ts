@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { createWrapper } from 'next-redux-wrapper'
 
-import { FRONT_BASE_URL } from '@/app/constants/common'
 import { authReducer } from '@/app/services/auth/auth.slice'
 import { commonApi } from '@/app/services/common/common.api'
 import { locationApi } from '@/app/services/countries/countries.api'
@@ -35,4 +34,6 @@ setupListeners(store.dispatch)
 const makeStore = () => store
 
 export type AppStore = ReturnType<typeof makeStore>
-export const wrapper = createWrapper<AppStore>(makeStore, { debug: !!FRONT_BASE_URL })
+export const wrapper = createWrapper<AppStore>(makeStore, {
+  debug: process.env.NODE_ENV !== 'production',
+})

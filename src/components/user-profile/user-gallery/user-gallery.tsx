@@ -1,17 +1,21 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 
+import { nanoid } from '@reduxjs/toolkit'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/router'
 
 import s from './user-gallery.module.scss'
 
 import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
 import { menuNavigation } from '@/app/constants'
-import { IMAGE_SIZE } from '@/app/constants/enums'
+import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
+import { COMMON_MODE_STATE, IMAGE_SIZE } from '@/app/constants/enums'
 import { UserModel } from '@/app/services/auth/auth.api.types'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
-import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
+import {
+  PostViewModel,
+  PublicPostsGetPostsByUser,
+} from '@/app/services/public-posts/public-posts.types'
 import {
   EditModeInterface,
   GalleryItem,
@@ -19,33 +23,41 @@ import {
   PostCardModal,
   ViewModeInterface,
 } from '@/components'
+import { Loader } from '@/ui'
 
 type InterfaceType = { [ViewMode: string]: ReactElement }
 
 export const UserProfileGallery = ({
   ownerId,
   isMyProfile,
-  posts,
   user,
 }: {
   user: UserModel | undefined
   ownerId: number
   isMyProfile: boolean
-  posts?: PublicPostsGetPostsByUser
 }) => {
   const { isMobile } = useMatchMedia()
-  const [isEditMode, setIsEditMode] = useState(false)
-
-  /* const { data: posts } = useGetPublicPostsByUserQuery({
+  const styles = {
+    root: clsx(s.container, isMobile && s.mobile),
+    card: clsx(s.card, isMobile && s.mobile),
+    loader: clsx(s.card, isMobile && s.mobile, s.loader),
+  }
+  const [endCursorPostId, setEndCursorPostId] = useState<number | undefined>()
+  const { data, isLoading, isFetching } = useGetPublicPostsByUserQuery({
     userId: ownerId,
-    pageSize: 8,
-  })*/
+    pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
+    endCursorPostId,
+    sortDirection: 'desc',
+    sortBy: 'createdAt',
+  })
+
+  const [posts, setPosts] = useState<PublicPostsGetPostsByUser | undefined>()
+
   const {
     mode,
     isOpenPostCardModal,
     openPostCardModal,
     closePostCardModal,
-    changePostCardModalMode,
     setPostCardModalSelectedPost,
     selectedPost,
     clearPostCardModal,
@@ -60,7 +72,6 @@ export const UserProfileGallery = ({
           description={selectedPost?.description}
           createdAt={selectedPost?.createdAt}
           avatarOwner={selectedPost?.avatarOwner}
-          setIsEditMode={setIsEditMode}
         />
       ),
       edit: (
@@ -68,11 +79,17 @@ export const UserProfileGallery = ({
           userName={selectedPost?.userName}
           postId={selectedPost?.id!}
           description={selectedPost?.description}
-          setIsEditMode={setIsEditMode}
         />
       ),
     }
-  }, [isMyProfile, selectedPost?.description, selectedPost?.id, selectedPost?.userName])
+  }, [
+    isMyProfile,
+    selectedPost?.avatarOwner,
+    selectedPost?.createdAt,
+    selectedPost?.description,
+    selectedPost?.id,
+    selectedPost?.userName,
+  ])
 
   const CurrentInterface: ReactElement = interfaces[mode]
 
@@ -91,31 +108,44 @@ export const UserProfileGallery = ({
     openPostCardModal()
     window.history.pushState(null, 'post', menuNavigation.post(ownerId, postId))
   }
-  // const trigger = useRef<HTMLDivElement>(null)
-  // const { content, isLoading } = useInfiniteScroll(
-  //   data?.items || GALLERY_DATA,
-  //   trigger,
-  //   scrollHandler,
-  //   100
-  // )
-  //
-  // function scrollHandler(): Promise<any[]> {
-  //   return new Promise((res, rej) => {
-  //     setTimeout(() => {
-  //       const [index1, index2] = [0, 0]
-  //         .map(() => Math.floor(Math.random() * GALLERY_DATA.length))
-  //         .sort((a, b) => a - b)
-  //
-  //       res(GALLERY_DATA.slice(index1, index2))
-  //     }, 1500)
-  //   })
-  // }
 
-  const styles = {
-    root: clsx(s.container, isMobile && s.mobile),
-    card: clsx(s.card, isMobile && s.mobile),
-    loader: clsx(s.card, isMobile && s.mobile, s.loader),
-  }
+  useEffect(() => {
+    if (data) {
+      const allItems: PostViewModel[] = posts?.items
+        ? // eslint-disable-next-line no-unsafe-optional-chaining
+          [...posts?.items, ...data.items]
+        : [...data.items]
+      const allPosts: PublicPostsGetPostsByUser = { ...posts, ...data, items: allItems }
+
+      setPosts(allPosts)
+    }
+  }, [data])
+
+  useEffect(() => {
+    const hasScroll = document.body.scrollHeight !== window.innerHeight
+    const stopRequest = posts?.items.length === posts?.totalCount
+    const addMorePosts = () => {
+      posts?.items[posts.items.length - 1]?.id &&
+        setEndCursorPostId(posts.items[posts.items.length - 1].id)
+    }
+
+    if (!hasScroll && !isFetching) {
+      addMorePosts()
+    }
+    const onScroll = () => {
+      const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight
+
+      if (!stopRequest && scrolledToBottom && !isFetching) {
+        addMorePosts()
+      }
+    }
+
+    document.addEventListener('scroll', onScroll)
+
+    return function () {
+      document.removeEventListener('scroll', onScroll)
+    }
+  }, [isFetching, posts])
 
   return (
     <>
@@ -123,7 +153,7 @@ export const UserProfileGallery = ({
         {posts?.items &&
           posts?.items.length > 0 &&
           posts?.items.map((item, index) => (
-            <div key={index} className={styles.card}>
+            <div key={nanoid()} className={styles.card}>
               <GalleryItem
                 src={item.images[0].url}
                 width={item.images[0].width}
@@ -134,19 +164,18 @@ export const UserProfileGallery = ({
               />
             </div>
           ))}
-
-        {/*{isLoading && (*/}
-        {/*  <SkeletonCard count={6}>*/}
-        {/*    <div className={styles.card} />*/}
-        {/*  </SkeletonCard>*/}
-        {/*)}*/}
       </div>
-      <PostCardModal isOpen={isOpenPostCardModal || false} onChange={closePostModalHandler}>
+      <Loader isLoading={isLoading || isFetching} />
+      <PostCardModal
+        isOpen={isOpenPostCardModal || false}
+        onChange={closePostModalHandler}
+        askConfirmation={mode === COMMON_MODE_STATE.EDIT}
+      >
         <ImageSlider
           images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
-          isEditMode={isEditMode}
+          isEditMode={mode === COMMON_MODE_STATE.EDIT}
           isMyProfile={isMyProfile}
           user={user}
         />

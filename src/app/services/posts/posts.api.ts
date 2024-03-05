@@ -44,6 +44,7 @@ export const postsApi = commonApi.injectEndpoints({
       invalidatesTags: ['Posts'],
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {

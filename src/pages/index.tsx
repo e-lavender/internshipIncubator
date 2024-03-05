@@ -4,6 +4,7 @@ import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
+import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { IMAGE_SIZE } from '@/app/constants/enums'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { getRunningQueriesThunk } from '@/app/services/common/common.api'
@@ -40,7 +41,11 @@ import { LoaderV2, POST_COMMENTS, PostCard, PostCardXL } from '@/components'
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
   store.dispatch(
     getPublicPosts.initiate(
-      { pageSize: 4, sortDirection: 'desc', sortBy: 'createdAt' },
+      {
+        pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
+        sortDirection: 'desc',
+        sortBy: 'createdAt',
+      },
       { forceRefetch: true }
     )
   )
