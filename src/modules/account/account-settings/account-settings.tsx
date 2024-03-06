@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import s from './account-settings.module.scss'
 
-import { Nullable, PaypalIcon, StripeIcon, useTranslation } from '@/app'
+import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
 import {
@@ -12,10 +12,12 @@ import {
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { Card, RadioContainer, RadioItem, Typography } from '@/ui'
 import { useRouter } from 'next/router'
+import { PaymentsModal } from '@/components/modals/payments-modal'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
   //const [accountType, setAccountType] = useState('')
+  const [subscription, setSubscription] = useState<string | null>(null)
   const [subscriptionId, setSubscriptionId] = useState<number>(0)
   const [subscriptionOptions, setSubscriptionOptions] =
     useState<Nullable<SubscriptionOptions[]>>(null)
@@ -23,6 +25,7 @@ export const AccountSettings = () => {
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { t } = useTranslation()
   const { query } = useRouter()
+  console.log(query.success)
   const {
     accountType,
     yourSubscriptionCosts,
@@ -42,6 +45,8 @@ export const AccountSettings = () => {
 
   const hasPaymentAccess = accountTypeId === PROFILE_TYPE[1].id
 
+  const { onClose: closePaymentsModal } = useDisclose()
+
   useEffect(() => {
     if (costOfSubscription) {
       const subscriptions = costOfSubscription.data.map((cost, index) => {
@@ -59,6 +64,12 @@ export const AccountSettings = () => {
       setSubscriptionOptions(subscriptions)
     }
   }, [costOfSubscription])
+
+  useEffect(() => {
+    if (query.success || query.token) {
+      setSubscription('success')
+    }
+  }, [query.success, query.token, query])
 
   const paymentsHandler = (paymentType: 'STRIPE' | 'PAYPAL') => {
     subscriptionOptions &&
@@ -113,6 +124,11 @@ export const AccountSettings = () => {
           </div>
         </div>
       )}
+      <PaymentsModal
+        isOpen={subscription === 'success'}
+        onClose={closePaymentsModal}
+        isSuccess={query.success === 'true'}
+      />
     </section>
   )
 }

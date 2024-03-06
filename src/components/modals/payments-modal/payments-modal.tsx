@@ -30,9 +30,9 @@ export const PaymentsModal = ({ isSuccess, isOpen, onClose }: ModalProps) => {
       >
         <Typography variant="regular-16">{content}</Typography>
 
-        <div className={s.button}>
-          <Button onClick={onClose}>{titleForButton} </Button>
-        </div>
+        <Button onClick={onClose} className={s.button} fullWidth>
+          <Typography variant="h3"> {titleForButton}</Typography>
+        </Button>
       </Modal.Content>
     </Modal>
   )
