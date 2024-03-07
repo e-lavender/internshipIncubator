@@ -16,6 +16,7 @@ import SidebarMenuModel from './sidebar-menu/sidebar-menu-model.json'
 import SignInTextModel from './sign-in-text-model.json'
 import SignUpTextModel from './sign-up-text-model.json'
 import TermsTextModel from './terms-text-model.json'
+import PaymentsModal from './payments-modal.json'
 export {
   SignUpTextModel,
   PrivacyPolicyTextModel,
@@ -36,4 +37,5 @@ export {
   ConfirmationModal,
   CreatePost,
   AccountModel,
+  PaymentsModal,
 }

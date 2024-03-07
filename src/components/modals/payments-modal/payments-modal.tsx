@@ -10,15 +10,16 @@ type ModalProps = {
 
 export const PaymentsModal = ({ isSuccess, isOpen, onClose }: ModalProps) => {
   const { t } = useTranslation()
+  const { error, back, success, successful, failed } = t.paymentsModal
 
-  const title = isSuccess ? 'Success' : 'Error'
+  const title = isSuccess ? { success } : { error }
 
   const content = isSuccess ? (
-    <Typography variant={'regular-16'}>Payment was successful!</Typography>
+    <Typography variant={'regular-16'}>{successful}</Typography>
   ) : (
-    <Typography variant={'regular-16'}>Transaction failed. Please, write to support</Typography>
+    <Typography variant={'regular-16'}>{failed}</Typography>
   )
-  const titleForButton = isSuccess ? 'OK' : 'Back to payment'
+  const titleForButton = isSuccess ? 'OK' : { back }
 
   return (
     <Modal open={isOpen} onChange={onClose}>

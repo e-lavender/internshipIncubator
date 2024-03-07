@@ -25,7 +25,7 @@ export const AccountSettings = () => {
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { t } = useTranslation()
   const { query } = useRouter()
-  console.log(query.success)
+  console.log(query)
   const {
     accountType,
     yourSubscriptionCosts,
