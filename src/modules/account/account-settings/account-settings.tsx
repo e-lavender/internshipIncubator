@@ -26,6 +26,7 @@ export const AccountSettings = () => {
   const { t } = useTranslation()
   const { query } = useRouter()
   console.log(query)
+
   const {
     accountType,
     yourSubscriptionCosts,
@@ -127,7 +128,7 @@ export const AccountSettings = () => {
       <PaymentsModal
         isOpen={subscription === 'success'}
         onClose={closePaymentsModal}
-        isSuccess={query.success === 'true'}
+        isSuccess={query.success === 'true' || query.PayerID}
       />
     </section>
   )

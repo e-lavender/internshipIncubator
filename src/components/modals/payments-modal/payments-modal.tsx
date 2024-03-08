@@ -3,7 +3,7 @@ import s from './payments-modal.module.scss'
 import { useTranslation } from '@/app'
 
 type ModalProps = {
-  isSuccess?: boolean
+  isSuccess?: string | true | string[] | undefined
   isOpen: boolean
   onClose: () => void
 }
@@ -12,14 +12,14 @@ export const PaymentsModal = ({ isSuccess, isOpen, onClose }: ModalProps) => {
   const { t } = useTranslation()
   const { error, back, success, successful, failed } = t.paymentsModal
 
-  const title = isSuccess ? { success } : { error }
+  const title = isSuccess ? success : error
 
   const content = isSuccess ? (
     <Typography variant={'regular-16'}>{successful}</Typography>
   ) : (
     <Typography variant={'regular-16'}>{failed}</Typography>
   )
-  const titleForButton = isSuccess ? 'OK' : { back }
+  const titleForButton = isSuccess ? 'OK' : back
 
   return (
     <Modal open={isOpen} onChange={onClose}>
