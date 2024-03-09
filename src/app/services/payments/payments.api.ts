@@ -3,10 +3,17 @@ import { commonApi } from '@/app/services/common/common.api'
 import {
   CostOfSubscriptions,
   CreateSubscriptions,
-  CurrentSubscriptionType,
+  CurrentSubscription,
+  MyPayments,
 } from '@/app/services/payments/payments.types'
 
-const { createSubscriptions, costOfSubscriptions, currentSubscriptions } = paymentsApiUrls
+const {
+  createSubscriptions,
+  costOfSubscriptions,
+  currentSubscriptions,
+  canceledAutoRenewal,
+  myPayments,
+} = paymentsApiUrls
 
 export const paymentsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -24,9 +31,23 @@ export const paymentsApi = commonApi.injectEndpoints({
       }),
       providesTags: ['Subscriptions'],
     }),
-    currentSubscriptions: builder.query<CurrentSubscriptionType, void>({
+    currentSubscriptions: builder.query<CurrentSubscription, void>({
       query: () => ({
         url: currentSubscriptions(),
+        method: 'GET',
+      }),
+      providesTags: ['Subscriptions'],
+    }),
+    canceledAutoRenewal: builder.mutation<void, void>({
+      query: () => ({
+        url: canceledAutoRenewal(),
+        method: 'POST',
+      }),
+      invalidatesTags: ['Subscriptions'],
+    }),
+    myPayments: builder.query<MyPayments[], void>({
+      query: () => ({
+        url: myPayments(),
         method: 'GET',
       }),
       providesTags: ['Subscriptions'],
@@ -38,4 +59,6 @@ export const {
   useCreateSubscriptionsMutation,
   useCostOfSubscriptionsQuery,
   useCurrentSubscriptionsQuery,
+  useCanceledAutoRenewalMutation,
+  useMyPaymentsQuery,
 } = paymentsApi

@@ -7,6 +7,7 @@ import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
 import {
+  useCanceledAutoRenewalMutation,
   useCostOfSubscriptionsQuery,
   useCreateSubscriptionsMutation,
   useCurrentSubscriptionsQuery,
@@ -24,11 +25,12 @@ export const AccountSettings = () => {
   const [subscriptionOptions, setSubscriptionOptions] =
     useState<Nullable<SubscriptionOptions[]>>(null)
   const [createSubscriptions] = useCreateSubscriptionsMutation()
+  const [canceledAutoRenewal] = useCanceledAutoRenewalMutation()
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
+
   const { t } = useTranslation()
   const { query } = useRouter()
-  console.log(currentSubscriptions)
   const {
     accountType,
     yourSubscriptionCosts,
@@ -90,6 +92,10 @@ export const AccountSettings = () => {
         .then(res => window.location.assign(res.url))
   }
 
+  const canceledAutoRenewalHandler = () => {
+    canceledAutoRenewal()
+  }
+
   return (
     <section className={s.container}>
       {currentSubscriptions && (
@@ -112,7 +118,10 @@ export const AccountSettings = () => {
                 {nextPayment}
               </Typography>
               <Typography as={'h3'} variant={'regular-14'}>
-                {subscriptionDate(currentSubscriptions?.data[0].endDateOfSubscription)}
+                {subscriptionDate(
+                  currentSubscriptions?.data[currentSubscriptions.data.length - 1]
+                    .endDateOfSubscription
+                )}
               </Typography>
             </div>
           </Card>
@@ -120,6 +129,7 @@ export const AccountSettings = () => {
             className={s.checkBox}
             labelTitle={autoRenewal}
             checked={!currentSubscriptions?.hasAutoRenewal}
+            onChange={canceledAutoRenewalHandler}
           />
         </div>
       )}
