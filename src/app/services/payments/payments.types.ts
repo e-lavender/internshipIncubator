@@ -20,4 +20,16 @@ export type SubscriptionOptions = {
   disabled?: boolean
 }
 
+export type CurrentSubscriptionType = {
+  data: CurrentSubscriptionTypeData[]
+  hasAutoRenewal: boolean
+}
+export type CurrentSubscriptionTypeData = {
+  userId: number
+  subscriptionId: string
+  dateOfPayment: string
+  endDateOfSubscription: string
+  autoRenewal: boolean
+}
+
 export type SubscriptionDuration = 'MONTHLY' | 'DAY' | 'WEEKLY'

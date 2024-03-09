@@ -1,8 +1,12 @@
 import { paymentsApiUrls } from '@/app/constants/routes/payments'
 import { commonApi } from '@/app/services/common/common.api'
-import { CostOfSubscriptions, CreateSubscriptions } from '@/app/services/payments/payments.types'
+import {
+  CostOfSubscriptions,
+  CreateSubscriptions,
+  CurrentSubscriptionType,
+} from '@/app/services/payments/payments.types'
 
-const { createSubscriptions, costOfSubscriptions } = paymentsApiUrls
+const { createSubscriptions, costOfSubscriptions, currentSubscriptions } = paymentsApiUrls
 
 export const paymentsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
@@ -20,7 +24,18 @@ export const paymentsApi = commonApi.injectEndpoints({
       }),
       providesTags: ['Subscriptions'],
     }),
+    currentSubscriptions: builder.query<CurrentSubscriptionType, void>({
+      query: () => ({
+        url: currentSubscriptions(),
+        method: 'GET',
+      }),
+      providesTags: ['Subscriptions'],
+    }),
   }),
 })
 
-export const { useCreateSubscriptionsMutation, useCostOfSubscriptionsQuery } = paymentsApi
+export const {
+  useCreateSubscriptionsMutation,
+  useCostOfSubscriptionsQuery,
+  useCurrentSubscriptionsQuery,
+} = paymentsApi

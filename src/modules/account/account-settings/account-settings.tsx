@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import s from './account-settings.module.scss'
+import { subscriptionDate } from '@/app/helpers/customizeDate'
 
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
@@ -8,9 +9,10 @@ import { FRONT_BASE_URL } from '@/app/constants/common'
 import {
   useCostOfSubscriptionsQuery,
   useCreateSubscriptionsMutation,
+  useCurrentSubscriptionsQuery,
 } from '@/app/services/payments/payments.api'
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
-import { Card, RadioContainer, RadioItem, Typography } from '@/ui'
+import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
 import { useRouter } from 'next/router'
 import { PaymentsModal } from '@/components/modals/payments-modal'
 
@@ -23,10 +25,10 @@ export const AccountSettings = () => {
     useState<Nullable<SubscriptionOptions[]>>(null)
   const [createSubscriptions] = useCreateSubscriptionsMutation()
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
+  const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
   const { t } = useTranslation()
   const { query } = useRouter()
-  console.log(query)
-
+  console.log(currentSubscriptions)
   const {
     accountType,
     yourSubscriptionCosts,
@@ -86,6 +88,38 @@ export const AccountSettings = () => {
 
   return (
     <section className={s.container}>
+      {currentSubscriptions && (
+        <div>
+          <Typography as={'h3'} variant={'h3'}>
+            Current subscription:
+          </Typography>
+
+          <Card className={s.currentSubscriptionCard}>
+            <div>
+              <Typography as={'h3'} variant={'regular-14'} className={s.text}>
+                Expire at
+              </Typography>
+              <Typography as={'h3'} variant={'regular-14'}>
+                {subscriptionDate(currentSubscriptions?.data[0].dateOfPayment)}
+              </Typography>
+            </div>
+            <div>
+              <Typography as={'h3'} variant={'regular-14'} className={s.text}>
+                Next payment
+              </Typography>
+              <Typography as={'h3'} variant={'regular-14'}>
+                {subscriptionDate(currentSubscriptions?.data[0].endDateOfSubscription)}
+              </Typography>
+            </div>
+          </Card>
+          <Checkbox
+            className={s.checkBox}
+            labelTitle={'Auto-Renewal'}
+            checked={!currentSubscriptions?.hasAutoRenewal}
+          />
+        </div>
+      )}
+
       <div>
         <Typography as={'h3'} variant={'h3'}>
           {accountType}:
