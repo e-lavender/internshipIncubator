@@ -8,7 +8,11 @@
     "month": "month",
     "or": "Or",
     "personal": "Personal",
-    "business": "Business"
+    "business": "Business",
+    "current": "Current subscription",
+    "expireAt": "Expire at",
+    "nextPayment": "Next payment",
+    "autoRenewal": "Auto-Renewal"
   },
   "ru": {
     "accountType": "Тип аккаунта",
@@ -19,6 +23,10 @@
     "month": "месяц",
     "or": "или",
     "personal": "Личный",
-    "business": "Коммерческий"
+    "business": "Коммерческий",
+    "current": "Актуальные подписки",
+    "expireAt": "Дата окончания подписки",
+    "nextPayment": "Следующий платёж",
+    "autoRenewal": "Автоматическое продление "
   }
 }

@@ -39,6 +39,10 @@ export const AccountSettings = () => {
     or,
     personal,
     business,
+    current,
+    expireAt,
+    nextPayment,
+    autoRenewal,
   } = t.account
   const PROFILE_TYPE = [
     { label: 'personal', value: `${personal}`, id: 1 },
@@ -91,13 +95,13 @@ export const AccountSettings = () => {
       {currentSubscriptions && (
         <div>
           <Typography as={'h3'} variant={'h3'}>
-            Current subscription:
+            {current}:
           </Typography>
 
           <Card className={s.currentSubscriptionCard}>
             <div>
               <Typography as={'h3'} variant={'regular-14'} className={s.text}>
-                Expire at
+                {expireAt}
               </Typography>
               <Typography as={'h3'} variant={'regular-14'}>
                 {subscriptionDate(currentSubscriptions?.data[0].dateOfPayment)}
@@ -105,7 +109,7 @@ export const AccountSettings = () => {
             </div>
             <div>
               <Typography as={'h3'} variant={'regular-14'} className={s.text}>
-                Next payment
+                {nextPayment}
               </Typography>
               <Typography as={'h3'} variant={'regular-14'}>
                 {subscriptionDate(currentSubscriptions?.data[0].endDateOfSubscription)}
@@ -114,7 +118,7 @@ export const AccountSettings = () => {
           </Card>
           <Checkbox
             className={s.checkBox}
-            labelTitle={'Auto-Renewal'}
+            labelTitle={autoRenewal}
             checked={!currentSubscriptions?.hasAutoRenewal}
           />
         </div>
