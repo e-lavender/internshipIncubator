@@ -17,6 +17,7 @@ import {
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { PaymentsModal } from '@/components/modals/payments-modal'
 import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
+import { CurrentSubscriptions } from '@/modules/account/account-settings/current-subscription'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
