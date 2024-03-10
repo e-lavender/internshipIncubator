@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 
 import { authNavigationUrls } from '@/app/constants'
@@ -8,17 +7,10 @@ import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { IMAGE_SIZE } from '@/app/constants/enums'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { getRunningQueriesThunk } from '@/app/services/common/common.api'
-import { getPublicUserProfileById } from '@/app/services/profile/profile.api'
 import {
-  getPublicPostById,
   getPublicPosts,
-  getPublicPostsByUser,
   useGetPublicPostsQuery,
 } from '@/app/services/public-posts/public-posts.api'
-import {
-  PublicPostsGetAll,
-  PublicPostsGetAllArg,
-} from '@/app/services/public-posts/public-posts.types'
 import { wrapper } from '@/app/store/store'
 import { LoaderV2, POST_COMMENTS, PostCard, PostCardXL } from '@/components'
 
@@ -43,7 +35,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
     getPublicPosts.initiate(
       {
         pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
-        sortDirection: 'desc',
+        sortDirection: 'asc',
         sortBy: 'createdAt',
       },
       { forceRefetch: true }

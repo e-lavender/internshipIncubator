@@ -22,14 +22,13 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
       {
         userId: profileId,
         pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
-        sortDirection: 'desc',
+        sortDirection: 'asc',
         sortBy: 'createdAt',
       },
       { forceRefetch: true }
     )
   )
   store.dispatch(getPublicPostById.initiate({ postId }, { forceRefetch: true }))
-
   await Promise.all(store.dispatch(getRunningQueriesThunk()))
 
   return {

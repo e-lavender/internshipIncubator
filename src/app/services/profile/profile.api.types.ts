@@ -44,6 +44,9 @@ export type GeneralSettingsType = {
   country?: string
   city?: string
   aboutMe?: string
+  posts: {
+    totalCount: number
+  }
 }
 
 export type PublicUserModel = {

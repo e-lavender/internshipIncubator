@@ -13,6 +13,7 @@ import {
   useGetPublicPostByIdQuery,
   useGetPublicPostsByUserQuery,
 } from '@/app/services/public-posts/public-posts.api'
+import { useAppSelector } from '@/app/store/rtk.types'
 import { UserProfileGallery } from '@/components'
 import { UserProfileDescription } from '@/modules'
 
@@ -34,7 +35,7 @@ export const UserProfile = () => {
   const { data: posts } = useGetPublicPostsByUserQuery({
     userId: profileId,
     pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
-    sortDirection: 'desc',
+    sortDirection: 'asc',
     sortBy: 'createdAt',
   })
 

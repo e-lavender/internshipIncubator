@@ -10,8 +10,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'storage.yandexcloud.net',
-        pathname: '/users-inctagram/users/**',
+        hostname: 'staging-it-incubator.s3.eu-central-1.amazonaws.com',
+        pathname: '/trainee-instagram-api/Image/**',
+        //hostname: 'storage.yandexcloud.net',
+        //pathname: '/users-inctagram/users/**',
       },
     ],
   },
