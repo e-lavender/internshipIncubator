@@ -18,6 +18,8 @@ import {
   NavigationTabsModel,
   ConfirmationModal,
   CreatePost,
+  AccountModel,
+  PaymentsModal,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.en
@@ -38,6 +40,8 @@ const generalSettings = GeneralSettingsModel.en
 const navigationTabs = NavigationTabsModel.en
 const confirmationModal = ConfirmationModal.en
 const createPost = CreatePost.en
+const account = AccountModel.en
+const paymentsModal = PaymentsModal.en
 
 export const en: LocaleType = {
   calendar: {
@@ -84,4 +88,6 @@ export const en: LocaleType = {
   },
   confirmationModal: confirmationModal,
   createPost: createPost,
+  account: account,
+  paymentsModal: paymentsModal,
 }

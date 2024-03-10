@@ -5,13 +5,15 @@ import s from './payment-table.module.scss'
 import { PaymentDataType } from '@/components/payments-table/payment-table-data'
 import { Table } from '@/ui/table'
 import { TableHeaderModel } from '@/ui/table/tabel-types'
+import { MyPayments } from '@/app/services/payments/payments.types'
+import { subscriptionDate } from '@/app/helpers/customizeDate'
 
 export const PaymentsTable = ({
   columns,
   data,
 }: {
   columns: TableHeaderModel[]
-  data: PaymentDataType[]
+  data?: MyPayments[]
 }) => {
   const classNames = {
     root: s.tableRoot,
@@ -36,11 +38,11 @@ export const PaymentsTable = ({
         </Table.Row>
       </Table.Head>
       <Table.Body className={classNames.body}>
-        {data.map(row => {
+        {data?.map((row, idx) => {
           return (
-            <Table.Row key={row.id} className={classNames.row}>
-              <Table.DataCell>{row.dateOfPayment}</Table.DataCell>
-              <Table.DataCell>{row.endDateOfSubscription}</Table.DataCell>
+            <Table.Row key={idx} className={classNames.row}>
+              <Table.DataCell>{subscriptionDate(row.dateOfPayment)}</Table.DataCell>
+              <Table.DataCell>{subscriptionDate(row.endDateOfSubscription)}</Table.DataCell>
               <Table.DataCell>{row.price}</Table.DataCell>
               <Table.DataCell>{row.subscriptionType}</Table.DataCell>
               <Table.DataCell>{row.paymentType}</Table.DataCell>
