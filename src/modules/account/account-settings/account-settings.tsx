@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import s from './account-settings.module.scss'
-import { subscriptionDate } from '@/app/helpers/customizeDate'
 
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
+import { subscriptionDate } from '@/app/helpers/customizeDate'
 import {
   useCanceledAutoRenewalMutation,
   useCostOfSubscriptionsQuery,
@@ -13,9 +15,8 @@ import {
   useCurrentSubscriptionsQuery,
 } from '@/app/services/payments/payments.api'
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
-import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
-import { useRouter } from 'next/router'
 import { PaymentsModal } from '@/components/modals/payments-modal'
+import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
@@ -110,7 +111,7 @@ export const AccountSettings = () => {
                 {expireAt}
               </Typography>
               <Typography as={'h3'} variant={'regular-14'}>
-                {subscriptionDate(currentSubscriptions?.data[0].dateOfPayment)}
+                {subscriptionDate(currentSubscriptions?.data[0]?.dateOfPayment)}
               </Typography>
             </div>
             <div>
@@ -120,7 +121,7 @@ export const AccountSettings = () => {
               <Typography as={'h3'} variant={'regular-14'}>
                 {subscriptionDate(
                   currentSubscriptions?.data[currentSubscriptions.data.length - 1]
-                    .endDateOfSubscription
+                    ?.endDateOfSubscription
                 )}
               </Typography>
             </div>
