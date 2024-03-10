@@ -22,7 +22,9 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
     <div className={s.wrapper}>
       <header className={s.container}>
         <Link href="/">
-          <Typography as="span" variant="large"></Typography>
+          <Typography as="span" variant="large">
+            Проект на последнем издыхании
+          </Typography>
         </Link>
 
         <div className={s.list_wrapper}>
