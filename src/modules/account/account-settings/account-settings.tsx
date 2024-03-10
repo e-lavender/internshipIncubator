@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react'
 
+import { useRouter } from 'next/router'
+
 import s from './account-settings.module.scss'
 
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
+import { subscriptionDate } from '@/app/helpers/customizeDate'
 import {
+  useCanceledAutoRenewalMutation,
   useCostOfSubscriptionsQuery,
   useCreateSubscriptionsMutation,
   useCurrentSubscriptionsQuery,
 } from '@/app/services/payments/payments.api'
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
-import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
-import { useRouter } from 'next/router'
 import { PaymentsModal } from '@/components/modals/payments-modal'
-import { CurrentSubscriptions } from '@/modules/account/account-settings/current-subscription'
+import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow

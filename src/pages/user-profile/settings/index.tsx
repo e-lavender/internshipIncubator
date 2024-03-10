@@ -63,6 +63,7 @@ const GeneralInformation = () => {
   const isDisabledSubmit = !isValid || isLoading
   const selectedCountry = watch('country')
 
+  // @ts-ignore
   const onSubmit = handleSubmit((settingsData: GeneralSettingsType) => {
     const { userName, firstName, lastName, city, country, dateOfBirth, aboutMe } = settingsData
     //const { id } = data
