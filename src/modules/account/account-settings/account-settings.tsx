@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import s from './account-settings.module.scss'
-import { subscriptionDate } from '@/app/helpers/customizeDate'
 
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
 import {
-  useCanceledAutoRenewalMutation,
   useCostOfSubscriptionsQuery,
   useCreateSubscriptionsMutation,
   useCurrentSubscriptionsQuery,
@@ -16,6 +14,7 @@ import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/paymen
 import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
 import { useRouter } from 'next/router'
 import { PaymentsModal } from '@/components/modals/payments-modal'
+import { CurrentSubscriptions } from '@/modules/account/account-settings/current-subscription'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
@@ -25,7 +24,6 @@ export const AccountSettings = () => {
   const [subscriptionOptions, setSubscriptionOptions] =
     useState<Nullable<SubscriptionOptions[]>>(null)
   const [createSubscriptions] = useCreateSubscriptionsMutation()
-  const [canceledAutoRenewal] = useCanceledAutoRenewalMutation()
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
 
@@ -41,10 +39,6 @@ export const AccountSettings = () => {
     or,
     personal,
     business,
-    current,
-    expireAt,
-    nextPayment,
-    autoRenewal,
   } = t.account
   const PROFILE_TYPE = [
     { label: 'personal', value: `${personal}`, id: 1 },
@@ -92,47 +86,9 @@ export const AccountSettings = () => {
         .then(res => window.location.assign(res.url))
   }
 
-  const canceledAutoRenewalHandler = () => {
-    canceledAutoRenewal()
-  }
-
   return (
     <section className={s.container}>
-      {currentSubscriptions && (
-        <div>
-          <Typography as={'h3'} variant={'h3'}>
-            {current}:
-          </Typography>
-
-          <Card className={s.currentSubscriptionCard}>
-            <div>
-              <Typography as={'h3'} variant={'regular-14'} className={s.text}>
-                {expireAt}
-              </Typography>
-              <Typography as={'h3'} variant={'regular-14'}>
-                {subscriptionDate(currentSubscriptions?.data[0].dateOfPayment)}
-              </Typography>
-            </div>
-            <div>
-              <Typography as={'h3'} variant={'regular-14'} className={s.text}>
-                {nextPayment}
-              </Typography>
-              <Typography as={'h3'} variant={'regular-14'}>
-                {subscriptionDate(
-                  currentSubscriptions?.data[currentSubscriptions.data.length - 1]
-                    .endDateOfSubscription
-                )}
-              </Typography>
-            </div>
-          </Card>
-          <Checkbox
-            className={s.checkBox}
-            labelTitle={autoRenewal}
-            checked={!currentSubscriptions?.hasAutoRenewal}
-            onChange={canceledAutoRenewalHandler}
-          />
-        </div>
-      )}
+      {currentSubscriptions && <CurrentSubscriptions currentSubscriptions={currentSubscriptions} />}
 
       <div>
         <Typography as={'h3'} variant={'h3'}>
