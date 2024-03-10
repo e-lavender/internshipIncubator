@@ -55,7 +55,7 @@ export const AccountSettings = () => {
 
   const hasPaymentAccess = accountTypeId === PROFILE_TYPE[1].id
 
-  const { onClose: closePaymentsModal } = useDisclose()
+  const { onClose: closePaymentsModal, isOpen, onOpen } = useDisclose()
 
   useEffect(() => {
     if (costOfSubscription) {
@@ -90,7 +90,10 @@ export const AccountSettings = () => {
         baseUrl: `${FRONT_BASE_URL}/${menuNavigation.account()}` ?? '',
       })
         .unwrap()
-        .then(res => window.location.assign(res.url))
+        .then(res => {
+          window.location.assign(res.url)
+          onOpen()
+        })
   }
 
   const canceledAutoRenewalHandler = () => {
@@ -175,7 +178,7 @@ export const AccountSettings = () => {
         </div>
       )}
       <PaymentsModal
-        isOpen={subscription === 'success'}
+        isOpen={isOpen}
         onClose={closePaymentsModal}
         isSuccess={query.success === 'true' || query.PayerID}
       />
