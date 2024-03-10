@@ -47,7 +47,7 @@ export const UserProfileGallery = ({
     userId: ownerId,
     pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
     endCursorPostId,
-    sortDirection: 'desc',
+    sortDirection: 'asc',
     sortBy: 'createdAt',
   })
 
@@ -110,20 +110,22 @@ export const UserProfileGallery = ({
   }
 
   useEffect(() => {
-    if (data) {
-      const allItems: PostViewModel[] = posts?.items
-        ? // eslint-disable-next-line no-unsafe-optional-chaining
-          [...posts?.items, ...data.items]
-        : [...data.items]
-      const allPosts: PublicPostsGetPostsByUser = { ...posts, ...data, items: allItems }
-
-      setPosts(allPosts)
+    if (!data) {
+      return
     }
+    // eslint-disable-next-line no-unsafe-optional-chaining
+    const allPosts = new Set(posts?.items ? [...posts?.items, ...data.items] : [...data.items])
+    const uniqPosts = [...allPosts]
+
+    setPosts(prevState => {
+      return prevState ? { ...prevState, ...data, items: uniqPosts } : { ...data }
+    })
   }, [data])
 
   useEffect(() => {
     const hasScroll = document.body.scrollHeight !== window.innerHeight
     const stopRequest = posts?.items.length === posts?.totalCount
+
     const addMorePosts = () => {
       posts?.items[posts.items.length - 1]?.id &&
         setEndCursorPostId(posts.items[posts.items.length - 1].id)

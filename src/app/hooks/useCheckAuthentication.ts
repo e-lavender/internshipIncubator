@@ -5,23 +5,31 @@ import { useRouter } from 'next/router'
 import { ErrorWithData } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
+import { UserModel } from '@/app/services/auth/auth.api.types'
 import { showError } from '@/app/utils'
 
-export const useCheckAuthentication = () => {
-  const { data: me, error } = useGetMeQuery()
+interface UseCheckAuthenticationResult {
+  isAuthenticated: boolean
+  user?: UserModel | undefined
+  isLoading: boolean
+  error?: ErrorWithData
+}
+
+export const useCheckAuthentication = (): UseCheckAuthenticationResult => {
+  const { data: me, error, isLoading } = useGetMeQuery()
   const { push } = useRouter()
 
   useEffect(() => {
-    if (!me) {
+    if (!me && !isLoading) {
       void push(authNavigationUrls.main())
     }
-  }, [me, push])
+  }, [me, isLoading, push])
 
   if (error) {
     showError(error as ErrorWithData)
 
-    return { error: true }
+    return { isAuthenticated: false, isLoading: false, error: error as ErrorWithData }
   }
 
-  return { isAuthenticated: true, user: me }
+  return { isAuthenticated: !!me, user: me, isLoading }
 }

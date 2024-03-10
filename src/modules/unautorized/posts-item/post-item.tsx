@@ -58,7 +58,7 @@ export const PostItem = ({
         >
           <Image
             className={`${s.imageBlock} ${showMore && s.collapseImageBlock}`}
-            src={images[0].url}
+            src={images[0]?.url}
             alt={'image'}
             width={234}
             height={240}

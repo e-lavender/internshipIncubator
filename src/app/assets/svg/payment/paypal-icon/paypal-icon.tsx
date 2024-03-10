@@ -10,6 +10,7 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
       viewBox="0 0 96 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <g clipPath="url(#clip0_3663_10359)">
         <path

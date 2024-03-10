@@ -1,5 +1,3 @@
-import { useId } from 'react'
-
 import * as RadioSelect from '@radix-ui/react-radio-group'
 import { clsx } from 'clsx'
 
@@ -11,11 +9,10 @@ type RadioItemProps = {
   value: string
   disabled?: boolean
   label?: string
+  id?: any
 }
 
-export const RadioItem = ({ value, label, disabled }: RadioItemProps) => {
-  const id = useId()
-
+export const RadioItem = ({ value, disabled, id }: RadioItemProps) => {
   const styles = {
     root: clsx(s.wrapper, disabled && s.disabled),
     item: clsx(s.item),
@@ -24,10 +21,10 @@ export const RadioItem = ({ value, label, disabled }: RadioItemProps) => {
 
   return (
     <div className={styles.root}>
-      <RadioSelect.Item className={styles.item} value={value} id={id} disabled={disabled}>
+      <RadioSelect.Item className={styles.item} value={id} id={id} disabled={disabled}>
         <RadioSelect.Indicator className={styles.indicator} />
       </RadioSelect.Item>
-      {label && <Label title={label} id={id} />}
+      {value && <Label title={value} id={id} />}
     </div>
   )
 }

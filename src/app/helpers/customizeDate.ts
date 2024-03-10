@@ -6,6 +6,14 @@ export const date = (createdAt: string) => {
   })
 }
 
+export const subscriptionDate = (date?: string) => {
+  const formattedDate = date ? new Date(date) : new Date()
+  const year = formattedDate.getFullYear()
+  const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0')
+  const day = formattedDate.getDate().toString().padStart(2, '0')
+  return `${day}.${month}.${year}`
+}
+
 const units = [
   { label: 'year', seconds: 31536000 },
   { label: 'month', seconds: 2592000 },
