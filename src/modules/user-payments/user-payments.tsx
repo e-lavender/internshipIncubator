@@ -9,17 +9,16 @@ import { useMyPaymentsQuery } from '@/app/services/payments/payments.api'
 export const UserPayments = () => {
   const [currenPage, setCurrentPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('7')
-
-  const paginatedData = PAYMENTS_DATA.slice(
+  const { data: myPayments } = useMyPaymentsQuery()
+  console.log(myPayments)
+  const paginatedData = myPayments?.slice(
     currenPage * +pageSize,
     currenPage * +pageSize + +pageSize + 1
   )
-  const { data: myPayments } = useMyPaymentsQuery()
-  console.log(myPayments)
 
   return (
     <>
-      <PaymentsTable columns={PAYMENTS_TABLE_COLUMNS} data={myPayments} />
+      <PaymentsTable columns={PAYMENTS_TABLE_COLUMNS} data={paginatedData} />
       <Pagination
         currentPage={currenPage}
         totalCount={myPayments?.length}
