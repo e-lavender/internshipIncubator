@@ -94,7 +94,7 @@ export const AccountSettings = () => {
     if (query.success || query.token) {
       setSubscription('success')
     }
-    query.success && onOpen()
+    query.success || (query.token && onOpen())
   }, [query.success, query.token, query])
 
   return (
