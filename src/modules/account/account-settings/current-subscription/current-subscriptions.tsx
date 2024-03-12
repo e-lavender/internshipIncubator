@@ -1,9 +1,9 @@
-import { Card, Checkbox, Typography } from '@/ui'
-import s from '@/modules/account/account-settings/current-subscription/current-subscriptions.module.scss'
-import { subscriptionDate } from '@/app/helpers/customizeDate'
 import { useTranslation } from '@/app'
+import { subscriptionDate } from '@/app/helpers/customizeDate'
 import { useCanceledAutoRenewalMutation } from '@/app/services/payments/payments.api'
 import { CurrentSubscription } from '@/app/services/payments/payments.types'
+import s from '@/modules/account/account-settings/current-subscription/current-subscriptions.module.scss'
+import { Card, Checkbox, Typography } from '@/ui'
 
 type Props = {
   currentSubscriptions: CurrentSubscription
@@ -16,6 +16,7 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
   const canceledAutoRenewalHandler = () => {
     canceledAutoRenewal()
   }
+
   return (
     <div className={s.container}>
       <Typography as={'h3'} variant={'h3'}>
