@@ -5,6 +5,7 @@ const nextConfig = {
     DEVELOPMENT_FRONT_BASE_URL: 'http://localhost:3000',
     PRODUCTION_FRONT_BASE_URL: 'https://freedomindz.site',
     NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: `6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ`,
+    IP_GEOLOCATION_API_KEY: `fcd669f49237426e82bcd62bbb815031`,
   },
   images: {
     remotePatterns: [

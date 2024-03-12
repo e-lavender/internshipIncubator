@@ -10,11 +10,6 @@ export const locationApi = createApi({
 
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://countriesnow.space',
-    // prepareHeaders: (headers, api) => {
-    //   headers.set('X-CSCAPI-KEY', 'API_KEY')
-    //
-    //   return headers
-    // },
   }),
   endpoints: builder => ({
     getCities: builder.mutation<TransformedCitiesData[], { country: string }>({

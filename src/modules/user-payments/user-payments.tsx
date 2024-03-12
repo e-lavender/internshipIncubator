@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { useMyPaymentsQuery } from '@/app/services/payments/payments.api'
-import { PAYMENTS_DATA } from '@/components/payments-table/payment-table-data'
 import { PaymentsTable } from '@/components/payments-table/payments-table'
 import { PAYMENTS_TABLE_COLUMNS } from '@/modules/user-payments/constants'
 import { Pagination } from '@/ui/pagination'

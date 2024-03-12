@@ -19,17 +19,17 @@ type VariantType = {
 type DeviceInformationCardProps<T extends CardType> = {
   type: T
   variant: VariantType[T]
-  title?: string
-  ip?: string
-  lastVisit?: string
+  deviceName: string
+  ip: string
+  lastVisit: string
   className?: string
 }
 
 export const DeviceInformationCard = <T extends CardType>({
   type,
   variant,
-  title,
-  ip = '-',
+  deviceName,
+  ip,
   lastVisit,
   className,
 }: DeviceInformationCardProps<T>) => {
@@ -62,7 +62,7 @@ export const DeviceInformationCard = <T extends CardType>({
 
         <div className={s.details}>
           <Typography as={'p'} variant={'bold-16'}>
-            {title}
+            {deviceName}
           </Typography>
           <Typography as={'p'} variant={'regular-14'}>
             {`IP: ${ip}`}
