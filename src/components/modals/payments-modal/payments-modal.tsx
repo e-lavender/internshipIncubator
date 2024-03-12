@@ -1,6 +1,7 @@
-import { Button, Modal, Typography } from '@/ui'
 import s from './payments-modal.module.scss'
+
 import { useTranslation } from '@/app'
+import { Button, Modal, Typography } from '@/ui'
 
 type ModalProps = {
   isSuccess?: string | true | string[] | undefined

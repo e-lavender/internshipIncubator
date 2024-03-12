@@ -2,11 +2,11 @@ import React from 'react'
 
 import s from './payment-table.module.scss'
 
+import { subscriptionDate } from '@/app/helpers/customizeDate'
+import { MyPayments } from '@/app/services/payments/payments.types'
 import { PaymentDataType } from '@/components/payments-table/payment-table-data'
 import { Table } from '@/ui/table'
 import { TableHeaderModel } from '@/ui/table/tabel-types'
-import { MyPayments } from '@/app/services/payments/payments.types'
-import { subscriptionDate } from '@/app/helpers/customizeDate'
 
 export const PaymentsTable = ({
   columns,
