@@ -7,15 +7,17 @@ import s from './account-settings.module.scss'
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL, PAYMENT_TYPE } from '@/app/constants/common'
+import { subscriptionDate } from '@/app/helpers/customizeDate'
 import {
+  useCanceledAutoRenewalMutation,
   useCostOfSubscriptionsQuery,
   useCreateSubscriptionsMutation,
   useCurrentSubscriptionsQuery,
 } from '@/app/services/payments/payments.api'
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { PaymentsModal } from '@/components/modals/payments-modal'
+import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
 import { CurrentSubscriptions } from '@/modules/account/account-settings/current-subscription'
-import { Card, RadioContainer, RadioItem, Typography } from '@/ui'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
@@ -29,6 +31,7 @@ export const AccountSettings = () => {
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
   const { onClose, isOpen, onOpen } = useDisclose()
 
+  console.log(currentSubscriptions)
   const { t } = useTranslation()
   const { query } = useRouter()
   const {
