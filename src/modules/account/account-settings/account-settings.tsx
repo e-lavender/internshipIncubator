@@ -6,7 +6,7 @@ import s from './account-settings.module.scss'
 
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
-import { FRONT_BASE_URL } from '@/app/constants/common'
+import { FRONT_BASE_URL, PAYMENT_TYPE } from '@/app/constants/common'
 import { subscriptionDate } from '@/app/helpers/customizeDate'
 import {
   useCanceledAutoRenewalMutation,
@@ -29,7 +29,9 @@ export const AccountSettings = () => {
   const [createSubscriptions] = useCreateSubscriptionsMutation()
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
+  const { onClose, isOpen, onOpen } = useDisclose()
 
+  console.log(currentSubscriptions)
   const { t } = useTranslation()
   const { query } = useRouter()
   const {
@@ -51,7 +53,24 @@ export const AccountSettings = () => {
 
   const hasPaymentAccess = accountTypeId === PROFILE_TYPE[1].id
 
-  const { onClose: closePaymentsModal } = useDisclose()
+  const paymentsHandler = (paymentType: keyof typeof PAYMENT_TYPE) => {
+    subscriptionOptions &&
+      createSubscriptions({
+        typeSubscription: subscriptionOptions[subscriptionId].typeSubscription,
+        paymentType: paymentType,
+        amount: subscriptionOptions[subscriptionId].amount,
+        baseUrl: `${FRONT_BASE_URL}/${menuNavigation.account()}` ?? '',
+      })
+        .unwrap()
+        .then(res => {
+          window.location.assign(res.url)
+        })
+  }
+
+  const payments = {
+    [PAYMENT_TYPE.PAYPAL]: () => paymentsHandler(PAYMENT_TYPE.PAYPAL),
+    [PAYMENT_TYPE.STRIPE]: () => paymentsHandler(PAYMENT_TYPE.STRIPE),
+  }
 
   useEffect(() => {
     if (costOfSubscription) {
@@ -75,19 +94,8 @@ export const AccountSettings = () => {
     if (query.success || query.token) {
       setSubscription('success')
     }
+    query.success && onOpen()
   }, [query.success, query.token, query])
-
-  const paymentsHandler = (paymentType: 'STRIPE' | 'PAYPAL') => {
-    subscriptionOptions &&
-      createSubscriptions({
-        typeSubscription: subscriptionOptions[subscriptionId].typeSubscription,
-        paymentType: paymentType,
-        amount: subscriptionOptions[subscriptionId].amount,
-        baseUrl: `${FRONT_BASE_URL}/${menuNavigation.account()}` ?? '',
-      })
-        .unwrap()
-        .then(res => window.location.assign(res.url))
-  }
 
   return (
     <section className={s.container}>
@@ -126,15 +134,16 @@ export const AccountSettings = () => {
           </Card>
 
           <div className={s.payment}>
-            <PaypalIcon onClick={() => paymentsHandler('PAYPAL')} />
+            <PaypalIcon onClick={payments[PAYMENT_TYPE.PAYPAL]} />
             <Typography>{or}</Typography>
-            <StripeIcon onClick={() => paymentsHandler('STRIPE')} />
+            <StripeIcon onClick={payments[PAYMENT_TYPE.STRIPE]} />
           </div>
         </div>
       )}
       <PaymentsModal
-        isOpen={subscription === 'success'}
-        onClose={closePaymentsModal}
+        //isOpen={subscription === 'success'}
+        isOpen={isOpen}
+        onClose={onClose}
         isSuccess={query.success === 'true' || query.PayerID}
       />
     </section>
