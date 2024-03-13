@@ -10,10 +10,9 @@ export const UserPayments = () => {
   const [pageSize, setPageSize] = useState<string>('7')
   const { data: myPayments } = useMyPaymentsQuery()
 
-  console.log(myPayments)
   const paginatedData = myPayments?.slice(
-    currenPage * +pageSize,
-    currenPage * +pageSize + +pageSize + 1
+    (currenPage - 1) * +pageSize,
+    (currenPage - 1) * +pageSize + +pageSize
   )
 
   return (

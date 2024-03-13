@@ -23,11 +23,12 @@ export const UserDevices = () => {
     { skip: !process.env.IP_GEOLOCATION_API_KEY }
   )
 
-  const sessionFallback = (
-    <Typography as={'h2'} variant={'h2'} className={s.fallback}>
-      You have not yet logged in from other devices
-    </Typography>
-  )
+  // const sessionFallback = (
+  //   <Typography as={'h2'} variant={'h2'} className={s.fallback}>
+  //     You have not yet logged in from other devices
+  //   </Typography>
+  // )
+
   const terminateSessions = () => {
     terminateAll()
       .unwrap()
