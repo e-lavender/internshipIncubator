@@ -28,7 +28,8 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       commonApi.middleware,
       googleApi.middleware,
-      locationApi.middleware
+      locationApi.middleware,
+      ipGeolocationApi.middleware
     ),
 })
 

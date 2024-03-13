@@ -9,28 +9,37 @@ export const sessionsApi = commonApi.injectEndpoints({
     getSessions: builder.query<SessionsType, void>({
       query: () => {
         return {
+          method: 'GET',
           url: allSessions(),
         }
       },
+      providesTags: ['Sessions'],
     }),
-    terminateAllSessions: builder.query<void, void>({
+    terminateAllSessions: builder.mutation<void, void>({
       query: () => {
         return {
+          method: 'DELETE',
           url: terminateAll(),
         }
       },
+      invalidatesTags: ['ME', 'Sessions'],
     }),
-    terminateSessionById: builder.query<void, { deviceId: number }>({
+    terminateSessionById: builder.mutation<void, { deviceId: number }>({
       query: ({ deviceId }) => {
         return {
+          method: 'DELETE',
           url: sessionById(deviceId),
         }
       },
+      invalidatesTags: ['ME', 'Sessions'],
     }),
   }),
 
   overrideExisting: true,
 })
 
-export const { useGetSessionsQuery, useTerminateSessionByIdQuery, useTerminateAllSessionsQuery } =
-  sessionsApi
+export const {
+  useGetSessionsQuery,
+  useTerminateSessionByIdMutation,
+  useTerminateAllSessionsMutation,
+} = sessionsApi
