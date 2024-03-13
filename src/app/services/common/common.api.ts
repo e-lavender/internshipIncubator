@@ -88,7 +88,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const commonApi = createApi({
   reducerPath: 'commonApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['ME', 'Profile', 'Posts', 'Images', 'Subscriptions'],
+  tagTypes: ['ME', 'Profile', 'Posts', 'Images', 'Subscriptions', 'Sessions'],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]
