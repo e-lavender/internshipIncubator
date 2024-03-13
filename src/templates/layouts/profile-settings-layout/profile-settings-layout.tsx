@@ -6,8 +6,6 @@ import { useCheckAuthentication } from '@/app/hooks/useCheckAuthentication'
 import { SettingsTabs } from '@/modules/settings-tabs/settings-tabs'
 
 export const ProfileSettingLayout = ({ children }: PropsWithChildren) => {
-  useCheckAuthentication()
-
   return (
     <main className={s.container}>
       <SettingsTabs />

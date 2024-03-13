@@ -3,7 +3,6 @@ import { PropsWithChildren } from 'react'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { SidebarMenuLayout } from '@/templates/layouts'
 
-type Props = PropsWithChildren
 export const WithHomePageLayout = ({ children }: PropsWithChildren) => {
   const { data: token } = useGetMeQuery()
 

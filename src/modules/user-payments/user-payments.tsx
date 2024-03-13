@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { useMyPaymentsQuery } from '@/app/services/payments/payments.api'
-import { PAYMENTS_DATA } from '@/components/payments-table/payment-table-data'
 import { PaymentsTable } from '@/components/payments-table/payments-table'
 import { PAYMENTS_TABLE_COLUMNS } from '@/modules/user-payments/constants'
 import { Pagination } from '@/ui/pagination'
@@ -11,11 +10,9 @@ export const UserPayments = () => {
   const [pageSize, setPageSize] = useState<string>('7')
   const { data: myPayments } = useMyPaymentsQuery()
 
-  console.log(myPayments)
-  const paginatedData = myPayments?.slice(
-    currenPage * +pageSize,
-    currenPage * +pageSize + +pageSize + 1
-  )
+  const startIndex = (currenPage - 1) * +pageSize
+  const endIndex = startIndex + +pageSize
+  const paginatedData = myPayments?.slice(startIndex, endIndex)
 
   return (
     <>
