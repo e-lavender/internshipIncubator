@@ -9,7 +9,7 @@ import s from '@/modules/account/account-settings/current-subscription/current-s
 import { Card, Checkbox, Typography } from '@/ui'
 
 type Props = {
-  currentSubscriptions: CurrentSubscription
+  currentSubscriptions?: CurrentSubscription
 }
 export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
   const [canceledAutoRenewal] = useCanceledAutoRenewalMutation()
@@ -34,7 +34,7 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
             {expireAt}
           </Typography>
           <Typography as={'h3'} variant={'regular-14'}>
-            {subscriptionDate(myPayments[myPayments.length - 1].endDateOfSubscription)}
+            {/*{subscriptionDate(myPayments[myPayments.length - 1].endDateOfSubscription)}*/}
           </Typography>
         </div>
         <div>
@@ -42,9 +42,7 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
             {nextPayment}
           </Typography>
           <Typography as={'h3'} variant={'regular-14'}>
-            {subscriptionDate(
-              currentSubscriptions?.data[currentSubscriptions.data.length - 1].endDateOfSubscription
-            )}
+            {subscriptionDate(currentSubscriptions?.data[0]?.endDateOfSubscription)}
           </Typography>
         </div>
       </Card>

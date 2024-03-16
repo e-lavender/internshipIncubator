@@ -18,12 +18,10 @@ import {
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { PaymentsModal } from '@/components/modals/payments-modal'
 import { CurrentSubscriptions } from '@/modules/account/account-settings/current-subscription'
-import { Card, Checkbox, RadioContainer, RadioItem, Typography } from '@/ui'
+import { Card, RadioContainer, RadioItem, Typography } from '@/ui'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
-  //const [accountType, setAccountType] = useState('')
-  const [subscription, setSubscription] = useState<string | null>(null)
   const [subscriptionId, setSubscriptionId] = useState<number>(0)
   const [subscriptionOptions, setSubscriptionOptions] =
     useState<Nullable<SubscriptionOptions[]>>(null)
@@ -93,14 +91,15 @@ export const AccountSettings = () => {
 
   useEffect(() => {
     if (query.success || query.token) {
-      setSubscription('success')
+      onOpen()
     }
-    query.success || (query.token && onOpen())
   }, [query.success, query.token, query])
 
   return (
     <section className={s.container}>
-      {currentSubscriptions && <CurrentSubscriptions currentSubscriptions={currentSubscriptions} />}
+      {currentSubscriptions.data.length > 0 && (
+        <CurrentSubscriptions currentSubscriptions={currentSubscriptions} />
+      )}
 
       <div>
         <Typography as={'h3'} variant={'h3'}>
@@ -142,7 +141,6 @@ export const AccountSettings = () => {
         </div>
       )}
       <PaymentsModal
-        //isOpen={subscription === 'success'}
         isOpen={isOpen}
         onClose={onClose}
         isSuccess={query.success === 'true' || query.PayerID}
