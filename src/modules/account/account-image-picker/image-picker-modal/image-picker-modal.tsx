@@ -1,28 +1,27 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-
-import { clsx } from 'clsx'
 import AvatarEditor from 'react-avatar-editor'
 import { toast } from 'react-toastify'
 
-import s from './image-picker-modal.module.scss'
-
-import { useFileCreationWithSteps, MIME_TYPES, useTranslation } from '@/app'
+import { MIME_TYPES, useFileCreationWithSteps, useTranslation } from '@/app'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { showError } from '@/app/utils'
-import { Avatar, LoaderV2 } from '@/components'
+import { Avatar, LoadingSpinner } from '@/components'
 import { SliderZoom } from '@/components/image-slider/slider-zoom/slider-zoom'
 import { Button, FileInput, Modal, Typography } from '@/ui'
+import { clsx } from 'clsx'
+
+import s from './image-picker-modal.module.scss'
 
 type ImagePickerModalType = {
   error?: string
-  showModal?: boolean
-  onChange?: (open: boolean) => void
   isOpen: boolean
+  onChange?: (open: boolean) => void
   onClose: () => void
+  showModal?: boolean
 }
 
 export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
-  const { url, step, initialStepWithValidation, stepBackward, errorText, clearError, blob } =
+  const { blob, clearError, errorText, initialStepWithValidation, step, stepBackward, url } =
     useFileCreationWithSteps()
   const editorRef = useRef<AvatarEditor>(null)
 
@@ -79,13 +78,13 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
   const interfaceVariants: { [Key: string]: ReactElement } = {
     1: (
       <Interface1
-        url={url}
+        callback={initialStepWithValidation}
         error={errorText}
         styles={styles}
-        callback={initialStepWithValidation}
+        url={url}
       />
     ),
-    2: <Interface2 url={url} callback={uploadAvatar} editorRef={editorRef} />,
+    2: <Interface2 callback={uploadAvatar} editorRef={editorRef} url={url} />,
   }
 
   const CurrentInterface: ReactElement = interfaceVariants[step]
@@ -96,29 +95,29 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
 
   return (
     <>
-      <Modal open={isOpen} onChange={onModalClose}>
+      <Modal onChange={onModalClose} open={isOpen}>
         <Modal.Content
           className={s.container}
-          title={modal.label}
           onInteractOutside={e => e.preventDefault()}
+          title={modal.label}
         >
           {CurrentInterface}
         </Modal.Content>
       </Modal>
 
-      <LoaderV2 isLoading={isAvatarUploading} label={'Saving...'} />
+      <LoadingSpinner isLoading={isAvatarUploading} label={'Saving...'} />
     </>
   )
 }
 
 type InterfaceType1 = {
-  error?: string
-  url?: string
-  styles?: string
   callback: (file: File) => void
+  error?: string
+  styles?: string
+  url?: string
 }
 
-const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
+const Interface1 = ({ callback, error, styles, url }: InterfaceType1) => {
   const formRef = useRef<HTMLFormElement>(null)
 
   const { t } = useTranslation()
@@ -127,13 +126,15 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
   const { JPG, PNG } = MIME_TYPES
 
   const ErrorMessage = error && (
-    <Typography variant={'regular-14'} className={s.error}>
+    <Typography className={s.error} variant={'regular-14'}>
       <b>Error!</b> {error}
     </Typography>
   )
 
   const handleUpload = () => {
-    if (!formRef.current) return
+    if (!formRef.current) {
+      return
+    }
 
     const { files } = formRef.current.file
 
@@ -144,25 +145,25 @@ const Interface1 = ({ error, url, styles, callback }: InterfaceType1) => {
     <div className={s.content}>
       {ErrorMessage}
 
-      <Avatar src={''} rounded={false} width={222} height={228} className={styles} />
+      <Avatar className={styles} height={228} rounded={false} src={''} width={222} />
       <FileInput
-        ref={formRef}
+        accept={[JPG, PNG]}
         className={s.input}
         label={modal.btn.label}
         onUpload={handleUpload}
-        accept={[JPG, PNG]}
+        ref={formRef}
       />
     </div>
   )
 }
 
 type InterfaceType2 = {
-  url: string
   callback: () => void
   editorRef: React.RefObject<AvatarEditor>
+  url: string
 }
 
-const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
+const Interface2 = ({ callback, editorRef, url }: InterfaceType2) => {
   const { t } = useTranslation()
   const [sliderValue, setSliderValue] = useState<number>(1)
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0.5, y: 0.5 })
@@ -176,22 +177,22 @@ const Interface2 = ({ callback, url, editorRef }: InterfaceType2) => {
     <div className={s.wrapper}>
       <div className={s.preview}>
         <AvatarEditor
-          image={url}
-          ref={editorRef}
-          width={282}
-          height={290}
-          color={[23, 23, 23, 0.6]}
           backgroundColor={'black'}
-          scale={sliderValue}
           borderRadius={155}
-          position={position}
-          onPositionChange={handlePositionChange}
-          crossOrigin="anonymous"
+          color={[23, 23, 23, 0.6]}
+          crossOrigin={'anonymous'}
           disableBoundaryChecks={false}
+          height={290}
+          image={url}
+          onPositionChange={handlePositionChange}
+          position={position}
+          ref={editorRef}
+          scale={sliderValue}
+          width={282}
         />
       </div>
 
-      <SliderZoom sliderValue={sliderValue} setSliderValue={setSliderValue} isZoom />
+      <SliderZoom isZoom setSliderValue={setSliderValue} sliderValue={sliderValue} />
       <Button className={s.btn} onClick={callback}>
         {modal.submitBtn.label}
       </Button>

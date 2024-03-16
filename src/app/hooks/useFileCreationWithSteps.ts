@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
-
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
 import { MIME_TYPES, useTranslation } from '@/app'
 import { useAppDispatch } from '@/app/store/rtk.types'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
 export const errorMessage = {
-  type(limit: string | string[], languageVersion: { text: string; preposition: string }): string {
+  size(limit: number, languageVersion: string): string {
+    return `${languageVersion} ${limit} MB!`
+  },
+
+  type(limit: string | string[], languageVersion: { preposition: string; text: string }): string {
     const format = /[^/]+$/
     const upperCaseFormat = (): string => {
       const fallbackText: string = 'defined.'
@@ -29,13 +32,9 @@ export const errorMessage = {
 
     return upperCaseFormat()
   },
-
-  size(limit: number, languageVersion: string): string {
-    return `${languageVersion} ${limit} MB!`
-  },
 }
 
-type ErrorValidationType = { typeLimit?: string | string[]; sizeLimit?: number } // sizeLimit => MB type
+type ErrorValidationType = { sizeLimit?: number; typeLimit?: string | string[] } // sizeLimit => MB type
 
 export const useFileCreationWithSteps = (
   initialStep?: number,
@@ -69,10 +68,12 @@ export const useFileCreationWithSteps = (
   const clearError = () => setErrorText('')
 
   useEffect(() => {
-    if (!blob) return
+    if (!blob) {
+      return
+    }
     const imageValidation = (
       blob: Blob,
-      { typeLimit = [JPG, PNG], sizeLimit = 2 }: ErrorValidationType
+      { sizeLimit = 2, typeLimit = [JPG, PNG] }: ErrorValidationType
     ) => {
       const { size, type } = blob
       const sizeMb = size / 1000 / 1000
@@ -116,14 +117,14 @@ export const useFileCreationWithSteps = (
   }, [blob])
 
   return {
-    step,
+    blob,
+    clearError,
+    errorText,
     initialStepWithValidation,
+    setPreferredStep,
+    step,
     stepBackward,
     stepForward,
-    setPreferredStep,
     url,
-    blob,
-    errorText,
-    clearError,
   }
 }

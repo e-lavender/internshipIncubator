@@ -1,15 +1,12 @@
-import Link from 'next/link'
-
-import s from './user-profile-description.module.scss'
-
 import { CheckedIcon, useMatchMedia, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
-import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
-import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
 import { Avatar } from '@/components'
 import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescription, UserProfileType } from '@/modules'
 import { Button, Typography } from '@/ui'
+import Link from 'next/link'
+
+import s from './user-profile-description.module.scss'
 
 export const UserProfileDescription = ({ data, isMyProfile, totalCount }: UserProfileType) => {
   const { isMobile } = useMatchMedia()

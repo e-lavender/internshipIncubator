@@ -1,9 +1,10 @@
 import { EnFlag, RuFlag } from '@/app'
 
 export enum LocalType {
-  RU = 'ru',
   EN = 'en',
+  RU = 'ru',
 }
+
 export const flagIcons = {
   [LocalType.EN]: EnFlag,
   [LocalType.RU]: RuFlag,
@@ -15,6 +16,6 @@ export const IMAGE_SIZE = {
 } as const
 
 export const COMMON_MODE_STATE = {
-  VIEW: 'view',
   EDIT: 'edit',
+  VIEW: 'view',
 } as const

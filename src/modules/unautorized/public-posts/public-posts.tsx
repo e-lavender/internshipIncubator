@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 
-import s from './public-posts.module.scss'
-
 import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
 import { NumberOfUsers } from '@/modules/unautorized/number-of-users/number-of-users'
 import { PostItem } from '@/modules/unautorized/posts-item/post-item'
+
+import s from './public-posts.module.scss'
 
 type Props = {
   data: PublicPostsGetAll
@@ -24,13 +24,13 @@ export const PublicPosts = memo(({ data }: Props) => {
           data?.items.map(item => (
             <div key={item.id}>
               <PostItem
-                createdAt={item.createdAt}
-                images={item.images}
-                description={item.description}
-                userName={item.userName}
-                id={item.id}
                 avatarOwner={item.avatarOwner}
+                createdAt={item.createdAt}
+                description={item.description}
+                id={item.id}
+                images={item.images}
                 ownerId={item.ownerId}
+                userName={item.userName}
               />
             </div>
           ))}

@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 
-import Link from 'next/link'
-
-import s from './sign-up-form.module.scss'
-
 import { ErrorWithData, TagProcessor, useDisclose, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
-import { ControlledCheckbox, ControlledTextField, LoaderV2, NotificationModal } from '@/components'
+import {
+  ControlledCheckbox,
+  ControlledTextField,
+  LoadingSpinner,
+  NotificationModal,
+} from '@/components'
 import { useSignupForm } from '@/modules'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
+import Link from 'next/link'
+
+import s from './sign-up-form.module.scss'
 
 export const SignUpForm = () => {
   const [progressBar, setProgressBar] = useState<boolean>(false)
@@ -22,13 +26,13 @@ export const SignUpForm = () => {
   const { signUpForm: text } = t.authPages.signUpPage
 
   const {
+    clearErrors,
     control,
-    formState: { isValid, dirtyFields },
+    formState: { dirtyFields, isValid },
     handleSubmit,
     reset,
-    watch,
     setError,
-    clearErrors,
+    watch,
   } = useSignupForm()
   const email = watch('email')
   const isButtonDisabled = isLoading || (dirtyFields && !isValid)
@@ -39,10 +43,10 @@ export const SignUpForm = () => {
   }
 
   const onSubmitForm = handleSubmit(data => {
-    const { email, userName, password } = data
+    const { email, password, userName } = data
 
     FRONT_BASE_URL &&
-      register({ userName, email, password, baseUrl: FRONT_BASE_URL })
+      register({ baseUrl: FRONT_BASE_URL, email, password, userName })
         .unwrap()
         .then(() => {
           onOpen()
@@ -55,8 +59,8 @@ export const SignUpForm = () => {
   const onBlurConfirmPassword = () => {
     if (watch('password') != watch('confirmPassword')) {
       return setError('confirmPassword', {
-        type: 'custom',
         message: `${text.formErrors.confirmPassword.matchPasswords}`,
+        type: 'custom',
       })
     }
 
@@ -66,7 +70,6 @@ export const SignUpForm = () => {
   const policyLinks = (
     <Typography variant={'small'}>
       <TagProcessor
-        text={text.policyLinks}
         tags={{
           1: () => (
             <Typography variant={'small-link'}>
@@ -79,6 +82,7 @@ export const SignUpForm = () => {
             </Typography>
           ),
         }}
+        text={text.policyLinks}
       />
     </Typography>
   )
@@ -86,7 +90,7 @@ export const SignUpForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        <LoaderV2 isLoading={isLoading || progressBar} label={'Verifying...'} />
+        <LoadingSpinner isLoading={isLoading || progressBar} label={'Verifying...'} />
 
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
@@ -97,52 +101,52 @@ export const SignUpForm = () => {
             </div>
             <ControlledTextField
               className={s.textField}
+              control={control}
+              inputType={'text'}
               label={text.userName}
-              inputType={'text'}
               name={'userName'}
-              control={control}
             />
             <ControlledTextField
               className={s.textField}
-              label={text.email}
+              control={control}
               inputType={'text'}
+              label={text.email}
               name={'email'}
-              control={control}
             />
             <ControlledTextField
               className={s.textField}
+              control={control}
+              inputType={'password'}
               label={text.password}
-              inputType={'password'}
               name={'password'}
-              control={control}
             />
             <ControlledTextField
               className={s.textField}
-              label={text.confirmPassword}
-              inputType={'password'}
-              name={'confirmPassword'}
               control={control}
+              inputType={'password'}
+              label={text.confirmPassword}
+              name={'confirmPassword'}
               onBlur={onBlurConfirmPassword}
             />
             <div className={s.policy}>
               <ControlledCheckbox
-                left={true}
-                name={'policy'}
                 control={control}
                 labelTitle={<div style={{ fontSize: 'var(--font-size-xs)' }}>{text.policy}</div>}
+                left
+                name={'policy'}
               />
               {policyLinks}
             </div>
             <Button
-              type={'submit'}
-              disabled={isButtonDisabled}
-              variant={'primary'}
-              fullWidth={true}
               className={s.button}
+              disabled={isButtonDisabled}
+              fullWidth
+              type={'submit'}
+              variant={'primary'}
             >
               {text.signUp}
             </Button>
-            <Typography variant={'regular-16'} className={s.text}>
+            <Typography className={s.text} variant={'regular-16'}>
               {text.haveAccount}
             </Typography>
             <Link href={authNavigationUrls.signIn()}>
@@ -153,8 +157,8 @@ export const SignUpForm = () => {
       </Card>
       <NotificationModal
         isOpen={isOpen}
-        onClose={onCloseNotification}
         message={`${text.notificationMessage} ${email} `}
+        onClose={onCloseNotification}
       />
     </div>
   )

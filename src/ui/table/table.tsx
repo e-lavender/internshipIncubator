@@ -27,4 +27,4 @@ const DataCell = (props: DataCellProps) => {
   return <td {...props} />
 }
 
-export const Table = { Head, DataCell, HeadCell, Row, Body, Root }
+export const Table = { Body, DataCell, Head, HeadCell, Root, Row }

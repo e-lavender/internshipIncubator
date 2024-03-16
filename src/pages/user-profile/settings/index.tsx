@@ -1,10 +1,6 @@
 import { ReactElement, useEffect, useMemo } from 'react'
 
-import { useRouter } from 'next/router'
-
-import s from './general-information.module.scss'
-
-import { setDateFormat, useGeneralSettings, UserProfileType, useTranslation } from '@/app'
+import { UserProfileType, setDateFormat, useGeneralSettings, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import {
@@ -12,15 +8,18 @@ import {
   useUpdateUserProfileMutation,
 } from '@/app/services/profile/profile.api'
 import { GeneralSettingsType } from '@/app/services/profile/profile.api.types'
-import { ControlledCalendar, ControlledSelect, LoaderV2 } from '@/components'
+import { ControlledCalendar, ControlledSelect, LoadingSpinner } from '@/components'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
 import { Button, TextArea, TextField } from '@/ui'
 import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
+import { useRouter } from 'next/router'
+
+import s from './general-information.module.scss'
 
 type LocationType = {
-  country?: string
   city: string
+  country?: string
 }
 
 type UserProfileModel = UserProfileType & { country?: string }
@@ -32,32 +31,32 @@ const GeneralInformation = () => {
 
   const { t } = useTranslation()
   const { push } = useRouter()
-  const { username, firstName, lastName, birthday, country, city, aboutMe, submitFormBtn } =
+  const { aboutMe, birthday, city, country, firstName, lastName, submitFormBtn, username } =
     t.profileSettings.generalSettings
 
   const userProfile: UserProfileModel | undefined = useMemo(() => {
     if (data) {
-      const { id, avatars, createdAt, ...rest } = data
+      const { avatars, createdAt, id, ...rest } = data
 
       const location = JSON.parse(data.city)
 
       return {
         ...rest,
-        country: location?.country,
         city: location?.city,
+        country: location?.country,
         dateOfBirth: setDateFormat(data?.dateOfBirth),
       }
     }
   }, [data])
 
   const {
-    reset,
-    register,
     control,
+    formState: { errors, isDirty, isLoading, isValid },
     handleSubmit,
-    watch,
+    register,
+    reset,
     setValue,
-    formState: { errors, isValid, isDirty, isLoading },
+    watch,
   } = useGeneralSettings(userProfile)
 
   const isDisabledSubmit = !isValid || isLoading
@@ -65,22 +64,22 @@ const GeneralInformation = () => {
 
   // @ts-ignore
   const onSubmit = handleSubmit((settingsData: GeneralSettingsType) => {
-    const { userName, firstName, lastName, city, country, dateOfBirth, aboutMe } = settingsData
+    const { aboutMe, city, country, dateOfBirth, firstName, lastName, userName } = settingsData
     //const { id } = data
     const location: LocationType = {
-      country: country || '',
       city: city || '',
+      country: country || '',
     }
     const serializedCity = JSON.stringify(location)
     const date = dateOfBirth ? new Date(dateOfBirth).toISOString() : null
 
     updateProfile({
-      userName,
-      firstName,
-      lastName,
+      aboutMe: aboutMe || null,
       city: serializedCity,
       dateOfBirth: date,
-      aboutMe: aboutMe || null,
+      firstName,
+      lastName,
+      userName,
     }).then(void push(menuNavigation.profile(data?.id)))
   })
 
@@ -107,63 +106,63 @@ const GeneralInformation = () => {
         <div className={s.wrapper}>
           <TextField
             {...register('userName')}
+            error={errors?.userName?.message}
             label={username.label}
             required
-            error={errors?.userName?.message}
           />
           <TextField
             {...register('firstName')}
+            error={errors?.firstName?.message}
             label={firstName.label}
             required
-            error={errors?.firstName?.message}
           />
           <TextField
             {...register('lastName')}
+            error={errors?.lastName?.message}
             label={lastName.label}
             required
-            error={errors?.lastName?.message}
           />
 
           <ControlledCalendar
-            label={birthday.label}
             control={control}
-            name={'dateOfBirth'}
             error={errors?.dateOfBirth?.message}
+            label={birthday.label}
+            name={'dateOfBirth'}
           />
 
           <div className={s.select}>
             <ControlledSelect
-              label={country.label}
               control={control}
+              label={country.label}
               name={'country'}
               options={COUNTRIES_DATA}
             />
             <ControlledSelect
-              isLoading={citiesLoading}
-              label={city.label}
-              options={cities}
-              name={'city'}
               control={control}
               disabled={citiesLoading}
+              isLoading={citiesLoading}
+              label={city.label}
+              name={'city'}
+              options={cities}
             />
           </div>
 
           <TextArea
             {...register('aboutMe')}
             label={`${aboutMe.label}`}
-            placeholder={aboutMe.placeholder}
             maxLength={200}
+            placeholder={aboutMe.placeholder}
           />
         </div>
       </form>
 
       <div className={s.divider}></div>
 
-      <Button className={s.btn} onClick={onSubmit} disabled={isDisabledSubmit}>
+      <Button className={s.btn} disabled={isDisabledSubmit} onClick={onSubmit}>
         {submitFormBtn.label}
       </Button>
 
-      <LoaderV2 isLoading={isProfileLoading || isProfileUpdating} label={loaderLabel} />
+      <LoadingSpinner isLoading={isProfileLoading || isProfileUpdating} label={loaderLabel} />
     </div>
   )
 }

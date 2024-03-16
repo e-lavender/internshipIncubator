@@ -1,24 +1,23 @@
 import React, { useState } from 'react'
 
+import { CloseIcon } from '@/app'
+import { usePostCardModal } from '@/app/services/modals/modals.hooks'
+import { useDeleteImagePostMutation } from '@/app/services/posts/posts.api'
+import { ImageSliderContainer, ImageSliderType } from '@/components'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 
 import s from './image-slider.module.scss'
 
-import { CloseIcon } from '@/app'
-import { usePostCardModal } from '@/app/services/modals/modals.hooks'
-import { useDeleteImagePostMutation } from '@/app/services/posts/posts.api'
-import { ImageSliderContainer, ImageSliderType } from '@/components'
-
 export const ImageSlider = ({
-  images = [],
-  width,
-  height,
-  fitStyle,
   aspectRatio,
+  fitStyle,
+  height,
+  images = [],
   isEditMode,
-  user,
   isMyProfile,
+  user,
+  width,
 }: ImageSliderType) => {
   const [imageIndex, setImageIndex] = useState<number>(0)
   const [deletePostImage] = useDeleteImagePostMutation()
@@ -41,27 +40,27 @@ export const ImageSlider = ({
 
   return (
     <ImageSliderContainer
-      images={images}
-      width={width}
-      height={height}
       aspectRatio={aspectRatio}
+      height={height}
       imageIndex={imageIndex}
-      setImageIndex={setImageIndex}
+      images={images}
       isEditMode={isEditMode}
+      setImageIndex={setImageIndex}
+      width={width}
     >
       {images.map((image, index) => (
         <div
+          className={clsx(s.imageSlider, s[fitStyle])}
           key={image.url}
           style={{
-            translate: `${-100 * imageIndex}%`,
             filter: image.filter,
+            translate: `${-100 * imageIndex}%`,
           }}
-          className={clsx(s.imageSlider, s[fitStyle])}
         >
           {isEditMode && user && isMyProfile && images.length > 1 && (
             <CloseIcon className={s.delete} onClick={() => handleDeletePostImage(image.uploadId)} />
           )}
-          <Image objectFit={fitStyle} fill src={image.url} alt={'image'} />
+          <Image alt={'image'} fill objectFit={fitStyle} src={image.url} />
         </div>
       ))}
     </ImageSliderContainer>

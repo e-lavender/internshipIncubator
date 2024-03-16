@@ -1,42 +1,41 @@
 import React, { ReactNode } from 'react'
 
+import { CloseIcon } from '@/app/assets/svg'
+import { Typography } from '@/ui'
 import * as Dialog from '@radix-ui/react-dialog'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 import { clsx } from 'clsx'
 
 import s from './modal.module.scss'
 
-import { CloseIcon } from '@/app/assets/svg'
-import { Typography } from '@/ui'
-
 type ModalProps = {
-  open?: boolean
+  children: ReactNode
   onChange?: (open: boolean) => void
 
-  children: ReactNode
+  open?: boolean
 }
 type ModalContentProps = {
-  title?: string
   children: ReactNode
   className?: string
-  onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
   isModified?: boolean
   onClose?: () => void
+  onInteractOutside?: (event: FocusOutsideEvent | PointerDownOutsideEvent) => void
+  title?: string
 }
-export const Modal = ({ open, onChange, children }: ModalProps) => {
+export const Modal = ({ children, onChange, open }: ModalProps) => {
   return (
-    <Dialog.Root open={open} onOpenChange={onChange}>
+    <Dialog.Root onOpenChange={onChange} open={open}>
       {children}
     </Dialog.Root>
   )
 }
 
 const ModalContent = ({
-  title,
+  children,
+  className,
   isModified = false,
   onClose,
-  className,
-  children,
+  title,
   ...props
 }: ModalContentProps) => {
   const styles = clsx(s.main, className)
@@ -49,12 +48,12 @@ const ModalContent = ({
             <>
               <div className={s.header}>
                 <Dialog.Title>
-                  <Typography className={s.title} variant="h1">
+                  <Typography className={s.title} variant={'h1'}>
                     {title}
                   </Typography>
                 </Dialog.Title>
 
-                <Dialog.Close aria-label="Close" className={s.close} onClick={onClose}>
+                <Dialog.Close aria-label={'Close'} className={s.close} onClick={onClose}>
                   <CloseIcon />
                 </Dialog.Close>
               </div>

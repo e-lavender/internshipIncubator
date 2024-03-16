@@ -1,28 +1,28 @@
 import React, { PropsWithChildren } from 'react'
 
-import Link from 'next/link'
-
-import s from './header.module.scss'
-
 import { useMatchMedia } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { notifications } from '@/app/data/notifications-bell/notifications-bell'
 import { LanguageSelect, NotificationsBell } from '@/components'
 import { DropdownMenuWithItems } from '@/modules'
 import { Button, Typography } from '@/ui'
+import Link from 'next/link'
+
+import s from './header.module.scss'
 
 type HeaderProps = {
   isAuthed: boolean
 }
+
 export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderProps>) {
-  const { isMobile, isDesktop } = useMatchMedia()
+  const { isDesktop, isMobile } = useMatchMedia()
   const showAuthButtons = !isAuthed && isDesktop
 
   return (
     <div className={s.wrapper}>
       <header className={s.container}>
-        <Link href="/">
-          <Typography as="span" variant="large">
+        <Link href={'/'}>
+          <Typography as={'span'} variant={'large'}>
             Проект на последнем издыхании
           </Typography>
         </Link>
@@ -35,10 +35,10 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
 
           {showAuthButtons && (
             <>
-              <Button as={Link} variant={'link'} href={authNavigationUrls.signIn()}>
+              <Button as={Link} href={authNavigationUrls.signIn()} variant={'link'}>
                 Log In
               </Button>
-              <Button as={Link} variant={'primary'} href={authNavigationUrls.signUp()}>
+              <Button as={Link} href={authNavigationUrls.signUp()} variant={'primary'}>
                 Sign Up
               </Button>
             </>

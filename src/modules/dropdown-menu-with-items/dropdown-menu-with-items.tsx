@@ -24,23 +24,23 @@ export const DropdownMenuWithItems = () => {
       <MenuItem
         href={menuNavigation.settings()}
         icon={SettingIcon}
-        label={labels.setting}
         isStyled={false}
+        label={labels.setting}
       />
-      <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} isStyled={false} />
+      <MenuItem href={'#'} icon={StatisticsMenuIcon} isStyled={false} label={labels.statistics} />
 
       <MenuItem
         href={menuNavigation.favorites()}
         icon={FavouritesMenuIcon}
-        label={labels.favorites}
         isStyled={false}
+        label={labels.favorites}
       />
       <MenuItem
         as={'button'}
-        onClick={onLogOut}
         icon={LogOutMenuIcon}
-        label={labels.logout}
         isStyled={false}
+        label={labels.logout}
+        onClick={onLogOut}
       />
     </DropdownMenu>
   )

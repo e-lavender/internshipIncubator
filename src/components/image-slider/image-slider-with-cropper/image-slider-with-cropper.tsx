@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from 'react'
-
-import { clsx } from 'clsx'
 import Cropper, { Area } from 'react-easy-crop'
-
-import s from '../image-slider.module.scss'
 
 import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { addCroppedImage } from '@/app/services/posts/slider.slice'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
-import { ImageSliderContainer, CropperMenu, getCroppedAndFilteredImage } from '@/components'
+import { CropperMenu, ImageSliderContainer, getCroppedAndFilteredImage } from '@/components'
+import { clsx } from 'clsx'
+
+import s from '../image-slider.module.scss'
 
 type ImageSliderType = {
-  images?: PostImageViewModel[]
   aspectRatio: number
-  fitStyle: 'cover' | 'contain'
+  fitStyle: 'contain' | 'cover'
+  images?: PostImageViewModel[]
   setAspectRatio: (aspectRatio: number) => void
 }
 export const ImageSliderWithCropper = ({
-  images = [],
   aspectRatio,
-  setAspectRatio,
   fitStyle,
+  images = [],
+  setAspectRatio,
 }: ImageSliderType) => {
   const [imageIndex, setImageIndex] = useState<number>(0)
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState<number>(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
 
-  const { _state, _dispatch } = useRtkStateHook()
+  const { _dispatch, _state } = useRtkStateHook()
   const { currentImageIndex: globalImageIndex } = _state.slider
 
   const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
@@ -42,7 +41,7 @@ export const ImageSliderWithCropper = ({
       })
 
       if (croppedImage?.objectUrl) {
-        _dispatch(addCroppedImage({ index: imageIndex, croppedImage: croppedImage.objectUrl }))
+        _dispatch(addCroppedImage({ croppedImage: croppedImage.objectUrl, index: imageIndex }))
       }
     }
   }
@@ -65,30 +64,30 @@ export const ImageSliderWithCropper = ({
 
   return (
     <>
-      <ImageSliderContainer images={images} imageIndex={imageIndex} setImageIndex={setImageIndex}>
+      <ImageSliderContainer imageIndex={imageIndex} images={images} setImageIndex={setImageIndex}>
         <div
-          key={images[imageIndex]?.uploadId}
           className={clsx(s.imageSlider, s.transition, s[fitStyle], s.container)}
+          key={images[imageIndex]?.uploadId}
         >
           <Cropper
-            objectFit={'contain'}
-            image={images[imageIndex]?.url || ''}
             aspect={aspectRatio}
             crop={crop}
-            zoom={zoom}
+            image={images[imageIndex]?.url || ''}
+            objectFit={'contain'}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
-            zoomWithScroll
             showGrid={false}
+            zoom={zoom}
+            zoomWithScroll
           />
         </div>
 
         <CropperMenu
-          zoom={zoom}
           onCrop={onCrop}
-          setZoom={setZoom}
           setAspectRatio={setAspectRatio}
+          setZoom={setZoom}
+          zoom={zoom}
         />
       </ImageSliderContainer>
     </>

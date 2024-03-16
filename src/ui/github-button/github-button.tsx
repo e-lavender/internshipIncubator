@@ -1,11 +1,10 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
+import { GithubIcon } from '@/app'
+import { Button } from '@/ui'
 
 import s from './github-button.module.scss'
 
-import { GithubIcon } from '@/app'
-import { Button } from '@/ui'
 type Props = {
   onClick?: (value: boolean) => void
 }
@@ -16,8 +15,8 @@ export const GithubButton = ({ onClick }: Props) => {
   }
 
   return (
-    <Button type={'button'} className={s.button} onClick={gitHubButtonHandler}>
-      <GithubIcon width={36} height={36} />
+    <Button className={s.button} onClick={gitHubButtonHandler} type={'button'}>
+      <GithubIcon height={36} width={36} />
     </Button>
   )
 }

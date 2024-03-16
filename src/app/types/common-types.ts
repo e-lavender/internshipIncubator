@@ -1,23 +1,23 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/react'
 
 export type MessageArrayModel = {
-  message: string
   field: string
+  message: string
 }[]
 export type ErrorWithData =
   | (FetchBaseQueryError & {
       data: {
-        message?: MessageArrayModel | string
         errorsMessages?: MessageArrayModel
+        message?: MessageArrayModel | string
       }
     })
   | string
 export type Nullable<T> = T | null
 export type ErrorModel = {
+  data: { error: string; messages: ErrorModelMessages[]; statusCode: number }
   status: string
-  data: { statusCode: number; messages: ErrorModelMessages[]; error: string }
 }
 export type ErrorModelMessages = {
-  message: string
   field: string
+  message: string
 }

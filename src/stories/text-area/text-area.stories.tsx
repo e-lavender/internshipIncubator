@@ -3,26 +3,26 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { TextArea } from '@/ui'
 
 const meta = {
-  title: 'Components/TextArea',
+  argTypes: {},
+  args: {
+    label: 'Message',
+    placeholder: 'Leave a message...',
+  },
   component: TextArea,
   decorators: [
     Story => (
       <div
         style={{
-          margin: '3em',
           height: '25rem',
+          margin: '3em',
         }}
       >
         <Story />
       </div>
     ),
   ],
-  args: {
-    placeholder: 'Leave a message...',
-    label: 'Message',
-  },
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'Components/TextArea',
 } satisfies Meta<typeof TextArea>
 
 export default meta
@@ -44,7 +44,7 @@ export const WithError: Story = {
 
 export const Disabled = {
   args: {
-    placeholder: '',
     disabled: true,
+    placeholder: '',
   },
 }

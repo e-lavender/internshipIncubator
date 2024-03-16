@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
 import { AccountImagePicker } from '@/modules'
 
 const meta = {
-  title: 'Modules/AccountImagePicker',
-  component: AccountImagePicker,
+  argTypes: {},
   args: {},
+  component: AccountImagePicker,
   decorators: [
     Story => (
       <div style={{ margin: '3em' }}>
@@ -18,7 +19,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'Modules/AccountImagePicker',
 } satisfies Meta<typeof AccountImagePicker>
 
 export default meta

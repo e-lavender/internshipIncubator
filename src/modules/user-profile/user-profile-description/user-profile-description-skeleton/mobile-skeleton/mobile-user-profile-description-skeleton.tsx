@@ -1,9 +1,9 @@
-import { clsx } from 'clsx'
-
 import { Avatar, UserStatistics } from '@/components'
-import s from '@/modules/user-profile/user-profile-description/mobile-user-profile/mobile-user-profile-description.module.scss'
 import { Typography } from '@/ui'
 import { SkeletonCard } from '@/ui/skeleton'
+import { clsx } from 'clsx'
+
+import s from '@/modules/user-profile/user-profile-description/mobile-user-profile/mobile-user-profile-description.module.scss'
 
 export const MobileUserProfileDescriptionSkeleton = () => {
   const styles = clsx(s.container, s.mobile)

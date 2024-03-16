@@ -10,39 +10,47 @@ import {
 } from '@/app/services/public-posts/public-posts.types'
 import { transformImagesData } from '@/app/utils'
 
-const { getAllPublicPosts, getPublicPostsByUserId, getPublicPostByUserId } = publicPostsApiUrls
+const { getAllPublicPosts, getPublicPostByUserId, getPublicPostsByUserId } = publicPostsApiUrls
 
 export const publicPostsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
+    getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
+      providesTags: ['Posts', 'Images'],
+      query: queryArg => ({
+        url: getPublicPostByUserId(queryArg.postId),
+      }),
+      transformResponse: transformImagesData,
+    }),
+
     getPublicPosts: builder.query<PublicPostsGetAll, PublicPostsGetAllArg>({
+      providesTags: ['Posts'],
       query: queryArg => {
         return {
-          url: getAllPublicPosts(queryArg.endCursorPostId),
           params: {
             pageSize: queryArg.pageSize,
             sortBy: queryArg.sortBy,
             sortDirection: queryArg.sortDirection,
           },
+          url: getAllPublicPosts(queryArg.endCursorPostId),
         }
       },
+
       transformResponse: transformImagesData,
-
-      providesTags: ['Posts'],
     }),
-
     getPublicPostsByUser: builder.query<PublicPostsGetPostsByUser, PublicPostsGetPostsByUserArg>({
+      // },
+      providesTags: ['Posts'],
       query: queryArg => ({
-        url: getPublicPostsByUserId({
-          endCursorPostId: queryArg.endCursorPostId,
-          userId: queryArg.userId,
-        }),
         params: {
           pageSize: queryArg.pageSize,
           sortBy: queryArg.sortBy,
           sortDirection: queryArg.sortDirection,
         },
+        url: getPublicPostsByUserId({
+          endCursorPostId: queryArg.endCursorPostId,
+          userId: queryArg.userId,
+        }),
       }),
-      transformResponse: transformImagesData,
       // serializeQueryArgs: ({ endpointName }) => {
       //   console.log('endpointName', endpointName)
       //
@@ -55,21 +63,13 @@ export const publicPostsApi = commonApi.injectEndpoints({
       // // Refetch when the page arg changes
       // forceRefetch({ currentArg, previousArg }) {
       //   return currentArg !== previousArg
-      // },
-      providesTags: ['Posts'],
-    }),
-    getPublicPostById: builder.query<PublicPostsGetPost, PublicPostsGetPostArg>({
-      query: queryArg => ({
-        url: getPublicPostByUserId(queryArg.postId),
-      }),
       transformResponse: transformImagesData,
-      providesTags: ['Posts', 'Images'],
     }),
   }),
 
   overrideExisting: true,
 })
 
-export const { useGetPublicPostsQuery, useGetPublicPostsByUserQuery, useGetPublicPostByIdQuery } =
+export const { useGetPublicPostByIdQuery, useGetPublicPostsByUserQuery, useGetPublicPostsQuery } =
   publicPostsApi
-export const { getPublicPostsByUser, getPublicPostById, getPublicPosts } = publicPostsApi.endpoints
+export const { getPublicPostById, getPublicPosts, getPublicPostsByUser } = publicPostsApi.endpoints

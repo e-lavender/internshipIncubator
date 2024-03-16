@@ -1,12 +1,12 @@
 import { SVGIconType } from '@/app'
 
 type CommentCommonType = {
-  userName: string
-  url: string
-  id: string
   comment?: string
   createdAt: string
+  id: string
   likes?: number
+  url: string
+  userName: string
 }
 
 export type CommentSpecificType = CommentCommonType & {
@@ -14,28 +14,28 @@ export type CommentSpecificType = CommentCommonType & {
 }
 
 export type PostTypes = {
-  cardType?: 'regular' | 'xl'
-  userName?: string
   account?: AccountType
+  cardType?: 'regular' | 'xl'
+  comments?: CommentSpecificType[]
+  createdAt?: string
+  description?: string
   postId?: number
   url?: string
-  description?: string
-  createdAt?: string
-  comments?: CommentSpecificType[]
+  userName?: string
 }
 
 export type PostCardModalType = {
-  title?: string
-  message?: string
   askConfirmation?: boolean
-  isOpen: boolean
-  onChange: () => void
   isLoading?: boolean
-  loaderLabel?: string
   isModified?: boolean
+  isOpen: boolean
+  loaderLabel?: string
+  message?: string
+  onChange: () => void
+  title?: string
 }
 
-export type AccountType = 'personal' | 'public' | 'friend'
+export type AccountType = 'friend' | 'personal' | 'public'
 
 export type DropDownMenuType = {
   account: AccountType
@@ -44,26 +44,26 @@ export type DropDownMenuType = {
 }
 
 export type CardHeaderType = {
-  url?: string
-  userName?: string
   account?: AccountType
   createdAt?: string
+  url?: string
+  userName?: string
 }
 
 export const ActionTypes = {
-  report: 'report',
-  follow: 'follow',
-  unfollow: 'unfollow',
   copy: 'copy',
-  edit: 'edit',
   delete: 'delete',
+  edit: 'edit',
+  follow: 'follow',
+  report: 'report',
+  unfollow: 'unfollow',
 } as const
 
 export type DropdownMenuItemType = {
-  icon: SVGIconType
-  label: string
-  isStyled: boolean
   action: keyof typeof ActionTypes
+  icon: SVGIconType
+  isStyled: boolean
+  label: string
 }
 
 export type DropdownMenuType = {
@@ -71,8 +71,8 @@ export type DropdownMenuType = {
 }
 
 export type CommentType = {
-  userName?: string
   className?: string
+  userName?: string
 } & CommentSpecificType
 
 export type CommentsListType = {
@@ -86,7 +86,7 @@ export type RepliedCommentsListType = {
 export type RepliedCommentType = Omit<CommentType, 'replies'>
 
 export type PostCardXLType = {
-  isVisible?: boolean
-  isLoading?: boolean
   account?: AccountType
+  isLoading?: boolean
+  isVisible?: boolean
 } & PostTypes

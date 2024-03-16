@@ -1,7 +1,3 @@
-import { useRouter } from 'next/router'
-
-import s from './sidebar-menu-with-items.module.scss'
-
 import {
   CreateMenuIcon,
   FavouritesMenuIcon,
@@ -20,9 +16,12 @@ import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { ConfirmationModal } from '@/components'
 import CreateNewPostModal from '@/components/modals/create-new-post-modal/create-new-post-modal'
 import { MenuItem, SidebarMenu } from '@/ui'
+import { useRouter } from 'next/router'
+
+import s from './sidebar-menu-with-items.module.scss'
 
 export const SidebarMenuWithItems = () => {
-  const { isOpen, onOpen, onClose } = useDisclose()
+  const { isOpen, onClose, onOpen } = useDisclose()
   const { openCreatePostModal } = useCreatePostModal()
   const { pathname, push } = useRouter()
   const [signOut] = useSignOutMutation()
@@ -42,8 +41,8 @@ export const SidebarMenuWithItems = () => {
         <MenuItem
           href={menuNavigation.home()}
           icon={HomeMenuIcon}
-          label={labels.home}
           isSelected={pathname.endsWith(menuNavigation.home())}
+          label={labels.home}
         />
         <MenuItem
           as={'button'}
@@ -55,26 +54,26 @@ export const SidebarMenuWithItems = () => {
         <MenuItem
           href={menuNavigation.profile(data?.userId)}
           icon={ProfileMenuIcon}
-          label={labels.profile}
           isSelected={pathname.startsWith(menuNavigation.profile(data?.userId))}
+          label={labels.profile}
         />
 
         <MenuItem
           href={menuNavigation.messenger()}
           icon={MessageMenuIcon}
-          label={labels.messenger}
           isSelected={pathname.startsWith(menuNavigation.messenger())}
+          label={labels.messenger}
         />
         <MenuItem
           href={menuNavigation.search()}
           icon={SearchMenuIcon}
-          label={labels.search}
           isSelected={pathname.startsWith(menuNavigation.search())}
+          label={labels.search}
         />
-        <MenuItem href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} disabled />
-        <MenuItem href={'#'} icon={FavouritesMenuIcon} label={labels.favorites} disabled />
+        <MenuItem disabled href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} />
+        <MenuItem disabled href={'#'} icon={FavouritesMenuIcon} label={labels.favorites} />
 
-        <MenuItem as={'button'} onClick={onOpen} icon={LogOutMenuIcon} label={labels.logout} />
+        <MenuItem as={'button'} icon={LogOutMenuIcon} label={labels.logout} onClick={onOpen} />
       </SidebarMenu>
       <CreateNewPostModal />
       <ConfirmationModal isOpen={isOpen} onClose={onClose} onConfirmation={onSignOut} />

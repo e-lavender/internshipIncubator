@@ -1,14 +1,16 @@
-import s from './loader-v2.module.scss'
-
 import { Typography } from '@/ui'
 
+import s from './loading-spinner.module.scss'
+
 type LoaderType = {
-  label?: string
   isLoading: boolean
+  label?: string
 }
 
-export const LoaderV2 = ({ label = 'Loading...', isLoading = false }: LoaderType) => {
-  if (!isLoading) return null
+export const LoadingSpinner = ({ isLoading = false, label = 'Loading...' }: LoaderType) => {
+  if (!isLoading) {
+    return null
+  }
 
   return (
     <div className={s.overlay}>

@@ -1,5 +1,3 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
 import { COMMON_MODE_STATE } from '@/app/constants/enums'
 import {
   CreatePostModal,
@@ -7,6 +5,7 @@ import {
   PostCardViewModelMode,
 } from '@/app/services/modals/modals.types'
 import { PostImageViewModel, PostViewModel } from '@/app/services/public-posts/public-posts.types'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const defaultState: ModalsStateModel = {
   createPostModal: {
@@ -14,32 +13,32 @@ const defaultState: ModalsStateModel = {
   },
   postCardModal: {
     isOpen: false,
-    post: { images: [] as PostImageViewModel[], description: '' } as PostViewModel,
     mode: COMMON_MODE_STATE.VIEW,
+    post: { description: '', images: [] as PostImageViewModel[] } as PostViewModel,
   },
 }
 
 const post = createSlice({
-  name: 'modals',
   initialState: defaultState,
+  name: 'modals',
   reducers: {
+    clearPostCardModalState: state => {
+      state.postCardModal = defaultState.postCardModal
+    },
     setCreatePostModal: (state, action: PayloadAction<CreatePostModal>) => {
       state.createPostModal = action.payload
+    },
+    setPostCardModalDescription: (state, action: PayloadAction<{ description: string }>) => {
+      state.postCardModal.post.description = action.payload.description
     },
     setPostCardModalIsOpen: (state, action: PayloadAction<{ isOpen: boolean }>) => {
       state.postCardModal.isOpen = action.payload.isOpen
     },
-    setPostCardModalPost: (state, action: PayloadAction<{ post: PostViewModel }>) => {
-      state.postCardModal.post = action.payload.post
-    },
     setPostCardModalMode: (state, action: PayloadAction<{ mode: PostCardViewModelMode }>) => {
       state.postCardModal.mode = action.payload.mode
     },
-    clearPostCardModalState: state => {
-      state.postCardModal = defaultState.postCardModal
-    },
-    setPostCardModalDescription: (state, action: PayloadAction<{ description: string }>) => {
-      state.postCardModal.post.description = action.payload.description
+    setPostCardModalPost: (state, action: PayloadAction<{ post: PostViewModel }>) => {
+      state.postCardModal.post = action.payload.post
     },
     setPostImages: (state, action: PayloadAction<{ images: PostImageViewModel[] }>) => {
       state.postCardModal.post.images = action.payload.images
@@ -48,12 +47,12 @@ const post = createSlice({
 })
 
 export const {
-  setCreatePostModal,
-  setPostCardModalIsOpen,
-  setPostCardModalPost,
-  setPostCardModalMode,
   clearPostCardModalState,
+  setCreatePostModal,
   setPostCardModalDescription,
+  setPostCardModalIsOpen,
+  setPostCardModalMode,
+  setPostCardModalPost,
   setPostImages,
 } = post.actions
 export const modalsReducer = post.reducer

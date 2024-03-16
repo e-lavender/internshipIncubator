@@ -8,7 +8,7 @@ type DescriptionInterfaceProps = {
 export const DescriptionInterface = ({ images }: DescriptionInterfaceProps) => {
   return (
     <>
-      <ImageSlider images={images} aspectRatio={'1/1'} fitStyle={'contain'} />
+      <ImageSlider aspectRatio={'1/1'} fitStyle={'contain'} images={images} />
       <PostDescription />
     </>
   )

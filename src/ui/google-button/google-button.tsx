@@ -1,11 +1,10 @@
 import React from 'react'
 
+import { GoogleIcon } from '@/app/assets/svg'
+import { Button } from '@/ui/button'
 import { useRouter } from 'next/router'
 
 import s from './google-button.module.scss'
-
-import { GoogleIcon } from '@/app/assets/svg'
-import { Button } from '@/ui/button'
 
 type Props = {
   onClick?: (value: boolean) => void
@@ -24,8 +23,8 @@ export const GoogleButton = ({ onClick }: Props) => {
   }
 
   return (
-    <Button type={'button'} className={s.button} onClick={googleButtonHandler}>
-      <GoogleIcon width={36} height={36} />
+    <Button className={s.button} onClick={googleButtonHandler} type={'button'}>
+      <GoogleIcon height={36} width={36} />
     </Button>
   )
 }

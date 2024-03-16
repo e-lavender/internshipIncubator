@@ -3,14 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { TabsContainer, TabsContent, TabsItem, TabsList } from '@/ui'
 
 const meta = {
-  title: 'Navigation/Tabs',
+  argTypes: {},
   component: TabsContainer,
   decorators: [
     Story => (
       <div
         style={{
-          margin: '3em',
           height: '25rem',
+          margin: '3em',
         }}
       >
         <Story />
@@ -18,7 +18,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'Navigation/Tabs',
 } satisfies Meta<typeof TabsContainer>
 
 export default meta
@@ -26,7 +26,6 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    defaultValue: 'tab1',
     children: (
       <div style={{ display: 'inline-block' }}>
         <TabsList>
@@ -36,13 +35,13 @@ export const Default: Story = {
         </TabsList>
         <div
           style={{
-            height: '15rem',
-            marginTop: '2rem',
-            display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
+            display: 'flex',
             fontSize: '2.5rem',
             fontWeight: 600,
+            height: '15rem',
+            justifyContent: 'center',
+            marginTop: '2rem',
           }}
         >
           <TabsContent value={'tab1'}>Content 1</TabsContent>
@@ -51,30 +50,30 @@ export const Default: Story = {
         </div>
       </div>
     ),
+    defaultValue: 'tab1',
   },
 }
 
 export const TabsWithDisabledOption: Story = {
   args: {
-    defaultValue: 'tab1',
     children: (
       <div style={{ display: 'inline-block' }}>
         <TabsList>
           <TabsItem value={'tab1'}>Tab1</TabsItem>
           <TabsItem value={'tab2'}>Tab2</TabsItem>
-          <TabsItem value={'tab3'} disabled>
+          <TabsItem disabled value={'tab3'}>
             Tab3
           </TabsItem>
         </TabsList>
         <div
           style={{
-            height: '15rem',
-            marginTop: '2rem',
-            display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
+            display: 'flex',
             fontSize: '2.5rem',
             fontWeight: 600,
+            height: '15rem',
+            justifyContent: 'center',
+            marginTop: '2rem',
           }}
         >
           <TabsContent value={'tab1'}>Content 1</TabsContent>
@@ -83,12 +82,12 @@ export const TabsWithDisabledOption: Story = {
         </div>
       </div>
     ),
+    defaultValue: 'tab1',
   },
 }
 
 export const FullWidthTabs: Story = {
   args: {
-    defaultValue: 'tab1',
     children: (
       <div style={{ flexGrow: 1 }}>
         <TabsList fullWidth>
@@ -98,13 +97,13 @@ export const FullWidthTabs: Story = {
         </TabsList>
         <div
           style={{
-            height: '15rem',
-            marginTop: '2rem',
-            display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
+            display: 'flex',
             fontSize: '2.5rem',
             fontWeight: 600,
+            height: '15rem',
+            justifyContent: 'center',
+            marginTop: '2rem',
           }}
         >
           <TabsContent value={'tab1'}>Content 1</TabsContent>
@@ -113,5 +112,6 @@ export const FullWidthTabs: Story = {
         </div>
       </div>
     ),
+    defaultValue: 'tab1',
   },
 }

@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 
-import { DevTool } from '@hookform/devtools'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-
-import s from './forgot-password-form.module.scss'
-import { useForgotPasswordForm } from './validation-schema'
-
 import { useDisclose, useMatchMedia, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
 import { usePasswordRecoveryMutation } from '@/app/services/auth/auth.api'
 import { NotificationModal } from '@/components'
 import { Button, Card, ControlledReCaptcha, Loader, TextField, Typography } from '@/ui'
+import { DevTool } from '@hookform/devtools'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import s from './forgot-password-form.module.scss'
+
+import { useForgotPasswordForm } from './validation-schema'
 
 export const ForgotPasswordForm = () => {
   const { isMobile } = useMatchMedia()
@@ -25,7 +25,7 @@ export const ForgotPasswordForm = () => {
   const [recoverPassword, { isLoading }] = usePasswordRecoveryMutation()
 
   const { t } = useTranslation()
-  const { title, email, message, button } = t.forgotPasswordPage
+  const { button, email, message, title } = t.forgotPasswordPage
   const { link, submitTextV1, submitTextV2 } = button
 
   const labels = {
@@ -37,11 +37,11 @@ export const ForgotPasswordForm = () => {
 
   const {
     control,
-    resetField,
-    register,
-    handleSubmit,
-    watch,
     formState: { errors, isValid },
+    handleSubmit,
+    register,
+    resetField,
+    watch,
   } = useForgotPasswordForm()
 
   const emailAddress = watch('email')
@@ -61,9 +61,9 @@ export const ForgotPasswordForm = () => {
   const sendForm = handleSubmit((data, e?) => {
     e?.preventDefault()
     recoverPassword({
+      baseUrl: FRONT_BASE_URL || '',
       email: data.email,
       recaptcha: data.token,
-      baseUrl: FRONT_BASE_URL || '',
     })
       .unwrap()
       .then(onOpen)
@@ -74,68 +74,68 @@ export const ForgotPasswordForm = () => {
 
   return (
     <Card className={s.card}>
-      <Typography as={'h1'} variant={'h1'} className={s.title}>
+      <Typography as={'h1'} className={s.title} variant={'h1'}>
         {title}
       </Typography>
-      <form onSubmit={sendForm} onInput={clearError}>
+      <form onInput={clearError} onSubmit={sendForm}>
         {/*{DEVTOOLS}*/}
         <DevTool control={control} />
         {/*{DEVTOOLS}*/}
 
         <TextField
           {...register('email')}
-          label={email.label}
           className={s.email}
           error={errors?.email?.message || error}
+          label={email.label}
         />
-        <Typography as={'p'} variant={'regular-14'} className={s.description}>
+        <Typography as={'p'} className={s.description} variant={'regular-14'}>
           {message.beforeSubmission}
         </Typography>
 
         {isSubmitted && (
-          <Typography as={'p'} variant={'regular-14'} className={s.submitted}>
+          <Typography as={'p'} className={s.submitted} variant={'regular-14'}>
             {message.afterSubmission}
           </Typography>
         )}
         {isMobile && (
           <ControlledReCaptcha
+            className={s.recaptcha}
             control={control}
+            error={errors?.token?.message}
+            hl={locale}
             name={'token'}
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY!}
-            hl={locale}
             theme={'dark'}
-            className={s.recaptcha}
-            error={errors?.token?.message}
           />
         )}
-        <Button fullWidth className={s.button} type={'submit'} disabled={!isValid}>
+        <Button className={s.button} disabled={!isValid} fullWidth type={'submit'}>
           {labels.submission()}
         </Button>
         <Button
-          className={s.signUpBtn}
           as={Link}
-          variant={'link'}
+          className={s.signUpBtn}
           href={authNavigationUrls.signIn()}
+          variant={'link'}
         >
           {`${link.description} ${link.text}`}
         </Button>
         {!isMobile && !isSubmitted && (
           <ControlledReCaptcha
+            className={s.recaptcha}
             control={control}
+            error={errors?.token?.message}
+            hl={locale}
             name={'token'}
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY!}
-            hl={locale}
             theme={'dark'}
-            className={s.recaptcha}
-            error={errors?.token?.message}
           />
         )}
       </form>
 
       <NotificationModal
         isOpen={isOpen}
-        onClose={onModalClose}
         message={`${message.notificationMessage} ${emailAddress} `}
+        onClose={onModalClose}
       />
     </Card>
   )

@@ -1,9 +1,5 @@
 import { ReactElement, useMemo, useState } from 'react'
 
-import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
-
-import s from './create-new-post-modal.module.scss'
-
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
@@ -17,10 +13,13 @@ import {
   CropInterface,
   DescriptionInterface,
   FilterInterface,
-  getCroppedAndFilteredImage,
-  LoaderV2,
+  LoadingSpinner,
   NewPostContainerModal,
+  getCroppedAndFilteredImage,
 } from '@/components'
+import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
+
+import s from './create-new-post-modal.module.scss'
 
 export const CreateNewPostModal = () => {
   const [addPost, { isLoading: isPostUploading }] = useCreatePostMutation()
@@ -30,13 +29,13 @@ export const CreateNewPostModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { t } = useTranslation()
   const { add, cropping, filters, publication } = t.createPost
-  const { step, initialStepWithValidation, stepForward, stepBackward, setPreferredStep } =
+  const { initialStepWithValidation, setPreferredStep, step, stepBackward, stepForward } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
 
   const {
-    images: selectedImages,
-    description: postDescription,
     currentImageIndex,
+    description: postDescription,
+    images: selectedImages,
   } = useAppSelector(state => state.slider)
 
   const dispatch = useAppDispatch()
@@ -48,12 +47,14 @@ export const CreateNewPostModal = () => {
 
     const imagePromises = selectedImages.map(async image => {
       const filteredImage = await getCroppedAndFilteredImage({
+        filter: image.filter,
         imageSrc: image.url,
         pixelCrop: null,
-        filter: image.filter,
       })
 
-      if (!filteredImage?.unit8array) return null
+      if (!filteredImage?.unit8array) {
+        return null
+      }
 
       const blob = new Blob([filteredImage.unit8array], { type: 'image/jpeg' })
 
@@ -73,7 +74,7 @@ export const CreateNewPostModal = () => {
           imagesMetaData.push({ uploadId: image.uploadId })
         })
 
-        addPost({ description: postDescription, childrenMetadata: imagesMetaData })
+        addPost({ childrenMetadata: imagesMetaData, description: postDescription })
         dispatch(resetImagesToDefaultState())
       })
       .catch((error: ErrorWithData) => {
@@ -106,15 +107,15 @@ export const CreateNewPostModal = () => {
   const CurrentInterface: ReactElement = interfaceVariants[step]
   const currentTitle: string = titleVariants[step]
 
-  const { isOpen: isCreatePostModalOpen, closeCreatePostModal: closeCreatePostModal } =
+  const { closeCreatePostModal: closeCreatePostModal, isOpen: isCreatePostModalOpen } =
     useCreatePostModal()
   const {
     isOpen: isConfirmationModalOpen,
-    onOpen: openConfirmationModal,
     onClose: closeConfirmationModal,
+    onOpen: openConfirmationModal,
   } = useDisclose()
 
-  const handleOutsideClick = (e: PointerDownOutsideEvent | FocusOutsideEvent) => {
+  const handleOutsideClick = (e: FocusOutsideEvent | PointerDownOutsideEvent) => {
     e.preventDefault()
     openConfirmationModal()
   }
@@ -127,16 +128,16 @@ export const CreateNewPostModal = () => {
 
   return (
     <>
-      <NewPostContainerModal open={isCreatePostModalOpen} onChange={closeCreatePostModal}>
+      <NewPostContainerModal onChange={closeCreatePostModal} open={isCreatePostModalOpen}>
         <NewPostContainerModal.Button asChild />
         <NewPostContainerModal.Content
-          title={currentTitle}
+          addNewPost={addNewPost}
           className={step < 3 ? s.content : s.filters}
           currentStep={step}
           onInteractOutside={handleOutsideClick}
-          stepForward={stepForward}
           stepBackward={stepBackward}
-          addNewPost={addNewPost}
+          stepForward={stepForward}
+          title={currentTitle}
         >
           {CurrentInterface}
         </NewPostContainerModal.Content>
@@ -144,13 +145,13 @@ export const CreateNewPostModal = () => {
 
       <ConfirmationModal
         isOpen={isConfirmationModalOpen}
-        onClose={closeConfirmationModal}
-        title={'Close create posts'}
         message={'Are you sure you want to close ?'}
+        onClose={closeConfirmationModal}
         onConfirmation={onConfirm}
+        title={'Close create posts'}
       />
 
-      <LoaderV2 isLoading={isLoading || isPostUploading} label={'Saving...'} />
+      <LoadingSpinner isLoading={isLoading || isPostUploading} label={'Saving...'} />
     </>
   )
 }

@@ -1,11 +1,11 @@
-import { useState, useLayoutEffect, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MatchMedia } from '@/app'
 
 const QUERIES = {
+  DESKTOP: '(min-width: 1025px)',
   MOBILE: '(min-width: 320px) and (max-width: 420px)',
   TABLET: '(min-width: 421px) and (max-width: 1024px)',
-  DESKTOP: '(min-width: 1025px)',
 }
 
 const THROTTLED_TIME = 500
@@ -13,17 +13,17 @@ const THROTTLED_TIME = 500
 export const useMatchMedia = (): MatchMedia => {
   const isClient = typeof window !== 'undefined'
   const [values, setValues] = useState<MatchMedia>({
+    isDesktop: false,
     isMobile: false,
     isTablet: false,
-    isDesktop: false,
   })
 
   useEffect(() => {
     const getValues = () => {
       return {
+        isDesktop: window.matchMedia(QUERIES.DESKTOP).matches,
         isMobile: window.matchMedia(QUERIES.MOBILE).matches,
         isTablet: window.matchMedia(QUERIES.TABLET).matches,
-        isDesktop: window.matchMedia(QUERIES.DESKTOP).matches,
       }
     }
 
