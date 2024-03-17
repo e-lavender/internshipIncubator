@@ -5,9 +5,9 @@ import * as Tabs from '@radix-ui/react-tabs'
 import s from './tabs-item.module.scss'
 
 type TabsItemProps = {
-  value: string
   asChild?: boolean
   disabled?: boolean
+  value: string
 }
 export const TabsItem = ({ children, ...props }: PropsWithChildren<TabsItemProps>) => {
   return (

@@ -2,36 +2,36 @@ import { sessionApiUrls } from '@/app/constants/routes/sessions'
 import { commonApi } from '@/app/services/common/common.api'
 import { SessionsType } from '@/app/services/sessions/sessions.types'
 
-const { sessionById, allSessions, terminateAll } = sessionApiUrls
+const { allSessions, sessionById, terminateAll } = sessionApiUrls
 
 export const sessionsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
     getSessions: builder.query<SessionsType, void>({
+      providesTags: ['Sessions'],
       query: () => {
         return {
           method: 'GET',
           url: allSessions(),
         }
       },
-      providesTags: ['Sessions'],
     }),
     terminateAllSessions: builder.mutation<void, void>({
+      invalidatesTags: ['ME', 'Sessions'],
       query: () => {
         return {
           method: 'DELETE',
           url: terminateAll(),
         }
       },
-      invalidatesTags: ['ME', 'Sessions'],
     }),
     terminateSessionById: builder.mutation<void, { deviceId: number }>({
+      invalidatesTags: ['ME', 'Sessions'],
       query: ({ deviceId }) => {
         return {
           method: 'DELETE',
           url: sessionById(deviceId),
         }
       },
-      invalidatesTags: ['ME', 'Sessions'],
     }),
   }),
 
@@ -40,6 +40,6 @@ export const sessionsApi = commonApi.injectEndpoints({
 
 export const {
   useGetSessionsQuery,
-  useTerminateSessionByIdMutation,
   useTerminateAllSessionsMutation,
+  useTerminateSessionByIdMutation,
 } = sessionsApi

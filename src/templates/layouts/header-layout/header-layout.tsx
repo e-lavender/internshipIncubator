@@ -1,11 +1,11 @@
-import '@/app/styles/_global-classes.scss'
-
 import { PropsWithChildren } from 'react'
-
-import s from './header-layout.module.scss'
 
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { Header } from '@/modules/header'
+
+import '@/app/styles/_global-classes.scss'
+
+import s from './header-layout.module.scss'
 
 export const HeaderLayout = ({ children }: PropsWithChildren) => {
   const { data: me } = useGetMeQuery()

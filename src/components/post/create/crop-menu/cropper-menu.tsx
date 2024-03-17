@@ -1,18 +1,18 @@
 import React from 'react'
 
-import s from './crop-menu.module.scss'
-
 import { AddImage, CropMenu, CropMenuItem, SliderZoom, useCropperMenu } from '@/components'
 import { Button } from '@/ui'
 
+import s from './crop-menu.module.scss'
+
 type CropperMenuProps = {
-  zoom: number
-  setZoom: (zoom: number) => void
-  setAspectRatio: (aspectRatio: number) => void
   onCrop: () => Promise<void>
+  setAspectRatio: (aspectRatio: number) => void
+  setZoom: (zoom: number) => void
+  zoom: number
 }
-export const CropperMenu = ({ zoom, setZoom, setAspectRatio, onCrop }: CropperMenuProps) => {
-  const { cropperMenuVersion, cropMenuSelected } = useCropperMenu(setAspectRatio)
+export const CropperMenu = ({ onCrop, setAspectRatio, setZoom, zoom }: CropperMenuProps) => {
+  const { cropMenuSelected, cropperMenuVersion } = useCropperMenu(setAspectRatio)
 
   return (
     <>
@@ -26,20 +26,20 @@ export const CropperMenu = ({ zoom, setZoom, setAspectRatio, onCrop }: CropperMe
                 <CropMenuItem
                   {...item}
                   icon={<MenuIcon />}
+                  key={item.id}
                   onClick={() => item.onClick(item.id)}
                   selected={item.id === cropMenuSelected}
-                  key={item.id}
                 />
               )
             })}
           </CropMenu>
 
           <CropMenu icon={'zoom'}>
-            <SliderZoom sliderValue={zoom} setSliderValue={setZoom} isZoom />
+            <SliderZoom isZoom setSliderValue={setZoom} sliderValue={zoom} />
           </CropMenu>
         </div>
 
-        <Button onClick={onCrop} className={s.btn}>
+        <Button className={s.btn} onClick={onCrop}>
           Crop
         </Button>
 

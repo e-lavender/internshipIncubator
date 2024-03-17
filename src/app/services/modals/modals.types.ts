@@ -1,5 +1,5 @@
 import { COMMON_MODE_STATE } from '@/app/constants/enums'
-import { PostImageViewModel, PostViewModel } from '@/app/services/public-posts/public-posts.types'
+import { PostViewModel } from '@/app/services/public-posts/public-posts.types'
 
 export type ModalsStateModel = {
   createPostModal: CreatePostModal
@@ -11,8 +11,8 @@ export type CreatePostModal = {
 }
 export type PostCardModal = {
   isOpen?: boolean
-  post: PostViewModel
   mode: PostCardViewModelMode
+  post: PostViewModel
 }
 
 export type PostCardViewModelMode = (typeof COMMON_MODE_STATE)[keyof typeof COMMON_MODE_STATE]

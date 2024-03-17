@@ -2,8 +2,10 @@ const setDateTemplate = ({ day, month, year }: { day: string; month: string; yea
   return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`
 }
 
-export const setDateFormat = (date: string | Date | undefined): string => {
-  if (date == undefined) return ''
+export const setDateFormat = (date: Date | string | undefined): string => {
+  if (date == undefined) {
+    return ''
+  }
 
   const newDate = new Date(date)
 

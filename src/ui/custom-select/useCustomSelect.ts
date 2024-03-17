@@ -19,8 +19,8 @@ export const useCustomSelect = (
 
   const currentValue = value?.label || internalValue
 
-  const { filteredData, setFilterHandler, resetFilter } = useFilterOptions(options || [])
-  const { findUp, findDown, indexCurrent, setIndexCurrent } = useFindNext(filteredData?.length)
+  const { filteredData, resetFilter, setFilterHandler } = useFilterOptions(options || [])
+  const { findDown, findUp, indexCurrent, setIndexCurrent } = useFindNext(filteredData?.length)
 
   const onSelectValueHandler = (value: string | undefined) => {
     if (onSelect) {
@@ -94,23 +94,23 @@ export const useCustomSelect = (
   }, [options])
 
   return {
-    keyHandler,
+    clearHandler,
     closeSelectOnBlur,
     currentValue,
-    setInternalValue,
-    isOpen,
-    setIsOpen,
-    onSelectValueHandler,
-    onHoverValue,
-    hoveredValue,
-    clearHandler,
     filteredData,
-    setFilterHandler,
+    hoveredValue,
+    indexCurrent,
+    inputRef,
+    isOpen,
+    keyHandler,
+    onHoverValue,
+    onSelectValueHandler,
+    optionsListRef,
     resetFilter,
     selectRef,
-    optionsListRef,
-    indexCurrent,
+    setFilterHandler,
     setIndexCurrent,
-    inputRef,
+    setInternalValue,
+    setIsOpen,
   }
 }

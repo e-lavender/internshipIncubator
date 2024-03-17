@@ -19,5 +19,5 @@ export const useFilterOptions = (options: SelectValue[]) => {
     setFilter('')
   }
 
-  return { setFilterHandler, filteredData, resetFilter }
+  return { filteredData, resetFilter, setFilterHandler }
 }

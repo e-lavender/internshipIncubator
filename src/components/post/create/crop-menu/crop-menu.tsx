@@ -1,9 +1,9 @@
 import { PropsWithChildren, useRef } from 'react'
 
-import s from './crop-menu.module.scss'
-
 import { useDisclose, useOnClickOutside } from '@/app'
-import { IconType, CropMenuIcon } from '@/components'
+import { CropMenuIcon, IconType } from '@/components'
+
+import s from './crop-menu.module.scss'
 
 type CropMenuProps = PropsWithChildren<{
   icon: IconType
@@ -11,7 +11,7 @@ type CropMenuProps = PropsWithChildren<{
 }>
 
 export const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
-  const { isOpen, onToggle, onClose } = useDisclose()
+  const { isOpen, onClose, onToggle } = useDisclose()
   const menuRef = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(menuRef, onClose)
@@ -20,8 +20,8 @@ export const CropMenu = ({ children, icon, isImage }: CropMenuProps) => {
 
   return (
     <div className={s.container} ref={menuRef}>
-      <button onClick={onToggle} className={s.trigger} tabIndex={0}>
-        <CropMenuIcon type={icon} color={color} />
+      <button className={s.trigger} onClick={onToggle} tabIndex={0}>
+        <CropMenuIcon color={color} type={icon} />
       </button>
 
       {isOpen && <div className={isImage ? s.image : s.menu}>{children}</div>}

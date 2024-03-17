@@ -1,39 +1,38 @@
-import { formatDate } from '@storybook/blocks'
-import { clsx } from 'clsx'
-
-import { SESSION_DEVICE_ICON } from './data'
-import s from './device-information-card.module.scss'
-import { BrowserType, SessionDeviceType } from './model'
-
-import { LogOutMenuIcon, setDateFormat, SVGIconType, useMatchMedia, useTranslation } from '@/app'
+import { LogOutMenuIcon, SVGIconType, setDateFormat, useMatchMedia, useTranslation } from '@/app'
 import { SessionModel } from '@/app/services/sessions/sessions.types'
 import { Card, MenuItem, Typography } from '@/ui'
+import { clsx } from 'clsx'
+
+import s from './device-information-card.module.scss'
+
+import { SESSION_DEVICE_ICON } from './data'
+import { BrowserType, SessionDeviceType } from './model'
 
 export const SESSION_CARD_TYPE = {
-  SESSION: 'SESSION',
   DEVICE: 'DEVICE',
+  SESSION: 'SESSION',
 } as const
 
 type VariantType = {
-  SESSION: SessionDeviceType
   DEVICE: BrowserType
+  SESSION: SessionDeviceType
 }
 
 type DeviceInformationCardProps<T extends keyof typeof SESSION_CARD_TYPE> = {
-  type: T
-  variant: VariantType[T]
-  session: SessionModel
   className?: string
   currentIp?: string
   getSessionId?: (sessionId: number) => void
+  session: SessionModel
+  type: T
+  variant: VariantType[T]
 }
 
 export const DeviceInformationCard = <T extends keyof typeof SESSION_CARD_TYPE>({
+  className,
+  getSessionId,
+  session,
   type,
   variant,
-  className,
-  session,
-  getSessionId,
 }: DeviceInformationCardProps<T>) => {
   const { isMobile } = useMatchMedia()
 
@@ -52,10 +51,10 @@ export const DeviceInformationCard = <T extends keyof typeof SESSION_CARD_TYPE>(
     <MenuItem
       as={'button'}
       asListItem={false}
-      onClick={logoutHandler}
       icon={LogOutMenuIcon}
-      label={labels.logout}
       isStyled={!isMobile}
+      label={labels.logout}
+      onClick={logoutHandler}
     />
   )
 

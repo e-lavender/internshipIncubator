@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
+import { FavouritesMenuIcon, LikedIcon, MessageIcon, ShareLinkIcon, UnlikedIcon } from '@/app'
+import { AccountType } from '@/components'
 import { clsx } from 'clsx'
 
 import s from './card-options.module.scss'
-
-import { FavouritesMenuIcon, LikedIcon, MessageIcon, ShareLinkIcon, UnlikedIcon } from '@/app'
-import { AccountType } from '@/components'
 
 export const CardOptions = ({ account = 'personal' }: { account?: AccountType }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false)
@@ -19,8 +18,8 @@ export const CardOptions = ({ account = 'personal' }: { account?: AccountType })
   return (
     <div className={styles.container}>
       <div className={styles.icons}>
-        <button onClick={() => setIsLiked(like => !like)} className={s.like}>
-          {isLiked ? <LikedIcon width={24} height={24} /> : <UnlikedIcon width={24} height={24} />}
+        <button className={s.like} onClick={() => setIsLiked(like => !like)}>
+          {isLiked ? <LikedIcon height={24} width={24} /> : <UnlikedIcon height={24} width={24} />}
 
           <div className={clsx(s.animation, isLiked && s.liked)} />
         </button>

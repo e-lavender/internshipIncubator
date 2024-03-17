@@ -1,30 +1,29 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
+import { Typography } from '@/ui'
 import { clsx } from 'clsx'
 
 import s from './text-area.module.scss'
 
-import { Typography } from '@/ui'
-
 type TextAreaType = {
-  label?: string
-  error?: string
   disabled?: boolean
-  sizeLimit?: number
+  error?: string
   initialSize?: number
+  label?: string
   setValue?: (value: string) => void
+  sizeLimit?: number
 } & ComponentPropsWithoutRef<'textarea'>
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaType>(
   (
     {
-      label,
-      sizeLimit,
+      disabled,
+      error,
       initialSize = 0,
+      label,
       onChange,
       setValue,
-      error,
-      disabled,
+      sizeLimit,
       spellCheck = false,
       ...props
     },
@@ -52,29 +51,29 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaType>(
     return (
       <div className={s.container}>
         {label && (
-          <Typography as={'label'} variant={'regular-14'} htmlFor={id} className={styles.label}>
+          <Typography as={'label'} className={styles.label} htmlFor={id} variant={'regular-14'}>
             {label}
           </Typography>
         )}
         <textarea
-          id={id}
           className={styles.textarea}
           disabled={disabled}
-          spellCheck={spellCheck}
-          onChange={updateTextArea}
+          id={id}
           maxLength={sizeLimit}
+          onChange={updateTextArea}
           ref={ref}
+          spellCheck={spellCheck}
           {...props}
         />
 
         {sizeLimit && (
-          <Typography as={'p'} variant={'regular-14'} className={styles.limit}>
+          <Typography as={'p'} className={styles.limit} variant={'regular-14'}>
             {size}/{sizeLimit}
           </Typography>
         )}
 
         {error && (
-          <Typography as={'p'} variant={'regular-14'} className={s.error}>
+          <Typography as={'p'} className={s.error} variant={'regular-14'}>
             {error}
           </Typography>
         )}

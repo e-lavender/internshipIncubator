@@ -1,42 +1,42 @@
 import { CSSProperties, PropsWithChildren } from 'react'
 
-import s from './image-slider-container.module.scss'
-
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
-import { SliderControlsType, ImageSliderControls } from '@/components'
+import { ImageSliderControls, SliderControlsType } from '@/components'
+
+import s from './image-slider-container.module.scss'
 
 type ImageSliderContainerType = PropsWithChildren<
   {
-    width?: CSSProperties['width']
-    height?: CSSProperties['height']
     aspectRatio?: CSSProperties['aspectRatio']
+    height?: CSSProperties['height']
     images: PostImageViewModel[]
-  } & Pick<SliderControlsType, 'imageIndex' | 'setImageIndex' | 'isEditMode'>
+    width?: CSSProperties['width']
+  } & Pick<SliderControlsType, 'imageIndex' | 'isEditMode' | 'setImageIndex'>
 >
 export const ImageSliderContainer = ({
-  images,
-  width,
-  height,
-  imageIndex,
-  setImageIndex,
   aspectRatio,
   children,
+  height,
+  imageIndex,
+  images,
   isEditMode,
+  setImageIndex,
+  width,
 }: ImageSliderContainerType) => {
   return (
     <div
       className={s.container}
       style={{
-        width,
-        height,
         aspectRatio,
+        height,
+        width,
       }}
     >
       <div className={s.images}>{children}</div>
 
       <ImageSliderControls
-        images={images}
         imageIndex={imageIndex}
+        images={images}
         isEditMode={isEditMode}
         setImageIndex={setImageIndex}
       />

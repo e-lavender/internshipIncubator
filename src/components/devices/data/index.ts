@@ -7,8 +7,8 @@ import {
   FirefoxBrowserIcon,
   MobileIcon,
   OperaBrowserIcon,
-  SafariBrowserIcon,
   SVGIconType,
+  SafariBrowserIcon,
   UcBrowserIcon,
   YandexBrowserIcon,
 } from '@/app'
@@ -17,10 +17,6 @@ type IconDataType = {
   [key: string]: { [key: string]: SVGIconType }
 }
 export const SESSION_DEVICE_ICON: IconDataType = {
-  SESSION: {
-    DESKTOP: DesktopIcon,
-    MOBILE: MobileIcon,
-  },
   DEVICE: {
     BRAVE: BraveBrowserIcon,
     CHROME: ChromeBrowserIcon,
@@ -29,7 +25,11 @@ export const SESSION_DEVICE_ICON: IconDataType = {
     FIREFOX: FirefoxBrowserIcon,
     OPERA: OperaBrowserIcon,
     SAFARI: SafariBrowserIcon,
-    YANDEX: YandexBrowserIcon,
     UC: UcBrowserIcon,
+    YANDEX: YandexBrowserIcon,
+  },
+  SESSION: {
+    DESKTOP: DesktopIcon,
+    MOBILE: MobileIcon,
   },
 }

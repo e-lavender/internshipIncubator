@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef, KeyboardEventHandler, useRef } from 'react'
+import { ComponentPropsWithoutRef, KeyboardEventHandler, forwardRef, useRef } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -6,9 +6,9 @@ import s from './file-input.module.scss'
 
 type FileInputProps = {
   accept?: string | string[]
+  className?: string
   label?: string
   onUpload?: () => void
-  className?: string
 }
 
 type CustomFileInputType = FileInputProps &
@@ -18,13 +18,13 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
   (
     {
       accept,
+      children,
+      className,
+      disabled,
       id = 'file-input',
       label = 'Select from Computer',
       name = 'file',
       onUpload,
-      disabled,
-      className,
-      children,
       ...props
     }: CustomFileInputType,
     ref
@@ -33,8 +33,8 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
     const fileFormat = Array.isArray(accept) ? accept.join(', ') : accept
 
     const styles = {
-      label: clsx(s.label, disabled && s.disabled),
       form: className,
+      label: clsx(s.label, disabled && s.disabled),
     }
 
     const handleOnKeyDown: KeyboardEventHandler<HTMLLabelElement> = e => {
@@ -44,25 +44,25 @@ export const FileInput = forwardRef<HTMLFormElement, CustomFileInputType>(
     }
 
     return (
-      <form ref={ref} className={styles.form}>
+      <form className={styles.form} ref={ref}>
         <label
-          ref={labelRef}
           className={styles.label}
-          onKeyDown={handleOnKeyDown}
           htmlFor={id}
+          onKeyDown={handleOnKeyDown}
+          ref={labelRef}
           tabIndex={0}
         >
           {label}
         </label>
 
         <input
+          accept={fileFormat}
           className={s.input}
-          type="file"
+          disabled={disabled}
           id={id}
           name={name}
-          accept={fileFormat}
-          disabled={disabled}
           onChange={onUpload}
+          type={'file'}
           {...props}
         />
 

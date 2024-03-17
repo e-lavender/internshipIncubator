@@ -1,24 +1,22 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 import { isOldEnough, useTranslation } from '@/app'
 import { UserProfileModel } from '@/app/services/profile/profile.api.types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 export type UserProfileType = Omit<UserProfileModel, 'avatars' | 'createdAt' | 'id'>
 
 export const useGeneralSettings = (userProfile: UserProfileType | undefined) => {
   const { t } = useTranslation()
-  const { username, firstName, lastName, birthday } = t.profileSettings.generalSettings
+  const { birthday, firstName, lastName, username } = t.profileSettings.generalSettings
 
   const GeneralSettingsSchema = z
     .object({
-      userName: z
-        .string()
-        .trim()
-        .min(6, `${username.validation.length}`)
-        .max(30, `${username.validation.maxLength}`)
-        .regex(/^[0-9a-zA-Z_;-]+$/, `${username.validation.pattern}`),
+      aboutMe: z.string().optional(),
+      city: z.string().optional(),
+      country: z.string().optional(),
+      dateOfBirth: z.union([z.date(), z.string()]).optional(),
       firstName: z
         .string()
         .trim()
@@ -31,10 +29,12 @@ export const useGeneralSettings = (userProfile: UserProfileType | undefined) => 
         .min(1, `${lastName.validation.length}`)
         .max(20, `${lastName.validation.maxLength}`)
         .regex(/^[a-zA-Zа-яА-Я]+$/, `${lastName.validation.pattern}`),
-      dateOfBirth: z.union([z.date(), z.string()]).optional(),
-      country: z.string().optional(),
-      city: z.string().optional(),
-      aboutMe: z.string().optional(),
+      userName: z
+        .string()
+        .trim()
+        .min(6, `${username.validation.length}`)
+        .max(30, `${username.validation.maxLength}`)
+        .regex(/^[0-9a-zA-Z_;-]+$/, `${username.validation.pattern}`),
     })
     .refine(
       data => {
@@ -56,10 +56,10 @@ export const useGeneralSettings = (userProfile: UserProfileType | undefined) => 
   type GeneralSettingsFormType = z.infer<typeof GeneralSettingsSchema>
 
   return useForm<GeneralSettingsFormType>({
-    resolver: zodResolver(GeneralSettingsSchema),
     defaultValues: {
       ...userProfile,
     },
     mode: 'all',
+    resolver: zodResolver(GeneralSettingsSchema),
   })
 }

@@ -8,57 +8,57 @@ import {
 } from '@/app/services/payments/payments.types'
 
 const {
-  createSubscriptions,
-  costOfSubscriptions,
-  currentSubscriptions,
   canceledAutoRenewal,
+  costOfSubscriptions,
+  createSubscriptions,
+  currentSubscriptions,
   myPayments,
 } = paymentsApiUrls
 
 export const paymentsApi = commonApi.injectEndpoints({
   endpoints: builder => ({
-    createSubscriptions: builder.mutation<{ url: string }, CreateSubscriptions>({
-      query: body => ({
-        url: createSubscriptions(),
+    canceledAutoRenewal: builder.mutation<void, void>({
+      invalidatesTags: ['Subscriptions'],
+      query: () => ({
         method: 'POST',
-        body,
+        url: canceledAutoRenewal(),
       }),
     }),
     costOfSubscriptions: builder.query<CostOfSubscriptions, void>({
-      query: () => ({
-        url: costOfSubscriptions(),
-        method: 'GET',
-      }),
       providesTags: ['Subscriptions'],
+      query: () => ({
+        method: 'GET',
+        url: costOfSubscriptions(),
+      }),
+    }),
+    createSubscriptions: builder.mutation<{ url: string }, CreateSubscriptions>({
+      query: body => ({
+        body,
+        method: 'POST',
+        url: createSubscriptions(),
+      }),
     }),
     currentSubscriptions: builder.query<CurrentSubscription, void>({
-      query: () => ({
-        url: currentSubscriptions(),
-        method: 'GET',
-      }),
       providesTags: ['Subscriptions'],
-    }),
-    canceledAutoRenewal: builder.mutation<void, void>({
       query: () => ({
-        url: canceledAutoRenewal(),
-        method: 'POST',
+        method: 'GET',
+        url: currentSubscriptions(),
       }),
-      invalidatesTags: ['Subscriptions'],
     }),
     myPayments: builder.query<MyPayments[], void>({
-      query: () => ({
-        url: myPayments(),
-        method: 'GET',
-      }),
       providesTags: ['Subscriptions'],
+      query: () => ({
+        method: 'GET',
+        url: myPayments(),
+      }),
     }),
   }),
 })
 
 export const {
-  useCreateSubscriptionsMutation,
-  useCostOfSubscriptionsQuery,
-  useCurrentSubscriptionsQuery,
   useCanceledAutoRenewalMutation,
+  useCostOfSubscriptionsQuery,
+  useCreateSubscriptionsMutation,
+  useCurrentSubscriptionsQuery,
   useMyPaymentsQuery,
 } = paymentsApi

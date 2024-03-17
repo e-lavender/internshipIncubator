@@ -1,12 +1,11 @@
 import { PropsWithChildren } from 'react'
 
+import { useMatchMedia } from '@/app'
+import { MobileSidebarMenuWithItems, SidebarMenuWithItems } from '@/modules'
+import { HeaderLayout } from '@/templates/layouts'
 import { clsx } from 'clsx'
 
 import s from './sidebar-menu-layout.module.scss'
-
-import { useMatchMedia } from '@/app'
-import { SidebarMenuWithItems, MobileSidebarMenuWithItems } from '@/modules'
-import { HeaderLayout } from '@/templates/layouts'
 
 type SidebarMenuLayoutProps = {
   isAuthed?: boolean

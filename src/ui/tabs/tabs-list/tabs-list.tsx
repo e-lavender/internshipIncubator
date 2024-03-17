@@ -6,9 +6,9 @@ import { clsx } from 'clsx'
 import s from './tabs-list.module.scss'
 
 type TabsListProps = {
-  loop?: boolean
   className?: string
   fullWidth?: boolean
+  loop?: boolean
 }
 export const TabsList = ({ children, fullWidth, ...props }: PropsWithChildren<TabsListProps>) => {
   const styles = clsx(s.list, fullWidth && s.full)

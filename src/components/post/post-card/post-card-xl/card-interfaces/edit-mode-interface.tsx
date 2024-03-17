@@ -1,7 +1,5 @@
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 
-import s from '../post-card-xl.module.scss'
-
 import { COMMON_MODE_STATE } from '@/app/constants/enums'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useUpdatePostByIdMutation } from '@/app/services/posts/posts.api'
@@ -10,15 +8,17 @@ import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { CardDescription } from '@/components'
 import { Button, TextArea } from '@/ui'
 
+import s from '../post-card-xl.module.scss'
+
 type EditModeInterfaceProps = {
-  userName?: string
-  url?: string
   description?: string
   isLoading?: boolean
   postId: number
+  url?: string
+  userName?: string
 }
 
-export const EditModeInterface = ({ userName, postId, description }: EditModeInterfaceProps) => {
+export const EditModeInterface = ({ description, postId, userName }: EditModeInterfaceProps) => {
   const [text, setText] = useState<string>(description || '')
   const { changePostCardModalMode, updatePostDescription } = usePostCardModal()
   const [updatePost] = useUpdatePostByIdMutation()
@@ -29,12 +29,12 @@ export const EditModeInterface = ({ userName, postId, description }: EditModeInt
     const text = e.target.value
 
     setText(text)
-    dispatch(compareDescriptionVersions({ initial: description, final: text }))
+    dispatch(compareDescriptionVersions({ final: text, initial: description }))
   }
 
   const saveEditedDescription: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    updatePost({ postId: postId, description: text })
+    updatePost({ description: text, postId: postId })
       .unwrap()
       .then(() => {
         updatePostDescription(text)
@@ -48,15 +48,15 @@ export const EditModeInterface = ({ userName, postId, description }: EditModeInt
 
       <form className={s.form} onSubmit={saveEditedDescription}>
         <TextArea
-          name={'description'}
+          initialSize={text.length}
           label={'Add publication descriptions'}
-          value={text}
+          name={'description'}
           onChange={handleDescriptionChange}
           sizeLimit={500}
-          initialSize={text.length}
+          value={text}
         />
 
-        <Button className={s.btn} type={'submit'} disabled={!post.isEdited}>
+        <Button className={s.btn} disabled={!post.isEdited} type={'submit'}>
           Save Changes
         </Button>
       </form>

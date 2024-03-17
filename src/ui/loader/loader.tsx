@@ -3,11 +3,11 @@ import { CSSProperties } from 'react'
 import s from './loader.module.scss'
 
 type LoaderProps = {
+  height?: CSSProperties['height']
   isLoading?: boolean
   width?: CSSProperties['width']
-  height?: CSSProperties['height']
 }
 
-export const Loader = ({ isLoading, width, height }: LoaderProps) => {
-  return isLoading ? <span className={s.loader} style={{ width, height }}></span> : null
+export const Loader = ({ height, isLoading, width }: LoaderProps) => {
+  return isLoading ? <span className={s.loader} style={{ height, width }}></span> : null
 }

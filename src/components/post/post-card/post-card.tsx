@@ -1,18 +1,15 @@
-import s from './post-card.module.scss'
-
-import { IMAGE_SLIDER_DATA } from '@/app/data/image-slider/image-slider-data'
 import { PostModel } from '@/app/services/posts/posts.types'
 import {
   AddComment,
-  CardDescription,
   CardHeader,
   CardInformation,
   CardOptions,
   CommentsList,
-  PostTypes,
   ImageSlider,
 } from '@/components'
 import { Card } from '@/ui'
+
+import s from './post-card.module.scss'
 
 export const PostCard = (props: PostModel) => {
   return (
@@ -21,7 +18,7 @@ export const PostCard = (props: PostModel) => {
       <ImageSlider {...props} aspectRatio={'1/1'} fitStyle={'cover'} />
       <CardOptions />
       {/*<CardDescription {...props} />*/}
-      <CardInformation likes={315} cardType={'regular'} />
+      <CardInformation cardType={'regular'} likes={315} />
       <CommentsList {...props} />
       <AddComment />
     </Card>

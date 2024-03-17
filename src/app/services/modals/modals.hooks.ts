@@ -27,7 +27,7 @@ export const useCreatePostModal = () => {
     dispatch(setCreatePostModal({ isOpen: false }))
   }
 
-  return { isOpen, openCreatePostModal, closeCreatePostModal }
+  return { closeCreatePostModal, isOpen, openCreatePostModal }
 }
 
 export const usePostCardModal = () => {
@@ -62,14 +62,14 @@ export const usePostCardModal = () => {
   }
 
   return {
-    isOpenPostCardModal,
-    selectedPost,
-    mode,
-    setPostCardModalSelectedPost,
-    openPostCardModal,
-    closePostCardModal,
     changePostCardModalMode,
     clearPostCardModal,
+    closePostCardModal,
+    isOpenPostCardModal,
+    mode,
+    openPostCardModal,
+    selectedPost,
+    setPostCardModalSelectedPost,
     updatePostDescription,
     updatePostImages,
   }

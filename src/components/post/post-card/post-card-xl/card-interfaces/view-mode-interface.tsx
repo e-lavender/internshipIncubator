@@ -1,36 +1,33 @@
-import { useEffect } from 'react'
-
-import { createActionProxy } from 'next/dist/build/webpack/loaders/next-flight-loader/action-proxy'
-
 import { PostModel } from '@/app/services/posts/posts.types'
 import { AddComment, CardHeader, CardInformation, CardOptions, CommentsList } from '@/components'
+
 import s from '@/components/post/post-card/post-card-xl/post-card-xl.module.scss'
 
 export const ViewModeInterface = ({
-  userName,
-  description,
-  createdAt,
   avatarOwner,
-  isMyProfile,
+  createdAt,
+  description,
   id,
+  isMyProfile,
   ownerId,
+  userName,
 }: Omit<PostModel, 'images'>) => {
   return (
     <div className={s.card}>
       <CardHeader
-        isMyProfile={isMyProfile}
-        userName={userName}
-        createdAt={createdAt}
         avatarOwner={avatarOwner}
+        createdAt={createdAt}
         description={description}
-        ownerId={ownerId}
         id={id}
+        isMyProfile={isMyProfile}
+        ownerId={ownerId}
+        userName={userName}
       />
       <CommentsList
-        userName={userName}
-        createdAt={createdAt}
         avatarOwner={avatarOwner}
+        createdAt={createdAt}
         description={description}
+        userName={userName}
       />
       <CardOptions />
       <CardInformation createdAt={createdAt} />
