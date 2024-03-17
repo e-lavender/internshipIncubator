@@ -1,24 +1,24 @@
 import {
-  TermsTextModel,
-  PrivacyPolicyTextModel,
-  SignUpTextModel,
-  CharacterPageTextModel,
-  NavigationTextModel,
-  LinkExpiredModel,
-  LinkConfirmationModel,
-  NewPasswordModel,
-  ForgotPasswordModel,
-  SignInTextModel,
-  NewPasswordConfirmationRedirectionModel,
-  SidebarMenuModel,
-  PaginationTextModel,
+  AccountModel,
   Calendar,
-  GeneralSettingsModel,
-  NavigationTabsModel,
+  CharacterPageTextModel,
   ConfirmationModal,
   CreatePost,
-  AccountModel,
+  ForgotPasswordModel,
+  GeneralSettingsModel,
+  LinkConfirmationModel,
+  LinkExpiredModel,
+  NavigationTabsModel,
+  NavigationTextModel,
+  NewPasswordConfirmationRedirectionModel,
+  NewPasswordModel,
+  PaginationTextModel,
   PaymentsModal,
+  PrivacyPolicyTextModel,
+  SidebarMenuModel,
+  SignInTextModel,
+  SignUpTextModel,
+  TermsTextModel,
 } from '@/app/locales/text-models'
 
 const navigation = NavigationTextModel.ru
@@ -43,51 +43,51 @@ const account = AccountModel.ru
 const paymentsModal = PaymentsModal.ru
 
 export const ru = {
-  calendar: {
-    month: calendar.month,
-    locale: calendar.localeMonth,
-  },
-  navigation: {
-    title: navigation.title,
-    menu: navigation.links,
-    header: navigation.language,
-  },
-  termsDescription: {
-    title: descriptionTerms.title,
-    description: descriptionTerms.description,
-    header: descriptionTerms.language,
-  },
-  privacyDescription: {
-    title: descriptionPrivacy.title,
-    description: descriptionPrivacy.description,
-  },
-  characterPage: characterPage,
-  newPasswordPage: newPasswordPage,
-  forgotPasswordPage: forgotPasswordPage,
-  linkExpiredPage: linkExpiredPage,
-  linkConfirmedPage: linkConfirmedPage,
-  newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
+  account: account,
   authPages: {
-    signUpPage: {
-      signUpForm: {
-        ...signUp,
-      },
-    },
     signInPage: {
       signInForm: {
         ...signIn,
       },
     },
+    signUpPage: {
+      signUpForm: {
+        ...signUp,
+      },
+    },
   },
-  sidebarMenu: sidebarMenu,
-  pagination: pagination,
-  profileSettings: {
-    navigation: navigationTabs,
-    generalSettings,
+  calendar: {
+    locale: calendar.localeMonth,
+    month: calendar.month,
   },
+  characterPage: characterPage,
   confirmationModal: confirmationModal,
   createPost: createPost,
-  account: account,
+  forgotPasswordPage: forgotPasswordPage,
+  linkConfirmedPage: linkConfirmedPage,
+  linkExpiredPage: linkExpiredPage,
+  navigation: {
+    header: navigation.language,
+    menu: navigation.links,
+    title: navigation.title,
+  },
+  newPasswordConfirmationRedirectionPage: newPasswordConfirmationRedirectionPage,
+  newPasswordPage: newPasswordPage,
+  pagination: pagination,
   paymentsModal: paymentsModal,
+  privacyDescription: {
+    description: descriptionPrivacy.description,
+    title: descriptionPrivacy.title,
+  },
+  profileSettings: {
+    generalSettings,
+    navigation: navigationTabs,
+  },
+  sidebarMenu: sidebarMenu,
+  termsDescription: {
+    description: descriptionTerms.description,
+    header: descriptionTerms.language,
+    title: descriptionTerms.title,
+  },
 }
 export type LocaleType = typeof ru

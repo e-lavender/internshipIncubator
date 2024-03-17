@@ -1,22 +1,26 @@
+import { useEffect } from 'react'
 import { toast } from 'react-toastify'
+
+import { useDisclose, useTranslation } from '@/app'
+import { useLoadingSpinner } from '@/app/services/application/application.hooks'
+import { useDeleteAvatarMutation, useGetProfileQuery } from '@/app/services/profile/profile.api'
+import { showError } from '@/app/utils'
+import { Avatar, AvatarPropsType, ConfirmationModal, LoadingSpinner } from '@/components'
+import { Button, ButtonProps } from '@/ui'
 
 import s from './account-image.module.scss'
 
-import { useDisclose, useTranslation } from '@/app'
-import { useDeleteAvatarMutation, useGetProfileQuery } from '@/app/services/profile/profile.api'
-import { showError } from '@/app/utils'
-import { Avatar, AvatarPropsType, ConfirmationModal, LoaderV2 } from '@/components'
-import { Button, ButtonProps } from '@/ui'
-
 type AccountImageProps = ButtonProps & AvatarPropsType
 export const AccountImage = (props: AccountImageProps) => {
-  const { isOpen, onOpen, onClose } = useDisclose()
-  const { width = 192, height = 192, onClick, ...restProps } = props
+  const { isOpen, onClose, onOpen } = useDisclose()
+  const { height = 192, onClick, width = 192, ...restProps } = props
 
   const { data, isLoading } = useGetProfileQuery()
   const [deleteAvatar, { isLoading: isDeleteLoading }] = useDeleteAvatarMutation()
-
-  const isLoadingLabel = (isDeleteLoading && 'Saving...') || 'Loading...'
+  const { stopLoadingSpinner } = useLoadingSpinner({
+    active: isLoading || isDeleteLoading,
+    title: (isDeleteLoading && 'Saving...') || 'Loadasdasdaing...',
+  })
 
   const { t } = useTranslation()
   const { profileImage } = t.profileSettings.generalSettings
@@ -26,29 +30,31 @@ export const AccountImage = (props: AccountImageProps) => {
       .unwrap()
       .then(() => toast.success('Image deleted'))
       .catch(e => showError(e))
+      .finally(() => {
+        stopLoadingSpinner()
+      })
   }
 
   return (
     <div className={s.container}>
       <Avatar
+        height={height}
+        onDelete={onOpen}
+        rounded
         src={data?.avatars[0]?.url}
         width={width}
-        height={height}
-        rounded
-        onDelete={onOpen}
         {...restProps}
       />
-      <Button variant={'outlined'} onClick={onClick}>
+      <Button onClick={onClick} variant={'outlined'}>
         {profileImage.btn.label}
       </Button>
 
       <ConfirmationModal
-        translation={'deleteAvatar'}
         isOpen={isOpen}
         onClose={onClose}
         onConfirmation={onDeleteConfirmation}
+        translation={'deleteAvatar'}
       />
-      <LoaderV2 isLoading={isLoading || isDeleteLoading} label={isLoadingLabel} />
     </div>
   )
 }

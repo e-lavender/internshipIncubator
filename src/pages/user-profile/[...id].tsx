@@ -20,10 +20,10 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
   store.dispatch(
     getPublicPostsByUser.initiate(
       {
-        userId: profileId,
         pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
-        sortDirection: 'asc',
         sortBy: 'createdAt',
+        sortDirection: 'asc',
+        userId: profileId,
       },
       { forceRefetch: true }
     )

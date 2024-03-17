@@ -1,7 +1,3 @@
-import { useRouter } from 'next/router'
-
-import s from './mobile-sidebar-menu-with-items.module.scss'
-
 import {
   CreateMenuIcon,
   HomeMenuIcon,
@@ -12,6 +8,9 @@ import {
 import { menuNavigation } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { MenuItem, SidebarMenu } from '@/ui'
+import { useRouter } from 'next/router'
+
+import s from './mobile-sidebar-menu-with-items.module.scss'
 
 export const MobileSidebarMenuWithItems = () => {
   const { pathname } = useRouter()

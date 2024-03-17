@@ -3,13 +3,14 @@ import React from 'react'
 import * as Slider from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
+
 type Props = {
-  sliderValue: number
-  setSliderValue: (sliderValue: number) => void
   isZoom?: boolean
+  setSliderValue: (sliderValue: number) => void
+  sliderValue: number
 }
 
-export const SliderZoom = ({ sliderValue, setSliderValue, isZoom }: Props) => {
+export const SliderZoom = ({ isZoom, setSliderValue, sliderValue }: Props) => {
   const handleSliderChange = (value: number | number[]) => {
     setSliderValue(value as number)
   }
@@ -19,16 +20,16 @@ export const SliderZoom = ({ sliderValue, setSliderValue, isZoom }: Props) => {
       <Slider.Root
         className={isZoom ? s.SliderRootForZoom : s.SliderRoot}
         defaultValue={[sliderValue]}
-        min={1}
         max={2}
-        step={0.1}
+        min={1}
         onValueChange={handleSliderChange}
+        step={0.1}
         value={[sliderValue]}
       >
         <Slider.Track className={s.SliderTrack}>
           <Slider.Range className={s.SliderRange} />
         </Slider.Track>
-        <Slider.Thumb className={s.SliderThumb} aria-label="Volume" />
+        <Slider.Thumb aria-label={'Volume'} className={s.SliderThumb} />
       </Slider.Root>
     </form>
   )

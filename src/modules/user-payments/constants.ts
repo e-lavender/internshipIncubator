@@ -3,27 +3,27 @@ import { TableHeaderModel } from '@/ui/table/tabel-types'
 export const PAYMENTS_TABLE_COLUMNS: TableHeaderModel[] = [
   {
     key: 'dateOfPayment',
-    title: 'Date of Payment',
     sortable: false,
+    title: 'Date of Payment',
   },
   {
     key: 'endDateOfSub',
-    title: 'End date of subscription',
     sortable: false,
+    title: 'End date of subscription',
   },
   {
     key: 'price',
-    title: 'Price',
     sortable: false,
+    title: 'Price',
   },
   {
     key: 'subscriptionType',
-    title: 'Subscription Type',
     sortable: false,
+    title: 'Subscription Type',
   },
   {
     key: 'paymentType',
-    title: 'Payment Type',
     sortable: false,
+    title: 'Payment Type',
   },
 ]

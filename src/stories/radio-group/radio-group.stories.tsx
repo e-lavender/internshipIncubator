@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { RadioContainer, RadioItem } from '@/ui'
 
 const meta = {
-  title: 'Components/RadioGroup',
+  argTypes: {},
   component: RadioContainer,
   decorators: [
     Story => (
@@ -13,7 +13,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'Components/RadioGroup',
 } satisfies Meta<typeof RadioContainer>
 
 export default meta
@@ -21,40 +21,40 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    defaultValue: 'apple',
     children: (
       <>
-        <RadioItem value={'apple'} label={'Apple'} />
-        <RadioItem value={'banana'} label={'Banana'} />
-        <RadioItem value={'blueberry'} label={'Blueberry'} />
+        <RadioItem label={'Apple'} value={'apple'} />
+        <RadioItem label={'Banana'} value={'banana'} />
+        <RadioItem label={'Blueberry'} value={'blueberry'} />
       </>
     ),
+    defaultValue: 'apple',
   },
 }
 
 export const DisabledRadioGroup: Story = {
   args: {
-    disabled: true,
-    defaultValue: 'apple',
     children: (
       <>
-        <RadioItem value={'apple'} label={'Apple'} />
-        <RadioItem value={'banana'} label={'Banana'} />
-        <RadioItem value={'blueberry'} label={'Blueberry'} />
+        <RadioItem label={'Apple'} value={'apple'} />
+        <RadioItem label={'Banana'} value={'banana'} />
+        <RadioItem label={'Blueberry'} value={'blueberry'} />
       </>
     ),
+    defaultValue: 'apple',
+    disabled: true,
   },
 }
 
 export const RadioGroupWithDisabledItem: Story = {
   args: {
-    defaultValue: 'banana',
     children: (
       <>
-        <RadioItem value={'apple'} label={'Apple'} disabled />
-        <RadioItem value={'banana'} label={'Banana'} />
-        <RadioItem value={'blueberry'} label={'Blueberry'} />
+        <RadioItem disabled label={'Apple'} value={'apple'} />
+        <RadioItem label={'Banana'} value={'banana'} />
+        <RadioItem label={'Blueberry'} value={'blueberry'} />
       </>
     ),
+    defaultValue: 'banana',
   },
 }

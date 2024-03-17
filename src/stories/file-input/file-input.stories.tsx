@@ -3,9 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { FileInput } from '@/ui'
 
 const meta = {
-  title: 'Components/FileInput',
-  component: FileInput,
+  argTypes: {},
   args: {},
+  component: FileInput,
   decorators: [
     Story => (
       <div style={{ margin: '3em' }}>
@@ -14,7 +14,7 @@ const meta = {
     ),
   ],
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'Components/FileInput',
 } satisfies Meta<typeof FileInput>
 
 export default meta

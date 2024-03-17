@@ -3,12 +3,12 @@ import React from 'react'
 import Image from 'next/image'
 
 type GalleryItemProps = {
-  src: string
   alt: string
-  width: number
   height: number
-  postId: number
   openPostModalHandler: (postId: number) => void
+  postId: number
+  src: string
+  width: number
 }
 
 export const GalleryItem = ({ openPostModalHandler, postId, ...props }: GalleryItemProps) => {

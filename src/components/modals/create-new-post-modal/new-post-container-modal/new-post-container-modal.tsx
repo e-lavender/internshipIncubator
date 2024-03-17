@@ -1,48 +1,47 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
+import { CloseIcon } from '@/app'
+import { ArrowBackIcon } from '@/app/assets/svg/arrow-back-icon'
+import { Button, Typography } from '@/ui'
 import * as Dialog from '@radix-ui/react-dialog'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 import { clsx } from 'clsx'
 
 import s from './new-post-container-modal.module.scss'
 
-import { BackToPreviousIcon, CloseIcon } from '@/app'
-import { ArrowBackIcon } from '@/app/assets/svg/arrow-back-icon'
-import { Button, Typography } from '@/ui'
-
 type ModalProps = {
-  open?: boolean
+  children: ReactNode
   onChange?: (open: boolean) => void
 
-  children: ReactNode
+  open?: boolean
 }
 type ModalContentProps = {
-  title?: string
-  currentStep: number
+  addNewPost: () => void
   children: ReactNode
   className?: string
-  onInteractOutside?: (event: PointerDownOutsideEvent | FocusOutsideEvent) => void
-  stepForward: () => void
+  currentStep: number
+  onInteractOutside?: (event: FocusOutsideEvent | PointerDownOutsideEvent) => void
   stepBackward: () => void
-  addNewPost: () => void
+  stepForward: () => void
+  title?: string
 }
 
-export const NewPostContainerModal = ({ open, onChange, children }: ModalProps) => {
+export const NewPostContainerModal = ({ children, onChange, open }: ModalProps) => {
   return (
-    <Dialog.Root open={open} onOpenChange={onChange}>
+    <Dialog.Root onOpenChange={onChange} open={open}>
       {children}
     </Dialog.Root>
   )
 }
 
 const ModalContent = ({
-  title,
-  currentStep,
-  stepForward,
-  stepBackward,
   addNewPost,
-  className,
   children,
+  className,
+  currentStep,
+  stepBackward,
+  stepForward,
+  title,
   ...props
 }: ModalContentProps) => {
   const styles = clsx(s.main, className)
@@ -58,25 +57,25 @@ const ModalContent = ({
               </button>
             )}
 
-            <Typography as={'h1'} variant={'h1'} className={s.title}>
+            <Typography as={'h1'} className={s.title} variant={'h1'}>
               {title}
             </Typography>
 
             {currentStep === 1 && (
-              <Dialog.Close aria-label="Close" tabIndex={0}>
+              <Dialog.Close aria-label={'Close'} tabIndex={0}>
                 <CloseIcon />
               </Dialog.Close>
             )}
 
             {(currentStep === 2 || currentStep === 3) && (
-              <Button variant={'link'} onClick={stepForward} tabIndex={0}>
+              <Button onClick={stepForward} tabIndex={0} variant={'link'}>
                 Next
               </Button>
             )}
 
             {currentStep === 4 && (
               <Dialog.Close onClick={addNewPost} tabIndex={0}>
-                <Typography as={'h3'} variant={'h3'} className={s.publish}>
+                <Typography as={'h3'} className={s.publish} variant={'h3'}>
                   Publish
                 </Typography>
               </Dialog.Close>

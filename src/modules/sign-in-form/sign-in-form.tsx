@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
-
-import { DevTool } from '@hookform/devtools'
-import Link from 'next/link'
 import { toast } from 'react-toastify'
-import { isDirty } from 'zod'
-
-import s from './sign-in-form.module.scss'
 
 import { ErrorWithData, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useSignInMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
-import { LoaderV2, ControlledTextField } from '@/components'
+import { ControlledTextField } from '@/components'
 import { useSignInForm } from '@/modules'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
+import { DevTool } from '@hookform/devtools'
+import Link from 'next/link'
+
+import s from './sign-in-form.module.scss'
 
 export const SignInForm = () => {
   //TODO remove progressBar state after refactoring oAuthButtons
@@ -21,9 +19,9 @@ export const SignInForm = () => {
   const [signIn, { isLoading }] = useSignInMutation()
 
   const {
-    handleSubmit,
-    formState: { isValid, isDirty, isLoading: isFormLoading },
     control,
+    formState: { isDirty, isLoading: isFormLoading, isValid },
+    handleSubmit,
   } = useSignInForm()
   const isButtonDisabled = isFormLoading || !isValid || !isDirty
 
@@ -44,8 +42,6 @@ export const SignInForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        <LoaderV2 isLoading={isLoading || progressBar} label={'Verifying...'} />
-
         <form className={s.form} onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography className={s.header} variant={'h1'}>
@@ -57,24 +53,24 @@ export const SignInForm = () => {
             </div>
             <DevTool control={control} />
             <ControlledTextField
-              control={control}
-              name={'email'}
               className={s.textField}
+              control={control}
               label={text.email}
+              name={'email'}
             />
             <ControlledTextField
-              control={control}
-              name={'password'}
-              inputType={'password'}
               className={s.textField}
+              control={control}
+              inputType={'password'}
               label={text.password}
+              name={'password'}
             />
             <Link href={authNavigationUrls.forgotPassword()}>
               <Typography className={s.forgotPassword} variant={'regular-14'}>
                 {text.forgotPassword}
               </Typography>
             </Link>
-            <Button disabled={isButtonDisabled} type={'submit'} className={s.signInBtn} fullWidth>
+            <Button className={s.signInBtn} disabled={isButtonDisabled} fullWidth type={'submit'}>
               {text.signIn}
             </Button>
             <Typography className={s.accountText} variant={'regular-16'}>
@@ -82,10 +78,10 @@ export const SignInForm = () => {
             </Typography>
 
             <Button
-              className={s.signUpBtn}
               as={Link}
-              variant={'link'}
+              className={s.signUpBtn}
               href={authNavigationUrls.signUp()}
+              variant={'link'}
             >
               {text.signUp}
             </Button>

@@ -16,8 +16,8 @@ export const useDisclose = (initState?: boolean) => {
 
   return {
     isOpen,
-    onOpen,
     onClose,
+    onOpen,
     onToggle,
   }
 }

@@ -1,9 +1,9 @@
-import { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react'
+import { ComponentProps } from 'react'
 
 export type TableHeaderModel = {
   key: string
-  title: string
   sortable?: boolean
+  title: string
 }
 
 export type Sort = {

@@ -1,21 +1,13 @@
 import React, { ReactElement, useEffect, useMemo, useState } from 'react'
 
-import { nanoid } from '@reduxjs/toolkit'
-import { clsx } from 'clsx'
-
-import s from './user-gallery.module.scss'
-
-import { useDisclose, useMatchMedia, useRtkStateHook } from '@/app'
+import { useMatchMedia } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { COMMON_MODE_STATE, IMAGE_SIZE } from '@/app/constants/enums'
 import { UserModel } from '@/app/services/auth/auth.api.types'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { useGetPublicPostsByUserQuery } from '@/app/services/public-posts/public-posts.api'
-import {
-  PostViewModel,
-  PublicPostsGetPostsByUser,
-} from '@/app/services/public-posts/public-posts.types'
+import { PublicPostsGetPostsByUser } from '@/app/services/public-posts/public-posts.types'
 import {
   EditModeInterface,
   GalleryItem,
@@ -24,61 +16,65 @@ import {
   ViewModeInterface,
 } from '@/components'
 import { Loader } from '@/ui'
+import { nanoid } from '@reduxjs/toolkit'
+import { clsx } from 'clsx'
+
+import s from './user-gallery.module.scss'
 
 type InterfaceType = { [ViewMode: string]: ReactElement }
 
 export const UserProfileGallery = ({
-  ownerId,
   isMyProfile,
+  ownerId,
   user,
 }: {
-  user: UserModel | undefined
-  ownerId: number
   isMyProfile: boolean
+  ownerId: number
+  user: UserModel | undefined
 }) => {
   const { isMobile } = useMatchMedia()
   const styles = {
-    root: clsx(s.container, isMobile && s.mobile),
     card: clsx(s.card, isMobile && s.mobile),
     loader: clsx(s.card, isMobile && s.mobile, s.loader),
+    root: clsx(s.container, isMobile && s.mobile),
   }
   const [endCursorPostId, setEndCursorPostId] = useState<number | undefined>()
-  const { data, isLoading, isFetching } = useGetPublicPostsByUserQuery({
-    userId: ownerId,
-    pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
+  const { data, isFetching, isLoading } = useGetPublicPostsByUserQuery({
     endCursorPostId,
-    sortDirection: 'asc',
+    pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
     sortBy: 'createdAt',
+    sortDirection: 'asc',
+    userId: ownerId,
   })
 
   const [posts, setPosts] = useState<PublicPostsGetPostsByUser | undefined>()
 
   const {
-    mode,
-    isOpenPostCardModal,
-    openPostCardModal,
-    closePostCardModal,
-    setPostCardModalSelectedPost,
-    selectedPost,
     clearPostCardModal,
+    closePostCardModal,
+    isOpenPostCardModal,
+    mode,
+    openPostCardModal,
+    selectedPost,
+    setPostCardModalSelectedPost,
   } = usePostCardModal()
 
   const interfaces: InterfaceType = useMemo(() => {
     return {
-      view: (
-        <ViewModeInterface
-          userName={selectedPost?.userName}
-          isMyProfile={isMyProfile}
-          description={selectedPost?.description}
-          createdAt={selectedPost?.createdAt}
-          avatarOwner={selectedPost?.avatarOwner}
-        />
-      ),
       edit: (
         <EditModeInterface
-          userName={selectedPost?.userName}
-          postId={selectedPost?.id!}
           description={selectedPost?.description}
+          postId={selectedPost?.id!}
+          userName={selectedPost?.userName}
+        />
+      ),
+      view: (
+        <ViewModeInterface
+          avatarOwner={selectedPost?.avatarOwner}
+          createdAt={selectedPost?.createdAt}
+          description={selectedPost?.description}
+          isMyProfile={isMyProfile}
+          userName={selectedPost?.userName}
         />
       ),
     }
@@ -155,28 +151,28 @@ export const UserProfileGallery = ({
         {posts?.items &&
           posts?.items.length > 0 &&
           posts?.items.map((item, index) => (
-            <div key={nanoid()} className={styles.card}>
+            <div className={styles.card} key={nanoid()}>
               <GalleryItem
+                alt={`gallery image-${index}`}
+                height={item.images[0].height}
+                openPostModalHandler={openPostModalHandler}
+                postId={item.id}
                 src={item.images[0].url}
                 width={item.images[0].width}
-                height={item.images[0].height}
-                alt={`gallery image-${index}`}
-                postId={item.id}
-                openPostModalHandler={openPostModalHandler}
               />
             </div>
           ))}
       </div>
       <Loader isLoading={isLoading || isFetching} />
       <PostCardModal
+        askConfirmation={mode === COMMON_MODE_STATE.EDIT}
         isOpen={isOpenPostCardModal || false}
         onChange={closePostModalHandler}
-        askConfirmation={mode === COMMON_MODE_STATE.EDIT}
       >
         <ImageSlider
-          images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
           aspectRatio={'1/1'}
           fitStyle={'cover'}
+          images={selectedPost?.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)}
           isEditMode={mode === COMMON_MODE_STATE.EDIT}
           isMyProfile={isMyProfile}
           user={user}

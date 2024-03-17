@@ -1,40 +1,39 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent } from 'react'
 
+import { ChevronDown } from '@/app/assets/svg/chevron-down'
+import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
+import CustomSelectOptions from '@/ui/custom-select/custom-select-options'
+import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
 import { clsx } from 'clsx'
 
 import s from './custom-select.module.scss'
 
-import { ChevronDown } from '@/app/assets/svg/chevron-down'
-import CustomSelectOptions from '@/ui/custom-select/custom-select-options'
-import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
-import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
-
 export const CustomSelect = ({
-  options,
-  label,
-  value,
-  placeholder,
-  isClearable = false,
-  onChange,
-  isLoading,
   disabled,
+  isClearable = false,
+  isLoading,
+  label,
+  onChange,
+  options,
+  placeholder,
+  value,
 }: CustomSelectProps) => {
   const {
-    isOpen,
-    setIsOpen,
+    clearHandler,
     closeSelectOnBlur,
+    currentValue,
+    filteredData,
+    indexCurrent,
+    inputRef,
+    isOpen,
     keyHandler,
     onSelectValueHandler,
-    currentValue,
-    clearHandler,
     optionsListRef,
-    indexCurrent,
-    filteredData,
-    selectRef,
-    inputRef,
-    setFilterHandler,
     resetFilter,
+    selectRef,
+    setFilterHandler,
     setIndexCurrent,
+    setIsOpen,
   } = useCustomSelect(options, onChange)
 
   const styles = {
@@ -50,18 +49,18 @@ export const CustomSelect = ({
     setFilterHandler(event)
   }
   const valueToShow = !isOpen && (value || currentValue) && (
-    <div style={{ border: 'none' }} className={s.input}>
+    <div className={s.input} style={{ border: 'none' }}>
       {value || currentValue}
     </div>
   )
   const searchInput = isOpen && (value || currentValue) && (
     <input
-      tabIndex={-1}
-      placeholder={placeholder || 'Select...'}
-      type={'text'}
       className={s.input}
       onChange={onChangeValue}
+      placeholder={placeholder || 'Select...'}
       ref={inputRef}
+      tabIndex={-1}
+      type={'text'}
     />
   )
 
@@ -91,31 +90,31 @@ export const CustomSelect = ({
       {selectLabel}
       <div
         className={s.select}
-        tabIndex={0}
         onBlur={closeSelectOnBlur}
-        ref={selectRef}
-        onKeyDown={keyHandler}
         onClick={toggleOpen}
+        onKeyDown={keyHandler}
+        ref={selectRef}
+        tabIndex={0}
       >
         {valueToShow}
         {searchInput}
         {setIsClearable}
 
         <button
-          disabled={isLoading}
-          tabIndex={-1}
           className={styles.chevron}
+          disabled={isLoading}
           onClick={onClickToggleButton}
+          tabIndex={-1}
           type={'button'}
         >
           {toggleButton}
         </button>
         <CustomSelectOptions
-          ref={optionsListRef}
           indexCurrent={indexCurrent}
           isOpen={isOpen}
           items={filteredData}
           onSelectValueHandler={onSelectValueHandler}
+          ref={optionsListRef}
           resetFilter={resetFilter}
           setIndexCurrent={setIndexCurrent}
         />

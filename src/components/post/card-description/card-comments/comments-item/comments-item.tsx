@@ -1,20 +1,19 @@
 import { useState } from 'react'
 
+import { LikedIcon, UnlikedIcon } from '@/app'
+import { Avatar, CommentType, RepliedCommentsList } from '@/components'
+import { Typography } from '@/ui'
 import { clsx } from 'clsx'
 
 import s from './comments-item.module.scss'
 
-import { LikedIcon, UnlikedIcon } from '@/app'
-import { Avatar, CommentType, RepliedCommentsList } from '@/components'
-import { Typography } from '@/ui'
-
 export const CommentsItem = ({
-  url,
-  userName = 'URLProfile',
   comment,
+  createdAt,
   likes,
   replies,
-  createdAt,
+  url,
+  userName = 'URLProfile',
 }: CommentType) => {
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [isOpened, setIsOpened] = useState<boolean>(false)
@@ -22,7 +21,7 @@ export const CommentsItem = ({
   return (
     <div className={s.container}>
       <div className={s.user}>
-        <Avatar src={url} width={36} height={36} iconScale={0.6} />
+        <Avatar height={36} iconScale={0.6} src={url} width={36} />
 
         <div className={s.comments}>
           <div className={s.comment}>
@@ -42,7 +41,7 @@ export const CommentsItem = ({
 
             {likes && <Typography variant={'small'}>{`Like: ${likes}`}</Typography>}
 
-            <Typography as={'button'} variant={'small'} className={s.replied}>
+            <Typography as={'button'} className={s.replied} variant={'small'}>
               Answer
             </Typography>
           </div>
@@ -52,11 +51,11 @@ export const CommentsItem = ({
               <>
                 <Typography
                   as={'button'}
-                  variant={'small'}
+                  className={s.replied}
                   onClick={() => {
                     setIsOpened(prev => !prev)
                   }}
-                  className={s.replied}
+                  variant={'small'}
                 >
                   {`----- ${isOpened ? 'Hide' : 'Show'} Answers(${replies.length})`}
                 </Typography>

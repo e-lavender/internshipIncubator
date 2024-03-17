@@ -5,5 +5,5 @@ type FilterInterfaceProps = {
   images: PostImageViewModel[]
 }
 export const FilterInterface = ({ images }: FilterInterfaceProps) => {
-  return <ImageSliderWithFilters images={images} aspectRatio={'4/3'} fitStyle={'contain'} />
+  return <ImageSliderWithFilters aspectRatio={'4/3'} fitStyle={'contain'} images={images} />
 }

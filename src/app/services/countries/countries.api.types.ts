@@ -1,7 +1,7 @@
 export type CitiesOfCountry = {
+  data: string[]
   error: boolean
   msg: string
-  data: string[]
 }
 
-export type TransformedCitiesData = { value: string; label: string }
+export type TransformedCitiesData = { label: string; value: string }

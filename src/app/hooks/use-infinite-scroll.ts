@@ -12,11 +12,17 @@ export const useInfiniteScroll = (
   const observer = useRef<IntersectionObserver>()
 
   useEffect(() => {
-    if (isLoading) return
-    if (observer.current) observer.current.disconnect()
+    if (isLoading) {
+      return
+    }
+    if (observer.current) {
+      observer.current.disconnect()
+    }
 
     const request = async (entries: any[]) => {
-      if (!entries[0].isIntersecting) return
+      if (!entries[0].isIntersecting) {
+        return
+      }
 
       if (limit <= content.length) {
         return setIsLoading(false)

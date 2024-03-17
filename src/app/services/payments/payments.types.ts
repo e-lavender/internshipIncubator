@@ -1,8 +1,8 @@
 export type CreateSubscriptions = {
-  typeSubscription: 'MONTHLY' | 'DAY' | 'WEEKLY'
-  paymentType: 'STRIPE' | 'PAYPAL'
   amount: number
   baseUrl: string
+  paymentType: 'PAYPAL' | 'STRIPE'
+  typeSubscription: 'DAY' | 'MONTHLY' | 'WEEKLY'
 }
 
 export type CostOfSubscriptions = {
@@ -13,11 +13,11 @@ export type CostOfSubscriptionsData = {
   typeDescription: string
 }
 export type SubscriptionOptions = {
-  id: number
-  value: string
   amount: number
-  typeSubscription: 'MONTHLY' | 'DAY' | 'WEEKLY'
   disabled?: boolean
+  id: number
+  typeSubscription: 'DAY' | 'MONTHLY' | 'WEEKLY'
+  value: string
 }
 
 export type CurrentSubscription = {
@@ -25,21 +25,21 @@ export type CurrentSubscription = {
   hasAutoRenewal: boolean
 }
 export type CurrentSubscriptionTypeData = {
-  userId: number
-  subscriptionId: string
+  autoRenewal: boolean
   dateOfPayment: string
   endDateOfSubscription: string
-  autoRenewal: boolean
+  subscriptionId: string
+  userId: number
 }
 
-export type SubscriptionDuration = 'MONTHLY' | 'DAY' | 'WEEKLY'
+export type SubscriptionDuration = 'DAY' | 'MONTHLY' | 'WEEKLY'
 
 export type MyPayments = {
-  userId: number
-  subscriptionId: string
   dateOfPayment: string
   endDateOfSubscription: string
+  paymentType: 'PAYPAL' | 'STRIPE'
   price: number
+  subscriptionId: string
   subscriptionType: SubscriptionDuration
-  paymentType: 'STRIPE' | 'PAYPAL'
+  userId: number
 }

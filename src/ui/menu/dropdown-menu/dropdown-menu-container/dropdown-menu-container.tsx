@@ -1,16 +1,15 @@
 import { PropsWithChildren, useRef } from 'react'
 
+import { useDisclose, useOnClickOutside } from '@/app'
 import { clsx } from 'clsx'
 
 import s from './dropdown-menu-container.module.scss'
-
-import { useDisclose, useOnClickOutside } from '@/app'
 
 export type MenuProps = PropsWithChildren<{
   menuStyle?: string
 }>
 
-export const DropdownMenuContainer = ({ menuStyle, children }: MenuProps) => {
+export const DropdownMenuContainer = ({ children, menuStyle }: MenuProps) => {
   const { isOpen: isMenuOpen, onClose: closeMenu, onOpen: openMenu } = useDisclose()
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -20,8 +19,8 @@ export const DropdownMenuContainer = ({ menuStyle, children }: MenuProps) => {
 
   const styles = {
     dot: clsx(s.dot, isMenuOpen && s.active),
-    menu: clsx(s.list, isMenuOpen && s.fade),
     list: clsx(isMenuOpen && s.active, menuStyle),
+    menu: clsx(s.list, isMenuOpen && s.fade),
   }
 
   return (
@@ -32,7 +31,7 @@ export const DropdownMenuContainer = ({ menuStyle, children }: MenuProps) => {
         <p className={styles.dot}></p>
       </div>
 
-      <div ref={menuRef} className={styles.menu}>
+      <div className={styles.menu} ref={menuRef}>
         <ul className={styles.list}>{children}</ul>
       </div>
     </nav>

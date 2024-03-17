@@ -15,5 +15,5 @@ export const useFindNext = (maxIndex: number) => {
     }
   }
 
-  return { findUp, findDown, indexCurrent, setIndexCurrent }
+  return { findDown, findUp, indexCurrent, setIndexCurrent }
 }

@@ -1,63 +1,63 @@
 import { Nullable } from '@/app'
 
 export type UserProfileModel = {
-  id: number
-  userName: string
-  firstName: string
-  lastName: string
-  city: string
-  dateOfBirth: string
   aboutMe: string
   avatars: UserProfileModelAvatars[]
+  city: string
   createdAt: string
+  dateOfBirth: string
+  firstName: string
+  id: number
+  lastName: string
+  userName: string
 }
 
 export type UserProfileModelAvatars = {
+  fileSize: number
+  height: number
   url: string
   width: number
-  height: number
-  fileSize: number
 }
 export type UpdateUserProfile = {
-  userName: string
-  firstName: Nullable<string>
-  lastName: Nullable<string>
+  aboutMe: Nullable<string>
   city: Nullable<string>
   dateOfBirth: Nullable<string>
-  aboutMe: Nullable<string>
+  firstName: Nullable<string>
+  lastName: Nullable<string>
+  userName: string
 }
 export type UploadAvatarResponse = {
   avatars: AvatarModel[]
 }
 export type AvatarModel = {
+  fileSize: number
+  height: number
   url: string
   width: number
-  height: number
-  fileSize: number
 }
 
 export type GeneralSettingsType = {
-  userName: string
+  aboutMe?: string
+  city?: string
+  country?: string
+  dateOfBirth?: Date | string
   firstName: string
   lastName: string
-  dateOfBirth?: Date | string
-  country?: string
-  city?: string
-  aboutMe?: string
   posts: {
     totalCount: number
   }
+  userName: string
 }
 
 export type PublicUserModel = {
-  id: number
-  userName: string
   aboutMe: string
   avatars: PublicUserModelAvatars[]
+  id: number
+  userName: string
 }
 export type PublicUserModelAvatars = {
+  fileSize: number
+  height: number
   url: string
   width: number
-  height: number
-  fileSize: number
 }

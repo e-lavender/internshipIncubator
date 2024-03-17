@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react'
 
+import { OptionsProps } from '@/ui/custom-select/custom-select.types'
 import { clsx } from 'clsx'
 
 import s from '@/ui/custom-select/custom-select.module.scss'
-import { OptionsProps } from '@/ui/custom-select/custom-select.types'
 
 const CustomSelectOptions = forwardRef<HTMLUListElement, OptionsProps>(
-  ({ items, isOpen, onSelectValueHandler, resetFilter, setIndexCurrent, indexCurrent }, ref) => {
+  ({ indexCurrent, isOpen, items, onSelectValueHandler, resetFilter, setIndexCurrent }, ref) => {
     const styles = {
       options: clsx(s.options, isOpen && s.show),
     }

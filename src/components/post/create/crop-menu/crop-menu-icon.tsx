@@ -7,8 +7,8 @@ export const CropMenuIcon = ({ color, type }: { color?: string; type: IconType }
   const icons: Record<IconType, ReactNode> = useMemo(() => {
     return {
       cropper: <Cropping color={color} />,
-      zoom: <ZoomCropper color={color} />,
       image: <ImageCropper color={color} />,
+      zoom: <ZoomCropper color={color} />,
     }
   }, [color])
 

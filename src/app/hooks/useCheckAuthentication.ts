@@ -1,18 +1,17 @@
 import { useEffect } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { ErrorWithData } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { UserModel } from '@/app/services/auth/auth.api.types'
 import { showError } from '@/app/utils'
+import { useRouter } from 'next/router'
 
 interface UseCheckAuthenticationResult {
-  isAuthenticated: boolean
-  user?: UserModel | undefined
-  isLoading: boolean
   error?: ErrorWithData
+  isAuthenticated: boolean
+  isLoading: boolean
+  user?: UserModel | undefined
 }
 
 export const useCheckAuthentication = (): UseCheckAuthenticationResult => {
@@ -28,8 +27,8 @@ export const useCheckAuthentication = (): UseCheckAuthenticationResult => {
   if (error) {
     showError(error as ErrorWithData)
 
-    return { isAuthenticated: false, isLoading: false, error: error as ErrorWithData }
+    return { error: error as ErrorWithData, isAuthenticated: false, isLoading: false }
   }
 
-  return { isAuthenticated: !!me, user: me, isLoading }
+  return { isAuthenticated: !!me, isLoading, user: me }
 }

@@ -12,10 +12,10 @@ export const CropInterface = ({ images = [] }: CropInterfaceProps) => {
 
   return (
     <ImageSliderWithCropper
-      images={images}
       aspectRatio={aspectRatio}
-      setAspectRatio={setAspectRatio}
       fitStyle={'cover'}
+      images={images}
+      setAspectRatio={setAspectRatio}
     />
   )
 }

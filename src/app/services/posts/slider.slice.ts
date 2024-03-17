@@ -1,29 +1,33 @@
-import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
-
 import { IMAGE_SIZE } from '@/app/constants/enums'
 import { ImageSlideType } from '@/app/services/posts/posts.types'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
+import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
 
 const defaultState: ImageSlideType = {
-  images: [],
   currentImageIndex: 0,
   description: '',
+  images: [],
 }
 
 const postSlider = createSlice({
-  name: 'postSlider',
   initialState: defaultState,
+  name: 'postSlider',
   reducers: {
+    addCroppedImage(state, action: PayloadAction<{ croppedImage: string; index: number }>) {
+      const { croppedImage, index } = action.payload
+
+      state.images[index] = { ...state.images[index], url: croppedImage }
+    },
     addImage(state, action: PayloadAction<{ url: string }>) {
       const newImage: PostImageViewModel = {
-        url: action.payload.url,
         alt: 'image',
-        uploadId: nanoid(),
-        imageSize: IMAGE_SIZE.MEDIUM,
-        width: 0,
-        height: 0,
-        filter: '',
         fileSize: 1,
+        filter: '',
+        height: 0,
+        imageSize: IMAGE_SIZE.MEDIUM,
+        uploadId: nanoid(),
+        url: action.payload.url,
+        width: 0,
       }
 
       state.images = [...state.images, newImage]
@@ -31,16 +35,19 @@ const postSlider = createSlice({
     addMultipleImages(state, action: PayloadAction<PostImageViewModel[]>) {
       state.images = [...state.images, ...action.payload]
     },
+    changeDescription(state, action: PayloadAction<{ text: string }>) {
+      state.description = action.payload.text
+    },
     deleteImage(state, action: PayloadAction<{ id: string }>) {
       state.images = state.images.filter(image => image.uploadId !== action.payload.id)
     },
-    addCroppedImage(state, action: PayloadAction<{ index: number; croppedImage: string }>) {
-      const { index, croppedImage } = action.payload
-
-      state.images[index] = { ...state.images[index], url: croppedImage }
+    resetImagesToDefaultState(state, action: PayloadAction) {
+      state.images = defaultState.images
+      state.currentImageIndex = 0
+      state.description = defaultState.description
     },
-    setActiveImageFilter(state, action: PayloadAction<{ id: string | number; filter: string }>) {
-      const { id, filter } = action.payload
+    setActiveImageFilter(state, action: PayloadAction<{ filter: string; id: number | string }>) {
+      const { filter, id } = action.payload
 
       state.images = state.images.filter(image => {
         if (image.uploadId === id) {
@@ -53,25 +60,17 @@ const postSlider = createSlice({
     setCurrentImageIndex(state, action: PayloadAction<{ index: number }>) {
       state.currentImageIndex = action.payload.index
     },
-    changeDescription(state, action: PayloadAction<{ text: string }>) {
-      state.description = action.payload.text
-    },
-    resetImagesToDefaultState(state, action: PayloadAction) {
-      state.images = defaultState.images
-      state.currentImageIndex = 0
-      state.description = defaultState.description
-    },
   },
 })
 
 export const {
+  addCroppedImage,
   addImage,
   addMultipleImages,
+  changeDescription,
   deleteImage,
   resetImagesToDefaultState,
-  addCroppedImage,
   setActiveImageFilter,
   setCurrentImageIndex,
-  changeDescription,
 } = postSlider.actions
 export const postSliderSlice = postSlider.reducer

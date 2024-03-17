@@ -23,8 +23,8 @@ export const PostCardXL = (props: PostCardXLType) => {
   const isEditMode: boolean = post.mode === 'edit'
 
   const interfaces: InterfaceType = {
-    view: <ViewModeInterface {...props} />,
     edit: <EditModeInterface postId={0} {...props} />,
+    view: <ViewModeInterface {...props} />,
   }
 
   // @ts-ignore
@@ -35,12 +35,12 @@ export const PostCardXL = (props: PostCardXLType) => {
       <Button onClick={openModal}>Show Post Details</Button>
 
       <PostCardModal
-        isOpen={isModalOpened}
-        onChange={closeModal}
         askConfirmation={isEditMode}
         isModified={!isEditMode}
+        isOpen={isModalOpened}
+        onChange={closeModal}
       >
-        <ImageSlider images={[]} aspectRatio={'1/1'} fitStyle={'cover'} />
+        <ImageSlider aspectRatio={'1/1'} fitStyle={'cover'} images={[]} />
 
         {CurrentInterface}
       </PostCardModal>

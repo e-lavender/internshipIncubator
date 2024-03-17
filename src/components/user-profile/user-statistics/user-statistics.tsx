@@ -1,10 +1,8 @@
-import { clsx } from 'clsx'
-
-import { MOCKED_DATA_STATISTICS } from './data'
-import s from './user-statistics.module.scss'
-
 import { useMatchMedia, useTranslation } from '@/app'
 import { UserStatisticsItem } from '@/components'
+import { clsx } from 'clsx'
+
+import s from './user-statistics.module.scss'
 
 type FetchedData = {
   category?: string
@@ -19,7 +17,7 @@ type UserStatisticsProps = {
 export const UserStatistics = ({ data = [], totalCount }: UserStatisticsProps) => {
   const { isMobile } = useMatchMedia()
   const { t } = useTranslation()
-  const { following, followers, publications } = t.profileSettings.generalSettings.profile
+  const { followers, following, publications } = t.profileSettings.generalSettings.profile
   const styles = clsx(s.container, isMobile && s.mobile)
 
   return (

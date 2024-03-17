@@ -4,112 +4,112 @@ import { DropdownMenuType, PostTypes } from '@/components'
 export const MENU_VERSION: DropdownMenuType = {
   friend: [
     {
-      icon: ReportIcon,
-      label: 'Report',
-      isStyled: false,
       action: 'report',
+      icon: ReportIcon,
+      isStyled: false,
+      label: 'Report',
     },
     {
-      icon: UnfollowIcon,
-      label: 'Unfollow',
-      isStyled: false,
       action: 'unfollow',
+      icon: UnfollowIcon,
+      isStyled: false,
+      label: 'Unfollow',
     },
     {
-      icon: CopyLinkIcon,
-      label: 'Copy Link',
-      isStyled: false,
       action: 'copy',
+      icon: CopyLinkIcon,
+      isStyled: false,
+      label: 'Copy Link',
     },
   ],
   personal: [
     {
-      icon: EditIcon,
-      label: 'Edit Post',
-      isStyled: false,
       action: 'edit',
+      icon: EditIcon,
+      isStyled: false,
+      label: 'Edit Post',
     },
     {
-      icon: DeleteIcon,
-      label: 'Delete Post',
-      isStyled: false,
       action: 'delete',
+      icon: DeleteIcon,
+      isStyled: false,
+      label: 'Delete Post',
     },
   ],
   public: [
     {
-      icon: ReportIcon,
-      label: 'Report',
-      isStyled: false,
       action: 'report',
+      icon: ReportIcon,
+      isStyled: false,
+      label: 'Report',
     },
     {
-      icon: FollowIcon,
-      label: 'Follow',
-      isStyled: false,
       action: 'follow',
+      icon: FollowIcon,
+      isStyled: false,
+      label: 'Follow',
     },
     {
-      icon: CopyLinkIcon,
-      label: 'Copy Link',
-      isStyled: false,
       action: 'copy',
+      icon: CopyLinkIcon,
+      isStyled: false,
+      label: 'Copy Link',
     },
   ],
 }
 
 export const POST_COMMENTS: PostTypes = {
-  userName: 'Alex',
-  postId: 62,
-  url: '/assets/avatar/resized/2.jpg',
   account: 'personal',
-  description:
-    'Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores.',
-  createdAt: '1 day ago',
   comments: [
     {
-      userName: 'Natti',
-      url: '/assets/avatar/resized/1.jpg',
-      id: '1',
       comment:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores, impedit labore perferendis possimus!',
       createdAt: '2 days ago',
+      id: '1',
+      url: '/assets/avatar/resized/1.jpg',
+      userName: 'Natti',
     },
     {
-      userName: 'David',
-      url: '/assets/avatar/resized/3.jpg',
-      id: '2',
       comment:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores, impedit labore perferendis possimus!',
       createdAt: '1 hour ago',
+      id: '2',
       likes: 25,
       replies: [
         {
-          userName: 'Loren',
-          url: '/assets/avatar/resized/4.jpg',
-          id: '100',
           comment:
             'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores',
           createdAt: '7 hours ago',
+          id: '100',
           likes: 12,
+          url: '/assets/avatar/resized/4.jpg',
+          userName: 'Loren',
         },
         {
-          userName: 'Katty',
-          url: '/assets/avatar/resized/5.jpg',
-          id: '101',
           comment:
             'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores',
           createdAt: '25 minutes ago',
+          id: '101',
+          url: '/assets/avatar/resized/5.jpg',
+          userName: 'Katty',
         },
       ],
+      url: '/assets/avatar/resized/3.jpg',
+      userName: 'David',
     },
     {
-      userName: 'Gar_D',
-      url: '/assets/avatar/resized/6.jpg',
-      id: '3',
       comment:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores, impedit labore perferendis possimus!',
       createdAt: '3 weeks ago',
+      id: '3',
+      url: '/assets/avatar/resized/6.jpg',
+      userName: 'Gar_D',
     },
   ],
+  createdAt: '1 day ago',
+  description:
+    'Alias animi aut earum eveniet exercitationem perferendis, sequi soluta. A aliquam deserunt dolores.',
+  postId: 62,
+  url: '/assets/avatar/resized/2.jpg',
+  userName: 'Alex',
 }

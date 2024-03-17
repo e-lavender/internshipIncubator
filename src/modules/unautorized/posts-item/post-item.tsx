@@ -1,35 +1,34 @@
 import React, { useState } from 'react'
 
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-
-import s from './post-item.module.scss'
-
 import { useDisclose } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { date } from '@/app/helpers/customizeDate'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { Avatar, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
 import { Typography } from '@/ui'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+
+import s from './post-item.module.scss'
 
 type Props = {
-  createdAt: string
-  images: PostImageViewModel[]
-  description: string
-  userName: string
-  id: number
-  ownerId: number
   avatarOwner?: string
+  createdAt: string
+  description: string
+  id: number
+  images: PostImageViewModel[]
+  ownerId: number
+  userName: string
 }
 
 export const PostItem = ({
-  createdAt,
-  images,
-  description,
-  userName,
-  id,
-  ownerId,
   avatarOwner,
+  createdAt,
+  description,
+  id,
+  images,
+  ownerId,
+  userName,
 }: Props) => {
   const [showMore, setShowMore] = useState(false)
   const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
@@ -57,17 +56,17 @@ export const PostItem = ({
           onClick={openPostModalHandler}
         >
           <Image
-            className={`${s.imageBlock} ${showMore && s.collapseImageBlock}`}
-            src={images[0]?.url}
             alt={'image'}
-            width={234}
+            className={`${s.imageBlock} ${showMore && s.collapseImageBlock}`}
             height={240}
+            src={images[0]?.url}
+            width={234}
           />
         </div>
         <div className={s.header} onClick={openUserProfileHandler}>
-          <Avatar width={36} height={36} src={avatarOwner} />
+          <Avatar height={36} src={avatarOwner} width={36} />
           <div className={s.footerInfo}>
-            <Typography variant="h3">{userName}</Typography>
+            <Typography variant={'h3'}>{userName}</Typography>
           </div>
         </div>
         <Typography className={s.status} variant={'small'}>
@@ -80,9 +79,9 @@ export const PostItem = ({
           {description.length > 90 && (
             <Typography
               as={'button'}
-              variant={'regular-14'}
               className={s.button}
               onClick={collapseHandler}
+              variant={'regular-14'}
             >
               {showMore ? 'Hide' : 'Show more'}
             </Typography>
@@ -90,14 +89,14 @@ export const PostItem = ({
         </div>
       </div>
       <PostCardModal isOpen={isModalOpened} onChange={closePostModalHandler}>
-        <ImageSlider images={images} aspectRatio={'1/1'} fitStyle={'cover'} />
+        <ImageSlider aspectRatio={'1/1'} fitStyle={'cover'} images={images} />
         <ViewModeInterface
-          description={description}
-          userName={userName}
-          createdAt={createdAt}
           avatarOwner={avatarOwner}
-          ownerId={ownerId}
+          createdAt={createdAt}
+          description={description}
           id={id}
+          ownerId={ownerId}
+          userName={userName}
         />
       </PostCardModal>
     </>

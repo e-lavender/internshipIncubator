@@ -1,25 +1,25 @@
-import React, { ReactNode, useState } from 'react'
-
-import s from './notification-modal.module.scss'
+import React from 'react'
 
 import { Button, Modal, Typography } from '@/ui'
 
+import s from './notification-modal.module.scss'
+
 type Props = {
-  message?: string
   isOpen: boolean
+  message?: string
   onClose?: () => void
 }
-export const NotificationModal = ({ message, isOpen, onClose }: Props) => {
+export const NotificationModal = ({ isOpen, message, onClose }: Props) => {
   return (
     <div>
-      <Modal open={isOpen} onChange={onClose}>
+      <Modal onChange={onClose} open={isOpen}>
         <Modal.Button asChild />
         <Modal.Content
           className={s.content}
-          title="Email sent"
           onInteractOutside={e => e.preventDefault()}
+          title={'Email sent'}
         >
-          <Typography variant="regular-16">{message}</Typography>
+          <Typography variant={'regular-16'}>{message}</Typography>
           <div className={s.confirm}>
             <Button onClick={onClose}>Ok</Button>
           </div>

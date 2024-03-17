@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react'
-
 import { toast } from 'react-toastify'
 
 import { useDisclose } from '@/app'
@@ -15,19 +14,19 @@ import {
 import {
   ActionTypes,
   ConfirmationModal,
-  DropdownMenuItemType,
   DropDownMenuType,
+  DropdownMenuItemType,
   MENU_VERSION,
 } from '@/components'
 import { DropdownMenu, MenuItem } from '@/ui'
 
-export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => {
-  const { isOpen: isModalOpened, onOpen: openModal, onClose: closeModal } = useDisclose()
+export const CardDropdownMenu = ({ account, id, ownerId }: DropDownMenuType) => {
+  const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()
   const { isOpen: isControlled, onToggle: closeDropdownMenu } = useDisclose(true)
   const [deleteSelectedPost] = useDeletePostByIdMutation()
   const [deletePostImages] = useDeleteImagePostMutation()
   const currentMenuVersion: Array<DropdownMenuItemType> = MENU_VERSION[account]
-  const { changePostCardModalMode, selectedPost, closePostCardModal, clearPostCardModal } =
+  const { changePostCardModalMode, clearPostCardModal, closePostCardModal, selectedPost } =
     usePostCardModal()
 
   const editPost = useCallback(
@@ -60,12 +59,12 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
 
   const handlersVariants: { [Action in keyof typeof ActionTypes]: () => void } = useMemo(() => {
     return {
-      edit: editPost,
-      delete: openModal,
-      report: () => {},
-      follow: () => {},
-      unfollow: () => {},
       copy: copyLinkHandler,
+      delete: openModal,
+      edit: editPost,
+      follow: () => {},
+      report: () => {},
+      unfollow: () => {},
     }
   }, [copyLinkHandler, editPost, openModal])
 
@@ -74,8 +73,8 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
       <DropdownMenu>
         {currentMenuVersion?.map(item => (
           <MenuItem
-            key={`${account}-${item.label}`}
             as={'button'}
+            key={`${account}-${item.label}`}
             {...item}
             onClick={handlersVariants[item.action]}
           />
@@ -83,10 +82,10 @@ export const CardDropdownMenu = ({ account, ownerId, id }: DropDownMenuType) => 
       </DropdownMenu>
 
       <ConfirmationModal
-        translation={'deletePost'}
         isOpen={isModalOpened}
         onClose={closeModal}
         onConfirmation={deletePost}
+        translation={'deletePost'}
       />
     </>
   )

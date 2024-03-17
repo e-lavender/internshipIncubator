@@ -1,41 +1,38 @@
 import { useState } from 'react'
 
-import { clsx } from 'clsx'
+import { CommentsType } from '@/app/services/posts/posts.types'
+import { CardDescription } from '@/components'
 
 import s from './comments-list.module.scss'
 
-import { CommentsType } from '@/app/services/posts/posts.types'
-import { CardDescription, CommentsItem, PostTypes } from '@/components'
-import { Typography } from '@/ui'
-
-export const CommentsList = ({ createdAt, userName, description, avatarOwner }: CommentsType) => {
+export const CommentsList = ({ avatarOwner, createdAt, description, userName }: CommentsType) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   /* const isContentHidden = cardType === 'regular' && !isVisible
 
-  const styles = {
-    root: clsx(cardType === 'regular' && s.containerV2),
-    comments: clsx(s.container, isContentHidden && s.hide, isVisible && s.show),
-  }
+      const styles = {
+        root: clsx(cardType === 'regular' && s.containerV2),
+        comments: clsx(s.container, isContentHidden && s.hide, isVisible && s.show),
+      }
 
-  if (!content) {
-    return null
-  }
+      if (!content) {
+        return null
+      }
 
-  const handleClick = () => {
-    if (cotent.length) {
-      setIsVisible(visible => !visible)
-    }
-  }*/
+      const handleClick = () => {
+        if (cotent.length) {
+          setIsVisible(visible => !visible)
+        }
+      }*/
 
   return (
     <div className={s.container}>
       <div className={s.wrapper}>
         <CardDescription
-          userName={userName}
           avatarOwner={avatarOwner}
-          description={description}
           createdAt={createdAt}
+          description={description}
+          userName={userName}
         />
       </div>
       {/*{cardType === 'regular' && (

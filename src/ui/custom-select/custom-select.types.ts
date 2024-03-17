@@ -1,22 +1,22 @@
 import { Dispatch, SetStateAction } from 'react'
 
-export type SelectValue = { value: string; label: string }
+export type SelectValue = { label: string; value: string }
 export type CustomSelectProps = {
-  value?: string
-  label?: string
-  options?: SelectValue[]
-  setClear?: () => void
-  isClearable?: boolean
-  placeholder?: string
-  onChange?: (value: string | undefined) => void
-  isLoading?: boolean
   disabled?: boolean
+  isClearable?: boolean
+  isLoading?: boolean
+  label?: string
+  onChange?: (value: string | undefined) => void
+  options?: SelectValue[]
+  placeholder?: string
+  setClear?: () => void
+  value?: string
 }
 export type OptionsProps = {
-  resetFilter: () => void
-  onSelectValueHandler: (value: string | undefined) => void
-  items: SelectValue[]
-  isOpen: boolean
-  setIndexCurrent: Dispatch<SetStateAction<number>>
   indexCurrent: number
+  isOpen: boolean
+  items: SelectValue[]
+  onSelectValueHandler: (value: string | undefined) => void
+  resetFilter: () => void
+  setIndexCurrent: Dispatch<SetStateAction<number>>
 }

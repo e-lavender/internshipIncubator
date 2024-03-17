@@ -1,16 +1,15 @@
-import { PropsWithChildren } from 'react'
-
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CalendarProps, Calendar } from '../../components'
+import { PropsWithChildren } from 'react'
+
+import { Calendar, CalendarProps } from '../../components'
 
 const meta: Meta<PropsWithChildren<CalendarProps>> = {
-  title: 'Components/Calendar',
-  component: Calendar,
-  tags: ['autodocs'],
+  argTypes: {},
   args: {
     isRange: false,
   },
+  component: Calendar,
   decorators: [
     Story => (
       <div style={{ height: '50em' }}>
@@ -18,7 +17,8 @@ const meta: Meta<PropsWithChildren<CalendarProps>> = {
       </div>
     ),
   ],
-  argTypes: {},
+  tags: ['autodocs'],
+  title: 'Components/Calendar',
 } as Meta
 
 export default meta

@@ -1,17 +1,16 @@
+import { authApiUrls } from '@/app/constants'
+import { getFromSessionStorage, setToSessionStorage } from '@/app/utils'
 import {
   BaseQueryFn,
-  createApi,
   FetchArgs,
-  fetchBaseQuery,
   FetchBaseQueryError,
+  createApi,
+  fetchBaseQuery,
 } from '@reduxjs/toolkit/dist/query/react'
 import { Mutex } from 'async-mutex'
 import { HYDRATE } from 'next-redux-wrapper'
 
-import { authApiUrls } from '@/app/constants'
-import { getFromSessionStorage, setToSessionStorage } from '@/app/utils'
-
-const { signOut, refreshMe } = authApiUrls
+const { refreshMe, signOut } = authApiUrls
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.BASE_API_URL,
@@ -30,7 +29,7 @@ const baseQuery = fetchBaseQuery({
 })
 
 const mutex = new Mutex()
-const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+const baseQueryWithReauth: BaseQueryFn<FetchArgs | string, unknown, FetchBaseQueryError> = async (
   args,
   api,
   extraOptions
@@ -57,8 +56,8 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         } else {
           await baseQuery(
             {
-              url: signOut(),
               method: 'POST',
+              url: signOut(),
             },
             api,
             extraOptions
@@ -86,15 +85,15 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 }
 
 export const commonApi = createApi({
-  reducerPath: 'commonApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['ME', 'Profile', 'Posts', 'Images', 'Subscriptions'],
+  endpoints: () => ({}),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]
     }
   },
-  endpoints: () => ({}),
+  reducerPath: 'commonApi',
+  tagTypes: ['ME', 'Profile', 'Posts', 'Images', 'Subscriptions', 'Sessions'],
 })
 
 export const {
