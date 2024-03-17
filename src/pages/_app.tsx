@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import React, { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
+import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { store, wrapper } from '@/app/store/store'
 import { LoadingSpinner, Toaster } from '@/components'
 import { WithHomePageLayout } from '@/templates'
@@ -20,12 +21,15 @@ type AppPropsWithLayout = AppProps & {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
+  const { isLoading, message } = useLoadingSpinner()
+
+  console.log('isLoading', isLoading)
 
   return (
     <Provider store={store}>
       <WithHomePageLayout>{getLayout(<Component {...pageProps} />)}</WithHomePageLayout>
       <Toaster />
-      <LoadingSpinner isLoading={false} label={'Verifying...'} />
+      <LoadingSpinner isLoading={isLoading} label={message} />
     </Provider>
   )
 }

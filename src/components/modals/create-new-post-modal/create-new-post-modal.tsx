@@ -1,6 +1,7 @@
 import { ReactElement, useMemo, useState } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
+import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
 import { CreatePostRequestChildrenMetadata } from '@/app/services/posts/posts.types'
@@ -25,13 +26,14 @@ export const CreateNewPostModal = () => {
   const [addPost, { isLoading: isPostUploading }] = useCreatePostMutation()
 
   const [uploadImages] = useUploadImagePostMutation()
-  // added additional indicator in order to inform user that everything is ok and request is processing now
-  const [isLoading, setIsLoading] = useState<boolean>(false)
   const { t } = useTranslation()
   const { add, cropping, filters, publication } = t.createPost
   const { initialStepWithValidation, setPreferredStep, step, stepBackward, stepForward } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
-
+  const { setIsLoading, stopLoadingSpinner } = useLoadingSpinner({
+    active: isPostUploading,
+    title: 'Saving...',
+  })
   const {
     currentImageIndex,
     description: postDescription,
@@ -43,7 +45,7 @@ export const CreateNewPostModal = () => {
   const addNewPost = async () => {
     const formData = new FormData()
 
-    setIsLoading(true)
+    setIsLoading({ isLoading: true })
 
     const imagePromises = selectedImages.map(async image => {
       const filteredImage = await getCroppedAndFilteredImage({
@@ -82,7 +84,7 @@ export const CreateNewPostModal = () => {
         setPreferredStep(2)
       })
       .finally(() => {
-        setIsLoading(false)
+        stopLoadingSpinner()
       })
   }
 
@@ -150,8 +152,6 @@ export const CreateNewPostModal = () => {
         onConfirmation={onConfirm}
         title={'Close create posts'}
       />
-
-      <LoadingSpinner isLoading={isLoading || isPostUploading} label={'Saving...'} />
     </>
   )
 }

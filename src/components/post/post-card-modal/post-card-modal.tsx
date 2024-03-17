@@ -12,10 +12,8 @@ import s from './post-card-modal.module.scss'
 export const PostCardModal = ({
   askConfirmation = false,
   children,
-  isLoading = false,
   isModified = false,
   isOpen = false,
-  loaderLabel = 'Loading...',
   message,
   onChange: closeCardModal,
   title,
@@ -85,7 +83,6 @@ export const PostCardModal = ({
         </Modal.Content>
       </Modal>
 
-      <LoadingSpinner isLoading={isLoading} label={loaderLabel} />
       <ConfirmationModal
         isOpen={shouldConfirmAction}
         message={message}

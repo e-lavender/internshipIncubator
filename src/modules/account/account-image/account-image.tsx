@@ -1,6 +1,8 @@
+import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 import { useDisclose, useTranslation } from '@/app'
+import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useDeleteAvatarMutation, useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { showError } from '@/app/utils'
 import { Avatar, AvatarPropsType, ConfirmationModal, LoadingSpinner } from '@/components'
@@ -15,8 +17,10 @@ export const AccountImage = (props: AccountImageProps) => {
 
   const { data, isLoading } = useGetProfileQuery()
   const [deleteAvatar, { isLoading: isDeleteLoading }] = useDeleteAvatarMutation()
-
-  const isLoadingLabel = (isDeleteLoading && 'Saving...') || 'Loading...'
+  const { stopLoadingSpinner } = useLoadingSpinner({
+    active: isLoading || isDeleteLoading,
+    title: (isDeleteLoading && 'Saving...') || 'Loadasdasdaing...',
+  })
 
   const { t } = useTranslation()
   const { profileImage } = t.profileSettings.generalSettings
@@ -26,6 +30,9 @@ export const AccountImage = (props: AccountImageProps) => {
       .unwrap()
       .then(() => toast.success('Image deleted'))
       .catch(e => showError(e))
+      .finally(() => {
+        stopLoadingSpinner()
+      })
   }
 
   return (
@@ -48,7 +55,6 @@ export const AccountImage = (props: AccountImageProps) => {
         onConfirmation={onDeleteConfirmation}
         translation={'deleteAvatar'}
       />
-      <LoadingSpinner isLoading={isLoading || isDeleteLoading} label={isLoadingLabel} />
     </div>
   )
 }

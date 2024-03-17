@@ -3,6 +3,7 @@ import AvatarEditor from 'react-avatar-editor'
 import { toast } from 'react-toastify'
 
 import { MIME_TYPES, useFileCreationWithSteps, useTranslation } from '@/app'
+import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useUploadAvatarMutation } from '@/app/services/profile/profile.api'
 import { showError } from '@/app/utils'
 import { Avatar, LoadingSpinner } from '@/components'
@@ -21,11 +22,12 @@ type ImagePickerModalType = {
 }
 
 export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
+  const { startLoadingSpinner, stopLoadingSpinner } = useLoadingSpinner()
   const { blob, clearError, errorText, initialStepWithValidation, step, stepBackward, url } =
     useFileCreationWithSteps()
   const editorRef = useRef<AvatarEditor>(null)
 
-  const [uploadFile, { isLoading: isAvatarUploading }] = useUploadAvatarMutation()
+  const [uploadFile] = useUploadAvatarMutation()
 
   const { t } = useTranslation()
   const { modal } = t.profileSettings.generalSettings.profileImage
@@ -41,10 +43,14 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
   }
 
   const uploadForm = (form: FormData) => {
+    startLoadingSpinner({ isLoading: true, message: 'Uploading image...' })
     uploadFile(form)
       .unwrap()
       .then(() => toast.success('Image uploaded'))
       .catch(showError)
+      .finally(() => {
+        stopLoadingSpinner()
+      })
   }
 
   const uploadAvatar = () => {
@@ -104,8 +110,6 @@ export const ImagePickerModal = ({ isOpen, onClose }: ImagePickerModalType) => {
           {CurrentInterface}
         </Modal.Content>
       </Modal>
-
-      <LoadingSpinner isLoading={isAvatarUploading} label={'Saving...'} />
     </>
   )
 }

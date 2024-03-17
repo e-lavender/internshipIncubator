@@ -3,14 +3,10 @@ import React, { useState } from 'react'
 import { ErrorWithData, TagProcessor, useDisclose, useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { FRONT_BASE_URL } from '@/app/constants/common'
+import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
-import {
-  ControlledCheckbox,
-  ControlledTextField,
-  LoadingSpinner,
-  NotificationModal,
-} from '@/components'
+import { ControlledCheckbox, ControlledTextField, NotificationModal } from '@/components'
 import { useSignupForm } from '@/modules'
 import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
 import Link from 'next/link'
@@ -21,7 +17,7 @@ export const SignUpForm = () => {
   const [progressBar, setProgressBar] = useState<boolean>(false)
   const [register, { isLoading }] = useSignUpMutation()
   const { isOpen, onClose, onOpen } = useDisclose()
-
+  const { startLoadingSpinner, stopLoadingSpinner } = useLoadingSpinner()
   const { t } = useTranslation()
   const { signUpForm: text } = t.authPages.signUpPage
 
@@ -45,7 +41,11 @@ export const SignUpForm = () => {
   const onSubmitForm = handleSubmit(data => {
     const { email, password, userName } = data
 
-    FRONT_BASE_URL &&
+    if (FRONT_BASE_URL) {
+      startLoadingSpinner({
+        isLoading: isLoading || progressBar,
+        message: 'Verifying...',
+      })
       register({ baseUrl: FRONT_BASE_URL, email, password, userName })
         .unwrap()
         .then(() => {
@@ -54,6 +54,10 @@ export const SignUpForm = () => {
         .catch((error: ErrorWithData) => {
           showError(error)
         })
+        .finally(() => {
+          stopLoadingSpinner()
+        })
+    }
   })
 
   const onBlurConfirmPassword = () => {
@@ -90,8 +94,6 @@ export const SignUpForm = () => {
   return (
     <div>
       <Card className={s.container}>
-        <LoadingSpinner isLoading={isLoading || progressBar} label={'Verifying...'} />
-
         <form onSubmit={onSubmitForm}>
           <div className={s.wrapper}>
             <Typography variant={'h1'}>{text.signUp}</Typography>

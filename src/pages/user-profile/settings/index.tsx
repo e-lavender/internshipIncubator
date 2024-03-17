@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useMemo } from 'react'
 
 import { UserProfileType, setDateFormat, useGeneralSettings, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
+import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
 import {
   useGetProfileQuery,
@@ -33,7 +34,10 @@ const GeneralInformation = () => {
   const { push } = useRouter()
   const { aboutMe, birthday, city, country, firstName, lastName, submitFormBtn, username } =
     t.profileSettings.generalSettings
-
+  const { stopLoadingSpinner } = useLoadingSpinner({
+    active: isProfileLoading || isProfileUpdating,
+    title: (isProfileUpdating && 'Saving...') || 'Loading...',
+  })
   const userProfile: UserProfileModel | undefined = useMemo(() => {
     if (data) {
       const { avatars, createdAt, id, ...rest } = data
@@ -80,7 +84,13 @@ const GeneralInformation = () => {
       firstName,
       lastName,
       userName,
-    }).then(void push(menuNavigation.profile(data?.id)))
+    })
+      .unwrap()
+      .then(
+        void push(menuNavigation.profile(data?.id)).finally(() => {
+          stopLoadingSpinner()
+        })
+      )
   })
 
   useEffect(() => {
@@ -93,8 +103,6 @@ const GeneralInformation = () => {
       getCities({ country: selectedCountry })
     }
   }, [getCities, selectedCountry])
-
-  const loaderLabel: string = (isProfileUpdating && 'Saving...') || 'Loading...'
 
   return (
     <div className={s.container}>
@@ -161,8 +169,6 @@ const GeneralInformation = () => {
       <Button className={s.btn} disabled={isDisabledSubmit} onClick={onSubmit}>
         {submitFormBtn.label}
       </Button>
-
-      <LoadingSpinner isLoading={isProfileLoading || isProfileUpdating} label={loaderLabel} />
     </div>
   )
 }

@@ -1,6 +1,7 @@
+import { InitialApplicationState } from '@/app/services/application/application.slice.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+const initialState: InitialApplicationState = {
   loadingSpinner: {
     isLoading: false,
     loadingMessage: '',

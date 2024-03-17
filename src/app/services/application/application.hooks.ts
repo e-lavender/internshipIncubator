@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import {
   selectLoadingSpinnerIsLoading,
   selectLoadingSpinnerMessage,
@@ -9,7 +11,7 @@ import {
 } from '@/app/services/application/application.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 
-export const useLoadingSpinner = () => {
+export const useLoadingSpinner = (params?: { active?: boolean; title?: string }) => {
   const isLoading = useAppSelector(selectLoadingSpinnerIsLoading)
   const message = useAppSelector(selectLoadingSpinnerMessage)
   const dispatch = useAppDispatch()
@@ -19,14 +21,19 @@ export const useLoadingSpinner = () => {
   const setMessage = ({ message }: { message: string }) => {
     dispatch(setLoadingSpinnerMessage({ message }))
   }
-  const setLoadingSpinner = ({ isLoading, message }: { isLoading: boolean; message: string }) => {
+  const startLoadingSpinner = ({ isLoading, message }: { isLoading: boolean; message: string }) => {
     setIsLoading({ isLoading })
     setMessage({ message })
   }
 
-  const stopLoading = () => {
+  const stopLoadingSpinner = () => {
     dispatch(clearLoadingSpinner())
   }
 
-  return { isLoading, message, setIsLoading, setLoadingSpinner, setMessage, stopLoading }
+  useEffect(() => {
+    setMessage({ message: params?.title || '' })
+    setIsLoading({ isLoading: params?.active || false })
+  }, [params?.active, params?.title])
+
+  return { isLoading, message, setIsLoading, setMessage, startLoadingSpinner, stopLoadingSpinner }
 }
