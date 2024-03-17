@@ -1,7 +1,4 @@
-import { useMemo } from 'react'
-
 import { useGetCitiesMutation } from '@/app/services/countries/countries.api'
-import { SelectValue } from '@/ui/custom-select/custom-select.types'
 
 export const useLocation = () => {
   const [getCities, { data: cities }] = useGetCitiesMutation()

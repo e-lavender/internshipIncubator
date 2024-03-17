@@ -1,17 +1,17 @@
 import React from 'react'
 
-import ImageWithFilter, { StaticImageData } from 'next/image'
-
-import { filtersVariant } from './filters-variant'
-import s from './selected-images.module.scss'
-
 import airBalloon from '@/app/assets/image/airBalloonImage.jpg'
 import { useActiveFilterChange } from '@/components/post/create/selected-images/useActiveFilterChange'
 import { Typography } from '@/ui'
+import ImageWithFilter, { StaticImageData } from 'next/image'
+
+import s from './selected-images.module.scss'
+
+import { filtersVariant } from './filters-variant'
 
 type SelectedImagesProps = {
   setActiveFilter: (filter: string) => void
-  url: string | StaticImageData
+  url: StaticImageData | string
 }
 
 export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) => {
@@ -27,24 +27,24 @@ export const SelectedImages = ({ setActiveFilter, url }: SelectedImagesProps) =>
     <>
       <div className={s.filterContainer}>
         {filtersVariant.map(filterVariant => {
-          const { name, filter } = filterVariant
+          const { filter, name } = filterVariant
 
           return (
             <div
-              key={name}
               className={s.imgWithFilter}
-              onKeyDown={e => handleOnKeyDown(e, name)}
+              key={name}
               onClick={() => onActiveFilterChange(name)}
+              onKeyDown={e => handleOnKeyDown(e, name)}
               tabIndex={0}
             >
               <ImageWithFilter
-                src={url || airBalloon}
                 alt={'image-with-filter'}
-                objectFit={'contain'}
-                width={108}
-                height={108}
-                style={{ filter }}
                 className={s.image}
+                height={108}
+                objectFit={'contain'}
+                src={url || airBalloon}
+                style={{ filter }}
+                width={108}
               />
 
               <div className={s.filterName}>

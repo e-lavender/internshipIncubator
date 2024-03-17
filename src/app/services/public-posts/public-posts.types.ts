@@ -14,43 +14,43 @@ export type PublicPostsGetPostsByUser = InfinityPaginatedRes & {
   items: PostViewModel[]
 }
 export type PublicPostsGetPostsByUserArg = {
-  userId: number
   endCursorPostId?: number
   pageSize?: number
   sortBy?: string
   sortDirection?: 'asc' | 'desc'
+  userId: number
 }
 export type PublicPostsGetPost = PostViewModel
 export type PublicPostsGetPostArg = {
   postId?: number
 }
 export type InfinityPaginatedRes = {
-  totalCount: number
   pageSize: number
+  totalCount: number
   totalUsers: number
 }
 
 export type PostViewModel = {
-  id: number
-  userName: string
-  description: string
-  location: string
-  images: PostImageViewModel[]
-  createdAt: string
-  updatedAt: string
-  ownerId: number
   avatarOwner?: string
+  createdAt: string
+  description: string
+  id: number
+  images: PostImageViewModel[]
+  location: string
   owner: Owner
+  ownerId: number
+  updatedAt: string
+  userName: string
 }
 export type PostImageViewModel = {
+  alt?: string
+  fileSize: number
+  filter?: string
+  height: number
+  imageSize: keyof typeof IMAGE_SIZE
+  uploadId: string
   url: string
   width: number
-  height: number
-  fileSize: number
-  uploadId: string
-  imageSize: keyof typeof IMAGE_SIZE
-  filter?: string
-  alt?: string
 }
 
 export type Owner = {

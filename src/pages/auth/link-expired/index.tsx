@@ -1,6 +1,5 @@
-import { useRouter } from 'next/router'
-
 import { LinkExpired } from '@/modules'
+import { useRouter } from 'next/router'
 
 const LinkExpiredPage = () => {
   const router = useRouter()

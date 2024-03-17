@@ -11,8 +11,8 @@ const BROWSERS = {
   FIREFOX: 'FIREFOX',
   OPERA: 'OPERA',
   SAFARI: 'SAFARI',
-  YANDEX: 'YANDEX',
   UC: 'UC',
+  YANDEX: 'YANDEX',
 } as const
 
 type ObjectValuesType<T> = T[keyof T]

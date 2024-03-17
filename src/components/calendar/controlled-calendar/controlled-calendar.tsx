@@ -1,26 +1,26 @@
-import { useController, UseControllerProps, FieldValues } from 'react-hook-form'
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { Calendar, CalendarProps } from '@/components'
 
 type ControlledCalendarType<T extends FieldValues> = UseControllerProps<T> &
-  Omit<CalendarProps, 'value' | 'onChange' | 'id'>
+  Omit<CalendarProps, 'id' | 'onChange' | 'value'>
 export const ControlledCalendar = <T extends FieldValues>({
+  control,
+  defaultValue,
   name,
   rules,
   shouldUnregister,
-  control,
-  defaultValue,
   ...calendarProps
 }: ControlledCalendarType<T>) => {
   const {
-    field: { value, onChange },
+    field: { onChange, value },
   } = useController({
+    control,
+    defaultValue,
     name,
     rules,
     shouldUnregister,
-    control,
-    defaultValue,
   })
 
-  return <Calendar {...{ id: name, value, onChange, ...calendarProps }} />
+  return <Calendar {...{ id: name, onChange, value, ...calendarProps }} />
 }

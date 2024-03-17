@@ -1,12 +1,11 @@
 import React from 'react'
 
-import s from './payment-table.module.scss'
-
 import { subscriptionDate } from '@/app/helpers/customizeDate'
 import { MyPayments } from '@/app/services/payments/payments.types'
-import { PaymentDataType } from '@/components/payments-table/payment-table-data'
 import { Table } from '@/ui/table'
 import { TableHeaderModel } from '@/ui/table/tabel-types'
+
+import s from './payment-table.module.scss'
 
 export const PaymentsTable = ({
   columns,
@@ -16,12 +15,12 @@ export const PaymentsTable = ({
   data?: MyPayments[]
 }) => {
   const classNames = {
-    root: s.tableRoot,
+    body: s.body,
     head: s.tableHead,
     headCell: s.headCell,
+    root: s.tableRoot,
     row: s.tableRow,
     rowCell: s.rowCell,
-    body: s.body,
   }
 
   return (
@@ -40,7 +39,7 @@ export const PaymentsTable = ({
       <Table.Body className={classNames.body}>
         {data?.map((row, idx) => {
           return (
-            <Table.Row key={idx} className={classNames.row}>
+            <Table.Row className={classNames.row} key={idx}>
               <Table.DataCell>{subscriptionDate(row.dateOfPayment)}</Table.DataCell>
               <Table.DataCell>{subscriptionDate(row.endDateOfSubscription)}</Table.DataCell>
               <Table.DataCell>{row.price}</Table.DataCell>

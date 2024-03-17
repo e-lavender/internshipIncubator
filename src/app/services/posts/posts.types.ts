@@ -1,49 +1,49 @@
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 
 export type PostStateType = {
-  mode: 'view' | 'edit'
   isEdited: boolean
+  mode: 'edit' | 'view'
 }
 
 export type CreatePostResponse = {
-  id: string
-  description: string
   createdAt: string
+  description: string
+  id: string
   photoUrl: string
 }
 export type PostModel = {
-  id?: number
-  userName?: string
-  description?: string
-  location?: string
-  images: PostImageViewModel[]
-  createdAt?: string
-  updatedAt?: string
-  ownerId?: number
   avatarOwner?: string
-  owner?: PostModelOwner
+  createdAt?: string
+  description?: string
+  id?: number
+  images: PostImageViewModel[]
   isMyProfile?: boolean
+  location?: string
+  owner?: PostModelOwner
+  ownerId?: number
+  updatedAt?: string
+  userName?: string
 }
 export type PostImage = {
+  fileSize: number
+  filter?: string
+  height: number
+  uploadId: string
   url: string
   width: number
-  height: number
-  fileSize: number
-  uploadId: string
-  filter?: string
 }
 export type PostModelOwner = {
   firstName: string
   lastName: string
 }
 export type ImageSlideType = {
-  images: PostImageViewModel[]
   currentImageIndex: number
   description: string
+  images: PostImageViewModel[]
 }
 export type CreatePostRequest = {
-  description: string
   childrenMetadata: CreatePostRequestChildrenMetadata[]
+  description: string
 }
 export type CreatePostRequestChildrenMetadata = {
   uploadId: string
@@ -53,16 +53,16 @@ export type PostImages = {
 }
 
 export type CommentsType = {
-  id?: number
-  postId?: number
-  from?: {
-    id: number
-    username: string
-    avatars: [{}]
-  }
+  avatarOwner?: string
   content?: string
   createdAt?: string
   description?: string
+  from?: {
+    avatars: [{}]
+    id: number
+    username: string
+  }
+  id?: number
+  postId?: number
   userName?: string
-  avatarOwner?: string
 }

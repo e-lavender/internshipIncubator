@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react'
 
-import { useRouter } from 'next/router'
-
-import s from './user-profile.module.scss'
-
 import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
@@ -13,12 +9,14 @@ import {
   useGetPublicPostByIdQuery,
   useGetPublicPostsByUserQuery,
 } from '@/app/services/public-posts/public-posts.api'
-import { useAppSelector } from '@/app/store/rtk.types'
 import { UserProfileGallery } from '@/components'
 import { UserProfileDescription } from '@/modules'
+import { useRouter } from 'next/router'
+
+import s from './user-profile.module.scss'
 
 export type UserProfileType = {
-  data?: UserProfileModel | PublicUserModel
+  data?: PublicUserModel | UserProfileModel
   isMyProfile: boolean
   totalCount?: number
 }
@@ -33,10 +31,10 @@ export const UserProfile = () => {
   const { data: postById } = useGetPublicPostByIdQuery({ postId }, { skip: !postId })
   const { data: publicUser } = useGetPublicUserProfileByIdQuery({ profileId })
   const { data: posts } = useGetPublicPostsByUserQuery({
-    userId: profileId,
     pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
-    sortDirection: 'asc',
     sortBy: 'createdAt',
+    sortDirection: 'asc',
+    userId: profileId,
   })
 
   const { openPostCardModal, setPostCardModalSelectedPost } = usePostCardModal()
@@ -55,7 +53,7 @@ export const UserProfile = () => {
         isMyProfile={isMyProfile}
         totalCount={posts?.totalCount}
       />
-      <UserProfileGallery ownerId={profileId} isMyProfile={isMyProfile} user={user} />
+      <UserProfileGallery isMyProfile={isMyProfile} ownerId={profileId} user={user} />
     </main>
   )
 }

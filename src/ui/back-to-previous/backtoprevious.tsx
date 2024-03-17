@@ -1,14 +1,14 @@
+import { BackToPreviousIcon } from '@/app/assets/svg'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { BackToPreviousIcon } from '@/app/assets/svg'
 import s from '@/ui/back-to-previous/backtoprevious.module.scss'
 
 type PropsType = {
-  title: string
   href: string
+  title: string
 }
-export const BackToPrevious = ({ title, href }: PropsType) => {
+export const BackToPrevious = ({ href, title }: PropsType) => {
   const router = useRouter()
 
   return (

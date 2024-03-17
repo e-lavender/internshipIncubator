@@ -1,11 +1,11 @@
-import s from '../user-profile-description.module.scss'
-
 import { useMatchMedia } from '@/app'
 import { Avatar } from '@/components'
 import { UserStatisticsSkeleton } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescriptionSkeleton } from '@/modules'
 import { Button, Typography } from '@/ui'
 import { SkeletonCard } from '@/ui/skeleton'
+
+import s from '../user-profile-description.module.scss'
 
 export const UserProfileDescriptionSkeleton = () => {
   const { isMobile } = useMatchMedia()

@@ -1,11 +1,11 @@
-import { SliderButton, SliderDots, SliderControlsType } from '@/components'
+import { SliderButton, SliderControlsType, SliderDots } from '@/components'
 
 export const ImageSliderControls = ({
-  images,
   imageIndex,
-  setImageIndex,
-  isModified,
+  images,
   isEditMode,
+  isModified,
+  setImageIndex,
 }: SliderControlsType) => {
   const showControlButtons = images.length > 1
 
@@ -19,25 +19,25 @@ export const ImageSliderControls = ({
       {showControlButtons && (
         <>
           <SliderButton
-            position={'left'}
             images={images}
-            setImageIndex={setImageIndex}
             isEditMode={isEditMode}
+            position={'left'}
+            setImageIndex={setImageIndex}
           />
 
           <SliderButton
-            position={'right'}
             images={images}
-            setImageIndex={setImageIndex}
             inlineStyle={styles.button}
             isEditMode={isEditMode}
+            position={'right'}
+            setImageIndex={setImageIndex}
           />
 
           <SliderDots
-            images={images}
             imageIndex={imageIndex}
-            setImageIndex={setImageIndex}
+            images={images}
             inlineStyle={styles.dots}
+            setImageIndex={setImageIndex}
           />
         </>
       )}

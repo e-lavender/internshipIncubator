@@ -1,13 +1,12 @@
 import { ChangeEvent, MutableRefObject, useRef } from 'react'
 
-import { clsx } from 'clsx'
-
-import s from './add-image.module.scss'
-
 import { MIME_TYPES, PlusCircle, useFileCreationWithSteps } from '@/app'
 import { addImage } from '@/app/services/posts/slider.slice'
 import { useAppSelector } from '@/app/store/rtk.types'
 import { AddedImages } from '@/components'
+import { clsx } from 'clsx'
+
+import s from './add-image.module.scss'
 
 export const AddImage = () => {
   const addRef = useRef() as MutableRefObject<HTMLDivElement>
@@ -25,7 +24,9 @@ export const AddImage = () => {
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target
 
-    if (!files) return
+    if (!files) {
+      return
+    }
 
     initialStepWithValidation(files[0])
   }
@@ -36,16 +37,16 @@ export const AddImage = () => {
         {!!sliderImages.length && <AddedImages />}
 
         {sliderImages.length < 10 && (
-          <label id="cropper" className={s.label}>
+          <label className={s.label} id={'cropper'}>
             <PlusCircle />
 
             <input
-              id="cropper"
-              type="file"
-              ref={inputRef}
-              name="cover"
-              onChange={handleImageUpload}
               accept={acceptedFormats}
+              id={'cropper'}
+              name={'cover'}
+              onChange={handleImageUpload}
+              ref={inputRef}
+              type={'file'}
             />
           </label>
         )}

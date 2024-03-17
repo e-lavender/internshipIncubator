@@ -8,7 +8,7 @@ export default function TermsOfServicePage() {
 
   return (
     <TextContainer>
-      <BackToPrevious href={authNavigationUrls.signUp()} title="Back to previous page" />
+      <BackToPrevious href={authNavigationUrls.signUp()} title={'Back to previous page'} />
       <p>{t.privacyDescription.title}</p>
       <span>{t.privacyDescription.description}</span>
     </TextContainer>

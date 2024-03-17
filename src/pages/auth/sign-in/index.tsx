@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
-
 import { authNavigationUrls } from '@/app/constants'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { SignInForm } from '@/modules'
+import { useRouter } from 'next/router'
 
 const SignInPage = () => {
   const { data: me } = useGetMeQuery()

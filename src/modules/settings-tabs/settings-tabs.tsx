@@ -1,14 +1,13 @@
-import { useRouter } from 'next/router'
-
 import { useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { TabsContainer, TabsItem, TabsList } from '@/ui'
+import { useRouter } from 'next/router'
 
 export const SettingsTabs = () => {
-  const { push, pathname } = useRouter()
+  const { pathname, push } = useRouter()
 
   const { t } = useTranslation()
-  const { generalInformation, devices, accountManagement, myPayments } =
+  const { accountManagement, devices, generalInformation, myPayments } =
     t.profileSettings.navigation
 
   return (

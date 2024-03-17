@@ -16,30 +16,30 @@ export function rotateSize(width: number, height: number, rotation: number) {
   const rotRad = getRadianAngle(rotation)
 
   return {
-    width: Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
     height: Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
+    width: Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
   }
 }
 
 type ArgsType = {
   imageSrc: string
 } & Partial<{
-  pixelCrop: any
   filter: string
-  rotation: number
   flip: { horizontal: boolean; vertical: boolean }
+  pixelCrop: any
+  rotation: number
 }>
 
 export async function getCroppedAndFilteredImage({
   filter = '',
+  flip = { horizontal: false, vertical: false },
   imageSrc,
   pixelCrop,
-  flip = { horizontal: false, vertical: false },
   rotation = 0,
 }: ArgsType): Promise<{
-  unit8array?: Uint8Array
   blob?: Blob
   objectUrl?: string
+  unit8array?: Uint8Array
 } | null> {
   const image = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
@@ -51,7 +51,7 @@ export async function getCroppedAndFilteredImage({
 
   const rotRad = getRadianAngle(rotation)
 
-  const { width: bBoxWidth, height: bBoxHeight } = rotateSize(image.width, image.height, rotation)
+  const { height: bBoxHeight, width: bBoxWidth } = rotateSize(image.width, image.height, rotation)
 
   // set canvas size to match the bounding box
   canvas.width = bBoxWidth
@@ -77,7 +77,9 @@ export async function getCroppedAndFilteredImage({
   return new Promise((resolve, reject) => {
     canvas.toBlob(
       async file => {
-        if (!file) return null
+        if (!file) {
+          return null
+        }
 
         // if (filter) {
         //   return resolve({ blob: file })
@@ -90,7 +92,7 @@ export async function getCroppedAndFilteredImage({
           const arrayBuffer = await response.arrayBuffer()
           const binaryData = new Uint8Array(arrayBuffer)
 
-          resolve({ unit8array: binaryData, blob: file, objectUrl })
+          resolve({ blob: file, objectUrl, unit8array: binaryData })
         } else {
           reject()
         }

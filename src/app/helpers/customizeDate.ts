@@ -1,8 +1,8 @@
 export const date = (createdAt: string) => {
   return new Date(createdAt ? createdAt : '').toLocaleDateString('en-US', {
-    year: 'numeric',
     day: '2-digit',
     month: 'long',
+    year: 'numeric',
   })
 }
 
@@ -25,7 +25,7 @@ const units = [
   { label: 'second', seconds: 1 },
 ]
 
-export const timeAgo = (date: string | number | Date) => {
+export const timeAgo = (date: Date | number | string) => {
   const time = Math.floor((new Date().valueOf() - new Date(date).valueOf()) / 1000)
   const { interval, unit } = calculateTimeDifference(time)
   const suffix = interval === 1 ? '' : 's'
@@ -33,7 +33,7 @@ export const timeAgo = (date: string | number | Date) => {
   return `${interval} ${unit}${suffix} ago`
 }
 const calculateTimeDifference = (time: number) => {
-  for (let { label, seconds } of units) {
+  for (const { label, seconds } of units) {
     const interval = Math.floor(time / seconds)
 
     if (interval >= 1) {

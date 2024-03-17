@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
 
+import { setActiveImageFilter } from '@/app/services/posts/slider.slice'
+import { useAppDispatch } from '@/app/store/rtk.types'
+import { ImageSliderControls, ImageSliderType, SelectedImages } from '@/components'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 
 import s from './image-slider-with-filters.module.scss'
 
-import { setActiveImageFilter } from '@/app/services/posts/slider.slice'
-import { useAppDispatch } from '@/app/store/rtk.types'
-import { ImageSliderControls, ImageSliderType, SelectedImages } from '@/components'
-
 export const ImageSliderWithFilters = ({
-  images,
-  height,
-  width,
   aspectRatio,
   fitStyle,
+  height,
+  images,
+  width,
 }: ImageSliderType) => {
   const [imageIndex, setImageIndex] = useState<number>(0)
 
@@ -24,47 +23,47 @@ export const ImageSliderWithFilters = ({
     return null
   }
 
-  const { url, uploadId } = images[imageIndex]
+  const { uploadId, url } = images[imageIndex]
 
   const onFilterChange = (filter: string) => {
-    dispatch(setActiveImageFilter({ id: uploadId, filter }))
+    dispatch(setActiveImageFilter({ filter, id: uploadId }))
   }
 
   return (
     <div
       className={s.container}
       style={{
+        aspectRatio,
         height,
         width,
-        aspectRatio,
       }}
     >
       <div className={s.images}>
         {images?.map(image => (
           <div
-            key={image.uploadId}
-            style={{ translate: `${-100 * imageIndex}%`, filter: image.filter }}
             className={clsx(s.imageSlider, s[fitStyle])}
+            key={image.uploadId}
+            style={{ filter: image.filter, translate: `${-100 * imageIndex}%` }}
           >
             <Image
-              objectFit={fitStyle}
-              fill
-              src={image.url}
               alt={image.alt || `img-${image.uploadId}`}
+              fill
+              objectFit={fitStyle}
+              src={image.url}
             />
           </div>
         ))}
       </div>
 
       <ImageSliderControls
-        images={images}
         imageIndex={imageIndex}
-        setImageIndex={setImageIndex}
+        images={images}
         isModified
+        setImageIndex={setImageIndex}
       />
 
       <div className={s.filters}>
-        <SelectedImages url={url} setActiveFilter={onFilterChange} />
+        <SelectedImages setActiveFilter={onFilterChange} url={url} />
       </div>
     </div>
   )

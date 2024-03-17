@@ -1,27 +1,26 @@
 import React from 'react'
 
+import { LinkExpired, NewPasswordForm } from '@/modules'
 import Error from 'next/error'
 import { useRouter } from 'next/router'
 
-import { LinkExpired, NewPasswordForm } from '@/modules'
-
 const NewPasswordCodeStatus = {
-  success: 'success',
   expired: 'expired',
+  success: 'success',
 } as const
 
 type QueryType = {
-  status: ConfirmationStatusType
   code: string
+  status: ConfirmationStatusType
 }
 type ConfirmationStatusType = keyof typeof NewPasswordCodeStatus
 
-const withRecoveryCode = (params: { status: ConfirmationStatusType; code?: string }) => {
-  const { status, code } = params
+const withRecoveryCode = (params: { code?: string; status: ConfirmationStatusType }) => {
+  const { code, status } = params
 
   return {
-    [NewPasswordCodeStatus.success]: <NewPasswordForm code={code} />,
     [NewPasswordCodeStatus.expired]: <LinkExpired />,
+    [NewPasswordCodeStatus.success]: <NewPasswordForm code={code} />,
   }[status]
 }
 

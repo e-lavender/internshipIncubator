@@ -1,12 +1,11 @@
+import { SliderControlsType } from '@/components'
 import { clsx } from 'clsx'
 
 import s from './slider-controls-dots.module.scss'
 
-import { SliderControlsType } from '@/components'
-
 export const SliderDots = ({
-  images,
   imageIndex,
+  images,
   inlineStyle,
   setImageIndex,
 }: SliderControlsType) => {
@@ -14,7 +13,7 @@ export const SliderDots = ({
     <div className={s.dotButtons} style={inlineStyle}>
       {images.map((_, index) => {
         return (
-          <button key={index} className={s.dotButton} onClick={() => setImageIndex(index)}>
+          <button className={s.dotButton} key={index} onClick={() => setImageIndex(index)}>
             <div className={clsx(s.dot, index === imageIndex && s.isActive)}></div>
           </button>
         )

@@ -8,8 +8,8 @@ const initialState = {
   /*TODO:Remove slice if all is ok with saving accessToken in the sessionStorage */
 }
 const slice = createSlice({
-  name: 'auth',
   initialState,
+  name: 'auth',
   reducers: {
     // setToken: (state, action: PayloadAction<{ data: any }>) => {
     //   state.accessToken = action.payload.data.accessToken

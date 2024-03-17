@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
-
 import { authNavigationUrls } from '@/app/constants'
 import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { IMAGE_SIZE } from '@/app/constants/enums'
@@ -12,7 +10,8 @@ import {
   useGetPublicPostsQuery,
 } from '@/app/services/public-posts/public-posts.api'
 import { wrapper } from '@/app/store/store'
-import { LoaderV2, POST_COMMENTS, PostCard, PostCardXL } from '@/components'
+import { LoadingSpinner, POST_COMMENTS, PostCard, PostCardXL } from '@/components'
+import { useRouter } from 'next/router'
 
 /*export const getStaticProps = async () => {
   const params = {
@@ -35,8 +34,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
     getPublicPosts.initiate(
       {
         pageSize: PAGE_SIZE_PUBLIC_POSTS_BY_USER,
-        sortDirection: 'asc',
         sortBy: 'createdAt',
+        sortDirection: 'asc',
       },
       { forceRefetch: true }
     )
@@ -53,12 +52,12 @@ const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => 
   const { push } = useRouter()
   const { data: posts } = useGetPublicPostsQuery({
     pageSize: 4,
-    sortDirection: 'desc',
     sortBy: 'createdAt',
+    sortDirection: 'desc',
   })
 
   if (isLoading) {
-    return <LoaderV2 isLoading={isLoading} />
+    return <LoadingSpinner isLoading={isLoading} />
   }
 
   if (!me) {
@@ -75,13 +74,13 @@ const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => 
             <div key={item.id}>
               <PostCard
                 avatarOwner={item.avatarOwner}
-                images={filteredImages}
-                userName={item.userName}
-                description={item.description}
                 createdAt={item.createdAt}
+                description={item.description}
+                id={item.id}
+                images={filteredImages}
                 //comments={POST_COMMENTS?.comments}
                 ownerId={item.ownerId}
-                id={item.id}
+                userName={item.userName}
               />
             </div>
           )

@@ -1,12 +1,12 @@
 {
-  "en" : {
-    "logOut" : {
+  "en": {
+    "logOut": {
       "title": "Log Out",
       "message": "Do you really want to log out of your account?",
       "yes": "Yes",
       "no": "No"
     },
-    "deleteAvatar" : {
+    "deleteAvatar": {
       "title": "Delete Photo",
       "message": "Are you sure you want to delete photo?",
       "yes": "Yes",
@@ -26,13 +26,13 @@
     }
   },
   "ru": {
-    "logOut" : {
+    "logOut": {
       "title": "Выйти",
       "message": "Вы уверены что хотите выйти из аккаунта?",
       "yes": "Да",
       "no": "Нет"
     },
-    "deleteAvatar" : {
+    "deleteAvatar": {
       "title": "Удаление Аватарки",
       "message": "Вы уверены что хотите удалить аватарку?",
       "yes": "Да",

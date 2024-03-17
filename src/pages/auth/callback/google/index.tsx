@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { authNavigationUrls } from '@/app/constants'
 import { useGetGoogleMutation } from '@/app/services/google/google.api'
+import { useRouter } from 'next/router'
 
 const GooglePage = () => {
   const [isFirst, setIsFirst] = useState(true)

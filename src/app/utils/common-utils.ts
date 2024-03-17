@@ -33,7 +33,9 @@ export const showError = (error: ErrorWithData) => {
 export function getFromLocalStorage<T>(key: string, initialData: T) {
   const data = localStorage.getItem(key)
 
-  if (!data) return initialData
+  if (!data) {
+    return initialData
+  }
 
   return JSON.parse(data)
 }
@@ -41,7 +43,9 @@ export function getFromLocalStorage<T>(key: string, initialData: T) {
 export function getFromSessionStorage<T>(key: string, initialData: T) {
   const data = sessionStorage.getItem(key)
 
-  if (!data) return initialData
+  if (!data) {
+    return initialData
+  }
 
   return JSON.parse(data)
 }

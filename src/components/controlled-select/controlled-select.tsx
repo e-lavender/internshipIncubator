@@ -1,28 +1,27 @@
-import React, { useEffect } from 'react'
-
-import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
+import React from 'react'
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { CustomSelect } from '@/ui'
 import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
 
 type ControlledCustomSelectProps<T extends FieldValues> = UseControllerProps<T> &
-  Omit<CustomSelectProps, 'value' | 'onChange' | 'id'>
+  Omit<CustomSelectProps, 'id' | 'onChange' | 'value'>
 
 export const ControlledSelect = <T extends FieldValues>({
-  name,
   control,
+  defaultValue,
+  name,
+  options,
   rules,
   shouldUnregister,
-  defaultValue,
-  options,
   ...props
 }: ControlledCustomSelectProps<T>) => {
   const { field } = useController({
+    control,
+    defaultValue,
     name,
     rules,
     shouldUnregister,
-    control,
-    defaultValue,
   })
 
   return <CustomSelect options={options} {...field} {...props} />

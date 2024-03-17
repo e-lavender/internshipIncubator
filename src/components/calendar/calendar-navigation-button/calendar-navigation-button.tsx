@@ -2,27 +2,27 @@ import { NextIcon, PreviousIcon } from '@/app'
 import { Button } from '@/ui'
 
 type ButtonProps = {
-  direction: 'left' | 'right'
   className?: string
-  onClick: () => void
+  direction: 'left' | 'right'
   disabled?: boolean
-  variant?: 'link' | 'primary' | 'secondary' | 'outlined' | undefined
+  onClick: () => void
+  variant?: 'link' | 'outlined' | 'primary' | 'secondary' | undefined
 }
 export const CalendarNavigationButton = ({
-  direction,
   className,
-  onClick,
+  direction,
   disabled,
+  onClick,
   variant,
   ...rest
 }: ButtonProps) => {
   return (
     <Button
-      variant={variant}
+      className={className}
       disabled={disabled}
       onClick={onClick}
-      className={className}
       type={'button'}
+      variant={variant}
       {...rest}
     >
       {direction === 'left' ? <PreviousIcon /> : <NextIcon />}

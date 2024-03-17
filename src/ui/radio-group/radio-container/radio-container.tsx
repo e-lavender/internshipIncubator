@@ -7,18 +7,18 @@ import s from './radio-container.module.scss'
 
 type RadioContainerProps = {
   defaultValue: any
-  value?: string
-  onValueChange?: (value: any) => void
-  name?: string
-  disabled?: boolean
-  required?: boolean
-  loop?: boolean
   dir?: 'ltr' | 'rtl'
+  disabled?: boolean
+  loop?: boolean
+  name?: string
+  onValueChange?: (value: any) => void
+  required?: boolean
+  value?: string
 }
 export const RadioContainer = ({
+  children,
   defaultValue,
   disabled,
-  children,
   ...props
 }: PropsWithChildren<RadioContainerProps>) => {
   const styles = clsx(s.root, disabled && s.disabled)
@@ -26,9 +26,9 @@ export const RadioContainer = ({
   return (
     <form>
       <RadioSelect.Root
+        aria-label={'View density'}
         className={styles}
         defaultValue={defaultValue}
-        aria-label="View density"
         {...props}
       >
         {children}

@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
 
-import Error from 'next/error'
-import { useRouter } from 'next/router'
-
 import { useEmailConfirmationMutation } from '@/app/services/auth/auth.api'
 import { LinkConfirmed, LinkExpired } from '@/modules'
+import { useRouter } from 'next/router'
 
 type QueryType = {
   code: string

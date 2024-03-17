@@ -1,7 +1,5 @@
 import { toast } from 'react-toastify'
 
-import s from './user-devices.module.scss'
-
 import { useMatchMedia } from '@/app'
 import { useGetGeolocationQuery } from '@/app/services/ipgeolocation/ipgeolocation.api'
 import {
@@ -11,6 +9,8 @@ import {
 } from '@/app/services/sessions/sessions.api'
 import { DeviceInformationCard } from '@/components'
 import { Button, Typography } from '@/ui'
+
+import s from './user-devices.module.scss'
 
 export const UserDevices = () => {
   const { isMobile } = useMatchMedia()
@@ -54,18 +54,18 @@ export const UserDevices = () => {
       {sessions && sessions[0] && (
         <DeviceInformationCard
           className={s.card}
+          currentIp={location?.ip}
+          session={{ ...sessions[0], ip: location?.ip || sessions[0].ip }}
           type={'DEVICE'}
           variant={'CHROME'}
-          session={{ ...sessions[0], ip: location?.ip || sessions[0].ip }}
-          currentIp={location?.ip}
         />
       )}
 
       <Button
-        variant={'outlined'}
-        fullWidth={isMobile}
         className={s.btn}
+        fullWidth={isMobile}
         onClick={terminateSessions}
+        variant={'outlined'}
       >
         Terminate all other session
       </Button>
@@ -77,11 +77,11 @@ export const UserDevices = () => {
         return (
           <DeviceInformationCard
             className={s.card}
+            getSessionId={terminateSessionById}
             key={session.deviceId}
+            session={session}
             type={'SESSION'}
             variant={'DESKTOP'}
-            session={session}
-            getSessionId={terminateSessionById}
           />
         )
       })}
