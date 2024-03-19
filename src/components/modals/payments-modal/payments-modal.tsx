@@ -1,4 +1,4 @@
-import { useTranslation } from '@/app'
+import { useDisclose, useTranslation } from '@/app'
 import { Button, Modal, Typography } from '@/ui'
 
 import s from './payments-modal.module.scss'
