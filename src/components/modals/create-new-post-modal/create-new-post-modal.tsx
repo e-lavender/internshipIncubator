@@ -27,7 +27,7 @@ export const CreateNewPostModal = () => {
 
   const [uploadImages] = useUploadImagePostMutation()
   const { t } = useTranslation()
-  const { add, cropping, filters, publication } = t.createPost
+  const { add, cropping, discard, filters, message, publication, save } = t.createPost
   const { initialStepWithValidation, setPreferredStep, step, stepBackward, stepForward } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
   const { setIsLoading, stopLoadingSpinner } = useLoadingSpinner({
@@ -146,11 +146,13 @@ export const CreateNewPostModal = () => {
       </NewPostContainerModal>
 
       <ConfirmationModal
+        confirmBtnLabel={discard}
+        declineBtnLabel={save}
         isOpen={isConfirmationModalOpen}
-        message={'Are you sure you want to close ?'}
+        message={message}
         onClose={closeConfirmationModal}
         onConfirmation={onConfirm}
-        title={'Close create posts'}
+        title={'Close'}
       />
     </>
   )
