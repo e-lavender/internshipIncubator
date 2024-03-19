@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { useRouter } from 'next/router'
-
-import s from './account-settings.module.scss'
-
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL, PAYMENT_TYPE } from '@/app/constants/common'
@@ -19,6 +15,9 @@ import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/paymen
 import { PaymentsModal } from '@/components/modals/payments-modal'
 import { CurrentSubscriptions } from '@/modules/account/account-settings/current-subscription'
 import { Card, RadioContainer, RadioItem, Typography } from '@/ui'
+import { useRouter } from 'next/router'
+
+import s from './account-settings.module.scss'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
@@ -28,25 +27,25 @@ export const AccountSettings = () => {
   const [createSubscriptions] = useCreateSubscriptionsMutation()
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
-  const { onClose, isOpen, onOpen } = useDisclose()
+  const { isOpen, onClose, onOpen } = useDisclose()
 
   console.log(currentSubscriptions)
   const { t } = useTranslation()
   const { query } = useRouter()
   const {
     accountType,
-    yourSubscriptionCosts,
-    per,
+    business,
     month,
     oneDay,
-    sevenDays,
     or,
+    per,
     personal,
-    business,
+    sevenDays,
+    yourSubscriptionCosts,
   } = t.account
   const PROFILE_TYPE = [
-    { label: 'personal', value: `${personal}`, id: 1 },
-    { label: 'business', value: `${business}`, id: 2 },
+    { id: 1, label: 'personal', value: `${personal}` },
+    { id: 2, label: 'business', value: `${business}` },
   ]
   const [accountTypeId, setAccountTypeId] = useState<number>(PROFILE_TYPE[0].id)
 
@@ -55,10 +54,10 @@ export const AccountSettings = () => {
   const paymentsHandler = (paymentType: keyof typeof PAYMENT_TYPE) => {
     subscriptionOptions &&
       createSubscriptions({
-        typeSubscription: subscriptionOptions[subscriptionId].typeSubscription,
-        paymentType: paymentType,
         amount: subscriptionOptions[subscriptionId].amount,
         baseUrl: `${FRONT_BASE_URL}/${menuNavigation.account()}` ?? '',
+        paymentType: paymentType,
+        typeSubscription: subscriptionOptions[subscriptionId].typeSubscription,
       })
         .unwrap()
         .then(res => {
@@ -77,10 +76,10 @@ export const AccountSettings = () => {
         const duration = [`${oneDay}`, `${sevenDays}`, `${month}`]
 
         return {
-          id: index,
-          value: `$${cost.amount} ${per} ${duration[index]}`,
           amount: cost.amount,
+          id: index,
           typeSubscription: cost.typeDescription as SubscriptionDuration,
+          value: `$${cost.amount} ${per} ${duration[index]}`,
         }
       })
 
@@ -97,7 +96,7 @@ export const AccountSettings = () => {
 
   return (
     <section className={s.container}>
-      {currentSubscriptions.data.length > 0 && (
+      {currentSubscriptions && currentSubscriptions.data.length > 0 && (
         <CurrentSubscriptions currentSubscriptions={currentSubscriptions} />
       )}
 
@@ -142,8 +141,8 @@ export const AccountSettings = () => {
       )}
       <PaymentsModal
         isOpen={isOpen}
-        onClose={onClose}
         isSuccess={query.success === 'true' || query.PayerID}
+        onClose={onClose}
       />
     </section>
   )

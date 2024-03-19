@@ -19,11 +19,11 @@ export const UserPayments = () => {
       <PaymentsTable columns={PAYMENTS_TABLE_COLUMNS} data={paginatedData} />
       <Pagination
         currentPage={currenPage}
-        totalCount={myPayments?.length || 0}
-        pageSize={+pageSize}
-        siblingCount={3}
         onPageChange={setCurrentPage}
         onPageSizeChange={setPageSize}
+        pageSize={+pageSize}
+        siblingCount={3}
+        totalCount={myPayments?.length || 0}
       />
     </>
   )

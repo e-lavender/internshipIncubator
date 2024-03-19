@@ -1,16 +1,17 @@
-import { Button, Modal, Typography } from '@/ui'
-import s from './payments-modal.module.scss'
 import { useDisclose, useTranslation } from '@/app'
+import { Button, Modal, Typography } from '@/ui'
+
+import s from './payments-modal.module.scss'
 
 type ModalProps = {
-  isSuccess?: string | true | string[] | undefined
   isOpen: boolean
+  isSuccess?: string | string[] | true | undefined
   onClose: () => void
 }
 
-export const PaymentsModal = ({ isSuccess, isOpen, onClose }: ModalProps) => {
+export const PaymentsModal = ({ isOpen, isSuccess, onClose }: ModalProps) => {
   const { t } = useTranslation()
-  const { error, back, success, successful, failed } = t.paymentsModal
+  const { back, error, failed, success, successful } = t.paymentsModal
 
   const title = isSuccess ? success : error
 
@@ -22,17 +23,17 @@ export const PaymentsModal = ({ isSuccess, isOpen, onClose }: ModalProps) => {
   const titleForButton = isSuccess ? 'OK' : back
 
   return (
-    <Modal open={isOpen} onChange={onClose}>
+    <Modal onChange={onClose} open={isOpen}>
       <Modal.Button asChild />
       <Modal.Content
-        title={title}
         className={s.content}
         onInteractOutside={e => e.preventDefault()}
+        title={title}
       >
-        <Typography variant="regular-16">{content}</Typography>
+        <Typography variant={'regular-16'}>{content}</Typography>
 
-        <Button onClick={onClose} className={s.button} fullWidth>
-          <Typography variant="h3"> {titleForButton}</Typography>
+        <Button className={s.button} fullWidth onClick={onClose}>
+          <Typography variant={'h3'}> {titleForButton}</Typography>
         </Button>
       </Modal.Content>
     </Modal>

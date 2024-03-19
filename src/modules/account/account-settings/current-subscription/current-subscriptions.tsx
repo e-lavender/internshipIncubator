@@ -5,8 +5,9 @@ import {
   useMyPaymentsQuery,
 } from '@/app/services/payments/payments.api'
 import { CurrentSubscription } from '@/app/services/payments/payments.types'
-import s from '@/modules/account/account-settings/current-subscription/current-subscriptions.module.scss'
 import { Card, Checkbox, Typography } from '@/ui'
+
+import s from '@/modules/account/account-settings/current-subscription/current-subscriptions.module.scss'
 
 type Props = {
   currentSubscriptions?: CurrentSubscription
@@ -15,9 +16,8 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
   const [canceledAutoRenewal] = useCanceledAutoRenewalMutation()
   const { data: myPayments } = useMyPaymentsQuery()
 
-  console.log(myPayments)
   const { t } = useTranslation()
-  const { current, expireAt, nextPayment, autoRenewal } = t.account
+  const { autoRenewal, current, expireAt, nextPayment } = t.account
   const canceledAutoRenewalHandler = () => {
     canceledAutoRenewal()
   }
@@ -30,15 +30,16 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
 
       <Card className={s.currentSubscriptionCard}>
         <div>
-          <Typography as={'h3'} variant={'regular-14'} className={s.text}>
+          <Typography as={'h3'} className={s.text} variant={'regular-14'}>
             {expireAt}
           </Typography>
           <Typography as={'h3'} variant={'regular-14'}>
-            {/*{subscriptionDate(myPayments[myPayments.length - 1].endDateOfSubscription)}*/}
+            {myPayments &&
+              subscriptionDate(myPayments[myPayments.length - 1].endDateOfSubscription)}
           </Typography>
         </div>
         <div>
-          <Typography as={'h3'} variant={'regular-14'} className={s.text}>
+          <Typography as={'h3'} className={s.text} variant={'regular-14'}>
             {nextPayment}
           </Typography>
           <Typography as={'h3'} variant={'regular-14'}>
@@ -47,9 +48,9 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
         </div>
       </Card>
       <Checkbox
+        checked={currentSubscriptions?.hasAutoRenewal}
         className={s.checkBox}
         labelTitle={autoRenewal}
-        checked={!currentSubscriptions?.hasAutoRenewal}
         onChange={canceledAutoRenewalHandler}
       />
     </div>
