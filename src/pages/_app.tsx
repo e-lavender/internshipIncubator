@@ -23,8 +23,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
   const { isLoading, message } = useLoadingSpinner()
 
-  console.log('isLoading', isLoading)
-
   return (
     <Provider store={store}>
       <WithHomePageLayout>{getLayout(<Component {...pageProps} />)}</WithHomePageLayout>
