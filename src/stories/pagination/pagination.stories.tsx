@@ -49,6 +49,8 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     currentPage: 1,
+    onPageChange: () => {},
+    onPageSizeChange: () => {},
     pageSize: 20,
     siblingCount: 2,
     totalCount: 30,
