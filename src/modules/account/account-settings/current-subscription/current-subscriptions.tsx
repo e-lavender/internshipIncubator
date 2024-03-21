@@ -1,16 +1,20 @@
 import { useTranslation } from '@/app'
 import { subscriptionDate } from '@/app/helpers/customizeDate'
-import { useCanceledAutoRenewalMutation } from '@/app/services/payments/payments.api'
+import {
+  useCanceledAutoRenewalMutation,
+  useMyPaymentsQuery,
+} from '@/app/services/payments/payments.api'
 import { CurrentSubscription } from '@/app/services/payments/payments.types'
 import { Card, Checkbox, Typography } from '@/ui'
 
 import s from '@/modules/account/account-settings/current-subscription/current-subscriptions.module.scss'
 
 type Props = {
-  currentSubscriptions: CurrentSubscription
+  currentSubscriptions?: CurrentSubscription
 }
 export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
   const [canceledAutoRenewal] = useCanceledAutoRenewalMutation()
+  const { data: myPayments } = useMyPaymentsQuery()
 
   const { t } = useTranslation()
   const { autoRenewal, current, expireAt, nextPayment } = t.account
@@ -30,7 +34,8 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
             {expireAt}
           </Typography>
           <Typography as={'h3'} variant={'regular-14'}>
-            {subscriptionDate(currentSubscriptions?.data[0]?.dateOfPayment)}
+            {myPayments &&
+              subscriptionDate(myPayments[myPayments.length - 1].endDateOfSubscription)}
           </Typography>
         </div>
         <div>
@@ -38,15 +43,12 @@ export const CurrentSubscriptions = ({ currentSubscriptions }: Props) => {
             {nextPayment}
           </Typography>
           <Typography as={'h3'} variant={'regular-14'}>
-            {subscriptionDate(
-              currentSubscriptions?.data[currentSubscriptions.data.length - 1]
-                ?.endDateOfSubscription
-            )}
+            {subscriptionDate(currentSubscriptions?.data[0]?.endDateOfSubscription)}
           </Typography>
         </div>
       </Card>
       <Checkbox
-        checked={!currentSubscriptions?.hasAutoRenewal}
+        checked={currentSubscriptions?.hasAutoRenewal}
         className={s.checkBox}
         labelTitle={autoRenewal}
         onChange={canceledAutoRenewalHandler}

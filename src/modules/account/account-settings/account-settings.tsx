@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react'
 import { Nullable, PaypalIcon, StripeIcon, useDisclose, useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { FRONT_BASE_URL, PAYMENT_TYPE } from '@/app/constants/common'
+import { subscriptionDate } from '@/app/helpers/customizeDate'
 import {
+  useCanceledAutoRenewalMutation,
   useCostOfSubscriptionsQuery,
   useCreateSubscriptionsMutation,
   useCurrentSubscriptionsQuery,
+  useMyPaymentsQuery,
 } from '@/app/services/payments/payments.api'
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { PaymentsModal } from '@/components/modals/payments-modal'
@@ -18,8 +21,6 @@ import s from './account-settings.module.scss'
 
 export const AccountSettings = () => {
   // Added state for demonstration purposes of flow
-  //const [accountType, setAccountType] = useState('')
-  const [subscription, setSubscription] = useState<null | string>(null)
   const [subscriptionId, setSubscriptionId] = useState<number>(0)
   const [subscriptionOptions, setSubscriptionOptions] =
     useState<Nullable<SubscriptionOptions[]>>(null)
@@ -28,6 +29,7 @@ export const AccountSettings = () => {
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
   const { isOpen, onClose, onOpen } = useDisclose()
 
+  console.log(currentSubscriptions)
   const { t } = useTranslation()
   const { query } = useRouter()
   const {
@@ -88,14 +90,15 @@ export const AccountSettings = () => {
 
   useEffect(() => {
     if (query.success || query.token) {
-      setSubscription('success')
       onOpen()
     }
   }, [query.success, query.token, query])
 
   return (
     <section className={s.container}>
-      {currentSubscriptions && <CurrentSubscriptions currentSubscriptions={currentSubscriptions} />}
+      {currentSubscriptions && currentSubscriptions.data.length > 0 && (
+        <CurrentSubscriptions currentSubscriptions={currentSubscriptions} />
+      )}
 
       <div>
         <Typography as={'h3'} variant={'h3'}>
@@ -137,7 +140,6 @@ export const AccountSettings = () => {
         </div>
       )}
       <PaymentsModal
-        //isOpen={subscription === 'success'}
         isOpen={isOpen}
         isSuccess={query.success === 'true' || query.PayerID}
         onClose={onClose}
