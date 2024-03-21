@@ -11,7 +11,9 @@
     "lint": "eslint --fix src/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "minor": "pnpm version minor"
+    "patch": "pnpm version patch",
+    "minor": "pnpm version minor",
+    "major": "pnpm version major"
   },
   "dependencies": {
     "@emotion/react": "11.11.1",
