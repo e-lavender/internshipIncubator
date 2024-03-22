@@ -1,6 +1,7 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
+import { addPostToDraft } from '@/app/helpers/addDraftToDB'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
@@ -14,7 +15,6 @@ import {
   CropInterface,
   DescriptionInterface,
   FilterInterface,
-  LoadingSpinner,
   NewPostContainerModal,
   getCroppedAndFilteredImage,
 } from '@/components'
@@ -40,6 +40,7 @@ export const CreateNewPostModal = () => {
     images: selectedImages,
   } = useAppSelector(state => state.slider)
 
+  console.log(selectedImages)
   const dispatch = useAppDispatch()
 
   const addNewPost = async () => {
@@ -128,6 +129,15 @@ export const CreateNewPostModal = () => {
     dispatch(resetImagesToDefaultState())
   }
 
+  const saveDraftHandler = async () => {
+    try {
+      await addPostToDraft(selectedImages, postDescription)
+    } catch (error) {
+      console.error('Error while saving draft:', error)
+    }
+    closeConfirmationModal()
+  }
+
   return (
     <>
       <NewPostContainerModal onChange={closeCreatePostModal} open={isCreatePostModalOpen}>
@@ -150,7 +160,7 @@ export const CreateNewPostModal = () => {
         declineBtnLabel={save}
         isOpen={isConfirmationModalOpen}
         message={message}
-        onClose={closeConfirmationModal}
+        onClose={saveDraftHandler}
         onConfirmation={onConfirm}
         title={'Close'}
       />

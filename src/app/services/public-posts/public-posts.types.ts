@@ -51,7 +51,7 @@ export type PostImageViewModel = {
   uploadId: string
   url: string
   width: number
-}
+} & { image: Blob }
 
 export type Owner = {
   firstName: string
