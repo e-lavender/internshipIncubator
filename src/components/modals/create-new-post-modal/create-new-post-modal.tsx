@@ -1,7 +1,7 @@
 import { ReactElement, useMemo } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
-import { addPostToDraft } from '@/app/helpers/addDraftToDB'
+import { addPostToDraft, clearIndexedDB } from '@/app/helpers/addDraftToDB'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
@@ -131,6 +131,7 @@ export const CreateNewPostModal = () => {
 
   const saveDraftHandler = async () => {
     try {
+      await clearIndexedDB('postImages')
       await addPostToDraft(selectedImages, postDescription)
     } catch (error) {
       console.error('Error while saving draft:', error)

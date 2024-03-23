@@ -23,7 +23,7 @@ if (typeof window !== 'undefined') {
 
 const addPostToDraft = async (data: PostImageViewModel[], description: string) => {
   if (!dbPromise) {
-    return null
+    return
   }
 
   const db = await dbPromise
@@ -46,4 +46,33 @@ const getDrafts = async () => {
   return store.getAll()
 }
 
-export { addPostToDraft, getDrafts }
+const clearIndexedDB = (objectStoreName: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('postDatabase')
+
+    request.onerror = function (event) {
+      reject('Open database error')
+    }
+
+    request.onsuccess = function (event) {
+      const db = (event.target as IDBRequest).result
+
+      if (db instanceof IDBDatabase) {
+        const transaction = db.transaction(objectStoreName, 'readwrite')
+        const objectStore = transaction.objectStore(objectStoreName)
+
+        const clearRequest = objectStore.clear()
+
+        clearRequest.onsuccess = function (event) {
+          resolve('Data successfully deleted')
+        }
+
+        clearRequest.onerror = function (event) {
+          reject('Data clearing error')
+        }
+      }
+    }
+  })
+}
+
+export { addPostToDraft, clearIndexedDB, getDrafts }
