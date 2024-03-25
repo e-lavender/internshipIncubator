@@ -27,7 +27,6 @@ const addPostToDraft = async (data: PostImageViewModel[], description: string) =
   try {
     const db = await dbPromise
 
-    console.log(db)
     const tx = db.transaction('draftImages', 'readwrite')
     const store = tx.objectStore('draftImages')
 
@@ -54,7 +53,7 @@ const getDraft = async () => {
   }
 }
 
-/*const clearDB = (objectStoreName: string): Promise<string> => {
+const clearDB = (objectStoreName: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open('postDatabase')
 
@@ -62,25 +61,31 @@ const getDraft = async () => {
       reject('Open database error')
     }
 
-    request.onsuccess = function (event) {
-      const db = (event.target as IDBRequest).result
+    request.onsuccess = async function (event) {
+      try {
+        const db = (event.target as IDBRequest).result as IDBDatabase
 
-      if (db instanceof IDBDatabase) {
         const transaction = db.transaction(objectStoreName, 'readwrite')
         const objectStore = transaction.objectStore(objectStoreName)
 
-        const clearRequest = objectStore.clear()
+        await new Promise<void>((resolve, reject) => {
+          const clearRequest = objectStore.clear()
 
-        clearRequest.onsuccess = function (event) {
-          resolve('Data successfully deleted')
-        }
+          clearRequest.onsuccess = function (event) {
+            resolve()
+          }
 
-        clearRequest.onerror = function (event) {
-          reject('Data clearing error')
-        }
+          clearRequest.onerror = function (event) {
+            reject('Data clearing error')
+          }
+        })
+
+        resolve('Data successfully deleted')
+      } catch (error) {
+        reject('An error occurred while clearing data')
       }
     }
   })
-}*/
+}
 
-export { addPostToDraft, getDraft }
+export { addPostToDraft, clearDB, getDraft }

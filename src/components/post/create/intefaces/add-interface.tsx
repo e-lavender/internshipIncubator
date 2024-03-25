@@ -43,7 +43,6 @@ export const AddInterface = ({ callback }: AddInterfaceProps) => {
           onUpload={handleUpload}
           ref={formRef}
         />
-
         <Button onClick={openDraft} variant={'outlined'}>
           Open draft
         </Button>
