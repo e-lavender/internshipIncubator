@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
-import { getDrafts } from '@/app/helpers/addDraftToDB'
+import { getDraft } from '@/app/helpers/addDraftToDB'
 import { Button, FileInput } from '@/ui'
 
 import s from './interfaces.module.scss'
@@ -25,9 +25,9 @@ export const AddInterface = ({ callback }: AddInterfaceProps) => {
     void callback(files[0])
   }
   const openDraft = async () => {
-    const [drafts] = await getDrafts()
+    const [draft] = await getDraft()
 
-    console.log(drafts)
+    console.log(draft)
   }
 
   return (

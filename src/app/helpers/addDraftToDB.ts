@@ -1,8 +1,7 @@
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { DBSchema, IDBPDatabase, openDB } from 'idb'
-
-export interface postsDB extends DBSchema {
-  draftPosts: {
+interface postsDB extends DBSchema {
+  draftImages: {
     key: number
     value: {
       description: string
@@ -16,37 +15,46 @@ let dbPromise: Promise<IDBPDatabase<postsDB>> | null = null
 if (typeof window !== 'undefined') {
   dbPromise = openDB<postsDB>('postDatabase', 1, {
     upgrade(db) {
-      db.createObjectStore('draftPosts', { autoIncrement: true, keyPath: 'key' })
+      db.createObjectStore('draftImages', { autoIncrement: true, keyPath: 'key' })
     },
   })
 }
-
 const addPostToDraft = async (data: PostImageViewModel[], description: string) => {
   if (!dbPromise) {
     return
   }
 
-  const db = await dbPromise
-  const tx = db.transaction('draftPosts', 'readwrite')
-  const store = tx.objectStore('draftPosts')
+  try {
+    const db = await dbPromise
 
-  await store.add({ description, drafts: data })
-  await tx.done
+    console.log(db)
+    const tx = db.transaction('draftImages', 'readwrite')
+    const store = tx.objectStore('draftImages')
+
+    await store.add({ description, drafts: data })
+    await tx.done
+  } catch (error) {
+    console.error('An error occurred while adding post to draft:', error)
+  }
 }
-
-const getDrafts = async () => {
+const getDraft = async () => {
   if (!dbPromise) {
     return []
   }
+  try {
+    const db = await dbPromise
+    const tx = db.transaction('draftImages', 'readonly')
+    const store = tx.objectStore('draftImages')
 
-  const db = await dbPromise
-  const tx = db.transaction('draftPosts', 'readonly')
-  const store = tx.objectStore('draftPosts')
+    return store.getAll()
+  } catch (error) {
+    console.error('An error occurred while getting draft:', error)
 
-  return store.getAll()
+    return []
+  }
 }
 
-const clearIndexedDB = (objectStoreName: string): Promise<string> => {
+/*const clearDB = (objectStoreName: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open('postDatabase')
 
@@ -73,6 +81,6 @@ const clearIndexedDB = (objectStoreName: string): Promise<string> => {
       }
     }
   })
-}
+}*/
 
-export { addPostToDraft, clearIndexedDB, getDrafts }
+export { addPostToDraft, getDraft }
