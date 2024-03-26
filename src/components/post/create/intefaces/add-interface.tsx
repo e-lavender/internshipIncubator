@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
-import { getDraft } from '@/app/helpers/addDraftToDB'
 import { Button, FileInput } from '@/ui'
 
 import s from './interfaces.module.scss'
 
 type AddInterfaceProps = {
   callback: (file: File) => void
+  hasDraft: boolean
   openDraft: () => Promise<void>
 }
-export const AddInterface = ({ callback, openDraft }: AddInterfaceProps) => {
+export const AddInterface = ({ callback, hasDraft, openDraft }: AddInterfaceProps) => {
   const { t } = useTranslation()
   const { select } = t.createPost
   const formRef = useRef<HTMLFormElement>(null)
@@ -39,9 +39,11 @@ export const AddInterface = ({ callback, openDraft }: AddInterfaceProps) => {
           onUpload={handleUpload}
           ref={formRef}
         />
-        <Button onClick={openDraft} variant={'outlined'}>
-          Open draft
-        </Button>
+        {hasDraft && (
+          <Button onClick={openDraft} variant={'outlined'}>
+            Open draft
+          </Button>
+        )}
       </div>
     </>
   )

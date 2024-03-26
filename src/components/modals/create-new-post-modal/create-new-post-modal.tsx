@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
 import { addPostToDraft, clearDB, getDraft } from '@/app/helpers/addDraftToDB'
@@ -22,7 +22,11 @@ import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dism
 
 import s from './create-new-post-modal.module.scss'
 
-export const CreateNewPostModal = () => {
+type Props = {
+  hasDraft: boolean
+}
+
+export const CreateNewPostModal = ({ hasDraft }: Props) => {
   const [addPost, { isLoading: isPostUploading }] = useCreatePostMutation()
 
   const [uploadImages] = useUploadImagePostMutation()
@@ -99,10 +103,15 @@ export const CreateNewPostModal = () => {
       setPreferredStep(2)
     }
   }
-
   const interfaceVariants: { [Step: string]: ReactElement } = useMemo(() => {
     return {
-      1: <AddInterface callback={initialStepWithValidation} openDraft={openDraft} />,
+      1: (
+        <AddInterface
+          callback={initialStepWithValidation}
+          hasDraft={hasDraft}
+          openDraft={openDraft}
+        />
+      ),
       2: <CropInterface images={selectedImages} />,
       3: <FilterInterface images={selectedImages} />,
       4: <DescriptionInterface images={selectedImages} />,
@@ -148,7 +157,6 @@ export const CreateNewPostModal = () => {
       console.error('Error while saving draft:', error)
     }
     setPreferredStep(1)
-
     closeConfirmationModal()
     closeCreatePostModal()
   }

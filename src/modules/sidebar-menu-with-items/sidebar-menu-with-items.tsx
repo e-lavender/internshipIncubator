@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   CreateMenuIcon,
   FavouritesMenuIcon,
@@ -11,6 +13,7 @@ import {
   useTranslation,
 } from '@/app'
 import { authNavigationUrls, menuNavigation } from '@/app/constants'
+import { getDraft } from '@/app/helpers/addDraftToDB'
 import { useGetMeQuery, useSignOutMutation } from '@/app/services/auth/auth.api'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { ConfirmationModal } from '@/components'
@@ -21,6 +24,7 @@ import { useRouter } from 'next/router'
 import s from './sidebar-menu-with-items.module.scss'
 
 export const SidebarMenuWithItems = () => {
+  const [hasDraft, setHasDraft] = useState(false)
   const { isOpen, onClose, onOpen } = useDisclose()
   const { openCreatePostModal } = useCreatePostModal()
   const { pathname, push } = useRouter()
@@ -33,6 +37,15 @@ export const SidebarMenuWithItems = () => {
     signOut()
 
     void push(authNavigationUrls.main())
+  }
+
+  const isDraft = async () => {
+    const data = await getDraft()
+
+    setHasDraft(data.length >= 1)
+  }
+  const openCreatePost = () => {
+    isDraft().then(r => openCreatePostModal())
   }
 
   return (
@@ -48,7 +61,7 @@ export const SidebarMenuWithItems = () => {
           as={'button'}
           icon={CreateMenuIcon}
           label={labels.create}
-          onClick={openCreatePostModal}
+          onClick={openCreatePost}
         />
 
         <MenuItem
@@ -75,7 +88,7 @@ export const SidebarMenuWithItems = () => {
 
         <MenuItem as={'button'} icon={LogOutMenuIcon} label={labels.logout} onClick={onOpen} />
       </SidebarMenu>
-      <CreateNewPostModal />
+      <CreateNewPostModal hasDraft={hasDraft} />
       <ConfirmationModal isOpen={isOpen} onClose={onClose} onConfirmation={onSignOut} />
     </>
   )
