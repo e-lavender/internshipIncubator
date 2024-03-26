@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
 import { getDraft } from '@/app/helpers/addDraftToDB'
@@ -8,8 +8,9 @@ import s from './interfaces.module.scss'
 
 type AddInterfaceProps = {
   callback: (file: File) => void
+  openDraft: () => Promise<void>
 }
-export const AddInterface = ({ callback }: AddInterfaceProps) => {
+export const AddInterface = ({ callback, openDraft }: AddInterfaceProps) => {
   const { t } = useTranslation()
   const { select } = t.createPost
   const formRef = useRef<HTMLFormElement>(null)
@@ -23,11 +24,6 @@ export const AddInterface = ({ callback }: AddInterfaceProps) => {
     const { files } = formRef.current.file
 
     void callback(files[0])
-  }
-  const openDraft = async () => {
-    const [draft] = await getDraft()
-
-    console.log(draft)
   }
 
   return (

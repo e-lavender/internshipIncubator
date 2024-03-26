@@ -1,7 +1,7 @@
 import { ReactElement, useMemo } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
-import { addPostToDraft, clearDB } from '@/app/helpers/addDraftToDB'
+import { addPostToDraft, clearDB, getDraft } from '@/app/helpers/addDraftToDB'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
@@ -88,9 +88,21 @@ export const CreateNewPostModal = () => {
       })
   }
 
+  const openDraft = async () => {
+    const [draft] = await getDraft()
+
+    if (draft.description !== '') {
+      setPreferredStep(4)
+    } else if (draft.drafts.some(el => el.filter !== '')) {
+      setPreferredStep(3)
+    } else {
+      setPreferredStep(2)
+    }
+  }
+
   const interfaceVariants: { [Step: string]: ReactElement } = useMemo(() => {
     return {
-      1: <AddInterface callback={initialStepWithValidation} />,
+      1: <AddInterface callback={initialStepWithValidation} openDraft={openDraft} />,
       2: <CropInterface images={selectedImages} />,
       3: <FilterInterface images={selectedImages} />,
       4: <DescriptionInterface images={selectedImages} />,
@@ -136,7 +148,6 @@ export const CreateNewPostModal = () => {
       console.error('Error while saving draft:', error)
     }
     setPreferredStep(1)
-    dispatch(resetImagesToDefaultState())
 
     closeConfirmationModal()
     closeCreatePostModal()
