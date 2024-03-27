@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useEffect, useMemo, useState } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
 import { addPostToDraft, clearDB, getDraft } from '@/app/helpers/addDraftToDB'
@@ -7,6 +7,7 @@ import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
 import { CreatePostRequestChildrenMetadata } from '@/app/services/posts/posts.types'
 import { addImage, resetImagesToDefaultState } from '@/app/services/posts/slider.slice'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { showError } from '@/app/utils'
 import {
@@ -22,11 +23,7 @@ import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dism
 
 import s from './create-new-post-modal.module.scss'
 
-type Props = {
-  hasDraft: boolean
-}
-
-export const CreateNewPostModal = ({ hasDraft }: Props) => {
+export const CreateNewPostModal = () => {
   const [addPost, { isLoading: isPostUploading }] = useCreatePostMutation()
 
   const [uploadImages] = useUploadImagePostMutation()
@@ -38,11 +35,10 @@ export const CreateNewPostModal = ({ hasDraft }: Props) => {
     active: isPostUploading,
     title: 'Saving...',
   })
-  const {
-    currentImageIndex,
-    description: postDescription,
-    images: selectedImages,
-  } = useAppSelector(state => state.slider)
+  const { description: postDescription, images: selectedImages } = useAppSelector(
+    state => state.slider
+  )
+  const [images, setImages] = useState<PostImageViewModel[] | null>(null)
 
   const dispatch = useAppDispatch()
 
@@ -95,6 +91,8 @@ export const CreateNewPostModal = ({ hasDraft }: Props) => {
   const openDraft = async () => {
     const [draft] = await getDraft()
 
+    setImages(draft.drafts)
+
     if (draft.description !== '') {
       setPreferredStep(4)
     } else if (draft.drafts.some(el => el.filter !== '')) {
@@ -103,20 +101,23 @@ export const CreateNewPostModal = ({ hasDraft }: Props) => {
       setPreferredStep(2)
     }
   }
+
+  console.log('selectedImages', selectedImages)
+  console.log(images)
   const interfaceVariants: { [Step: string]: ReactElement } = useMemo(() => {
     return {
       1: (
         <AddInterface
           callback={initialStepWithValidation}
-          hasDraft={hasDraft}
           openDraft={openDraft}
+          setImages={setImages}
         />
       ),
-      2: <CropInterface images={selectedImages} />,
-      3: <FilterInterface images={selectedImages} />,
-      4: <DescriptionInterface images={selectedImages} />,
+      2: <CropInterface images={images || selectedImages} />,
+      3: <FilterInterface images={images || selectedImages} />,
+      4: <DescriptionInterface images={images || selectedImages} />,
     }
-  }, [selectedImages])
+  }, [selectedImages, images])
 
   const titleVariants: { [Step: string]: string } = useMemo(() => {
     return {

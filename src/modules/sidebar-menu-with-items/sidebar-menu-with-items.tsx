@@ -24,7 +24,6 @@ import { useRouter } from 'next/router'
 import s from './sidebar-menu-with-items.module.scss'
 
 export const SidebarMenuWithItems = () => {
-  const [hasDraft, setHasDraft] = useState(false)
   const { isOpen, onClose, onOpen } = useDisclose()
   const { openCreatePostModal } = useCreatePostModal()
   const { pathname, push } = useRouter()
@@ -39,14 +38,15 @@ export const SidebarMenuWithItems = () => {
     void push(authNavigationUrls.main())
   }
 
-  const isDraft = async () => {
+  /*const isDraft = async () => {
     const data = await getDraft()
 
+    console.log('data', data)
     setHasDraft(data.length >= 1)
   }
   const openCreatePost = () => {
-    isDraft().then(r => openCreatePostModal())
-  }
+    isDraft().then(res => openCreatePostModal())
+  }*/
 
   return (
     <>
@@ -61,7 +61,7 @@ export const SidebarMenuWithItems = () => {
           as={'button'}
           icon={CreateMenuIcon}
           label={labels.create}
-          onClick={openCreatePost}
+          onClick={openCreatePostModal}
         />
 
         <MenuItem
@@ -88,7 +88,7 @@ export const SidebarMenuWithItems = () => {
 
         <MenuItem as={'button'} icon={LogOutMenuIcon} label={labels.logout} onClick={onOpen} />
       </SidebarMenu>
-      <CreateNewPostModal hasDraft={hasDraft} />
+      <CreateNewPostModal />
       <ConfirmationModal isOpen={isOpen} onClose={onClose} onConfirmation={onSignOut} />
     </>
   )

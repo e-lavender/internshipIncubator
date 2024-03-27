@@ -61,6 +61,7 @@ export const ImageSliderWithCropper = ({
       setImageIndex(globalImageIndex)
     }
   }, [globalImageIndex])
+  console.log('slider', images[imageIndex]?.url || '')
 
   return (
     <>
