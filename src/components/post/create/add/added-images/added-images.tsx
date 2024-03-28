@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { CloseIcon } from '@/app'
 import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { deleteImage, setCurrentImageIndex } from '@/app/services/posts/slider.slice'

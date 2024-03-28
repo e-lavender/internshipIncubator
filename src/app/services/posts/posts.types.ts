@@ -24,6 +24,7 @@ export type PostModel = {
   updatedAt?: string
   userName?: string
 }
+
 export type PostImage = {
   fileSize: number
   filter?: string

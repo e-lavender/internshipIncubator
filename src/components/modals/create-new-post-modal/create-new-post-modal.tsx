@@ -1,11 +1,14 @@
 import { ReactElement, useMemo, useState } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
+import { addPostToDraft, clearDB, getDraft } from '@/app/helpers/addDraftToDB'
+import { urlToBase64 } from '@/app/helpers/urlToBase64'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
 import { CreatePostRequestChildrenMetadata } from '@/app/services/posts/posts.types'
 import { addImage, resetImagesToDefaultState } from '@/app/services/posts/slider.slice'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { showError } from '@/app/utils'
 import {
@@ -14,7 +17,6 @@ import {
   CropInterface,
   DescriptionInterface,
   FilterInterface,
-  LoadingSpinner,
   NewPostContainerModal,
   getCroppedAndFilteredImage,
 } from '@/components'
@@ -27,18 +29,17 @@ export const CreateNewPostModal = () => {
 
   const [uploadImages] = useUploadImagePostMutation()
   const { t } = useTranslation()
-  const { add, cropping, filters, publication } = t.createPost
+  const { add, cropping, discard, filters, message, publication, save } = t.createPost
   const { initialStepWithValidation, setPreferredStep, step, stepBackward, stepForward } =
     useFileCreationWithSteps(0, addImage, { sizeLimit: 5 })
   const { setIsLoading, stopLoadingSpinner } = useLoadingSpinner({
     active: isPostUploading,
     title: 'Saving...',
   })
-  const {
-    currentImageIndex,
-    description: postDescription,
-    images: selectedImages,
-  } = useAppSelector(state => state.slider)
+  const { description: postDescription, images: selectedImages } = useAppSelector(
+    state => state.slider
+  )
+  const [images, setImages] = useState<PostImageViewModel[] | null>(null)
 
   const dispatch = useAppDispatch()
 
@@ -88,14 +89,34 @@ export const CreateNewPostModal = () => {
       })
   }
 
+  const openDraft = async () => {
+    const [draft] = await getDraft()
+
+    setImages(draft.drafts)
+
+    if (draft.description !== '') {
+      setPreferredStep(4)
+    } else if (draft.drafts.some(el => el.filter !== '')) {
+      setPreferredStep(3)
+    } else {
+      setPreferredStep(2)
+    }
+  }
+
   const interfaceVariants: { [Step: string]: ReactElement } = useMemo(() => {
     return {
-      1: <AddInterface callback={initialStepWithValidation} />,
-      2: <CropInterface images={selectedImages} />,
-      3: <FilterInterface images={selectedImages} />,
-      4: <DescriptionInterface images={selectedImages} />,
+      1: (
+        <AddInterface
+          callback={initialStepWithValidation}
+          openDraft={openDraft}
+          setImages={setImages}
+        />
+      ),
+      2: <CropInterface images={images || selectedImages} />,
+      3: <FilterInterface images={images || selectedImages} />,
+      4: <DescriptionInterface images={images || selectedImages} />,
     }
-  }, [selectedImages])
+  }, [selectedImages, images])
 
   const titleVariants: { [Step: string]: string } = useMemo(() => {
     return {
@@ -128,6 +149,27 @@ export const CreateNewPostModal = () => {
     dispatch(resetImagesToDefaultState())
   }
 
+  const saveDraftHandler = async () => {
+    try {
+      const base64Promises = selectedImages.map(async image => {
+        const base64String = await urlToBase64(image.url)
+
+        return { ...image, url: base64String }
+      })
+
+      const selectedImagesWithBase64 = await Promise.all(base64Promises)
+
+      await clearDB('draftImages')
+      await addPostToDraft(selectedImagesWithBase64, postDescription)
+    } catch (error) {
+      console.error('Error while saving draft:', error)
+    }
+
+    setPreferredStep(1)
+    closeConfirmationModal()
+    closeCreatePostModal()
+  }
+
   return (
     <>
       <NewPostContainerModal onChange={closeCreatePostModal} open={isCreatePostModalOpen}>
@@ -146,11 +188,13 @@ export const CreateNewPostModal = () => {
       </NewPostContainerModal>
 
       <ConfirmationModal
+        confirmBtnLabel={discard}
+        declineBtnLabel={save}
         isOpen={isConfirmationModalOpen}
-        message={'Are you sure you want to close ?'}
-        onClose={closeConfirmationModal}
+        message={message}
+        onClose={saveDraftHandler}
         onConfirmation={onConfirm}
-        title={'Close create posts'}
+        title={'Close'}
       />
     </>
   )

@@ -29,7 +29,6 @@ export const AccountSettings = () => {
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
   const { isOpen, onClose, onOpen } = useDisclose()
 
-  console.log(currentSubscriptions)
   const { t } = useTranslation()
   const { query } = useRouter()
   const {

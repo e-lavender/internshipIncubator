@@ -16,7 +16,9 @@
       "title": "Close Post",
       "message": "Do you really want to finish editing? If you close the changes you have made will not be saved.",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "discard": "Discard",
+      "save": "Save draft"
     },
     "deletePost": {
       "title": "Delete Post",
@@ -40,7 +42,7 @@
     },
     "closePost": {
       "title": "Закрыть Пост",
-      "message": "Вы действительно хотите завершить редактирование? Если закроете внесенные ранее изменения не сохранятся.",
+      "message": "Вы действительно хотите завершить редактирование? Если закроете окно, то внесенные ранее изменения не сохранятся.",
       "yes": "Да",
       "no": "Нет"
     },
