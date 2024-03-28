@@ -1,3 +1,4 @@
+import { IMAGE_SIZE } from '@/app/constants/enums'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { DBSchema, IDBPDatabase, openDB } from 'idb'
 interface postsDB extends DBSchema {
@@ -19,7 +20,19 @@ if (typeof window !== 'undefined') {
     },
   })
 }
-const addPostToDraft = async (data: PostImageViewModel[], description: string) => {
+const addPostToDraft = async (
+  data: Awaited<{
+    alt?: string
+    fileSize: number
+    filter?: string
+    height: number
+    imageSize: keyof typeof IMAGE_SIZE
+    uploadId: string
+    url: unknown
+    width: number
+  }>[],
+  description: string
+) => {
   if (!dbPromise) {
     return
   }
@@ -30,6 +43,7 @@ const addPostToDraft = async (data: PostImageViewModel[], description: string) =
     const tx = db.transaction('draftImages', 'readwrite')
     const store = tx.objectStore('draftImages')
 
+    // @ts-ignore
     await store.add({ description, drafts: data })
     await tx.done
   } catch (error) {

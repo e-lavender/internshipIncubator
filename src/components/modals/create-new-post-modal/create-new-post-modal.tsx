@@ -1,7 +1,8 @@
-import { ReactElement, useEffect, useMemo, useState } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
 import { addPostToDraft, clearDB, getDraft } from '@/app/helpers/addDraftToDB'
+import { urlToBase64 } from '@/app/helpers/urlToBase64'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { useCreatePostMutation, useUploadImagePostMutation } from '@/app/services/posts/posts.api'
@@ -102,8 +103,6 @@ export const CreateNewPostModal = () => {
     }
   }
 
-  console.log('selectedImages', selectedImages)
-  console.log(images)
   const interfaceVariants: { [Step: string]: ReactElement } = useMemo(() => {
     return {
       1: (
@@ -152,11 +151,20 @@ export const CreateNewPostModal = () => {
 
   const saveDraftHandler = async () => {
     try {
+      const base64Promises = selectedImages.map(async image => {
+        const base64String = await urlToBase64(image.url)
+
+        return { ...image, url: base64String }
+      })
+
+      const selectedImagesWithBase64 = await Promise.all(base64Promises)
+
       await clearDB('draftImages')
-      await addPostToDraft(selectedImages, postDescription)
+      await addPostToDraft(selectedImagesWithBase64, postDescription)
     } catch (error) {
       console.error('Error while saving draft:', error)
     }
+
     setPreferredStep(1)
     closeConfirmationModal()
     closeCreatePostModal()
