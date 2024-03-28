@@ -4,13 +4,19 @@
     "cropping": "Cropping",
     "filters": "Filters",
     "publication": "Publication",
-    "select": "Select from computer"
+    "select": "Select from computer",
+    "discard": "Discard",
+    "save": "Save draft",
+    "message": "Do you really want to close the creation of a publication ? If you close everything will be deleted"
   },
   "ru": {
     "add": "Добавить фото",
     "cropping": "Обрезать фото",
     "filters": "Фильтры",
     "publication": "Публикация",
-    "select": "Выбрать с компьютера"
+    "select": "Выбрать с компьютера",
+    "discard": "Сбросить",
+    "save": "Сохранить черновик",
+    "message": "Вы действительно хотите завершить создание публикации ? Если закроете окно, то внесенные ранее изменения не сохранятся."
   }
 }

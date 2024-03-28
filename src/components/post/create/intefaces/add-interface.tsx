@@ -1,20 +1,27 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
+import { getDraft } from '@/app/helpers/addDraftToDB'
+import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { Button, FileInput } from '@/ui'
 
 import s from './interfaces.module.scss'
 
 type AddInterfaceProps = {
   callback: (file: File) => void
+  openDraft: () => Promise<void>
+  setImages: (images: PostImageViewModel[] | null) => void
 }
-export const AddInterface = ({ callback }: AddInterfaceProps) => {
+export const AddInterface = ({ callback, openDraft, setImages }: AddInterfaceProps) => {
+  const [isDraft, setIsDraft] = useState(false)
+
   const { t } = useTranslation()
   const { select } = t.createPost
   const formRef = useRef<HTMLFormElement>(null)
   const { JPG, PNG } = MIME_TYPES
 
   const handleUpload = () => {
+    setImages(null)
     if (!formRef.current) {
       return
     }
@@ -23,6 +30,10 @@ export const AddInterface = ({ callback }: AddInterfaceProps) => {
 
     void callback(files[0])
   }
+
+  useEffect(() => {
+    getDraft().then(res => setIsDraft(res.length >= 1))
+  }, [])
 
   return (
     <>
@@ -37,10 +48,11 @@ export const AddInterface = ({ callback }: AddInterfaceProps) => {
           onUpload={handleUpload}
           ref={formRef}
         />
-
-        <Button onClick={() => {}} variant={'outlined'}>
-          Open draft
-        </Button>
+        {isDraft && (
+          <Button onClick={openDraft} variant={'outlined'}>
+            Open draft
+          </Button>
+        )}
       </div>
     </>
   )
