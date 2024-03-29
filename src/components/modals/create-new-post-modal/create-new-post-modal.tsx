@@ -91,12 +91,13 @@ export const CreateNewPostModal = () => {
 
   const openDraft = async () => {
     const [draft] = await getDraft()
+    const isFilter = draft.drafts.some(el => el.filter !== '')
 
     setImages(draft.drafts)
 
     if (draft.description !== '') {
       setPreferredStep(4)
-    } else if (draft.drafts.some(el => el.filter !== '')) {
+    } else if (isFilter) {
       setPreferredStep(3)
     } else {
       setPreferredStep(2)

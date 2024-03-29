@@ -38,16 +38,6 @@ export const SidebarMenuWithItems = () => {
     void push(authNavigationUrls.main())
   }
 
-  /*const isDraft = async () => {
-    const data = await getDraft()
-
-    console.log('data', data)
-    setHasDraft(data.length >= 1)
-  }
-  const openCreatePost = () => {
-    isDraft().then(res => openCreatePostModal())
-  }*/
-
   return (
     <>
       <SidebarMenu className={s.sidebar}>

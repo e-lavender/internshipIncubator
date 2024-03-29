@@ -16,7 +16,7 @@ export async function urlToBase64(url: unknown): Promise<unknown> {
 
     return base64String
   } catch (error) {
-    console.error('Ошибка при конвертации URL в Base64:', error)
+    console.error(error)
     throw error
   }
 }
