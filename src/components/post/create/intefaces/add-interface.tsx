@@ -32,7 +32,7 @@ export const AddInterface = ({ callback, openDraft, setImages }: AddInterfacePro
   }
 
   useEffect(() => {
-    getDraft().then(res => setIsDraft(res.length >= 1))
+    getDraft().then(res => setIsDraft(res[0].drafts.length >= 1))
   }, [])
 
   return (

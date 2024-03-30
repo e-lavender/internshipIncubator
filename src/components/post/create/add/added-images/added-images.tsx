@@ -36,7 +36,7 @@ export const AddedImages = () => {
               className={styles}
               height={12}
               // @ts-ignore
-              onClick={() => onDeleteImage({ id: image.id })}
+              onClick={() => onDeleteImage({ id: image.uploadId })}
               width={12}
             />
 
