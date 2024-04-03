@@ -1,9 +1,18 @@
+import { ReactNode } from 'react'
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { Checkbox, CheckboxProps } from '@/ui'
+import { Checkbox } from '@flyingtornado06/ui-kit'
 
-export type ControlledCheckboxProps<T extends FieldValues> = UseControllerProps<T> &
-  Omit<CheckboxProps, 'id' | 'onChange' | 'value'>
+export type CheckboxProps = {
+  checked?: boolean
+  className?: string
+  disabled?: boolean
+  labelTitle?: ReactNode | string
+  left?: boolean
+  required?: boolean
+}
+
+export type ControlledCheckboxProps<T extends FieldValues> = UseControllerProps<T> & CheckboxProps
 
 export const ControlledCheckbox = <T extends FieldValues>({
   control,

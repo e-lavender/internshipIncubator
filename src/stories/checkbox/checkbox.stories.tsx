@@ -1,4 +1,4 @@
-import { Checkbox } from '@/ui'
+import { Checkbox } from '@flyingtornado06/ui-kit'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
