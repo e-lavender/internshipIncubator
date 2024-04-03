@@ -2,8 +2,9 @@ import { useMatchMedia } from '@/app'
 import { Avatar } from '@/components'
 import { UserStatisticsSkeleton } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescriptionSkeleton } from '@/modules'
-import { Button, Typography } from '@/ui'
+import { Typography } from '@/ui'
 import { SkeletonCard } from '@/ui/skeleton'
+import { Button } from '@flyingtornado06/ui-kit'
 
 import s from '../user-profile-description.module.scss'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { GithubIcon } from '@/app'
-import { Button } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 
 import s from './github-button.module.scss'
 

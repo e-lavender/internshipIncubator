@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-import { Button, Modal, Typography } from '@/ui'
+import { Modal, Typography } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 
 import s from './send-email-modal.module.scss'
 

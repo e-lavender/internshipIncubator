@@ -8,7 +8,7 @@ import {
   PostCardXLType,
   ViewModeInterface,
 } from '@/components'
-import { Button } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 
 type InterfaceType = { [ViewMode: string]: ReactElement }
 

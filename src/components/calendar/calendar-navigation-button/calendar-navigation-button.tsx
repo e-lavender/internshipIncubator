@@ -1,5 +1,5 @@
 import { NextIcon, PreviousIcon } from '@/app'
-import { Button } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 
 type ButtonProps = {
   className?: string
