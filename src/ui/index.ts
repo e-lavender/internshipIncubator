@@ -1,4 +1,3 @@
-export * from './card'
 export * from './checkbox'
 export * from './github-button'
 export * from './google-button'
