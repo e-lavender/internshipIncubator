@@ -10,6 +10,7 @@ import { LoadingSpinner, Toaster } from '@/components'
 import { WithHomePageLayout } from '@/templates'
 
 import '@/app/styles/index.scss'
+import '@flyingtornado06/ui-kit/dist/style.css'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
