@@ -13,9 +13,8 @@ import {
 import { authNavigationUrls, menuNavigation } from '@/app/constants'
 import { useGetMeQuery, useSignOutMutation } from '@/app/services/auth/auth.api'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
-import { ConfirmationModal } from '@/components'
+import { ConfirmationModal, MenuItem, SidebarMenu } from '@/components'
 import CreateNewPostModal from '@/components/modals/create-new-post-modal/create-new-post-modal'
-import { MenuItem, SidebarMenu } from '@/ui'
 import { useRouter } from 'next/router'
 
 import s from './sidebar-menu-with-items.module.scss'

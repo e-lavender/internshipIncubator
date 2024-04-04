@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
@@ -14,7 +14,6 @@ import {
   CropInterface,
   DescriptionInterface,
   FilterInterface,
-  LoadingSpinner,
   NewPostContainerModal,
   getCroppedAndFilteredImage,
 } from '@/components'

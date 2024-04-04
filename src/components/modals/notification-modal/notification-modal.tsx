@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { Typography } from '@/ui'
-import { Button, Modal } from '@flyingtornado06/ui-kit'
+import { Button, Modal, Typography } from '@flyingtornado06/ui-kit'
 
 import s from './notification-modal.module.scss'
 

@@ -2,9 +2,8 @@ import { FC, KeyboardEvent } from 'react'
 
 import { ChevronLeft, ChevronRight, useTranslation } from '@/app'
 import { SelectVariant } from '@/app/constants/enums'
-import { Typography } from '@/ui'
-import { ROWS_PER_PAGE } from '@/ui/pagination/constants'
-import { Select } from '@flyingtornado06/ui-kit'
+import { ROWS_PER_PAGE } from '@/components/pagination/constants'
+import { Select, Typography } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from './pagination.module.scss'

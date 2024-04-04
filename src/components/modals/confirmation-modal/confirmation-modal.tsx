@@ -1,6 +1,5 @@
 import { useTranslation } from '@/app'
-import { Typography } from '@/ui'
-import { Button, Modal } from '@flyingtornado06/ui-kit'
+import { Button, Modal, Typography } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from './confirmation-modal.module.scss'

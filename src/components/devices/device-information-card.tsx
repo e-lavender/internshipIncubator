@@ -1,7 +1,7 @@
 import { LogOutMenuIcon, SVGIconType, setDateFormat, useMatchMedia, useTranslation } from '@/app'
 import { SessionModel } from '@/app/services/sessions/sessions.types'
-import { MenuItem, Typography } from '@/ui'
-import { Card } from '@flyingtornado06/ui-kit'
+import { MenuItem } from '@/components'
+import { Card, Typography } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from './device-information-card.module.scss'

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
-import { FileInput } from '@/ui'
+import { FileInput } from '@/components/file-input'
 import { Button } from '@flyingtornado06/ui-kit'
 
 import s from './interfaces.module.scss'

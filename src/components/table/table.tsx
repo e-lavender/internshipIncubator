@@ -5,7 +5,7 @@ import {
   HeadProps,
   RowProps,
   TableProps,
-} from '@/ui/table/tabel-types'
+} from '@/components/table/tabel-types'
 
 const Root = (props: TableProps) => {
   return <table {...props} />

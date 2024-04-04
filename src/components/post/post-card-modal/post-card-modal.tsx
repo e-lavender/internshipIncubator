@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 
 import { CloseIcon, useDisclose, useRtkStateHook } from '@/app'
 import { resetDescriptionState, setViewMode } from '@/app/services/posts/posts.slice'
-import { ConfirmationModal, LoadingSpinner, PostCardModalType } from '@/components'
+import { ConfirmationModal, PostCardModalType } from '@/components'
 import { Modal } from '@flyingtornado06/ui-kit'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 import { clsx } from 'clsx'

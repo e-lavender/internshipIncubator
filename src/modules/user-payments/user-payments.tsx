@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { useMyPaymentsQuery } from '@/app/services/payments/payments.api'
 import { PaymentsTable } from '@/components/payments-table/payments-table'
 import { PAYMENTS_TABLE_COLUMNS } from '@/modules/user-payments/constants'
-import { Pagination } from '@/ui/pagination'
+
+import { Pagination } from '../../components/pagination'
 
 export const UserPayments = () => {
   const [currenPage, setCurrentPage] = useState<number>(1)

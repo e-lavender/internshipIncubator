@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { menuNavigation } from '@/app/constants'
 import { PostModel } from '@/app/services/posts/posts.types'
 import { Avatar } from '@/components'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './card-description.module.scss'

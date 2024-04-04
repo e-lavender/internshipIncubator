@@ -1,8 +1,8 @@
 import React, { FocusEvent, useEffect, useRef, useState } from 'react'
 
-import { SelectValue } from '@/ui/custom-select/custom-select.types'
-import { useFilterOptions } from '@/ui/custom-select/useFilterOptions'
-import { useFindNext } from '@/ui/custom-select/useFindNext'
+import { SelectValue } from '@/components/custom-select/custom-select.types'
+import { useFilterOptions } from '@/components/custom-select/useFilterOptions'
+import { useFindNext } from '@/components/custom-select/useFindNext'
 
 export const useCustomSelect = (
   options: SelectValue[] | undefined,

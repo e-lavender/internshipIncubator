@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react'
 
-import { OptionsProps } from '@/ui/custom-select/custom-select.types'
+import { OptionsProps } from '@/components/custom-select/custom-select.types'
 import { clsx } from 'clsx'
 
-import s from '@/ui/custom-select/custom-select.module.scss'
+import s from '@/components/custom-select/custom-select.module.scss'
 
 const CustomSelectOptions = forwardRef<HTMLUListElement, OptionsProps>(
   ({ indexCurrent, isOpen, items, onSelectValueHandler, resetFilter, setIndexCurrent }, ref) => {

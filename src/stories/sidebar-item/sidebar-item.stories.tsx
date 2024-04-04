@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { HomeMenuIcon, LogOutMenuIcon } from '@/app'
-import { MenuItem } from '@/ui'
+import { MenuItem } from '@/components'
 
 const meta = {
   argTypes: {},

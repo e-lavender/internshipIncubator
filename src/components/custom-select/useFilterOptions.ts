@@ -1,6 +1,6 @@
 import { ChangeEvent, useMemo, useState } from 'react'
 
-import { SelectValue } from '@/ui/custom-select/custom-select.types'
+import { SelectValue } from '@/components/custom-select/custom-select.types'
 
 export const useFilterOptions = (options: SelectValue[]) => {
   const [filter, setFilter] = useState('')

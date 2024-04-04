@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 import { ArrowDropdown } from '@/app'
-import { Bell, Typography } from '@/ui'
-import { Card } from '@flyingtornado06/ui-kit'
+import { Bell } from '@/components'
+import { Card, Typography } from '@flyingtornado06/ui-kit'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import s from './notifications-bell.module.scss'

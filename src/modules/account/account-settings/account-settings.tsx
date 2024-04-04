@@ -14,8 +14,7 @@ import {
 import { SubscriptionDuration, SubscriptionOptions } from '@/app/services/payments/payments.types'
 import { PaymentsModal } from '@/components/modals/payments-modal'
 import { CurrentSubscriptions } from '@/modules/account/account-settings/current-subscription'
-import { Typography } from '@/ui'
-import { Card, RadioContainer, RadioItem } from '@flyingtornado06/ui-kit'
+import { Card, RadioContainer, RadioItem, Typography } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './account-settings.module.scss'

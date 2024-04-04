@@ -2,10 +2,10 @@ import { RefAttributes } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { RecaptchaProps } from '@/ui/recaptcha/recaptcha'
+import { RecaptchaProps } from '@/components/recaptcha/recaptcha'
 import { clsx } from 'clsx'
 
-import s from '@/ui/recaptcha/recaptcha.module.scss'
+import s from '@/components/recaptcha/recaptcha.module.scss'
 
 type ControlledRecaptchaProps<T extends FieldValues> = UseControllerProps<T> &
   Omit<RecaptchaProps, 'onChange'> &

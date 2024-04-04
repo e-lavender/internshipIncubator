@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from 'react'
 
 import { ChevronDown } from '@/app/assets/svg/chevron-down'
-import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
-import CustomSelectOptions from '@/ui/custom-select/custom-select-options'
-import { useCustomSelect } from '@/ui/custom-select/useCustomSelect'
+import { CustomSelectProps } from '@/components/custom-select/custom-select.types'
+import CustomSelectOptions from '@/components/custom-select/custom-select-options'
+import { useCustomSelect } from '@/components/custom-select/useCustomSelect'
 import { clsx } from 'clsx'
 
 import s from './custom-select.module.scss'

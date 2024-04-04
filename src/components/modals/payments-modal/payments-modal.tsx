@@ -1,6 +1,5 @@
-import { useDisclose, useTranslation } from '@/app'
-import { Typography } from '@/ui'
-import { Button, Modal } from '@flyingtornado06/ui-kit'
+import { useTranslation } from '@/app'
+import { Button, Modal, Typography } from '@flyingtornado06/ui-kit'
 
 import s from './payments-modal.module.scss'
 

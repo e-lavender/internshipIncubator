@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, Fragment } from 'react'
 
 import { SVGIconType } from '@/app'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import * as SideBarMenu from '@radix-ui/react-navigation-menu'
 import { clsx } from 'clsx'
 import Link from 'next/link'

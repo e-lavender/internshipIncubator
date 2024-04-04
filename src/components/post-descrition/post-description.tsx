@@ -4,8 +4,7 @@ import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { changeDescription } from '@/app/services/posts/slider.slice'
 import { useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { Avatar } from '@/components'
-import { Typography } from '@/ui'
-import { TextArea } from '@flyingtornado06/ui-kit'
+import { TextArea, Typography } from '@flyingtornado06/ui-kit'
 
 import s from './post-description.module.scss'
 

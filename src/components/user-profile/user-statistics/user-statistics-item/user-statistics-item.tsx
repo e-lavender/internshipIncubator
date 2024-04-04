@@ -1,4 +1,4 @@
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 
 type UserStatisticsItemProps = {
   category?: string

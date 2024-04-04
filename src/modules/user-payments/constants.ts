@@ -1,4 +1,4 @@
-import { TableHeaderModel } from '@/ui/table/tabel-types'
+import { TableHeaderModel } from '@/components/table/tabel-types'
 
 export const PAYMENTS_TABLE_COLUMNS: TableHeaderModel[] = [
   {
