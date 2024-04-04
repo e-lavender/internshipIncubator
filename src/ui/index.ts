@@ -1,6 +1,5 @@
 export * from './github-button'
 export * from './google-button'
-export * from './text-field'
 export * from './typography'
 export * from './bell'
 export * from './recaptcha'
