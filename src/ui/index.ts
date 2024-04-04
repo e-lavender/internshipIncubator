@@ -1,6 +1,5 @@
 export * from './github-button'
 export * from './google-button'
-export * from './label'
 export * from './modal'
 export * from './select'
 export * from './text-field'

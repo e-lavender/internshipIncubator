@@ -1,4 +1,4 @@
-import { Label } from '@/ui'
+import { Label } from '@flyingtornado06/ui-kit'
 import * as RadioSelect from '@radix-ui/react-radio-group'
 import { clsx } from 'clsx'
 
