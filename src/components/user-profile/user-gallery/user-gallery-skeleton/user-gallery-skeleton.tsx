@@ -1,5 +1,5 @@
 import { useMatchMedia } from '@/app'
-import { SkeletonCard } from '@/ui'
+import { SkeletonCard } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from '../user-gallery.module.scss'

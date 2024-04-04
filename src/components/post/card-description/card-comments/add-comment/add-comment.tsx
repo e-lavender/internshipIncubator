@@ -1,6 +1,6 @@
 import { FormEventHandler } from 'react'
 
-import { Button } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 
 import s from './add-comment.module.scss'
 

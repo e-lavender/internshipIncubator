@@ -8,7 +8,7 @@ import {
   useTerminateSessionByIdMutation,
 } from '@/app/services/sessions/sessions.api'
 import { DeviceInformationCard } from '@/components'
-import { Button, Typography } from '@/ui'
+import { Button, Typography } from '@flyingtornado06/ui-kit'
 
 import s from './user-devices.module.scss'
 

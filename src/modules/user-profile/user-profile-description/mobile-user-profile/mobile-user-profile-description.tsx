@@ -1,6 +1,6 @@
 import { CheckedIcon } from '@/app'
 import { Avatar, UserStatistics } from '@/components'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import Link from 'next/link'
 
 import s from './mobile-user-profile-description.module.scss'

@@ -9,11 +9,11 @@ import {
   useUpdateUserProfileMutation,
 } from '@/app/services/profile/profile.api'
 import { GeneralSettingsType } from '@/app/services/profile/profile.api.types'
-import { ControlledCalendar, ControlledSelect, LoadingSpinner } from '@/components'
+import { ControlledCalendar, ControlledSelect } from '@/components'
+import { COUNTRIES_DATA } from '@/components/custom-select/location-data'
 import { AccountImagePicker } from '@/modules'
 import { ProfileSettingLayout } from '@/templates'
-import { Button, TextArea, TextField } from '@/ui'
-import { COUNTRIES_DATA } from '@/ui/custom-select/location-data'
+import { Button, TextArea, TextField } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './general-information.module.scss'

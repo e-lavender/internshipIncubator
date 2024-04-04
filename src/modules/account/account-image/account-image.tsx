@@ -1,19 +1,18 @@
-import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 import { useDisclose, useTranslation } from '@/app'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useDeleteAvatarMutation, useGetProfileQuery } from '@/app/services/profile/profile.api'
 import { showError } from '@/app/utils'
-import { Avatar, AvatarPropsType, ConfirmationModal, LoadingSpinner } from '@/components'
-import { Button, ButtonProps } from '@/ui'
+import { Avatar, AvatarPropsType, ConfirmationModal } from '@/components'
+import { Button } from '@flyingtornado06/ui-kit'
 
 import s from './account-image.module.scss'
 
-type AccountImageProps = ButtonProps & AvatarPropsType
+type AccountImageProps = AvatarPropsType & { onClick: () => void }
 export const AccountImage = (props: AccountImageProps) => {
   const { isOpen, onClose, onOpen } = useDisclose()
-  const { height = 192, onClick, width = 192, ...restProps } = props
+  const { height = 192, onClick, width = 192 } = props
 
   const { data, isLoading } = useGetProfileQuery()
   const [deleteAvatar, { isLoading: isDeleteLoading }] = useDeleteAvatarMutation()
@@ -37,14 +36,7 @@ export const AccountImage = (props: AccountImageProps) => {
 
   return (
     <div className={s.container}>
-      <Avatar
-        height={height}
-        onDelete={onOpen}
-        rounded
-        src={data?.avatars[0]?.url}
-        width={width}
-        {...restProps}
-      />
+      <Avatar height={height} onDelete={onOpen} rounded src={data?.avatars[0]?.url} width={width} />
       <Button onClick={onClick} variant={'outlined'}>
         {profileImage.btn.label}
       </Button>

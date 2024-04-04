@@ -19,3 +19,10 @@ export const COMMON_MODE_STATE = {
   EDIT: 'edit',
   VIEW: 'view',
 } as const
+
+export enum SelectVariant {
+  Language = 'language',
+  LanguageMobile = 'language-mobile',
+  Pagination = 'pagination',
+  Primary = 'primary',
+}

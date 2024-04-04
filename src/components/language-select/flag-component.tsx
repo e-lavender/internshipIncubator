@@ -1,6 +1,6 @@
 import { useMatchMedia, useTranslation } from '@/app'
 import { LocalType, flagIcons } from '@/app/constants/enums'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 
 import s from './language-select.module.scss'
 

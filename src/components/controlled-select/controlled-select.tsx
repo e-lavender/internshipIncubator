@@ -1,8 +1,8 @@
 import React from 'react'
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { CustomSelect } from '@/ui'
-import { CustomSelectProps } from '@/ui/custom-select/custom-select.types'
+import { CustomSelect } from '@/components'
+import { CustomSelectProps } from '@/components/custom-select/custom-select.types'
 
 type ControlledCustomSelectProps<T extends FieldValues> = UseControllerProps<T> &
   Omit<CustomSelectProps, 'id' | 'onChange' | 'value'>

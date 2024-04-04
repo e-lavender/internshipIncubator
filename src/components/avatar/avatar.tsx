@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import { AccountIcon, CloseIcon, useMatchMedia } from '@/app'
 import { AVATAR_SIZE } from '@/app/constants/sizes/avatar'
-import { Button } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 import * as RadixAvatar from '@radix-ui/react-avatar'
 import { clsx } from 'clsx'
 

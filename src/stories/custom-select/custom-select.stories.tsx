@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store/store'
-import { CustomSelect } from '@/ui'
+import { CustomSelect } from '@/components'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {

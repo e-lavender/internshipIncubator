@@ -3,7 +3,7 @@ import { menuNavigation } from '@/app/constants'
 import { Avatar } from '@/components'
 import { UserStatistics } from '@/components/user-profile/user-statistics'
 import { MobileUserProfileDescription, UserProfileType } from '@/modules'
-import { Button, Typography } from '@/ui'
+import { Button, Typography } from '@flyingtornado06/ui-kit'
 import Link from 'next/link'
 
 import s from './user-profile-description.module.scss'

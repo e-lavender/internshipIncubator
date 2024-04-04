@@ -3,7 +3,7 @@ import { authNavigationUrls } from '@/app/constants'
 import { useCreateNewPasswordMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
 import { useNewPasswordForm } from '@/modules/create-new-password-form/validation-schema'
-import { Button, Card, Loader, TextField, Typography } from '@/ui'
+import { Button, Card, Loader, TextField, Typography } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './create-new-password.module.scss'
