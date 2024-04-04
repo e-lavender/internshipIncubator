@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
 import { getDraft } from '@/app/helpers/addDraftToDB'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
-
 import { FileInput } from '@/components/file-input'
 import { Button } from '@flyingtornado06/ui-kit'
 
@@ -34,7 +33,7 @@ export const AddInterface = ({ callback, openDraft, setImages }: AddInterfacePro
   }
 
   useEffect(() => {
-    getDraft().unwrap().then(res => setIsDraft(res[0].drafts.length >= 1))
+    getDraft().then(res => setIsDraft(res[0].drafts.length >= 1))
   }, [])
 
   return (

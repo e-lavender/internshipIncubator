@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 
 import { ErrorWithData, useDisclose, useFileCreationWithSteps, useTranslation } from '@/app'
 import { addPostToDraft, clearDB, getDraft } from '@/app/helpers/addDraftToDB'
