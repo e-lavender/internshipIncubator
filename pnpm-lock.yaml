@@ -12,8 +12,8 @@ dependencies:
     specifier: 11.11.0
     version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.20)(react@18.2.0)
   '@flyingtornado06/ui-kit':
-    specifier: ^0.0.11
-    version: 0.0.11(@types/react-dom@18.2.7)(@types/react@18.2.20)
+    specifier: ^0.0.13
+    version: 0.0.13(@types/react-dom@18.2.7)(@types/react@18.2.20)
   '@fontsource/inter':
     specifier: 5.0.8
     version: 5.0.8
@@ -2029,8 +2029,8 @@ packages:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
     dev: false
 
-  /@flyingtornado06/ui-kit@0.0.11(@types/react-dom@18.2.7)(@types/react@18.2.20):
-    resolution: {integrity: sha512-xlwdLeCVIZuTfcO6zX91L12pJajTqHX/9Rv/s3hBMAnmNGeL08nyw80DPOUMVjn4rg0bTq6S3xcIXFnXoP7nVQ==}
+  /@flyingtornado06/ui-kit@0.0.13(@types/react-dom@18.2.7)(@types/react@18.2.20):
+    resolution: {integrity: sha512-FOJfw5sTFEw5dGPvk3oiqpm58FU7Q9AYmHJrK/6Tj9RiNzzHeQBVSv8GRdmDiQUiX8vYW2IJ82pwfrRlBywC+g==}
     dependencies:
       '@radix-ui/react-avatar': 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-checkbox': 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)

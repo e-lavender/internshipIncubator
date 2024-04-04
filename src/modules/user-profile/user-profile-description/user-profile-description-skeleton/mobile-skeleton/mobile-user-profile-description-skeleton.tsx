@@ -1,6 +1,6 @@
 import { Avatar, UserStatistics } from '@/components'
 import { Typography } from '@/ui'
-import { SkeletonCard } from '@/ui/skeleton'
+import { SkeletonCard } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from '@/modules/user-profile/user-profile-description/mobile-user-profile/mobile-user-profile-description.module.scss'
