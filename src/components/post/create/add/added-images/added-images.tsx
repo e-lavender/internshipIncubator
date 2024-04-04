@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { CloseIcon } from '@/app'
 import { useRtkStateHook } from '@/app/hooks/useRtkState.hook'
 import { deleteImage, setCurrentImageIndex } from '@/app/services/posts/slider.slice'
@@ -34,7 +36,7 @@ export const AddedImages = () => {
               className={styles}
               height={12}
               // @ts-ignore
-              onClick={() => onDeleteImage({ id: image.id })}
+              onClick={() => onDeleteImage({ id: image.uploadId })}
               width={12}
             />
 

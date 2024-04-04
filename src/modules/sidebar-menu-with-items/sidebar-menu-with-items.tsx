@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   CreateMenuIcon,
   FavouritesMenuIcon,
@@ -11,6 +13,7 @@ import {
   useTranslation,
 } from '@/app'
 import { authNavigationUrls, menuNavigation } from '@/app/constants'
+import { getDraft } from '@/app/helpers/addDraftToDB'
 import { useGetMeQuery, useSignOutMutation } from '@/app/services/auth/auth.api'
 import { useCreatePostModal } from '@/app/services/modals/modals.hooks'
 import { ConfirmationModal, MenuItem, SidebarMenu } from '@/components'

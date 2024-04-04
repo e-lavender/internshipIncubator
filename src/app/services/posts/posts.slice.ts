@@ -1,4 +1,4 @@
-import { PostStateType } from '@/app/services/posts/posts.types'
+import { PostImage, PostStateType } from '@/app/services/posts/posts.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const defaultState: PostStateType = {

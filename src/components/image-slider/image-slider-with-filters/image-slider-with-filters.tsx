@@ -22,7 +22,6 @@ export const ImageSliderWithFilters = ({
   if (!images) {
     return null
   }
-
   const { uploadId, url } = images[imageIndex]
 
   const onFilterChange = (filter: string) => {
