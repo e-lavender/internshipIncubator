@@ -5,7 +5,7 @@ import { authNavigationUrls } from '@/app/constants'
 import { notifications } from '@/app/data/notifications-bell/notifications-bell'
 import { LanguageSelect, NotificationsBell } from '@/components'
 import { DropdownMenuWithItems } from '@/modules'
-import { Button, Typography } from '@/ui'
+import { Button, Typography } from '@flyingtornado06/ui-kit'
 import Link from 'next/link'
 
 import s from './header.module.scss'

@@ -15,7 +15,7 @@ import {
   PostCardModal,
   ViewModeInterface,
 } from '@/components'
-import { Loader } from '@/ui'
+import { Loader } from '@flyingtornado06/ui-kit'
 import { nanoid } from '@reduxjs/toolkit'
 import { clsx } from 'clsx'
 

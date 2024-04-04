@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 
 import { CloseIcon } from '@/app'
 import { ArrowBackIcon } from '@/app/assets/svg/arrow-back-icon'
-import { Button, Typography } from '@/ui'
+import { Button, Typography } from '@flyingtornado06/ui-kit'
 import * as Dialog from '@radix-ui/react-dialog'
 import { FocusOutsideEvent, PointerDownOutsideEvent } from '@radix-ui/react-dismissable-layer'
 import { clsx } from 'clsx'

@@ -1,6 +1,6 @@
 import { date } from '@/app/helpers/customizeDate'
 import { Avatar } from '@/components'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from './card-information.module.scss'

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 
 const meta: Meta<typeof Button> = {
   argTypes: {},

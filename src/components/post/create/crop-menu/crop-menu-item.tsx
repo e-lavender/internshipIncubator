@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from './crop-menu.module.scss'

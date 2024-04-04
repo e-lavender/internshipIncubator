@@ -1,7 +1,6 @@
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { TextField } from '@/ui'
-import { InputProps } from '@/ui/text-field/model/text-field-types'
+import { InputProps, TextField } from '@flyingtornado06/ui-kit'
 
 type ControlledTextFieldProps<T extends FieldValues> = UseControllerProps<T> &
   Omit<InputProps, 'id' | 'onChange' | 'value'>

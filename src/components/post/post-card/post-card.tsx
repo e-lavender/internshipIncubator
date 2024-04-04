@@ -7,7 +7,7 @@ import {
   CommentsList,
   ImageSlider,
 } from '@/components'
-import { Card } from '@/ui'
+import { Card } from '@flyingtornado06/ui-kit'
 
 import s from './post-card.module.scss'
 

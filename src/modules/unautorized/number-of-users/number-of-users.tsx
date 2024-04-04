@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
 import { PublicPostsGetAll } from '@/app/services/public-posts/public-posts.types'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 
 import s from './number-of-users.module.scss'
 

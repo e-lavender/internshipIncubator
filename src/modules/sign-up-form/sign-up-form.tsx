@@ -6,9 +6,15 @@ import { FRONT_BASE_URL } from '@/app/constants/common'
 import { useLoadingSpinner } from '@/app/services/application/application.hooks'
 import { useSignUpMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
-import { ControlledCheckbox, ControlledTextField, NotificationModal } from '@/components'
+import {
+  ControlledCheckbox,
+  ControlledTextField,
+  GithubButton,
+  GoogleButton,
+  NotificationModal,
+} from '@/components'
 import { useSignupForm } from '@/modules'
-import { Button, Card, GithubButton, GoogleButton, Typography } from '@/ui'
+import { Button, Card, Typography } from '@flyingtornado06/ui-kit'
 import Link from 'next/link'
 
 import s from './sign-up-form.module.scss'

@@ -15,10 +15,11 @@ import {
   ActionTypes,
   ConfirmationModal,
   DropDownMenuType,
+  DropdownMenu,
   DropdownMenuItemType,
   MENU_VERSION,
+  MenuItem,
 } from '@/components'
-import { DropdownMenu, MenuItem } from '@/ui'
 
 export const CardDropdownMenu = ({ account, id, ownerId }: DropDownMenuType) => {
   const { isOpen: isModalOpened, onClose: closeModal, onOpen: openModal } = useDisclose()

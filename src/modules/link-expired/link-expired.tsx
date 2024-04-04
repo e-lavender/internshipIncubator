@@ -8,7 +8,7 @@ import { useResendEmailMutation } from '@/app/services/auth/auth.api'
 import { showError } from '@/app/utils'
 import { NotificationModal } from '@/components'
 import { LINK_EXPIRED_COMPONENT_MODE } from '@/modules/link-expired/constatnts'
-import { Button, Typography } from '@/ui'
+import { Button, Typography } from '@flyingtornado06/ui-kit'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 

@@ -1,7 +1,6 @@
 import { useMatchMedia } from '@/app'
-import { LocalType } from '@/app/constants/enums'
-import { Select } from '@/ui/select'
-import { SelectVariant } from '@/ui/select/select-types'
+import { LocalType, SelectVariant } from '@/app/constants/enums'
+import { Select } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 import { FlagComponent } from './flag-component'

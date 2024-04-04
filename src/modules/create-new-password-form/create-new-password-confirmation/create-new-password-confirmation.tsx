@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 
 import { useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 

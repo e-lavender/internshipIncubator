@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import { AccountIcon, MIME_TYPES, useTranslation } from '@/app'
 import { getDraft } from '@/app/helpers/addDraftToDB'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
-import { Button, FileInput } from '@/ui'
+import { FileInput } from '@/components/file-input'
+import { Button } from '@flyingtornado06/ui-kit'
 
 import s from './interfaces.module.scss'
 

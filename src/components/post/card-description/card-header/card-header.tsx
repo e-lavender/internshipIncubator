@@ -3,7 +3,7 @@ import { timeAgo } from '@/app/helpers/customizeDate'
 import { usePostCardModal } from '@/app/services/modals/modals.hooks'
 import { PostModel } from '@/app/services/posts/posts.types'
 import { AccountType, Avatar, CardDropdownMenu } from '@/components'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 import s from './card-header.module.scss'
