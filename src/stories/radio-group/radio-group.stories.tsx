@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { RadioContainer, RadioItem } from '@/ui'
+import { RadioContainer, RadioItem } from '@flyingtornado06/ui-kit'
 
 const meta = {
   argTypes: {},

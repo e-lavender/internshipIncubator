@@ -1,4 +1,4 @@
-import { Loader } from '@/ui'
+import { Loader } from '@flyingtornado06/ui-kit'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {

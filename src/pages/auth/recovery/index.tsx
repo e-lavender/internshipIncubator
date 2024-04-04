@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { ErrorModel } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useCheckRecoveryCodeMutation } from '@/app/services/auth/auth.api'
-import { Loader } from '@/ui'
+import { Loader } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 const PasswordRecovery = () => {
