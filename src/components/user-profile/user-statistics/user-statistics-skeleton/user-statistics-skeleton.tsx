@@ -1,5 +1,5 @@
 import { UserStatisticsItem } from '@/components'
-import { SkeletonCard } from '@/ui'
+import { SkeletonCard } from '@flyingtornado06/ui-kit'
 
 import s from './user-statistics-skeleton.module.scss'
 

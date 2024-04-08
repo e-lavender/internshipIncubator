@@ -1,7 +1,7 @@
 import { useTranslation } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { useEmailConfirmationMutation } from '@/app/services/auth/auth.api'
-import { Button, Typography } from '@/ui'
+import { Button, Typography } from '@flyingtornado06/ui-kit'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

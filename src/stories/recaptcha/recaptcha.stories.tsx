@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { RECAPTCHA, RecaptchaProps } from '@/ui'
+import { RECAPTCHA, RecaptchaProps } from '@/components'
 import { Meta, StoryObj } from '@storybook/react'
 
 const meta = {

@@ -5,7 +5,7 @@ import {
   useMyPaymentsQuery,
 } from '@/app/services/payments/payments.api'
 import { CurrentSubscription } from '@/app/services/payments/payments.types'
-import { Card, Checkbox, Typography } from '@/ui'
+import { Card, Checkbox, Typography } from '@flyingtornado06/ui-kit'
 
 import s from '@/modules/account/account-settings/current-subscription/current-subscriptions.module.scss'
 

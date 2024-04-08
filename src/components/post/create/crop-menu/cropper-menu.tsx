@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { AddImage, CropMenu, CropMenuItem, SliderZoom, useCropperMenu } from '@/components'
-import { Button } from '@/ui'
+import { Button } from '@flyingtornado06/ui-kit'
 
 import s from './crop-menu.module.scss'
 

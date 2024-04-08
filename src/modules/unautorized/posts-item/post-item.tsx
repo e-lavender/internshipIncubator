@@ -5,7 +5,7 @@ import { menuNavigation } from '@/app/constants'
 import { date } from '@/app/helpers/customizeDate'
 import { PostImageViewModel } from '@/app/services/public-posts/public-posts.types'
 import { Avatar, ImageSlider, PostCardModal, ViewModeInterface } from '@/components'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 

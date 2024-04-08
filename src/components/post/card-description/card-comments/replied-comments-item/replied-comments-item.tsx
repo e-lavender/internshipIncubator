@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { LikedIcon, UnlikedIcon } from '@/app'
 import { Avatar, RepliedCommentType } from '@/components'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import { clsx } from 'clsx'
 
 import s from '../comments-item/comments-item.module.scss'

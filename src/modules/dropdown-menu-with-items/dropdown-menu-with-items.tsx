@@ -9,7 +9,7 @@ import {
 } from '@/app'
 import { menuNavigation } from '@/app/constants'
 import { useSignOutMutation } from '@/app/services/auth/auth.api'
-import { DropdownMenu, MenuItem } from '@/ui'
+import { DropdownMenu, MenuItem } from '@/components'
 
 export const DropdownMenuWithItems = () => {
   const [logOut] = useSignOutMutation()

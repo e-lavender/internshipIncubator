@@ -1,6 +1,6 @@
 import { useTranslation } from '@/app'
 import { menuNavigation } from '@/app/constants'
-import { TabsContainer, TabsItem, TabsList } from '@/ui'
+import { TabsContainer, TabsItem, TabsList } from '@flyingtornado06/ui-kit'
 import { useRouter } from 'next/router'
 
 export const SettingsTabs = () => {

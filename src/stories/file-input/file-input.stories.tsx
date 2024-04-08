@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { FileInput } from '@/ui'
+import { FileInput } from '@/components'
 
 const meta = {
   argTypes: {},

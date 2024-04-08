@@ -71,7 +71,7 @@ const clearDB = (objectStoreName: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open('postDatabase')
 
-    request.onerror = function (event) {
+    request.onerror = function () {
       reject('Open database error')
     }
 
@@ -85,11 +85,11 @@ const clearDB = (objectStoreName: string): Promise<string> => {
         await new Promise<void>((resolve, reject) => {
           const clearRequest = objectStore.clear()
 
-          clearRequest.onsuccess = function (event) {
+          clearRequest.onsuccess = function () {
             resolve()
           }
 
-          clearRequest.onerror = function (event) {
+          clearRequest.onerror = function () {
             reject('Data clearing error')
           }
         })

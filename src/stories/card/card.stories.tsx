@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Card } from '@/ui'
+import { Card } from '@flyingtornado06/ui-kit'
 
 const meta = {
   argTypes: {},

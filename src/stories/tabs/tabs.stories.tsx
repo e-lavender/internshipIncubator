@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { TabsContainer, TabsContent, TabsItem, TabsList } from '@/ui'
+import { TabsContainer, TabsContent, TabsItem, TabsList } from '@flyingtornado06/ui-kit'
 
 const meta = {
   argTypes: {},

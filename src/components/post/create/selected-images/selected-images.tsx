@@ -2,7 +2,7 @@ import React from 'react'
 
 import airBalloon from '@/app/assets/image/airBalloonImage.jpg'
 import { useActiveFilterChange } from '@/components/post/create/selected-images/useActiveFilterChange'
-import { Typography } from '@/ui'
+import { Typography } from '@flyingtornado06/ui-kit'
 import ImageWithFilter, { StaticImageData } from 'next/image'
 
 import s from './selected-images.module.scss'

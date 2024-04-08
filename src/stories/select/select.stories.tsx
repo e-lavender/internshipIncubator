@@ -1,7 +1,6 @@
 import type { Meta } from '@storybook/react'
 
-import { Select } from '@/ui/select/select'
-import { SelectModel } from '@/ui/select/select-types'
+import { Select } from '@flyingtornado06/ui-kit'
 
 export default {
   component: Select,
@@ -64,10 +63,16 @@ export const Simple = {
     options: optionsPrimary,
   },
 
-  render: (args: SelectModel) => {
+  render: () => {
     return (
       <div style={{ columnGap: '20px', display: 'flex' }}>
-        <Select {...args} />
+        <Select
+          onChange={function (value: string): void {
+            throw new Error('Function not implemented.')
+          }}
+          options={[]}
+          value={''}
+        />
       </div>
     )
   },
@@ -80,10 +85,16 @@ export const SimpleWithLabel = {
     placeholder: 'select...',
   },
 
-  render: (args: SelectModel) => {
+  render: () => {
     return (
       <div>
-        <Select {...args} />
+        <Select
+          onChange={function (value: string): void {
+            throw new Error('Function not implemented.')
+          }}
+          options={[]}
+          value={''}
+        />
       </div>
     )
   },
@@ -97,8 +108,16 @@ export const Pagination = {
     variant: 'pagination',
   },
 
-  render: (args: SelectModel) => {
-    return <Select {...args} />
+  render: () => {
+    return (
+      <Select
+        onChange={function (value: string): void {
+          throw new Error('Function not implemented.')
+        }}
+        options={[]}
+        value={''}
+      />
+    )
   },
 }
 
@@ -109,7 +128,15 @@ export const FullWidth = {
     width: '100%',
   },
 
-  render: (args: SelectModel) => {
-    return <Select {...args} />
+  render: () => {
+    return (
+      <Select
+        onChange={function (value: string): void {
+          throw new Error('Function not implemented.')
+        }}
+        options={[]}
+        value={''}
+      />
+    )
   },
 }

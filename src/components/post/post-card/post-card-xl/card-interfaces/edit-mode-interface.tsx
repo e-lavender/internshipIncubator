@@ -6,7 +6,7 @@ import { useUpdatePostByIdMutation } from '@/app/services/posts/posts.api'
 import { compareDescriptionVersions } from '@/app/services/posts/posts.slice'
 import { useAppDispatch, useAppSelector } from '@/app/store/rtk.types'
 import { CardDescription } from '@/components'
-import { Button, TextArea } from '@/ui'
+import { Button, TextArea } from '@flyingtornado06/ui-kit'
 
 import s from '../post-card-xl.module.scss'
 
