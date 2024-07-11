@@ -116,6 +116,10 @@ export const UserProfileGallery = ({
     setPosts(prevState => {
       return prevState ? { ...prevState, ...data, items: uniqPosts } : { ...data }
     })
+
+    return () => {
+      setPosts(undefined)
+    }
   }, [data])
 
   useEffect(() => {
