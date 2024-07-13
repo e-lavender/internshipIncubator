@@ -1,8 +1,9 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
 
 import { useMatchMedia } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { notifications } from '@/app/data/notifications-bell/notifications-bell'
+import { getFromSessionStorage } from '@/app/utils'
 import { LanguageSelect, NotificationsBell } from '@/components'
 import { DropdownMenuWithItems } from '@/modules'
 import { Button, Typography } from '@flyingtornado06/ui-kit'
@@ -18,6 +19,27 @@ type HeaderProps = {
 export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderProps>) {
   const { isDesktop, isMobile } = useMatchMedia()
   const showAuthButtons = !isAuthed && isDesktop
+
+  useEffect(() => {
+    const token = getFromSessionStorage('accessToken', null)
+    const queryParams = {
+      query: {
+        accessToken: token,
+      },
+    }
+    const socket = io('https://inctagram.work', queryParams)
+
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server')
+    })
+    socket.on('receive-message', messages => {
+      console.log(messages)
+    })
+
+    return () => {
+      socket.disconnect()
+    }
+  }, [])
 
   return (
     <div className={s.wrapper}>
