@@ -2,6 +2,7 @@ import React, { PropsWithChildren, useEffect } from 'react'
 
 import { useMatchMedia } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
+import { WS_EVENT_PATH } from '@/app/constants/common'
 import { notifications } from '@/app/data/notifications-bell/notifications-bell'
 import { getFromSessionStorage } from '@/app/utils'
 import { LanguageSelect, NotificationsBell } from '@/components'
@@ -32,7 +33,7 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
     socket.on('connect', () => {
       console.log('Connected to WebSocket server')
     })
-    socket.on('receive-message', messages => {
+    socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, messages => {
       console.log(messages)
     })
 
