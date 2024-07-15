@@ -27,6 +27,7 @@ export const AccountSettings = () => {
   const [createSubscriptions] = useCreateSubscriptionsMutation()
   const { data: costOfSubscription } = useCostOfSubscriptionsQuery()
   const { data: currentSubscriptions } = useCurrentSubscriptionsQuery()
+
   const { isOpen, onClose, onOpen } = useDisclose()
 
   const { t } = useTranslation()
