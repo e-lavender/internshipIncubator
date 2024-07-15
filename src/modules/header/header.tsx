@@ -33,7 +33,20 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
     socket.on('connect', () => {
       console.log('Connected to WebSocket server')
     })
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, Леночка !!!', receiverId: 1 })
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, Леночка !!!', receiverId: 1 })
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, Леночка !!!', receiverId: 1 })
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, как дела ?', receiverId: 1 })
+
     socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, messages => {
+      console.log(messages)
+    })
+
+    socket.on(WS_EVENT_PATH.MESSAGE_DELETED, messages => {
+      console.log('messages sent', messages)
+    })
+
+    socket.on('notifications', messages => {
       console.log(messages)
     })
 
