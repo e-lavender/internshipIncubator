@@ -3,7 +3,10 @@ import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { useMatchMedia } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { WS_EVENT_PATH } from '@/app/constants/common'
-import { useGetNotificationsByProfileQuery } from '@/app/services/notifications/notifications.api'
+import {
+  useGetNotificationsByProfileQuery,
+  useNotificationsMarkAsReadMutation,
+} from '@/app/services/notifications/notifications.api'
 import { getFromSessionStorage } from '@/app/utils'
 import { LanguageSelect, NotificationsBell } from '@/components'
 import { DropdownMenuWithItems } from '@/modules'
@@ -22,7 +25,12 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
   const showAuthButtons = !isAuthed && isDesktop
   const [cursor, setCursor] = useState<number>()
   const { data } = useGetNotificationsByProfileQuery({ cursor })
+  const [markAsRead] = useNotificationsMarkAsReadMutation()
+  const markAsReadHandler = (id: number) => {
+    markAsRead({ ids: [id] })
+  }
 
+  console.log(data)
   useEffect(() => {
     const token = getFromSessionStorage('accessToken', null)
     const queryParams = {
@@ -67,7 +75,15 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
         <div className={s.list_wrapper}>
           {children}
           {isAuthed && !isMobile && (
-            <NotificationsBell notifications={data?.items} total={data?.totalCount} />
+            <NotificationsBell
+              markAsReadHandler={markAsReadHandler}
+              notifications={data?.items}
+              total={
+                data?.items.filter(item => {
+                  return !item.isRead
+                }).length
+              }
+            />
           )}
 
           <LanguageSelect />

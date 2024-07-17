@@ -9,11 +9,12 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import s from './notifications-bell.module.scss'
 
 type Props = {
+  markAsReadHandler: (id: number) => void
   notifications?: GetNotificationsResponseItems[]
   total?: number
 }
 
-export const NotificationsBell = ({ notifications, total }: Props) => {
+export const NotificationsBell = ({ markAsReadHandler, notifications, total }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
@@ -35,7 +36,7 @@ export const NotificationsBell = ({ notifications, total }: Props) => {
                 <div className={s.main_content}>
                   {notifications &&
                     notifications.map(({ id, isRead, message, notifyAt }, arr) => (
-                      <div key={id}>
+                      <div key={id} onClick={() => markAsReadHandler(id)}>
                         <Typography as={'div'} variant={'bold-14'}>
                           {'Message'}
                         </Typography>
