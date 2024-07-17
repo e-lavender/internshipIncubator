@@ -9,7 +9,7 @@ import { LanguageSelect, NotificationsBell } from '@/components'
 import { DropdownMenuWithItems } from '@/modules'
 import { Button, Typography } from '@flyingtornado06/ui-kit'
 import Link from 'next/link'
-import io from 'socket.io-client'
+import { io } from 'socket.io-client'
 
 import s from './header.module.scss'
 
@@ -30,6 +30,7 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
         accessToken: token,
       },
     }
+
     const socket = io('https://inctagram.work', queryParams)
 
     socket.on('connect', () => {
