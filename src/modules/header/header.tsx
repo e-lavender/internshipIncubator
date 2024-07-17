@@ -84,7 +84,11 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
             <NotificationsBell
               markAsReadHandler={markAsReadHandler}
               notifications={data?.items}
-              total={data?.totalCount}
+              total={
+                data?.items.filter(item => {
+                  return !item.isRead
+                }).length
+              }
             />
           )}
 
