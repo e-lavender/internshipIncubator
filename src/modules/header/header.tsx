@@ -1,9 +1,9 @@
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 
 import { useMatchMedia } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { WS_EVENT_PATH } from '@/app/constants/common'
-import { notifications } from '@/app/data/notifications-bell/notifications-bell'
+import { useGetNotificationsByProfileQuery } from '@/app/services/notifications/notifications.api'
 import { getFromSessionStorage } from '@/app/utils'
 import { LanguageSelect, NotificationsBell } from '@/components'
 import { DropdownMenuWithItems } from '@/modules'
@@ -20,6 +20,8 @@ type HeaderProps = {
 export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderProps>) {
   const { isDesktop, isMobile } = useMatchMedia()
   const showAuthButtons = !isAuthed && isDesktop
+  const [cursor, setCursor] = useState<number>()
+  const { data } = useGetNotificationsByProfileQuery({ cursor })
 
   useEffect(() => {
     const token = getFromSessionStorage('accessToken', null)
@@ -33,10 +35,7 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
     socket.on('connect', () => {
       console.log('Connected to WebSocket server')
     })
-    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, Леночка !!!', receiverId: 1 })
-    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, Леночка !!!', receiverId: 1 })
-    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, Леночка !!!', receiverId: 1 })
-    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Привет, как дела ?', receiverId: 1 })
+    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Hello world', receiverId: 1 })
 
     socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, messages => {
       console.log(messages)
@@ -47,7 +46,8 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
     })
 
     socket.on('notifications', messages => {
-      console.log(messages)
+      setCursor(messages.id)
+      console.log('messages', messages)
     })
 
     return () => {
@@ -66,7 +66,9 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
 
         <div className={s.list_wrapper}>
           {children}
-          {isAuthed && !isMobile && <NotificationsBell notifications={notifications} />}
+          {isAuthed && !isMobile && (
+            <NotificationsBell notifications={data?.items} total={data?.totalCount} />
+          )}
 
           <LanguageSelect />
 
