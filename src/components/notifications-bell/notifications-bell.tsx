@@ -5,16 +5,22 @@ import { GetNotificationsResponseItems } from '@/app/services/notifications/noti
 import { Bell } from '@/components'
 import { Card, Typography } from '@flyingtornado06/ui-kit'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { clsx } from 'clsx'
 
 import s from './notifications-bell.module.scss'
 
 type Props = {
+  markAsReadHandler: (id: number) => void
   notifications?: GetNotificationsResponseItems[]
   total?: number
 }
 
-export const NotificationsBell = ({ notifications, total }: Props) => {
-  const [isOpen, setIsOpen] = useState(true)
+export const NotificationsBell = ({ markAsReadHandler, notifications, total }: Props) => {
+  const [clicked, setClicked] = useState(false)
+  const [hoveredID, setHoveredID] = useState<number>()
+
+  console.log('hoveredID', hoveredID)
+  console.log('clicked', clicked)
 
   return (
     <>
@@ -34,20 +40,42 @@ export const NotificationsBell = ({ notifications, total }: Props) => {
                 <DropdownMenu.Separator className={s.separator} />
                 <div className={s.main_content}>
                   {notifications &&
-                    notifications.map(({ id, isRead, message, notifyAt }, arr) => (
-                      <div key={id}>
-                        <Typography as={'div'} variant={'bold-14'}>
-                          {'Message'}
-                        </Typography>
-                        <Typography as={'p'} variant={'regular-14'}>
-                          {message}
-                        </Typography>
-                        <Typography as={'div'} className={s.date} variant={'small'}>
-                          {notifyAt}
-                        </Typography>
-                        <DropdownMenu.Separator className={s.separator} />
-                      </div>
-                    ))}
+                    notifications.map(({ id, isRead, message, notifyAt }, arr) => {
+                      console.log('hoveredID === id', hoveredID === id)
+
+                      return (
+                        <div key={id}>
+                          <Typography as={'div'} variant={'bold-14'}>
+                            {'Message '}
+                            {!isRead && (
+                              <span
+                                className={clsx(
+                                  s.labelNew,
+                                  s.text,
+                                  clicked && hoveredID === id && s.explode
+                                )}
+                                onClick={() => {
+                                  markAsReadHandler(id)
+                                  hoveredID === id && setClicked(true)
+                                  setHoveredID(undefined)
+                                }}
+                                onMouseEnter={() => setHoveredID(id)}
+                                onMouseLeave={() => setClicked(false)}
+                              >
+                                New!
+                              </span>
+                            )}
+                          </Typography>
+                          <Typography as={'p'} variant={'regular-14'}>
+                            {message}
+                          </Typography>
+                          <Typography as={'div'} className={s.date} variant={'small'}>
+                            {notifyAt}
+                          </Typography>
+                          <DropdownMenu.Separator className={s.separator} />
+                        </div>
+                      )
+                    })}
                 </div>
               </Card>
               <DropdownMenu.Arrow asChild>

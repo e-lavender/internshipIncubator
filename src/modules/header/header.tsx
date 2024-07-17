@@ -3,7 +3,11 @@ import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { useMatchMedia } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
 import { WS_EVENT_PATH } from '@/app/constants/common'
-import { useGetNotificationsByProfileQuery } from '@/app/services/notifications/notifications.api'
+import { useGetMeQuery } from '@/app/services/auth/auth.api'
+import {
+  useGetNotificationsByProfileQuery,
+  useNotificationsMarkAsReadMutation,
+} from '@/app/services/notifications/notifications.api'
 import { getFromSessionStorage } from '@/app/utils'
 import { LanguageSelect, NotificationsBell } from '@/components'
 import { DropdownMenuWithItems } from '@/modules'
@@ -21,10 +25,19 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
   const { isDesktop, isMobile } = useMatchMedia()
   const showAuthButtons = !isAuthed && isDesktop
   const [cursor, setCursor] = useState<number>()
-  const { data } = useGetNotificationsByProfileQuery({ cursor })
+  const { data: me } = useGetMeQuery()
+  const { data } = useGetNotificationsByProfileQuery({ cursor }, { skip: !me })
+  const [markAsRead] = useNotificationsMarkAsReadMutation()
+  const markAsReadHandler = (id: number) => {
+    markAsRead({ ids: [id] })
+  }
 
   useEffect(() => {
     const token = getFromSessionStorage('accessToken', null)
+
+    if (!token) {
+      return
+    }
     const queryParams = {
       query: {
         accessToken: token,
@@ -36,15 +49,15 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
     socket.on('connect', () => {
       console.log('Connected to WebSocket server')
     })
-    socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Hello world', receiverId: 1 })
-
-    socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, messages => {
-      console.log(messages)
-    })
-
-    socket.on(WS_EVENT_PATH.MESSAGE_DELETED, messages => {
-      console.log('messages sent', messages)
-    })
+    // socket.emit(WS_EVENT_PATH.RECEIVE_MESSAGE, { message: 'Hello world', receiverId: 1 })
+    //
+    // socket.on(WS_EVENT_PATH.RECEIVE_MESSAGE, messages => {
+    //   console.log(messages)
+    // })
+    //
+    // socket.on(WS_EVENT_PATH.MESSAGE_DELETED, messages => {
+    //   console.log('messages sent', messages)
+    // })
 
     socket.on('notifications', messages => {
       setCursor(messages.id)
@@ -54,12 +67,12 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
     return () => {
       socket.disconnect()
     }
-  }, [])
+  }, [me])
 
   return (
     <div className={s.wrapper}>
       <header className={s.container}>
-        <Link href={'/'}>
+        <Link href={authNavigationUrls.home()}>
           <Typography as={'span'} variant={'large'}>
             Проект на последнем издыхании
           </Typography>
@@ -68,7 +81,11 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
         <div className={s.list_wrapper}>
           {children}
           {isAuthed && !isMobile && (
-            <NotificationsBell notifications={data?.items} total={data?.totalCount} />
+            <NotificationsBell
+              markAsReadHandler={markAsReadHandler}
+              notifications={data?.items}
+              total={data?.totalCount}
+            />
           )}
 
           <LanguageSelect />
