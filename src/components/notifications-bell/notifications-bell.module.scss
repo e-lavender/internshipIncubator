@@ -12,6 +12,7 @@
   will-change: transform, opacity;
 
   position: relative;
+  z-index: 9999;
   right: 14rem;
   bottom: 8px;
 
@@ -27,8 +28,7 @@
   }
 
   .main_content {
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden scroll;
     max-height: 33rem;
     margin-right: -6px;
 
@@ -48,6 +48,21 @@
 
     .date {
       color: var(--text-color-secondary);
+    }
+
+    .labelNew {
+      cursor: pointer;
+
+      font-family: Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 24px;
+      color: var(--color-accent-500);
+      text-align: left;
+
+      &:hover {
+        color: var(--color-accent-300);
+      }
     }
   }
 
@@ -69,5 +84,75 @@
     bottom: 0.8rem;
     left: 1.6rem;
     transform: rotate(180deg);
+  }
+}
+
+/* FireworkText.css */
+
+.text {
+  cursor: pointer;
+
+  position: relative;
+
+  display: inline-block;
+
+  font-size: 2rem;
+
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
+}
+
+.text.explode {
+  animation: explode-animation 1s forwards;
+}
+
+@keyframes explode-animation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Firework effect */
+.text.explode::before,
+.text.explode::after {
+  content: '';
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 10px;
+  height: 10px;
+
+  background: radial-gradient(circle, red 50%, transparent 50%);
+  border-radius: 50%;
+
+  animation: firework 1s forwards;
+}
+
+.text.explode::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.text.explode::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+@keyframes firework {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(10);
+    opacity: 0;
   }
 }
