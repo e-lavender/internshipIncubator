@@ -19,9 +19,6 @@ export const NotificationsBell = ({ markAsReadHandler, notifications, total }: P
   const [clicked, setClicked] = useState(false)
   const [hoveredID, setHoveredID] = useState<number>()
 
-  console.log('hoveredID', hoveredID)
-  console.log('clicked', clicked)
-
   return (
     <>
       <DropdownMenu.Root>
@@ -41,26 +38,22 @@ export const NotificationsBell = ({ markAsReadHandler, notifications, total }: P
                 <div className={s.main_content}>
                   {notifications &&
                     notifications.map(({ id, isRead, message, notifyAt }, arr) => {
-                      console.log('hoveredID === id', hoveredID === id)
-
                       return (
                         <div key={id}>
                           <Typography as={'div'} variant={'bold-14'}>
                             {'Message '}
                             {!isRead && (
                               <span
-                                className={clsx(
-                                  s.labelNew,
-                                  s.text,
-                                  clicked && hoveredID === id && s.explode
-                                )}
+                                className={clsx(s.labelNew, s.text)}
                                 onClick={() => {
                                   markAsReadHandler(id)
-                                  hoveredID === id && setClicked(true)
-                                  setHoveredID(undefined)
+                                  setClicked(true)
                                 }}
                                 onMouseEnter={() => setHoveredID(id)}
-                                onMouseLeave={() => setClicked(false)}
+                                onMouseLeave={() => {
+                                  setClicked(false)
+                                  setHoveredID(undefined)
+                                }}
                               >
                                 New!
                               </span>
