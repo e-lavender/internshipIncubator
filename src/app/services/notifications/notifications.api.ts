@@ -14,6 +14,7 @@ export const notificationsApi = commonApi.injectEndpoints({
       }),
     }),
     getNotificationsByProfile: builder.query<GetNotificationsResponse, GetNotificationsParams>({
+      providesTags: ['Notifications'],
       query: ({ cursor, ...params }) => ({
         method: 'GET',
         params,
@@ -21,6 +22,7 @@ export const notificationsApi = commonApi.injectEndpoints({
       }),
     }),
     notificationsMarkAsRead: builder.mutation<void, NotificationAsRead>({
+      invalidatesTags: ['Notifications'],
       query: body => ({
         body,
         method: 'PUT',

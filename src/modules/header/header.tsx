@@ -2,7 +2,6 @@ import React, { PropsWithChildren, useEffect, useState } from 'react'
 
 import { useMatchMedia } from '@/app'
 import { authNavigationUrls } from '@/app/constants'
-import { WS_EVENT_PATH } from '@/app/constants/common'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import {
   useGetNotificationsByProfileQuery,
@@ -26,8 +25,12 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
   const showAuthButtons = !isAuthed && isDesktop
   const [cursor, setCursor] = useState<number>()
   const { data: me } = useGetMeQuery()
-  const { data } = useGetNotificationsByProfileQuery({ cursor }, { skip: !me })
+  const { data } = useGetNotificationsByProfileQuery(
+    { cursor, pageSize: 30, sortBy: 'isRead', sortDirection: 'asc' },
+    { skip: !me }
+  )
   const [markAsRead] = useNotificationsMarkAsReadMutation()
+
   const markAsReadHandler = (id: number) => {
     markAsRead({ ids: [id] })
   }
