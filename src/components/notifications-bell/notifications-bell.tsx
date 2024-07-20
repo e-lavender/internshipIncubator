@@ -24,7 +24,7 @@ export const NotificationsBell = ({ markAsReadHandler, notifications, total }: P
       <DropdownMenu.Root>
         <DropdownMenu.Trigger asChild className={s.bell}>
           <button className={s.button}>
-            <Bell messageNumber={total} />
+            <Bell messageNumber={total || 0} />
           </button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Portal>

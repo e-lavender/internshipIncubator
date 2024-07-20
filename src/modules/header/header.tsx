@@ -26,8 +26,12 @@ export function Header({ children, isAuthed = false }: PropsWithChildren<HeaderP
   const showAuthButtons = !isAuthed && isDesktop
   const [cursor, setCursor] = useState<number>()
   const { data: me } = useGetMeQuery()
-  const { data } = useGetNotificationsByProfileQuery({ cursor, pageSize: 30 }, { skip: !me })
+  const { data } = useGetNotificationsByProfileQuery(
+    { cursor, sortBy: 'isRead', sortDirection: 'asc' },
+    { skip: !me }
+  )
   const [markAsRead] = useNotificationsMarkAsReadMutation()
+
   const markAsReadHandler = (id: number) => {
     markAsRead({ ids: [id] })
   }
