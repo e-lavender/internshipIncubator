@@ -41,6 +41,7 @@ export const SidebarMenuWithItems = () => {
     <>
       <SidebarMenu className={s.sidebar}>
         <MenuItem
+          className={s.menuItemMargin24}
           href={menuNavigation.home()}
           icon={HomeMenuIcon}
           isSelected={pathname.endsWith(menuNavigation.home())}
@@ -48,32 +49,49 @@ export const SidebarMenuWithItems = () => {
         />
         <MenuItem
           as={'button'}
+          className={s.menuItemMargin24}
           icon={CreateMenuIcon}
           label={labels.create}
           onClick={openCreatePostModal}
         />
 
         <MenuItem
+          className={s.menuItemMargin24}
           href={menuNavigation.profile(data?.userId)}
           icon={ProfileMenuIcon}
-          isSelected={pathname.startsWith(menuNavigation.profile(data?.userId))}
+          isSelected={pathname.startsWith('/user-profile/')}
           label={labels.profile}
         />
 
         <MenuItem
+          className={s.menuItemMargin24}
           href={menuNavigation.messenger()}
           icon={MessageMenuIcon}
           isSelected={pathname.startsWith(menuNavigation.messenger())}
           label={labels.messenger}
         />
         <MenuItem
+          className={s.menuItemMargin60}
           href={menuNavigation.search()}
           icon={SearchMenuIcon}
           isSelected={pathname.startsWith(menuNavigation.search())}
           label={labels.search}
         />
-        <MenuItem disabled href={'#'} icon={StatisticsMenuIcon} label={labels.statistics} />
-        <MenuItem disabled href={'#'} icon={FavouritesMenuIcon} label={labels.favorites} />
+
+        <MenuItem
+          className={s.menuItemMargin24}
+          disabled
+          href={'#'}
+          icon={StatisticsMenuIcon}
+          label={labels.statistics}
+        />
+        <MenuItem
+          className={s.menuItemMargin60}
+          disabled
+          href={'#'}
+          icon={FavouritesMenuIcon}
+          label={labels.favorites}
+        />
 
         <MenuItem as={'button'} icon={LogOutMenuIcon} label={labels.logout} onClick={onOpen} />
       </SidebarMenu>
