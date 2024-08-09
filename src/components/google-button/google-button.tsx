@@ -23,8 +23,8 @@ export const GoogleButton = ({ onClick }: Props) => {
   }
 
   return (
-    <Button className={s.button} onClick={googleButtonHandler} type={'button'}>
+    <button className={s.button} onClick={googleButtonHandler} type={'button'}>
       <GoogleIcon height={36} width={36} />
-    </Button>
+    </button>
   )
 }
