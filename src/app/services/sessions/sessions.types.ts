@@ -1,3 +1,7 @@
+export type SessionsType = {
+  current: SessionModel
+  others: SessionModel[]
+}
 export type SessionModel = {
   browserName: string
   browserVersion: string
@@ -9,5 +13,3 @@ export type SessionModel = {
   osName: string
   osVersion: string
 }
-
-export type SessionsType = SessionModel[]
