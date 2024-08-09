@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { authNavigationUrls } from '@/app/constants'
 import { PAGE_SIZE_PUBLIC_POSTS_BY_USER } from '@/app/constants/common'
 import { IMAGE_SIZE } from '@/app/constants/enums'
+import { useInfiniteScroll } from '@/app/hooks/use-infinite-scroll'
 import { useGetMeQuery } from '@/app/services/auth/auth.api'
 import { getRunningQueriesThunk } from '@/app/services/common/common.api'
 import {
@@ -48,14 +49,42 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
   }
 })
 const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => {
+  const [page, setPage] = useState(4)
+  const [items, setItems] = useState<any[]>([])
   const { data: me, isLoading } = useGetMeQuery()
   const { push } = useRouter()
+  const [pageSize, setPageSize] = useState<number>(4)
   const { data: posts } = useGetPublicPostsQuery({
-    pageSize: 4,
+    pageSize: page,
     sortBy: 'createdAt',
     sortDirection: 'desc',
   })
+  const observer = useRef<IntersectionObserver | null>(null)
+  const lastItemRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isLoading) {
+        return
+      }
+      if (observer.current) {
+        observer.current.disconnect()
+      }
+      observer.current = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          setPage(prevPage => prevPage + 2)
+        }
+      })
+      if (node) {
+        observer.current.observe(node)
+      }
+    },
+    [isLoading]
+  )
 
+  useEffect(() => {
+    if (posts?.items) {
+      setItems(prevItems => [...prevItems, ...posts!.items])
+    }
+  }, [posts, posts?.items])
   if (isLoading) {
     return <LoadingSpinner isLoading={isLoading} />
   }
@@ -71,7 +100,7 @@ const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => 
           const filteredImages = item.images.filter(image => image.imageSize === IMAGE_SIZE.MEDIUM)
 
           return (
-            <div key={item.id}>
+            <div key={item.id} ref={index === posts?.items?.length - 1 ? lastItemRef : null}>
               <PostCard
                 avatarOwner={item.avatarOwner}
                 createdAt={item.createdAt}
@@ -85,22 +114,6 @@ const Home = (/*{ posts }: InferGetStaticPropsType<typeof getStaticProps>*/) => 
             </div>
           )
         })}
-
-        {/* <h2 style={{ marginBottom: '1em', textAlign: 'center' }}>Friend Account</h2>
-        <PostCard
-          cardType={'regular'}
-          url={POST_COMMENTS.url}
-          userName={'Darius'}
-          account={'friend'}
-          description={''}
-          comments={[]}
-          postdId={'22'}
-        />*/}
-
-        <h2 style={{ margin: '1em', textAlign: 'center' }}>
-          Personal Account (Post Details/Editing)
-        </h2>
-        <PostCardXL {...POST_COMMENTS} isLoading={isLoading} />
       </>
     )
   )

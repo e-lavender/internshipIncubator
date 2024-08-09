@@ -19,10 +19,10 @@
   }
 
   &.selected {
-    color: var(--focus-color-primary);
+    color: var(--color-accent-500);
 
     & span {
-      color: var(--focus-color-primary);
+      color: var(--color-accent-500);
     }
   }
 
