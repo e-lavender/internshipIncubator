@@ -70,6 +70,10 @@ export const publicPostsApi = commonApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const { useGetPublicPostByIdQuery, useGetPublicPostsByUserQuery, useGetPublicPostsQuery } =
-  publicPostsApi
+export const {
+  useGetPublicPostByIdQuery,
+  useGetPublicPostsByUserQuery,
+  useGetPublicPostsQuery,
+  useLazyGetPublicPostsQuery,
+} = publicPostsApi
 export const { getPublicPostById, getPublicPosts, getPublicPostsByUser } = publicPostsApi.endpoints
