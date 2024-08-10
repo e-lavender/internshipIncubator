@@ -43,26 +43,39 @@ export const ImageSlider = ({
       aspectRatio={aspectRatio}
       height={height}
       imageIndex={imageIndex}
-      images={images}
+      imagesLength={images.length}
       isEditMode={isEditMode}
       setImageIndex={setImageIndex}
       width={width}
     >
-      {images.map((image, index) => (
-        <div
-          className={clsx(s.imageSlider, s[fitStyle])}
-          key={image.url}
-          style={{
-            filter: image.filter,
-            translate: `${-100 * imageIndex}%`,
-          }}
-        >
-          {isEditMode && user && isMyProfile && images.length > 1 && (
-            <CloseIcon className={s.delete} onClick={() => handleDeletePostImage(image.uploadId)} />
-          )}
-          <Image alt={'image'} fill objectFit={fitStyle} src={image.url} />
-        </div>
-      ))}
+      {images
+        .sort((a, b) => {
+          if (a.createdAt > b.createdAt) {
+            return 1
+          } else if (a.createdAt < b.createdAt) {
+            return -1
+          } else {
+            return 0
+          }
+        })
+        .map((image, index) => (
+          <div
+            className={clsx(s.imageSlider, s[fitStyle])}
+            key={image.url}
+            style={{
+              filter: image.filter,
+              translate: `${-100 * imageIndex}%`,
+            }}
+          >
+            {isEditMode && user && isMyProfile && images.length > 1 && (
+              <CloseIcon
+                className={s.delete}
+                onClick={() => handleDeletePostImage(image.uploadId)}
+              />
+            )}
+            <Image alt={'image'} fill objectFit={fitStyle} src={image.url} />
+          </div>
+        ))}
     </ImageSliderContainer>
   )
 }

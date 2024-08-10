@@ -16,7 +16,7 @@ export type ImageSliderType = {
 
 export type SliderControlsType = {
   imageIndex: number
-  images: PostImageViewModel[]
+  imagesLength: number
   inlineStyle?: any
   isEditMode?: boolean
   isModified?: boolean
