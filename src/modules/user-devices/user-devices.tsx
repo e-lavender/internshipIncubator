@@ -7,7 +7,7 @@ import {
   useTerminateAllSessionsMutation,
   useTerminateSessionByIdMutation,
 } from '@/app/services/sessions/sessions.api'
-import { DeviceInformationCard } from '@/components'
+import { BrowserType, DeviceInformationCard } from '@/components'
 import { Button, Typography } from '@flyingtornado06/ui-kit'
 
 import s from './user-devices.module.scss'
@@ -22,12 +22,6 @@ export const UserDevices = () => {
     { apiKEY },
     { skip: !process.env.IP_GEOLOCATION_API_KEY }
   )
-
-  // const sessionFallback = (
-  //   <Typography as={'h2'} variant={'h2'} className={s.fallback}>
-  //     You have not yet logged in from other devices
-  //   </Typography>
-  // )
 
   const terminateSessions = () => {
     terminateAll()
@@ -51,13 +45,13 @@ export const UserDevices = () => {
           Current device
         </Typography>
       </div>
-      {sessions && sessions[0] && (
+      {sessions?.current && (
         <DeviceInformationCard
           className={s.card}
           currentIp={location?.ip}
-          session={{ ...sessions[0], ip: location?.ip || sessions[0].ip }}
+          session={sessions.current}
           type={'DEVICE'}
-          variant={'CHROME'}
+          variant={sessions.current.browserName.toUpperCase() as BrowserType}
         />
       )}
 
@@ -73,7 +67,7 @@ export const UserDevices = () => {
       <Typography as={'h3'} variant={'h3'}>
         Active sessions
       </Typography>
-      {sessions?.map(session => {
+      {sessions?.others.map(session => {
         return (
           <DeviceInformationCard
             className={s.card}

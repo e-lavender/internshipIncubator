@@ -8,7 +8,7 @@ type ControlsButtonType = {
   position: 'left' | 'right'
 } & Omit<SliderControlsType, 'imageIndex'>
 export const SliderButton = ({
-  images,
+  imagesLength,
   inlineStyle,
   isEditMode,
   position,
@@ -16,7 +16,7 @@ export const SliderButton = ({
 }: ControlsButtonType) => {
   const showNextImage = () => {
     setImageIndex(index => {
-      if (index === images.length - 1) {
+      if (index === imagesLength - 1) {
         return 0
       }
 
@@ -27,7 +27,7 @@ export const SliderButton = ({
   const showPrevImage = () => {
     setImageIndex(index => {
       if (index === 0) {
-        return images.length - 1
+        return imagesLength - 1
       }
 
       return index - 1
