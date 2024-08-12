@@ -6,6 +6,15 @@ import {
 
 export const usersFollowingAndFollowersApi = commonApi.injectEndpoints({
   endpoints: builder => ({
+    getUserProfileByName: builder.query<GetUsersResponse, { userName: string }>({
+      query: arg => {
+        return {
+          method: 'GET',
+          url: `/api/v1/users/${arg.userName}`,
+        }
+      },
+    }),
+
     getUsers: builder.query<GetUsersResponse, GetUsersParameters>({
       query: () => {
         return {
@@ -14,12 +23,20 @@ export const usersFollowingAndFollowersApi = commonApi.injectEndpoints({
         }
       },
     }),
-
     removeFollowerById: builder.mutation<void, { userId: number }>({
       query: args => {
         return {
           method: 'DELETE',
           url: `/api/v1/users/follower/${args.userId}`,
+        }
+      },
+    }),
+    updateSubscriptionToUser: builder.mutation<void, { selectedUserId: number }>({
+      query: args => {
+        return {
+          body: { selectedUserId: args.selectedUserId },
+          method: 'POST',
+          url: `/api/v1/users/following`,
         }
       },
     }),

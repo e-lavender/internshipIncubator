@@ -64,7 +64,11 @@ export const ImageSliderWithCropper = ({
 
   return (
     <>
-      <ImageSliderContainer imageIndex={imageIndex} images={images} setImageIndex={setImageIndex}>
+      <ImageSliderContainer
+        imageIndex={imageIndex}
+        imagesLength={images?.length}
+        setImageIndex={setImageIndex}
+      >
         <div
           className={clsx(s.imageSlider, s.transition, s[fitStyle], s.container)}
           key={images[imageIndex]?.uploadId}
