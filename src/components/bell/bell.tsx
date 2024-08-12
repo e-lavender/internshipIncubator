@@ -5,7 +5,7 @@ import s from './bell.module.scss'
 
 type BellProps = {
   className?: string
-  messageNumber?: number
+  messageNumber: number
   onClick?: () => void
 }
 
@@ -19,7 +19,7 @@ export const Bell = ({ className, messageNumber, onClick }: BellProps): JSX.Elem
   return (
     <div className={classNames.root} onClick={onClick}>
       <BellIcon className={classNames.bell} />
-      {messageNumber && <span className={classNames.label}>{messageNumber}</span>}
+      {messageNumber > 0 && <span className={classNames.label}>{messageNumber}</span>}
     </div>
   )
 }

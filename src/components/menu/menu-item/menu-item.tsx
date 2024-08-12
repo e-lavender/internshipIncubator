@@ -23,6 +23,7 @@ export const MenuItem = <T extends ElementType = typeof Link>({
   as,
   asListItem = true,
   children,
+  className,
   disabled,
   href,
   icon,
@@ -41,7 +42,7 @@ export const MenuItem = <T extends ElementType = typeof Link>({
   }
 
   return (
-    <Container>
+    <Container className={className}>
       <Component
         aria-disabled={disabled}
         aria-hidden={disabled}

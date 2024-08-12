@@ -21,6 +21,7 @@ const postSlider = createSlice({
     addImage(state, action: PayloadAction<{ url: string }>) {
       const newImage: PostImageViewModel = {
         alt: 'image',
+        createdAt: new Date().toDateString(),
         fileSize: 1,
         filter: '',
         height: 0,

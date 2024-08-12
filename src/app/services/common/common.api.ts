@@ -93,7 +93,7 @@ export const commonApi = createApi({
     }
   },
   reducerPath: 'commonApi',
-  tagTypes: ['ME', 'Profile', 'Posts', 'Images', 'Subscriptions', 'Sessions'],
+  tagTypes: ['ME', 'Profile', 'Posts', 'Images', 'Subscriptions', 'Sessions', 'Notifications'],
 })
 
 export const {

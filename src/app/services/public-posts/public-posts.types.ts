@@ -44,6 +44,7 @@ export type PostViewModel = {
 }
 export type PostImageViewModel = {
   alt?: string
+  createdAt: string
   fileSize: number
   filter?: string
   height: number

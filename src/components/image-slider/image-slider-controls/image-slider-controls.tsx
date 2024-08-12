@@ -2,12 +2,12 @@ import { SliderButton, SliderControlsType, SliderDots } from '@/components'
 
 export const ImageSliderControls = ({
   imageIndex,
-  images,
+  imagesLength,
   isEditMode,
   isModified,
   setImageIndex,
 }: SliderControlsType) => {
-  const showControlButtons = images.length > 1
+  const showControlButtons = imagesLength > 1
 
   const styles = {
     button: isModified && { right: '50%' },
@@ -19,14 +19,14 @@ export const ImageSliderControls = ({
       {showControlButtons && (
         <>
           <SliderButton
-            images={images}
+            imagesLength={imagesLength}
             isEditMode={isEditMode}
             position={'left'}
             setImageIndex={setImageIndex}
           />
 
           <SliderButton
-            images={images}
+            imagesLength={imagesLength}
             inlineStyle={styles.button}
             isEditMode={isEditMode}
             position={'right'}
@@ -35,7 +35,7 @@ export const ImageSliderControls = ({
 
           <SliderDots
             imageIndex={imageIndex}
-            images={images}
+            imagesLength={imagesLength}
             inlineStyle={styles.dots}
             setImageIndex={setImageIndex}
           />

@@ -1,11 +1,16 @@
 import { RefObject, useEffect, useRef, useState } from 'react'
 
-export const useInfiniteScroll = (
-  data: any[],
-  trigger: RefObject<HTMLDivElement>,
-  callback: () => Promise<any[]>,
+export const useInfiniteScroll = ({
+  callback,
+  data,
+  limit,
+  trigger,
+}: {
+  callback: () => Promise<any[]>
+  data: any[]
   limit: number
-) => {
+  trigger: RefObject<HTMLDivElement>
+}) => {
   const [content, setContent] = useState<any[]>(data)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -44,7 +49,7 @@ export const useInfiniteScroll = (
 
     observer.current = new IntersectionObserver(request)
     observer.current.observe(trigger.current!)
-  }, [isLoading])
+  }, [callback, content, isLoading, limit, trigger])
 
   return { content, isLoading }
 }
