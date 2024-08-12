@@ -56,7 +56,7 @@ export const ImageSliderWithFilters = ({
 
       <ImageSliderControls
         imageIndex={imageIndex}
-        images={images}
+        imagesLength={images.length}
         isModified
         setImageIndex={setImageIndex}
       />
